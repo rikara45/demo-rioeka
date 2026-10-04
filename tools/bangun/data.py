@@ -64,7 +64,7 @@ SALON = dict(
         ("Dewi", "Perawatan rambut", "Creambath dan perawatan kulit kepala.",
          ["Creambath", "Perawatan kulit kepala"]),
     ],
-    galeri=[("g6", "Ruang depan dan meja resepsionis"), ("g1", "Area potong dengan cermin"), ("g2", "Meja cermin dan kursi"), ("g3", "Meja cuci"), ("g4", "Proses potong rambut"), ("g5", "Proses pewarnaan rambut")],
+    galeri=[("g1", "Area potong dengan cermin"), ("g2", "Meja cermin dan kursi"), ("g4", "Proses potong rambut"), ("g3", "Meja cuci"), ("g5", "Proses pewarnaan rambut"), ("g6", "Ruang depan dan meja resepsionis")],
     galeri_lead="Enam foto suasana dan layanan salon. Di website sungguhan, foto ini diganti foto usaha Anda sendiri.",
     faq=[
         ("Perlu reservasi dulu?", "Disarankan, terutama Sabtu dan Minggu. Bisa lewat halaman ini atau lewat WhatsApp."),
@@ -78,6 +78,8 @@ SALON = dict(
     desc_p1="Harga, jam buka, alamat, dan cara menghubungi Salon Melati.",
     desc_book="Pesan layanan, pilih stylist, tanggal, dan jam di Salon Melati.",
     tema="salon",
+    gaya="butik",
+    hero_foto=("g6", "Ruang salon dengan cermin berornamen putih dan kursi stylist hitam"),
     mode="jadwal",
     label="Salon",
     pendek="Salon",

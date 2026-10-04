@@ -2,7 +2,7 @@ import json, os, sys
 from html import escape as e
 from urllib.parse import quote
 sys.path.insert(0, os.path.dirname(__file__))
-from css import FONT, BASE, BOOKING, GAYA, TEMA, WARNA_TEMA, WARNA_INDEX, AKSEN_JENIS, INDEX_TOKENS, INDEX, ERR
+from css import FONT, FONT_SERIF, BASE, BOOKING, GAYA, GAYA_UMUM, GAYA_SALON, GAYA_SALON_WIZARD, TEMA, WARNA_TEMA, WARNA_INDEX, AKSEN_JENIS, INDEX_TOKENS, INDEX, ERR
 from data import USAHA, URUT_HARI
 from js import STATUS_JS, BAR_JS, BOOKING_JS, WIZARD_JS
 
@@ -44,7 +44,7 @@ def wa_link(u):
     return "https://wa.me/%s?text=%s" % (u["wa"], quote(u["wa_pesan"], safe=""))
 
 
-def head(title, desc, css, robots=True, warna=None):
+def head(title, desc, css, robots=True, warna=None, extra=""):
     return (
         '<!DOCTYPE html>\n<html lang="id">\n<head>\n<meta charset="utf-8">\n'
         '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
@@ -52,6 +52,7 @@ def head(title, desc, css, robots=True, warna=None):
         + '<meta name="theme-color" content="%s">\n' % (warna or "#FBF6F2")
         + "<title>%s</title>\n" % e(title)
         + '<meta name="description" content="%s">\n' % e(desc)
+        + extra
         + "<style>\n" + css + "\n</style>\n</head>\n"
     )
 
@@ -330,6 +331,7 @@ def html_fakta(u):
 
 def seksi_harga(u):
     mode = u.get("mode", "jadwal")
+    butik = u.get("gaya") == "butik"
     if u.get("mode") == "inap":
         judul, lead = "Daftar kamar dan harga", u["harga_lead"]
     elif u.get("mode") == "pesan":
@@ -352,7 +354,7 @@ def seksi_harga(u):
                 it = [x for _, items in u["menu"] for x in items if x["nama"] == nm]
                 if it:
                     ket = "%s. Minimal %d %s, pesan H-%d." % (it[0]["ket"], it[0]["min"], it[0]["satuan"], it[0]["lead"])
-            isi_ket = dur + e(ket)
+            isi_ket = dur + (('<span class="ket-teks">%s</span>' % e(ket)) if butik and ket else e(ket))
             out.append('<li><span class="nm">%s</span><span class="hr">%s</span>%s</li>' % (e(nm), rp(hr), '<span class="ket">%s</span>' % isi_ket if isi_ket else ""))
         out.append("</ul></div>")
     out.append('<p class="catatan">%s</p>\n</section>\n' % e(u["harga_catatan"]))
@@ -376,10 +378,16 @@ def seksi_lokasi(u):
 
 
 def seksi_galeri(u):
-    p = "".join(
-        '<figure class="petak"><img src="/%s/img/%s.jpg" alt="%s" width="720" height="540" loading="lazy" decoding="async"></figure>' % (u["slug"], f, e(a))
-        for f, a in u["galeri"]
-    )
+    if u.get("gaya") == "butik":
+        p = "".join(
+            '<figure class="petak"><img src="/%s/img/%s.jpg" alt="" width="720" height="540" loading="lazy" decoding="async"><figcaption>%s</figcaption></figure>' % (u["slug"], f, e(a))
+            for f, a in u["galeri"]
+        )
+    else:
+        p = "".join(
+            '<figure class="petak"><img src="/%s/img/%s.jpg" alt="%s" width="720" height="540" loading="lazy" decoding="async"></figure>' % (u["slug"], f, e(a))
+            for f, a in u["galeri"]
+        )
     return (
         '<section class="bagian" id="galeri">\n' + tag("Foto asli %s Anda" % u["jenis"].lower()) + '<h2>Galeri</h2>\n<p class="bagian-lead">%s</p>\n<div class="galeri">%s</div>\n'
         '<p class="kredit">Foto contoh dari <a href="https://unsplash.com/license" rel="noopener">Unsplash</a>, bebas dipakai.</p>\n</section>\n'
@@ -393,7 +401,13 @@ def seksi_tanya(u):
 
 def halaman_demo(u, n):
     mode = u.get("mode", "jadwal")
-    css = FONT + "\n:root{" + TEMA[u["tema"]] + "}\n" + BASE + (BOOKING if n >= 2 else "") + GAYA
+    butik = u.get("gaya") == "butik"
+    if butik:
+        css = FONT + "\n" + FONT_SERIF + "\n:root{" + TEMA[u["tema"]] + "}\n" + BASE + (BOOKING if n >= 2 else "") + GAYA_UMUM + GAYA_SALON + (GAYA_SALON_WIZARD if n >= 2 else "")
+        preload = '<link rel="preload" href="/font/cormorant-garamond-latin.woff2" as="font" type="font/woff2" crossorigin>\n'
+    else:
+        css = FONT + "\n:root{" + TEMA[u["tema"]] + "}\n" + BASE + (BOOKING if n >= 2 else "") + GAYA
+        preload = ""
     judul = {1: u["title_p1"], 2: u["nama"] + ", booking", 3: u["nama"] + ", booking dan pembayaran"}[n]
     desc = u["desc_p1"] if n == 1 else (u["desc_book"] if n == 2 else u["desc_book"].rstrip(".") + ", lalu bayar muka.")
     wa = wa_link(u)
@@ -440,13 +454,33 @@ def halaman_demo(u, n):
         '<div class="pole" aria-hidden="true"></div>\n',
         "<main>\n",
         '<div class="wadah">\n',
-        '<section class="hero">\n' + kartu_demo(u, n) + '<div class="hero-isi">\n<p class="eyebrow">%s &middot; %s</p>\n<h1>%s</h1>\n' % (e(u["jenis"]), e(u["area"]), e(u["nama"])),
-        tag("Nama %s Anda tampil di sini" % u["jenis"].lower()),
-        status,
-        '<p class="lead">%s</p>\n<div class="aksi">%s</div>\n</div>\n' % (e(u["lead"]), aksi),
-        html_fakta(u),
-        '<nav class="loncat" aria-label="Loncat ke bagian">%s</nav>\n</section>\n' % "".join(loncat),
     ]
+    nav = '<nav class="loncat" aria-label="Loncat ke bagian">%s</nav>\n' % "".join(loncat)
+    if butik:
+        kata = u["nama"].rsplit(" ", 1)
+        h1 = "%s <em>%s</em>" % (e(kata[0]), e(kata[1])) if len(kata) == 2 else e(u["nama"])
+        foto, alt_foto = u["hero_foto"]
+        body += [
+            '<section class="hero">\n<div class="hero-isi">\n<p class="eyebrow">%s &middot; %s</p>\n<h1>%s</h1>\n' % (e(u["jenis"]), e(u["area"]), h1),
+            tag("Nama %s Anda tampil di sini" % u["jenis"].lower()),
+            '<figure class="hero-foto"><img src="/%s/img/%s.jpg" alt="%s" width="720" height="540" fetchpriority="high" decoding="async"><span class="lencana">%s</span></figure>\n' % (u["slug"], foto, e(alt_foto), e(u["area"].split(",")[0])),
+            tag("Foto %s Anda tampil di sini" % u["jenis"].lower()),
+            status,
+            '<p class="lead">%s</p>\n<div class="aksi">%s</div>\n</div>\n' % (e(u["lead"]), aksi),
+            html_fakta(u),
+            nav,
+            kartu_demo(u, n),
+            "</section>\n",
+        ]
+    else:
+        body += [
+            '<section class="hero">\n' + kartu_demo(u, n) + '<div class="hero-isi">\n<p class="eyebrow">%s &middot; %s</p>\n<h1>%s</h1>\n' % (e(u["jenis"]), e(u["area"]), e(u["nama"])),
+            tag("Nama %s Anda tampil di sini" % u["jenis"].lower()),
+            status,
+            '<p class="lead">%s</p>\n<div class="aksi">%s</div>\n</div>\n' % (e(u["lead"]), aksi),
+            html_fakta(u),
+            nav + "</section>\n",
+        ]
     if n >= 2:
         body.append(seksi_pesan(u, n))
     if dulu:
@@ -505,7 +539,7 @@ def halaman_demo(u, n):
                 "menu": [{"nama": g, "item": items} for g, items in u["menu"]],
             }
             scripts += "<script>\n" + WIZARD_JS.replace("__DATA__", json.dumps(D, ensure_ascii=False)) + BAR_JS + "</script>\n"
-    return head(judul, desc, css, warna=WARNA_TEMA[u["tema"]]) + "".join(body) + scripts + "</body>\n</html>\n"
+    return head(judul, desc, css, warna=WARNA_TEMA[u["tema"]], extra=preload) + "".join(body) + scripts + "</body>\n</html>\n"
 
 
 WA_PEMILIK = "6287834471149"
