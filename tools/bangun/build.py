@@ -2,7 +2,7 @@ import json, os, sys
 from html import escape as e
 from urllib.parse import quote
 sys.path.insert(0, os.path.dirname(__file__))
-from css import FONT, BASE, BOOKING, TEMA, WARNA_TEMA, WARNA_INDEX, AKSEN_JENIS, INDEX_TOKENS, INDEX, ERR
+from css import FONT, BASE, BOOKING, GAYA, TEMA, WARNA_TEMA, WARNA_INDEX, AKSEN_JENIS, INDEX_TOKENS, INDEX, ERR
 from data import USAHA, URUT_HARI
 from js import STATUS_JS, BAR_JS, BOOKING_JS, WIZARD_JS
 
@@ -301,7 +301,35 @@ def seksi_pesan_menu(u, n):
                         "Tanpa aplikasi dan tanpa formulir panjang. Selesai di halaman ini juga.", isi)
 
 
+def durasi(m):
+    if m < 60:
+        return "%d menit" % m
+    if m % 60 == 0:
+        return "%d jam" % (m // 60)
+    return "%d jam %d menit" % (m // 60, m % 60)
+
+
+def fakta(u):
+    mode = u.get("mode", "jadwal")
+    semua = [x for _, it in u["grup"] for x in it]
+    termurah = rp(min(x[1] for x in semua))
+    if mode == "jadwal":
+        m = [x[2] for x in semua]
+        rentang = "%d menit" % min(m) if min(m) == max(m) else "%d-%d menit" % (min(m), max(m))
+        return [("Mulai dari", termurah), (u["noun"], "%d orang" % len(u["stylist"])), ("Lama layanan", rentang)]
+    if mode == "inap":
+        return [("Mulai dari", termurah + " / malam"), ("Check-in", "Pukul " + u["checkin"]), ("Check-out", "Pukul " + u["checkout"])]
+    ld = [it["lead"] for _, items in u["menu"] for it in items]
+    return [("Mulai dari", termurah), ("Ongkos antar", rp(u["ongkir"])), ("Pesan sebelum", "H-%d sampai H-%d" % (min(ld), max(ld)))]
+
+
+def html_fakta(u):
+    li = "".join('<li><span class="f-label">%s</span><span class="f-nilai">%s</span></li>' % (e(a), e(c)) for a, c in fakta(u))
+    return '<ul class="fakta">%s</ul>\n' % li
+
+
 def seksi_harga(u):
+    mode = u.get("mode", "jadwal")
     if u.get("mode") == "inap":
         judul, lead = "Daftar kamar dan harga", u["harga_lead"]
     elif u.get("mode") == "pesan":
@@ -314,7 +342,18 @@ def seksi_harga(u):
         for baris in item:
             nm, hr = baris[0], baris[1]
             ket = baris[3] if len(baris) > 3 else (baris[2] if len(baris) > 2 else "")
-            out.append('<li><span class="nm">%s</span><span class="hr">%s</span>%s</li>' % (e(nm), rp(hr), '<span class="ket">%s</span>' % e(ket) if ket else ""))
+            dur = ""
+            if mode == "jadwal":
+                dur = '<span class="dur">%s</span>' % durasi(baris[2])
+            elif mode == "inap":
+                fas = [k[3] for k in u["kamar"] if k[0] == nm]
+                ket = ("%s. %s" % (fas[0].capitalize(), ket)) if fas else ket
+            else:
+                it = [x for _, items in u["menu"] for x in items if x["nama"] == nm]
+                if it:
+                    ket = "%s. Minimal %d %s, pesan H-%d." % (it[0]["ket"], it[0]["min"], it[0]["satuan"], it[0]["lead"])
+            isi_ket = dur + e(ket)
+            out.append('<li><span class="nm">%s</span><span class="hr">%s</span>%s</li>' % (e(nm), rp(hr), '<span class="ket">%s</span>' % isi_ket if isi_ket else ""))
         out.append("</ul></div>")
     out.append('<p class="catatan">%s</p>\n</section>\n' % e(u["harga_catatan"]))
     return "".join(out)
@@ -354,15 +393,20 @@ def seksi_tanya(u):
 
 def halaman_demo(u, n):
     mode = u.get("mode", "jadwal")
-    css = FONT + "\n:root{" + TEMA[u["tema"]] + "}\n" + BASE + (BOOKING if n >= 2 else "")
+    css = FONT + "\n:root{" + TEMA[u["tema"]] + "}\n" + BASE + (BOOKING if n >= 2 else "") + GAYA
     judul = {1: u["title_p1"], 2: u["nama"] + ", booking", 3: u["nama"] + ", booking dan pembayaran"}[n]
     desc = u["desc_p1"] if n == 1 else (u["desc_book"] if n == 2 else u["desc_book"].rstrip(".") + ", lalu bayar muka.")
     wa = wa_link(u)
     jam_json = json.dumps({str(h): u["jam"][h] for h in range(7)})
 
-    loncat = ['<a href="#harga">Harga</a>', '<a href="#lokasi">Lokasi</a>']
-    if n == 1:
-        loncat.append('<a href="#galeri">Galeri</a>')
+    dulu = n == 1 and u.get("galeri_dulu")
+    l_harga, l_lokasi, l_galeri = '<a href="#harga">Harga</a>', '<a href="#lokasi">Lokasi</a>', '<a href="#galeri">Galeri</a>'
+    if dulu:
+        loncat = [l_galeri, l_harga, l_lokasi]
+    elif n == 1:
+        loncat = [l_harga, l_lokasi, l_galeri]
+    else:
+        loncat = [l_harga, l_lokasi]
     loncat.append('<a href="#tanya">Tanya jawab</a>')
     if n >= 2:
         loncat.insert(0, '<a href="#pesan">Pesan</a>')
@@ -391,22 +435,25 @@ def halaman_demo(u, n):
         status = '<p class="status" id="status"><span class="titik" id="titik"></span><span id="status-teks">Memuat jam buka</span></p>\n'
 
     body = [
-        "<body>\n",
+        '<body data-j="%s">\n' % u["slug"],
         '<header class="atas"><div class="demo-strip" role="note"><span class="tanda-contoh">Demo</span><span>Contoh website untuk %s Anda</span></div><div class="wadah"><a class="balik" href="/%s/#paket">%s Semua paket %s</a><span class="nama-atas">%s</span></div></header>\n' % (u["jenis"].lower(), u["slug"], I_KIRI, u["jenis"].lower(), e(u["nama"])),
         '<div class="pole" aria-hidden="true"></div>\n',
         "<main>\n",
         '<div class="wadah">\n',
-        '<section class="hero">\n' + kartu_demo(u, n) + '<p class="eyebrow">%s &middot; %s</p>\n<h1>%s</h1>\n' % (e(u["jenis"]), e(u["area"]), e(u["nama"])),
+        '<section class="hero">\n' + kartu_demo(u, n) + '<div class="hero-isi">\n<p class="eyebrow">%s &middot; %s</p>\n<h1>%s</h1>\n' % (e(u["jenis"]), e(u["area"]), e(u["nama"])),
         tag("Nama %s Anda tampil di sini" % u["jenis"].lower()),
         status,
-        '<p class="lead">%s</p>\n<div class="aksi">%s</div>\n' % (e(u["lead"]), aksi),
+        '<p class="lead">%s</p>\n<div class="aksi">%s</div>\n</div>\n' % (e(u["lead"]), aksi),
+        html_fakta(u),
         '<nav class="loncat" aria-label="Loncat ke bagian">%s</nav>\n</section>\n' % "".join(loncat),
     ]
     if n >= 2:
         body.append(seksi_pesan(u, n))
+    if dulu:
+        body.append(seksi_galeri(u))
     body.append(seksi_harga(u))
     body.append(seksi_lokasi(u))
-    if n == 1:
+    if n == 1 and not dulu:
         body.append(seksi_galeri(u))
     body.append(seksi_tanya(u))
     body.append(penutup_demo(u))

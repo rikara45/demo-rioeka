@@ -161,6 +161,7 @@ BARBER = dict(
 )
 
 SPA = dict(
+    galeri_dulu=True,
     slug="spa",
     nama="Kenanga Spa",
     jenis="Spa",
@@ -235,6 +236,7 @@ SPA = dict(
 )
 
 PENGINAPAN = dict(
+    galeri_dulu=True,
     slug="penginapan",
     nama="Griya Asri Guest House",
     jenis="Penginapan",

@@ -256,21 +256,108 @@ svg{display:block;flex:none}
 .menu-sub{font-size:14px;font-weight:700;color:var(--sinyal-gelap)}
 .kolom textarea{min-height:88px;padding:12px 14px;border:2px solid var(--garis-kuat);border-radius:var(--r-kecil);background:var(--kartu);color:var(--tinta);font:inherit;font-size:16px;resize:vertical}
 
+.hero-isi{position:relative;isolation:isolate}
+.hero-isi::before{content:"";position:absolute;z-index:-1;right:-6px;top:-8px;width:150px;height:150px;pointer-events:none}
+.fakta{display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));gap:8px;margin-top:20px}
+.fakta li{display:grid;gap:2px;align-content:start;padding:10px 12px;border:1px solid var(--garis);border-radius:var(--r-kecil);background:var(--kartu);min-width:0}
+.fakta .f-label{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--tinta-redup)}
+.fakta .f-nilai{font-size:15px;font-weight:800;line-height:1.25;overflow-wrap:anywhere}
+.dur{display:inline-block;margin-right:6px;padding:0 8px;border-radius:99px;background:var(--sinyal-lembut);color:var(--sinyal-gelap);font-size:13px;font-weight:700}
+
+/* salon: mawar, kelopak, titik penghubung */
+[data-j=salon] .hero-isi{padding:20px 18px 22px;border-radius:var(--r);background:var(--sinyal-lembut)}
+[data-j=salon] .hero-isi::before{top:6px;right:6px;width:130px;height:130px;background:var(--sinyal);opacity:.18;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='black' stroke-width='3'%3E%3Ccircle cx='60' cy='40' r='22'/%3E%3Ccircle cx='40' cy='72' r='22'/%3E%3Ccircle cx='80' cy='72' r='22'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='black' stroke-width='3'%3E%3Ccircle cx='60' cy='40' r='22'/%3E%3Ccircle cx='40' cy='72' r='22'/%3E%3Ccircle cx='80' cy='72' r='22'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat}
+[data-j=salon] .fakta li{border:0;background:var(--sinyal-lembut)}
+[data-j=salon] .fakta .f-nilai{color:var(--sinyal-gelap)}
+[data-j=salon] .bagian h2::after{content:"";display:block;width:44px;height:4px;margin-top:10px;border-radius:99px;background:var(--sinyal)}
+[data-j=salon] .harga li{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 8px;border-top:0;padding:12px 0}
+[data-j=salon] .harga .nm{display:flex;flex:1 1 auto;align-items:baseline;gap:8px;min-width:0}
+[data-j=salon] .harga .nm::after{content:"";flex:1 1 20px;min-width:20px;border-bottom:2px dotted var(--garis-kuat);transform:translateY(-4px)}
+[data-j=salon] .harga .ket{flex:1 1 100%}
+[data-j=salon] .galeri .petak:first-child,[data-j=salon] .galeri .petak:last-child{grid-column:1 / -1;aspect-ratio:16/10}
+@media (min-width:600px){
+[data-j=salon] .galeri .petak:first-child{grid-column:span 2;grid-row:span 2;aspect-ratio:auto}
+[data-j=salon] .galeri .petak:last-child{grid-column:auto;aspect-ratio:4/3}
+}
+
+/* barbershop: garis tegas, kapital, kotak */
+[data-j=barbershop] .hero-isi{padding-left:16px;border-left:6px solid var(--sinyal)}
+[data-j=barbershop] .hero-isi::before{top:0;right:0;width:130px;height:130px;background:repeating-linear-gradient(135deg,var(--sinyal) 0 6px,transparent 6px 16px);opacity:.22;-webkit-mask:linear-gradient(to left,black,transparent);mask:linear-gradient(to left,black,transparent)}
+[data-j=barbershop] .fakta li{border:0;border-left:4px solid var(--sinyal);border-radius:0;background:var(--kartu)}
+[data-j=barbershop] .fakta .f-nilai{font-stretch:80%;font-size:17px;text-transform:uppercase;letter-spacing:.02em}
+[data-j=barbershop] .bagian h2{padding-left:12px;border-left:6px solid var(--sinyal)}
+[data-j=barbershop] .harga li{border-top:1px dashed var(--garis-kuat)}
+[data-j=barbershop] .harga li:first-child{border-top:0}
+[data-j=barbershop] .harga .nm{font-stretch:80%;font-size:18px;text-transform:uppercase;letter-spacing:.02em}
+[data-j=barbershop] .harga .hr{font-size:20px;font-weight:800;color:var(--sinyal)}
+[data-j=barbershop] .galeri{gap:8px}
+[data-j=barbershop] .petak{aspect-ratio:1;border:2px solid var(--garis-kuat);filter:grayscale(.55) contrast(1.05)}
+[data-j=barbershop] .opsi-nama{font-stretch:80%;text-transform:uppercase;letter-spacing:.02em}
+
+/* spa: tenang, tengah, lengkung */
+[data-j=spa] .hero-isi{padding:8px 0 4px;text-align:center}
+[data-j=spa] .hero-isi::before{top:-2px;right:50%;width:160px;height:160px;margin-right:-80px;background:var(--sinyal);opacity:.12;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='black' stroke-width='2'%3E%3Ccircle cx='60' cy='60' r='14'/%3E%3Ccircle cx='60' cy='60' r='28'/%3E%3Ccircle cx='60' cy='60' r='42'/%3E%3Ccircle cx='60' cy='60' r='56'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='black' stroke-width='2'%3E%3Ccircle cx='60' cy='60' r='14'/%3E%3Ccircle cx='60' cy='60' r='28'/%3E%3Ccircle cx='60' cy='60' r='42'/%3E%3Ccircle cx='60' cy='60' r='56'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat}
+[data-j=spa] .hero .lead{margin-left:auto;margin-right:auto}
+[data-j=spa] .hero .aksi{justify-items:stretch}
+@media (min-width:520px){[data-j=spa] .hero .aksi{justify-content:center}}
+[data-j=spa] .loncat{justify-content:safe center}
+[data-j=spa] .fakta li{border:0;border-top:2px solid var(--sinyal);border-radius:0;background:transparent;text-align:center}
+[data-j=spa] .bagian h2,[data-j=spa] .bagian-lead,[data-j=spa] .bagian > .tag-baris{text-align:center}
+[data-j=spa] .bagian-lead{margin-left:auto;margin-right:auto}
+[data-j=spa] .bagian h2::after{content:"";display:block;width:40px;height:2px;margin:12px auto 0;background:var(--sinyal)}
+[data-j=spa] .kartu > h3{text-align:center}
+[data-j=spa] .harga li{grid-template-columns:1fr;justify-items:center;gap:4px;text-align:center;padding:18px 0}
+[data-j=spa] .harga .ket{grid-column:auto}
+[data-j=spa] .harga .hr{color:var(--sinyal-gelap);font-weight:600;font-size:18px}
+[data-j=spa] .galeri{gap:12px}
+[data-j=spa] .petak{aspect-ratio:3/4;border-radius:999px 999px var(--r-kecil) var(--r-kecil)}
+[data-j=spa] .opsi-kotak{box-shadow:var(--bayang)}
+
+/* penginapan: nomor bagian, lengkung jendela, foto lebar */
+[data-j=penginapan] .hero-isi{padding-bottom:6px;border-bottom:1px solid var(--garis)}
+[data-j=penginapan] .hero-isi::before{top:0;right:0;width:120px;height:120px;background:var(--sinyal);opacity:.14;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='black' stroke-width='3'%3E%3Cpath d='M10 116V54a40 40 0 0 1 80 0v62'/%3E%3Cpath d='M26 116V56a24 24 0 0 1 48 0v60'/%3E%3Cpath d='M42 116V58a8 8 0 0 1 16 0v58'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='black' stroke-width='3'%3E%3Cpath d='M10 116V54a40 40 0 0 1 80 0v62'/%3E%3Cpath d='M26 116V56a24 24 0 0 1 48 0v60'/%3E%3Cpath d='M42 116V58a8 8 0 0 1 16 0v58'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat}
+[data-j=penginapan] .fakta li{border:0;border-top:3px solid var(--sinyal);border-radius:var(--r-kecil) var(--r-kecil) 0 0;background:var(--kartu-turun)}
+body[data-j=penginapan]{counter-reset:bag}
+[data-j=penginapan] .bagian h2::before{counter-increment:bag;content:"0" counter(bag);display:block;margin-bottom:6px;font-size:13px;font-stretch:100%;font-weight:700;letter-spacing:.16em;color:var(--sinyal-gelap)}
+[data-j=penginapan] .harga li{padding:18px 0}
+[data-j=penginapan] .harga .nm{font-size:18px;font-weight:700}
+[data-j=penginapan] .harga .hr{font-size:22px;font-weight:800;color:var(--sinyal-gelap)}
+[data-j=penginapan] .galeri{grid-template-columns:repeat(2,minmax(0,1fr))}
+[data-j=penginapan] .galeri .petak:first-child,[data-j=penginapan] .galeri .petak:last-child{grid-column:1 / -1;aspect-ratio:16/9}
+[data-j=penginapan] .opsi-kotak{border-left-width:6px}
+
+/* katering: taplak kotak-kotak, lencana harga, foto kartu pos */
+[data-j=katering] .hero-isi::before{top:-4px;right:-4px;width:140px;height:120px;background-image:repeating-linear-gradient(0deg,transparent 0 12px,var(--sinyal) 12px 24px),repeating-linear-gradient(90deg,transparent 0 12px,var(--sinyal) 12px 24px);opacity:.13;-webkit-mask:linear-gradient(to left,black 40%,transparent);mask:linear-gradient(to left,black 40%,transparent)}
+[data-j=katering] .fakta li{border:2px dashed var(--sinyal);background:var(--kartu)}
+[data-j=katering] .bagian h2::after{content:"";display:block;width:72px;margin-top:10px;border-bottom:4px dotted var(--sinyal)}
+[data-j=katering] .harga li{align-items:start}
+[data-j=katering] .harga .hr{align-self:start;padding:3px 12px;border-radius:99px;background:var(--sinyal-lembut);color:var(--sinyal-gelap)}
+[data-j=katering] .galeri{gap:16px 12px;padding:6px 4px 10px}
+[data-j=katering] .petak{aspect-ratio:auto;padding:8px 8px 22px;border:1px solid var(--garis);border-radius:4px;background:var(--kartu);box-shadow:var(--bayang)}
+[data-j=katering] .petak img{height:auto;aspect-ratio:4/3;border-radius:2px}
+[data-j=katering] .petak:nth-child(odd){rotate:-1.2deg}
+[data-j=katering] .petak:nth-child(even){rotate:1.2deg}
+[data-j=katering] .menu-baris{border-style:dashed}
+[data-j=katering] .menu-baris.aktif{border-style:solid}
+
 </style>
 </head>
-<body>
+<body data-j="salon">
 <header class="atas"><div class="demo-strip" role="note"><span class="tanda-contoh">Demo</span><span>Contoh website untuk salon Anda</span></div><div class="wadah"><a class="balik" href="/salon/#paket"><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg> Semua paket salon</a><span class="nama-atas">Salon Melati</span></div></header>
 <div class="pole" aria-hidden="true"></div>
 <main>
 <div class="wadah">
 <section class="hero">
 <section class="demo-kartu" aria-label="Penjelasan halaman demo"><span class="tanda-contoh">Demo Paket 2</span><p class="demo-judul">Ini halaman demo, bukan salon sungguhan</p><p class="demo-teks">Beginilah tampilan website Anda nanti kalau memakai jasa Rio Ekaputra Siswa. Bayangkan isinya jadi milik salon Anda.</p><div class="ganti-kepala" aria-hidden="true"><span>Di demo ini</span><span></span><span>Di website Anda</span></div><ul class="ganti-daftar"><li><span class="kini">Salon Melati</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Nama salon Anda</span></li><li><span class="kini">Jl. Contoh No. 10</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Alamat salon Anda</span></li><li><span class="kini">Stylist: Melati, Rina, Dewi</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Nama stylist di tempat Anda</span></li><li><span class="kini">Potong rambut wanita, Rp 75.000</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Layanan dan harga Anda</span></li><li><span class="kini">0812-3456-7890</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Nomor WhatsApp Anda</span></li><li><span class="kini">devario.rioeka.com</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>namasalonanda.com</span></li></ul><p class="demo-paket">Paket 2: pesanan di halaman ini tidak tersimpan, hanya memperlihatkan alurnya. Di website Anda, pesanan masuk ke WhatsApp atau ke catatan salon.</p></section>
+<div class="hero-isi">
 <p class="eyebrow">Salon &middot; Bandung Wetan, Kota Bandung</p>
 <h1>Salon Melati</h1>
 <p class="tag-baris"><span class="tag-anda">Nama salon Anda tampil di sini</span></p>
 <p class="status" id="status"><span class="titik" id="titik"></span><span id="status-teks">Memuat jam buka</span></p>
 <p class="lead">Potong, warna, dan perawatan rambut dengan harga yang tertera jelas.</p>
 <div class="aksi"><a class="tombol" href="#pesan"><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> Pesan sekarang</a><a class="tombol garis" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20tanya%20soal%20booking%20di%20Salon%20Melati."><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.4 8.4 0 1 1 21 11.5Z"/></svg> Tanya lewat WhatsApp</a></div>
+</div>
+<ul class="fakta"><li><span class="f-label">Mulai dari</span><span class="f-nilai">Rp 50.000</span></li><li><span class="f-label">Stylist</span><span class="f-nilai">3 orang</span></li><li><span class="f-label">Lama layanan</span><span class="f-nilai">30-180 menit</span></li></ul>
 <nav class="loncat" aria-label="Loncat ke bagian"><a href="#pesan">Pesan</a><a href="#harga">Harga</a><a href="#lokasi">Lokasi</a><a href="#tanya">Tanya jawab</a></nav>
 </section>
 <section class="bagian" id="bagian-pesan" aria-labelledby="j-pesan">
@@ -296,7 +383,7 @@ svg{display:block;flex:none}
 <p class="tag-baris"><span class="tag-anda">Harga salon Anda</span></p>
 <h2>Daftar harga</h2>
 <p class="bagian-lead">Panjang dan ketebalan rambut bisa menambah biaya pada layanan warna dan perawatan. Itu dikonfirmasi sebelum dikerjakan.</p>
-<div class="kartu"><h3>Potong, cuci, dan tatanan</h3><ul class="harga"><li><span class="nm">Potong rambut wanita</span><span class="hr">Rp 75.000</span></li><li><span class="nm">Potong rambut pria</span><span class="hr">Rp 50.000</span></li><li><span class="nm">Cuci dan blow</span><span class="hr">Rp 60.000</span></li><li><span class="nm">Catok atau curly</span><span class="hr">Rp 65.000</span></li><li><span class="nm">Sanggul dan tatanan acara</span><span class="hr">Rp 200.000</span></li></ul></div><div class="kartu"><h3>Warna dan perawatan</h3><ul class="harga"><li><span class="nm">Pewarnaan seluruh rambut</span><span class="hr">Rp 350.000</span><span class="ket">Perlu konsultasi warna lebih dulu.</span></li><li><span class="nm">Highlight</span><span class="hr">Rp 450.000</span><span class="ket">Waktu menyesuaikan panjang rambut.</span></li><li><span class="nm">Smoothing</span><span class="hr">Rp 550.000</span></li><li><span class="nm">Creambath</span><span class="hr">Rp 90.000</span></li><li><span class="nm">Perawatan kulit kepala</span><span class="hr">Rp 130.000</span></li></ul></div><p class="catatan">Layanan pengantin dihitung per paket, termasuk uji tatanan sebelum hari acara.</p>
+<div class="kartu"><h3>Potong, cuci, dan tatanan</h3><ul class="harga"><li><span class="nm">Potong rambut wanita</span><span class="hr">Rp 75.000</span><span class="ket"><span class="dur">45 menit</span></span></li><li><span class="nm">Potong rambut pria</span><span class="hr">Rp 50.000</span><span class="ket"><span class="dur">30 menit</span></span></li><li><span class="nm">Cuci dan blow</span><span class="hr">Rp 60.000</span><span class="ket"><span class="dur">30 menit</span></span></li><li><span class="nm">Catok atau curly</span><span class="hr">Rp 65.000</span><span class="ket"><span class="dur">30 menit</span></span></li><li><span class="nm">Sanggul dan tatanan acara</span><span class="hr">Rp 200.000</span><span class="ket"><span class="dur">1 jam 30 menit</span></span></li></ul></div><div class="kartu"><h3>Warna dan perawatan</h3><ul class="harga"><li><span class="nm">Pewarnaan seluruh rambut</span><span class="hr">Rp 350.000</span><span class="ket"><span class="dur">2 jam</span>Perlu konsultasi warna lebih dulu.</span></li><li><span class="nm">Highlight</span><span class="hr">Rp 450.000</span><span class="ket"><span class="dur">2 jam 30 menit</span>Waktu menyesuaikan panjang rambut.</span></li><li><span class="nm">Smoothing</span><span class="hr">Rp 550.000</span><span class="ket"><span class="dur">3 jam</span></span></li><li><span class="nm">Creambath</span><span class="hr">Rp 90.000</span><span class="ket"><span class="dur">45 menit</span></span></li><li><span class="nm">Perawatan kulit kepala</span><span class="hr">Rp 130.000</span><span class="ket"><span class="dur">45 menit</span></span></li></ul></div><p class="catatan">Layanan pengantin dihitung per paket, termasuk uji tatanan sebelum hari acara.</p>
 </section>
 <section class="bagian" id="lokasi">
 <p class="tag-baris"><span class="tag-anda">Alamat dan jam buka salon Anda</span></p>
