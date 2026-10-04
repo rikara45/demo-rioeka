@@ -168,6 +168,8 @@ svg{display:block;flex:none}
 .jenis-kartu:focus-within{outline:3px solid var(--jenis-aksen,var(--sinyal));outline-offset:2px}
 .jenis-ikon{display:grid;place-items:center;width:58px;height:58px;border-radius:16px;background:var(--jenis-lembut,var(--sinyal-lembut));color:var(--jenis-aksen,var(--sinyal));box-shadow:inset 0 0 0 1.5px var(--jenis-aksen,var(--sinyal))}
 .jenis-ikon .ikon{width:30px;height:30px}
+.jenis-ikon-hero{width:64px;height:64px;margin-bottom:16px}
+.jenis-ikon-hero .ikon{width:34px;height:34px}
 .jenis-kartu h3{font-size:24px;font-weight:800;font-stretch:80%;line-height:1.12}
 .jenis-kartu p{color:var(--tinta-redup)}
 .jenis-kartu .tombol{margin-top:auto}
@@ -175,11 +177,16 @@ svg{display:block;flex:none}
 .nama-demo b{color:var(--tinta)}
 .paket-daftar{display:grid;gap:16px;margin-top:20px}
 @media (min-width:900px){.paket-daftar{grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch}.wadah-lebar{max-width:1040px}}
-.paket article{display:flex;flex-direction:column;gap:14px;height:100%;padding:20px;border:1px solid var(--garis);border-radius:var(--r);background:var(--kartu)}
-.paket .no{display:inline-block;padding:3px 11px;border-radius:999px;background:var(--sinyal-lembut);color:var(--sinyal);font-size:13px;font-weight:700}
+.paket article{display:flex;flex-direction:column;gap:14px;height:100%;padding:22px;border:1px solid var(--garis);border-top:4px solid var(--jenis-aksen,var(--sinyal));border-radius:var(--r);background:var(--kartu);box-shadow:var(--bayang);transition:transform .15s,box-shadow .15s}
+.paket .no{display:inline-block;padding:4px 12px;border-radius:999px;background:var(--jenis-aksen,var(--sinyal));color:var(--di-atas-sinyal);font-size:13px;font-weight:700}
+.paket-link article:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(22,34,30,.12)}
+.paket-link article:focus-within{outline:3px solid var(--jenis-aksen,var(--sinyal));outline-offset:2px}
+.paket-link .tombol,.paket-link .tombol:hover{background:var(--jenis-aksen,var(--sinyal));border-color:var(--jenis-aksen,var(--sinyal));color:var(--di-atas-sinyal)}
+.paket-link .tombol:hover{filter:brightness(.88)}
+.paket .cocok{border-left:3px solid var(--jenis-aksen,var(--sinyal))}
 .paket h3{margin-top:10px;font-size:26px;font-weight:800;font-stretch:80%;line-height:1.05}
 .paket .ket{color:var(--tinta-redup)}
-.paket .cocok{padding:12px 14px;border-radius:var(--r-kecil);background:var(--kartu-turun);font-size:14px}
+.paket .cocok{padding:12px 14px;border-radius:var(--r-kecil);background:var(--jenis-lembut,var(--kartu-turun));font-size:14px}
 .paket .isi{display:grid;gap:10px;font-size:15px}
 .paket .isi li{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start}
 .paket .isi .ikon{width:18px;height:18px;margin-top:3px;color:var(--ok);stroke-width:3}
@@ -234,10 +241,13 @@ main{flex:1;display:flex}
 .galat .tombol.garis:focus-visible,.galat .tombol:focus-visible,.alternatif a:focus-visible{outline-color:var(--jingga)}
 .alternatif{margin-top:32px;padding-top:20px;border-top:1px solid var(--garis-hijau)}
 .alternatif h2{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--krem-redup)}
-.alternatif ul{margin-top:8px}
-.alternatif li + li{border-top:1px solid var(--garis-hijau)}
-.alternatif a{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:56px;font-weight:600;text-decoration:none}
-.alternatif a:hover{color:var(--jingga)}
+.alternatif ul{display:grid;gap:10px;margin-top:12px}
+@media (min-width:560px){.alternatif ul{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.alternatif a{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:56px;padding:8px 14px;border:1px solid var(--garis-hijau);border-radius:var(--r-kecil);font-weight:600;text-decoration:none;transition:border-color .15s,color .15s}
+.alternatif a:hover{border-color:var(--jingga);color:var(--jingga)}
+.alt-nama{display:inline-flex;align-items:center;gap:12px}
+.alt-ikon{display:grid;place-items:center;flex:none;width:38px;height:38px;border-radius:12px;background:var(--garis-hijau);color:var(--jingga)}
+.alt-ikon .ikon{width:20px;height:20px}
 .kaki{margin-top:0;border-top-color:var(--garis-hijau);color:var(--krem-redup)}
 .kaki a{color:var(--krem)}
 
@@ -250,7 +260,7 @@ main{flex:1;display:flex}
 <h1>Halaman tidak ditemukan</h1>
 <p class="lead">Alamat yang Anda buka tidak ada. Bisa jadi salah ketik atau halamannya sudah dipindahkan.</p>
 <div class="aksi"><a class="tombol" id="kembali" href="/"><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg><span id="kembali-teks">Kembali</span></a><a class="tombol garis" id="beranda" href="/">Ke beranda</a></div>
-<nav class="alternatif" aria-labelledby="alt-judul"><h2 id="alt-judul">Atau langsung buka</h2><ul><li><a href="/salon/paket-1/"><span>Demo salon</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a></li><li><a href="/barbershop/paket-1/"><span>Demo barbershop</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a></li><li><a href="/spa/paket-1/"><span>Demo spa</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a></li><li><a href="/penginapan/paket-1/"><span>Demo penginapan</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a></li><li><a href="/katering/paket-1/"><span>Demo katering</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a></li><li><a href="/"><span>Beranda</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a></li></ul></nav></div></section></main>
+<nav class="alternatif" aria-labelledby="alt-judul"><h2 id="alt-judul">Atau langsung buka</h2><ul><li><a href="/salon/paket-1/"><span class="alt-nama"><span class="alt-ikon"><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.12 15.88M14.47 14.48 20 20M8.12 8.12 12 12"/></svg></span>Demo salon</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a></li><li><a href="/barbershop/paket-1/"><span class="alt-nama"><span class="alt-ikon"><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="2" width="6" height="20" rx="3"/><path d="M9 7 15 4.4M9 11.6 15 9M9 16.2 15 13.6"/></svg></span>Demo barbershop</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a></li><li><a href="/spa/paket-1/"><span class="alt-nama"><span class="alt-ikon"><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c2.5 3 6 5 6 9a6 6 0 0 1-12 0c0-4 3.5-6 6-9z"/><path d="M12 12v9"/></svg></span>Demo spa</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a></li><li><a href="/penginapan/paket-1/"><span class="alt-nama"><span class="alt-ikon"><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 18V8a2 2 0 0 1 2-2h11a3 3 0 0 1 3 3v9"/><path d="M3 14h18"/><path d="M3 18v2M21 18v2"/><path d="M7 10h3v4H7z"/></svg></span>Demo penginapan</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a></li><li><a href="/katering/paket-1/"><span class="alt-nama"><span class="alt-ikon"><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11a8 8 0 0 1 16 0z"/><path d="M3 15h18"/><path d="M6 19h12"/></svg></span>Demo katering</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a></li><li><a href="/"><span class="alt-nama"><span class="alt-ikon"><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m3 11 9-8 9 8"/><path d="M5 10v10h14V10"/></svg></span>Beranda</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a></li></ul></nav></div></section></main>
 <footer class="kaki"><div class="wadah"><p>Dibuat oleh Rio Ekaputra Siswa, developer aplikasi web di Bandung. <a href="https://rioeka.com">rioeka.com</a></p></div></footer>
 <script>
 

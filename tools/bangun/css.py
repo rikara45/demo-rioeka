@@ -155,7 +155,7 @@ WARNA_INDEX = "#16221E"
 
 AKSEN_JENIS = {
     "salon": ("#B0305A", "#FBE6EC"),
-    "barbershop": ("#A5711F", "#F7EBD3"),
+    "barbershop": ("#8F5F14", "#F7EBD3"),
     "spa": ("#2F6B4F", "#E1EEE3"),
     "penginapan": ("#1F5F7A", "#DFEDF2"),
     "katering": ("#A8431A", "#FBE6D6"),
@@ -438,6 +438,8 @@ INDEX = """
 .jenis-kartu:focus-within{outline:3px solid var(--jenis-aksen,var(--sinyal));outline-offset:2px}
 .jenis-ikon{display:grid;place-items:center;width:58px;height:58px;border-radius:16px;background:var(--jenis-lembut,var(--sinyal-lembut));color:var(--jenis-aksen,var(--sinyal));box-shadow:inset 0 0 0 1.5px var(--jenis-aksen,var(--sinyal))}
 .jenis-ikon .ikon{width:30px;height:30px}
+.jenis-ikon-hero{width:64px;height:64px;margin-bottom:16px}
+.jenis-ikon-hero .ikon{width:34px;height:34px}
 .jenis-kartu h3{font-size:24px;font-weight:800;font-stretch:80%;line-height:1.12}
 .jenis-kartu p{color:var(--tinta-redup)}
 .jenis-kartu .tombol{margin-top:auto}
@@ -445,11 +447,16 @@ INDEX = """
 .nama-demo b{color:var(--tinta)}
 .paket-daftar{display:grid;gap:16px;margin-top:20px}
 @media (min-width:900px){.paket-daftar{grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch}.wadah-lebar{max-width:1040px}}
-.paket article{display:flex;flex-direction:column;gap:14px;height:100%;padding:20px;border:1px solid var(--garis);border-radius:var(--r);background:var(--kartu)}
-.paket .no{display:inline-block;padding:3px 11px;border-radius:999px;background:var(--sinyal-lembut);color:var(--sinyal);font-size:13px;font-weight:700}
+.paket article{display:flex;flex-direction:column;gap:14px;height:100%;padding:22px;border:1px solid var(--garis);border-top:4px solid var(--jenis-aksen,var(--sinyal));border-radius:var(--r);background:var(--kartu);box-shadow:var(--bayang);transition:transform .15s,box-shadow .15s}
+.paket .no{display:inline-block;padding:4px 12px;border-radius:999px;background:var(--jenis-aksen,var(--sinyal));color:var(--di-atas-sinyal);font-size:13px;font-weight:700}
+.paket-link article:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(22,34,30,.12)}
+.paket-link article:focus-within{outline:3px solid var(--jenis-aksen,var(--sinyal));outline-offset:2px}
+.paket-link .tombol,.paket-link .tombol:hover{background:var(--jenis-aksen,var(--sinyal));border-color:var(--jenis-aksen,var(--sinyal));color:var(--di-atas-sinyal)}
+.paket-link .tombol:hover{filter:brightness(.88)}
+.paket .cocok{border-left:3px solid var(--jenis-aksen,var(--sinyal))}
 .paket h3{margin-top:10px;font-size:26px;font-weight:800;font-stretch:80%;line-height:1.05}
 .paket .ket{color:var(--tinta-redup)}
-.paket .cocok{padding:12px 14px;border-radius:var(--r-kecil);background:var(--kartu-turun);font-size:14px}
+.paket .cocok{padding:12px 14px;border-radius:var(--r-kecil);background:var(--jenis-lembut,var(--kartu-turun));font-size:14px}
 .paket .isi{display:grid;gap:10px;font-size:15px}
 .paket .isi li{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start}
 .paket .isi .ikon{width:18px;height:18px;margin-top:3px;color:var(--ok);stroke-width:3}
@@ -506,10 +513,13 @@ main{flex:1;display:flex}
 .galat .tombol.garis:focus-visible,.galat .tombol:focus-visible,.alternatif a:focus-visible{outline-color:var(--jingga)}
 .alternatif{margin-top:32px;padding-top:20px;border-top:1px solid var(--garis-hijau)}
 .alternatif h2{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--krem-redup)}
-.alternatif ul{margin-top:8px}
-.alternatif li + li{border-top:1px solid var(--garis-hijau)}
-.alternatif a{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:56px;font-weight:600;text-decoration:none}
-.alternatif a:hover{color:var(--jingga)}
+.alternatif ul{display:grid;gap:10px;margin-top:12px}
+@media (min-width:560px){.alternatif ul{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.alternatif a{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:56px;padding:8px 14px;border:1px solid var(--garis-hijau);border-radius:var(--r-kecil);font-weight:600;text-decoration:none;transition:border-color .15s,color .15s}
+.alternatif a:hover{border-color:var(--jingga);color:var(--jingga)}
+.alt-nama{display:inline-flex;align-items:center;gap:12px}
+.alt-ikon{display:grid;place-items:center;flex:none;width:38px;height:38px;border-radius:12px;background:var(--garis-hijau);color:var(--jingga)}
+.alt-ikon .ikon{width:20px;height:20px}
 .kaki{margin-top:0;border-top-color:var(--garis-hijau);color:var(--krem-redup)}
 .kaki a{color:var(--krem)}
 """

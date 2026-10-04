@@ -28,6 +28,7 @@ I_STAF = ikon('<rect x="9" y="2" width="6" height="20" rx="3"/><path d="M9 7 15 
 I_DAUN = ikon('<path d="M12 3c2.5 3 6 5 6 9a6 6 0 0 1-12 0c0-4 3.5-6 6-9z"/><path d="M12 12v9"/>')
 I_RANJANG = ikon('<path d="M3 18V8a2 2 0 0 1 2-2h11a3 3 0 0 1 3 3v9"/><path d="M3 14h18"/><path d="M3 18v2M21 18v2"/><path d="M7 10h3v4H7z"/>')
 I_MANGKUK = ikon('<path d="M4 11a8 8 0 0 1 16 0z"/><path d="M3 15h18"/><path d="M6 19h12"/>')
+I_RUMAH = ikon('<path d="m3 11 9-8 9 8"/><path d="M5 10v10h14V10"/>')
 IKON = {"salon": I_GUNTING, "barbershop": I_STAF, "spa": I_DAUN, "penginapan": I_RANJANG, "katering": I_MANGKUK}
 
 
@@ -576,13 +577,13 @@ def halaman_jenis(u):
     body = (
         "<body>\n"
         '<header class="atas atas-hijau"><div class="wadah wadah-lebar"><a class="merek" href="/">%s</a><a class="balik" href="/#jenis">%s Semua jenis usaha</a></div></header>\n'
-        "<main>\n"
-        '<section class="hero"><div class="wadah wadah-lebar">\n<p class="eyebrow">Paket 1 sampai 3 &middot; demo bisa dicoba</p>\n'
+        '<main style="--jenis-aksen:%s;--jenis-lembut:%s">\n'
+        '<section class="hero"><div class="wadah wadah-lebar">\n<span class="jenis-ikon jenis-ikon-hero">%s</span>\n<p class="eyebrow">Paket 1 sampai 3 &middot; demo bisa dicoba</p>\n'
         "<h1>Website untuk %s</h1>\n<p class=\"lead\">%s</p>\n"
         '<div class="aksi"><a class="tombol" href="#paket">Lihat tiga paket</a><a class="tombol garis" href="%s">%s Tanya lewat WhatsApp</a></div>\n</div></section>\n'
         '<section class="bagian" id="paket"><div class="wadah wadah-lebar">\n<h2>Tiga paket untuk %s</h2>\n'
         '<p class="bagian-lead">Pilih paket, lalu buka demonya dan coba langsung di HP. Nama usaha dan harga layanan di dalam demo hanya contoh. Harga paket di bawah adalah harga sebenarnya.</p>\n'
-        '<ul class="paket-daftar paket">%s</ul>\n'
+        '<ul class="paket-daftar paket paket-link">%s</ul>\n'
         '<p class="catatan-harga">Perawatan tahunan berarti %s.</p>\n</div></section>\n'
         '<section class="bagian hubungi" id="hubungi"><div class="wadah wadah-lebar"><div class="kartu-hubungi">\n'
         "<h2>Tertarik atau mau tanya dulu?</h2>\n"
@@ -593,7 +594,7 @@ def halaman_jenis(u):
         "<p>Harga di atas tetap, tanpa biaya tersembunyi. Nama, harga layanan, dan alamat di dalam demo hanya contoh.</p>"
         '<p><a href="%s">WhatsApp %s</a></p></div></footer>\n'
         "</body>\n</html>\n"
-    ) % (MERK, I_KIRI, e(u["pendek"]), e(u["lihat"]), wa_pemilik(), I_WA, e(u["pendek"].lower()), cards, PERAWATAN, WA_PEMILIK_TAMPIL, wa_pemilik(), I_WA, wa_pemilik(), WA_PEMILIK_TAMPIL)
+    ) % (MERK, I_KIRI, AKSEN_JENIS[u["slug"]][0], AKSEN_JENIS[u["slug"]][1], IKON[u["slug"]], e(u["pendek"]), e(u["lihat"]), wa_pemilik(), I_WA, e(u["pendek"].lower()), cards, PERAWATAN, WA_PEMILIK_TAMPIL, wa_pemilik(), I_WA, wa_pemilik(), WA_PEMILIK_TAMPIL)
     return head("%s | %s" % (u["pendek"], MERK), "%s Lihat tiga paket dan coba demonya." % e(u["lihat"]), css, warna=WARNA_INDEX) + body
 
 
@@ -626,10 +627,10 @@ def halaman_galat(kode, judul, teks, bisa_kembali):
             '<a class="tombol garis" id="beranda" href="/">Ke beranda</a>' % I_KIRI
         )
         alt_li = "".join(
-            '<li><a href="/%s/paket-1/"><span>Demo %s</span>%s</a></li>' % (u["slug"], e(u["pendek"].lower()), I_KANAN)
+            '<li><a href="/%s/paket-1/"><span class="alt-nama"><span class="alt-ikon">%s</span>Demo %s</span>%s</a></li>' % (u["slug"], IKON[u["slug"]], e(u["pendek"].lower()), I_KANAN)
             for u in USAHA
         )
-        alt_li += '<li><a href="/"><span>Beranda</span>%s</a></li>' % I_KANAN
+        alt_li += '<li><a href="/"><span class="alt-nama"><span class="alt-ikon">%s</span>Beranda</span>%s</a></li>' % (I_RUMAH, I_KANAN)
         alt = (
             '<nav class="alternatif" aria-labelledby="alt-judul"><h2 id="alt-judul">Atau langsung buka</h2><ul>%s</ul></nav>' % alt_li
         )
