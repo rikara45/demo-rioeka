@@ -94,15 +94,6 @@ svg{display:block;flex:none}
 @media (min-width:520px){.aksi{grid-template-columns:auto auto;justify-content:start}}
 .catatan-demo{display:flex;gap:10px;align-items:flex-start;margin-top:20px;padding:12px 14px;border-radius:var(--r-kecil);background:var(--sinyal-lembut);font-size:14px}
 .tanda-contoh{flex:none;padding:2px 9px;border-radius:999px;background:var(--sinyal);color:var(--di-atas-sinyal);font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
-.paket-nav{margin-top:22px}
-.paket-nav p{font-size:13px;font-weight:600;color:var(--tinta-redup);margin-bottom:6px}
-.paket-nav ul{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:4px;border:1px solid var(--garis);border-radius:var(--r-kecil);background:var(--kartu)}
-.paket-nav a{display:grid;place-content:center;min-height:52px;padding:4px 6px;border-radius:calc(var(--r-kecil) - 4px);text-align:center;text-decoration:none;line-height:1.2}
-.paket-nav a b{display:block;font-size:13px;color:var(--tinta-redup)}
-.paket-nav a span{font-weight:700}
-.paket-nav a:hover{background:var(--kartu-turun)}
-.paket-nav a[aria-current="page"]{background:var(--tinta);color:var(--latar)}
-.paket-nav a[aria-current="page"] b{color:var(--latar)}
 .loncat{display:flex;gap:8px;overflow-x:auto;margin:20px -16px 0;padding:2px 16px 6px;scrollbar-width:none}
 .loncat::-webkit-scrollbar{display:none}
 .loncat a{flex:none;display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border:1px solid var(--garis-kuat);border-radius:999px;font-weight:600;font-size:15px;text-decoration:none}
@@ -130,7 +121,10 @@ svg{display:block;flex:none}
 @media (min-width:520px){.aksi-lokasi{grid-template-columns:auto auto;justify-content:start}}
 .galeri{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:16px}
 @media (min-width:600px){.galeri{grid-template-columns:repeat(3,minmax(0,1fr))}}
-.petak{display:flex;align-items:flex-end;aspect-ratio:4/3;padding:10px;border:1px dashed var(--garis-kuat);border-radius:var(--r-kecil);background:var(--kartu-turun);font-size:13px;color:var(--tinta-redup)}
+.petak{margin:0;aspect-ratio:4/3;overflow:hidden;border-radius:var(--r-kecil);background:var(--kartu-turun)}
+.petak img{display:block;width:100%;height:100%;object-fit:cover}
+.kredit{margin-top:12px;font-size:13px;color:var(--tinta-redup)}
+.kredit a{color:inherit;text-decoration:underline;display:inline-block;padding:12px 0}
 .tanya{margin-top:12px;border-bottom:1px solid var(--garis)}
 .tanya details{border-top:1px solid var(--garis)}
 .tanya summary{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:56px;padding:12px 0;font-weight:600;cursor:pointer;list-style:none}

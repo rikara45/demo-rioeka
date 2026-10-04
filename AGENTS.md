@@ -7,6 +7,7 @@ Situs statis demo (salon + barbershop) untuk https://demo.rioeka.com. Tanpa pack
 - `index.html`: daftar paket (halaman utama, CSS dan JS inline).
 - `salon/paket-{1,2,3}/index.html`, `barbershop/paket-{1,2,3}/index.html`: halaman demo nyata. Masing-masing berkas mandiri (CSS inline, 1-2 `<script>` inline), tanpa shared stylesheet. Gaya bersama cukup diubah di `css.py`, lalu generate ulang.
 - `salon/index.html`, `barbershop/index.html`: hanya redirect (`meta refresh` ke `/`) untuk alamat lama. Jangan diisi konten lagi.
+- `salon/img/g1-g6.jpg`, `barbershop/img/g1-g6.jpg`: foto galeri paket-1 (720x540, Unsplash License, kredit di `.kredit` bagian galeri). Daftar file dan alt ada di `galeri` pada `data.py`. Foto ada di dalam `salon/` dan `barbershop/`, jadi otomatis ikut image Docker. Pakai hanya foto Unsplash gratis (bukan Unsplash+), simpan lokal, jangan hotlink.
 - `font/`: Archivo self-hosted. Halaman memuat font lewat `@font-face` inline dengan URL mutlak `/font/archivo-latin.woff2`, jadi harus disajikan dari root domain; buka via `file://` tidak memuat font.
 - Alur booking di `salon/paket-{2,3}` dan `barbershop/paket-{2,3}` (`#pesan`, `#alur`): wizard satu langkah per layar (paket 2 = 5 langkah, paket 3 = 6 dengan pembayaran), progress bar, tombol Lanjut/Kembali lengket di `.aksi-langkah`, layar "Periksa" dengan tombol "Ubah" per baris. Satu sumber JS (`BOOKING_JS` di `js.py`), data per usaha lewat `var D`. Semua berkas HTML memakai CRLF.
 

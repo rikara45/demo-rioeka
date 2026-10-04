@@ -75,15 +75,6 @@ svg{display:block;flex:none}
 @media (min-width:520px){.aksi{grid-template-columns:auto auto;justify-content:start}}
 .catatan-demo{display:flex;gap:10px;align-items:flex-start;margin-top:20px;padding:12px 14px;border-radius:var(--r-kecil);background:var(--sinyal-lembut);font-size:14px}
 .tanda-contoh{flex:none;padding:2px 9px;border-radius:999px;background:var(--sinyal);color:var(--di-atas-sinyal);font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
-.paket-nav{margin-top:22px}
-.paket-nav p{font-size:13px;font-weight:600;color:var(--tinta-redup);margin-bottom:6px}
-.paket-nav ul{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:4px;border:1px solid var(--garis);border-radius:var(--r-kecil);background:var(--kartu)}
-.paket-nav a{display:grid;place-content:center;min-height:52px;padding:4px 6px;border-radius:calc(var(--r-kecil) - 4px);text-align:center;text-decoration:none;line-height:1.2}
-.paket-nav a b{display:block;font-size:13px;color:var(--tinta-redup)}
-.paket-nav a span{font-weight:700}
-.paket-nav a:hover{background:var(--kartu-turun)}
-.paket-nav a[aria-current="page"]{background:var(--tinta);color:var(--latar)}
-.paket-nav a[aria-current="page"] b{color:var(--latar)}
 .loncat{display:flex;gap:8px;overflow-x:auto;margin:20px -16px 0;padding:2px 16px 6px;scrollbar-width:none}
 .loncat::-webkit-scrollbar{display:none}
 .loncat a{flex:none;display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border:1px solid var(--garis-kuat);border-radius:999px;font-weight:600;font-size:15px;text-decoration:none}
@@ -111,7 +102,10 @@ svg{display:block;flex:none}
 @media (min-width:520px){.aksi-lokasi{grid-template-columns:auto auto;justify-content:start}}
 .galeri{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:16px}
 @media (min-width:600px){.galeri{grid-template-columns:repeat(3,minmax(0,1fr))}}
-.petak{display:flex;align-items:flex-end;aspect-ratio:4/3;padding:10px;border:1px dashed var(--garis-kuat);border-radius:var(--r-kecil);background:var(--kartu-turun);font-size:13px;color:var(--tinta-redup)}
+.petak{margin:0;aspect-ratio:4/3;overflow:hidden;border-radius:var(--r-kecil);background:var(--kartu-turun)}
+.petak img{display:block;width:100%;height:100%;object-fit:cover}
+.kredit{margin-top:12px;font-size:13px;color:var(--tinta-redup)}
+.kredit a{color:inherit;text-decoration:underline;display:inline-block;padding:12px 0}
 .tanya{margin-top:12px;border-bottom:1px solid var(--garis)}
 .tanya details{border-top:1px solid var(--garis)}
 .tanya summary{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:56px;padding:12px 0;font-weight:600;cursor:pointer;list-style:none}
@@ -222,7 +216,7 @@ svg{display:block;flex:none}
 </style>
 </head>
 <body>
-<header class="atas"><div class="wadah"><a class="balik" href="/"><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg> Semua paket</a><span class="nama-atas">Salon Melati</span></div></header>
+<header class="atas"><div class="wadah"><a class="balik" href="/"><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg> Daftar paket</a><span class="nama-atas">Salon Melati</span></div></header>
 <div class="pole" aria-hidden="true"></div>
 <main>
 <div class="wadah">
@@ -232,8 +226,7 @@ svg{display:block;flex:none}
 <p class="status" id="status"><span class="titik" id="titik"></span><span id="status-teks">Memuat jam buka</span></p>
 <p class="lead">Potong, warna, dan perawatan rambut dengan harga yang tertera jelas.</p>
 <div class="aksi"><a class="tombol" href="#pesan"><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> Pesan sekarang</a><a class="tombol garis" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20tanya%20soal%20booking%20di%20Salon%20Melati."><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.4 8.4 0 1 1 21 11.5Z"/></svg> Tanya lewat WhatsApp</a></div>
-<p class="catatan-demo"><span class="tanda-contoh">Mode demo</span><span>Pembayaran di halaman ini simulasi. Tidak ada uang yang berpindah, dan tidak ada data kartu yang diminta.</span></p>
-<nav class="paket-nav" aria-label="Pilih paket demo"><p>Lihat paket lain</p><ul><li><a href="/salon/paket-1/"><b>Paket 1</b><span>Info</span></a></li><li><a href="/salon/paket-2/"><b>Paket 2</b><span>Booking</span></a></li><li><a href="/salon/paket-3/" aria-current="page"><b>Paket 3</b><span>Bayar</span></a></li></ul></nav>
+<p class="catatan-demo"><span class="tanda-contoh">Demo Paket 3</span><span>Pembayaran di halaman ini simulasi. Tidak ada uang yang berpindah, dan tidak ada data kartu yang diminta.</span></p>
 <nav class="loncat" aria-label="Loncat ke bagian"><a href="#pesan">Pesan</a><a href="#harga">Harga</a><a href="#lokasi">Lokasi</a><a href="#tanya">Tanya jawab</a></nav>
 </section>
 <section class="bagian" id="bagian-pesan" aria-labelledby="j-pesan">

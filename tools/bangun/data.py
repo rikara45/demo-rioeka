@@ -42,8 +42,8 @@ SALON = dict(
         ("Rina", "Warna dan smoothing", "Khusus pewarnaan dan pelurusan. Konsultasi warna tidak dipungut biaya."),
         ("Dewi", "Perawatan rambut", "Creambath dan perawatan kulit kepala."),
     ],
-    galeri=["Foto tampak depan", "Foto ruangan", "Meja cuci", "Hasil potong", "Hasil pewarnaan", "Area tunggu"],
-    galeri_lead="Enam kotak ini tempat foto Salon Melati. Kirim enam foto, dan semuanya dipasang di sini.",
+    galeri=[("g6", "Ruang depan dan meja resepsionis"), ("g1", "Area potong dengan cermin"), ("g2", "Meja cermin dan kursi"), ("g3", "Meja cuci"), ("g4", "Proses potong rambut"), ("g5", "Proses pewarnaan rambut")],
+    galeri_lead="Enam foto suasana dan layanan salon. Di website sungguhan, foto ini diganti foto usaha Anda sendiri.",
     faq=[
         ("Perlu reservasi dulu?", "Disarankan, terutama Sabtu dan Minggu. Bisa lewat halaman ini atau lewat WhatsApp."),
         ("Bisa datang tanpa janji?", "Bisa, dan akan dilayani kalau kursi sedang kosong. Kalau sedang penuh, Anda diberi tahu perkiraan waktu tunggunya sebelum memutuskan menunggu."),
@@ -98,8 +98,8 @@ BARBER = dict(
         ("Budi", "Cukur jenggot", "Jenggot dan kumis, termasuk perawatan."),
         ("Sandi", "Styling dan pomade", "Penataan dan perawatan rambut."),
     ],
-    galeri=["Foto depan", "Kursi potong", "Cermin", "Hasil fade", "Alat cukur", "Area tunggu"],
-    galeri_lead="Enam kotak ini tempat foto Barbershop Cukur Rapi. Kirim enam foto, dan semuanya dipasang di sini.",
+    galeri=[("g1", "Ruang potong dengan tiga kursi"), ("g2", "Kursi potong"), ("g3", "Sudut cermin dan rak produk"), ("g4", "Lengkung bata dan kursi potong"), ("g5", "Kursi klasik kulit"), ("g6", "Kursi dan wastafel cuci")],
+    galeri_lead="Enam foto suasana barbershop. Di website sungguhan, foto ini diganti foto usaha Anda sendiri.",
     faq=[
         ("Perlu pesan dulu?", "Tidak wajib, tapi Sabtu dan Minggu hampir selalu penuh. Memesan lebih dulu menghemat waktu tunggu."),
         ("Berapa lama satu kali potong?", "Sekitar tiga puluh menit untuk potong biasa, dan sampai satu jam untuk paket lengkap."),
