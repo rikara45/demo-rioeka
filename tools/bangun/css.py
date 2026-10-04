@@ -164,7 +164,11 @@ svg{display:block;flex:none}
 """
 
 BOOKING = """
-.pesan{padding:16px 16px 16px;scroll-margin-top:100px}
+.pesan{padding:16px 16px 16px}
+.kartu.pesan-buka > h3{font-size:20px;font-weight:800;line-height:1.2;letter-spacing:0;text-transform:none;color:var(--tinta)}
+.pesan-buka p{margin:8px 0 16px;max-width:52ch;color:var(--tinta-redup)}
+.pesan-buka .tombol{width:100%}
+@media (min-width:520px){.pesan-buka .tombol{width:auto}}
 .langkah-kepala{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
 .langkah-no{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--tinta-redup)}
 .langkah-nama{font-size:13px;font-weight:600;color:var(--tinta-redup)}

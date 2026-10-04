@@ -367,6 +367,18 @@ BOOKING_JS = r"""
   }
   $("#ulang").addEventListener("click",function(){location.reload()});
 
+  var pembuka=$("#pesan-buka"), tombolBuka=$("#buka-pesan");
+  function buka(){
+    if(kartu.hidden){
+      kartu.hidden=false;pembuka.hidden=true;tombolBuka.setAttribute("aria-expanded","true");
+      var h=$("h3",panel[LANGKAH[i][0]]);if(h){h.focus({preventScroll:true})}
+    }
+    kartu.scrollIntoView({block:"start",behavior:redam?"auto":"smooth"});
+  }
+  tombolBuka.addEventListener("click",buka);
+  $$('a[href="#pesan"]').forEach(function(a){a.addEventListener("click",function(ev){ev.preventDefault();buka()})});
+  if(location.hash==="#pesan"){buka()}
+
   pergi(0);mulai=false;
 })();
 """

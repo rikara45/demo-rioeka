@@ -126,10 +126,16 @@ def seksi_pesan(u, n):
             '<div id="panel-transfer" class="panel-bayar" hidden><p>Di halaman sungguhan, di sini muncul nomor rekening dan kode bayar khusus pesanan ini.</p></div>'
             "</div>"
         )
+    buka = (
+        '<div class="kartu pesan-buka" id="pesan-buka"><h3>Coba alurnya sendiri</h3>'
+        '<p>Pilih layanan, %s, tanggal, dan jam dalam %d langkah singkat. Pesanan di halaman contoh ini tidak tersimpan.</p>'
+        '<button class="tombol" id="buka-pesan" type="button" aria-controls="pesan" aria-expanded="false">%s Mulai coba pesan</button></div>'
+    ) % (e(nom.lower()), total, I_KALENDER)
     return (
         '<section class="bagian" id="bagian-pesan" aria-labelledby="j-pesan">\n'
-        '<p class="tag-baris"><span class="tag-anda">Layanan dan jam sesuai usaha Anda</span></p>\n<h2 id="j-pesan">Isi pesanan</h2>\n<p class="bagian-lead">%s</p>\n'
-        '<div class="kartu pesan" id="pesan">\n'
+        '<p class="tag-baris"><span class="tag-anda">Layanan dan jam sesuai usaha Anda</span></p>\n<h2 id="j-pesan">Coba pesan sendiri</h2>\n<p class="bagian-lead">%s</p>\n'
+        '%s\n'
+        '<div class="kartu pesan" id="pesan" hidden>\n'
         '<div id="alur">\n'
         '<div class="langkah-kepala"><span class="langkah-no" id="l-no">Langkah 1 dari %d</span><span class="langkah-nama" id="l-nama">Layanan</span></div>\n'
         '<div class="progres" id="progres" role="progressbar" aria-label="Kemajuan pesanan" aria-valuemin="1" aria-valuemax="%d" aria-valuenow="1"><i id="progres-isi"></i></div>\n'
@@ -164,7 +170,7 @@ def seksi_pesan(u, n):
         '<div class="aksi"><a class="tombol" id="k-wa" href="#">Kirim ke WhatsApp</a><button class="tombol garis" id="ulang" type="button">Pesan lagi</button></div>'
         '</div>\n'
         '</div>\n</section>\n'
-    ) % (e(lead), total, total, e(u["tip_layanan"]), e(nom.lower()), e(u["siapa_saja"]), panel_bayar)
+    ) % (e(lead), buka, total, total, e(u["tip_layanan"]), e(nom.lower()), e(u["siapa_saja"]), panel_bayar)
 
 
 def seksi_harga(u):
