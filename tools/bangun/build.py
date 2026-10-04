@@ -2,7 +2,7 @@ import json, os, sys
 from html import escape as e
 from urllib.parse import quote
 sys.path.insert(0, os.path.dirname(__file__))
-from css import FONT, THEME_SALON, THEME_BARBER, BASE, BOOKING, INDEX_TOKENS, INDEX
+from css import FONT, THEME_SALON, THEME_BARBER, BASE, BOOKING, INDEX_TOKENS, INDEX, ERR
 from data import SALON, BARBER, URUT_HARI
 from js import STATUS_JS, BAR_JS, BOOKING_JS
 
@@ -35,12 +35,12 @@ def wa_link(u):
     return "https://wa.me/%s?text=%s" % (u["wa"], quote(u["wa_pesan"], safe=""))
 
 
-def head(title, desc, css, robots=True):
+def head(title, desc, css, robots=True, warna=None):
     return (
         '<!DOCTYPE html>\n<html lang="id">\n<head>\n<meta charset="utf-8">\n'
         '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
         + ('<meta name="robots" content="noindex, nofollow">\n' if robots else "")
-        + '<meta name="theme-color" content="%s">\n' % ("#141210" if "E9A23B" in css else "#FBF6F2")
+        + '<meta name="theme-color" content="%s">\n' % (warna or ("#141210" if "E9A23B" in css else "#FBF6F2"))
         + "<title>%s</title>\n" % e(title)
         + '<meta name="description" content="%s">\n' % e(desc)
         + "<style>\n" + css + "\n</style>\n</head>\n"
@@ -298,6 +298,59 @@ def halaman_index():
     ) % (I_CENTANG, I_WA, I_KALENDER, I_CENTANG, "".join(cards), INDEX_JS)
     return head("Demo website untuk salon dan barbershop, Bandung", "Situs uji coba: lihat dan coba tampilan serta fitur website untuk salon dan barbershop yang bisa Anda dapatkan lewat jasa pembuatan website Rio Ekaputra Siswa, developer aplikasi web di Bandung.", css, robots=False) + body
 
+GALAT_JS = r"""
+(function(){
+  var k=document.getElementById("kembali"), b=document.getElementById("beranda"), t=document.getElementById("kembali-teks");
+  var dari=false;
+  try{dari=!!document.referrer&&new URL(document.referrer).origin===location.origin}catch(x){}
+  if(dari&&history.length>1){
+    k.addEventListener("click",function(ev){ev.preventDefault();history.back()});
+  }else{
+    t.textContent="Ke beranda";b.hidden=true;
+  }
+})();
+"""
+
+GALAT = [
+    ("404.html", "404", "Halaman tidak ditemukan",
+     "Alamat yang Anda buka tidak ada. Bisa jadi salah ketik atau halamannya sudah dipindahkan.", True),
+    ("50x.html", "Galat", "Server sedang bermasalah",
+     "Halaman ini belum bisa dimuat. Ini bukan salah Anda. Tunggu sebentar, lalu muat ulang.", False),
+]
+
+
+def halaman_galat(kode, judul, teks, bisa_kembali):
+    css = FONT + "\n:root{" + INDEX_TOKENS + "}\n" + BASE + INDEX + ERR
+    if bisa_kembali:
+        aksi = (
+            '<a class="tombol" id="kembali" href="/">%s<span id="kembali-teks">Kembali</span></a>'
+            '<a class="tombol garis" id="beranda" href="/">Ke beranda</a>' % I_KIRI
+        )
+        alt = (
+            '<nav class="alternatif" aria-labelledby="alt-judul"><h2 id="alt-judul">Atau langsung buka</h2><ul>'
+            '<li><a href="/salon/paket-1/"><span>Demo salon</span>%s</a></li>'
+            '<li><a href="/barbershop/paket-1/"><span>Demo barbershop</span>%s</a></li>'
+            '<li><a href="/#paket"><span>Daftar paket</span>%s</a></li></ul></nav>' % (I_KANAN, I_KANAN, I_KANAN)
+        )
+        js = "<script>\n" + GALAT_JS + "</script>\n"
+    else:
+        aksi = '<a class="tombol" href="">Muat ulang</a><a class="tombol garis" href="/">Ke beranda</a>'
+        alt = ""
+        js = ""
+    body = (
+        "<body>\n"
+        '<header class="atas atas-hijau"><div class="wadah wadah-lebar"><a class="merek" href="/">Demo website salon dan barbershop</a></div></header>\n'
+        '<main><section class="galat"><div class="wadah">\n'
+        '<span class="kode-galat" aria-hidden="true">%s</span>\n'
+        "<h1>%s</h1>\n"
+        '<p class="lead">%s</p>\n'
+        '<div class="aksi">%s</div>\n%s'
+        "</div></section></main>\n"
+        '<footer class="kaki"><div class="wadah"><p>Dibuat oleh Rio Ekaputra Siswa, developer aplikasi web di Bandung. <a href="https://rioeka.com">rioeka.com</a></p></div></footer>\n'
+        "%s</body>\n</html>\n"
+    ) % (e(kode), e(judul), e(teks), aksi, alt, js)
+    return head(judul + " | Demo website salon dan barbershop", teks, css, warna="#16221E") + body
+
 
 def tulis(rel, isi):
     path = os.path.join(ROOT, rel.replace("/", os.sep))
@@ -308,6 +361,8 @@ def tulis(rel, isi):
 
 if __name__ == "__main__":
     tulis("index.html", halaman_index())
+    for berkas, kode, judul, teks, kembali in GALAT:
+        tulis(berkas, halaman_galat(kode, judul, teks, kembali))
     for u in (SALON, BARBER):
         for n in (1, 2, 3):
             tulis("%s/paket-%d/index.html" % (u["slug"], n), halaman_demo(u, n))
