@@ -2,11 +2,12 @@
 
 Contoh halaman web untuk salon dan barbershop, dibuat oleh [Rio Ekaputra Siswa](https://rioeka.com).
 
-Situs ini berisi tiga halaman statis:
+Situs ini berisi halaman statis:
 
-- `/` daftar demo
-- `/salon/` contoh halaman salon
-- `/barbershop/` contoh halaman barbershop
+- `/` daftar paket
+- `/salon/paket-1/`, `/salon/paket-2/`, `/salon/paket-3/` contoh halaman salon
+- `/barbershop/paket-1/`, `/barbershop/paket-2/`, `/barbershop/paket-3/` contoh halaman barbershop
+- `/salon/` dan `/barbershop/` hanya mengalihkan ke `/`
 
 Semua nama, alamat, harga, foto, dan nomor di dalamnya masih data contoh.
 
@@ -21,4 +22,4 @@ docker run -p 8080:80 demo-rioeka
 
 ## Catatan
 
-Kedua halaman contoh dipasang `noindex, nofollow`, dan `robots.txt` menolak semua mesin pencari. Jadi halaman contoh ini tidak muncul di hasil pencarian.
+Semua halaman contoh dipasang `noindex, nofollow`, dan `robots.txt` menolak semua mesin pencari. Jadi halaman contoh ini tidak muncul di hasil pencarian.

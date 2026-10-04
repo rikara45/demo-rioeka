@@ -8,7 +8,6 @@ Situs statis demo (salon + barbershop) untuk https://demo.rioeka.com. Tanpa buil
 - `salon/index.html`, `barbershop/index.html`: hanya redirect (`meta refresh` ke `/`) untuk alamat lama. Jangan diisi konten lagi.
 - `font/`: Archivo self-hosted. Halaman memuat font lewat `@font-face` inline dengan URL mutlak `/font/archivo-latin.woff2`, jadi harus disajikan dari root domain; buka via `file://` tidak memuat font.
 - Alur booking di `salon/paket-{2,3}` dan `barbershop/paket-{2,3}` (`#langkah-isi`): satu langkah terbuka, langkah selesai diringkas satu baris + tombol "Ubah". Blok JS "langkah booking" di akhir script kedua identik di keempat berkas; ubah di semuanya. Berkas ini memakai CRLF.
-- README.md menyebut "tiga halaman"; sudah usang, struktur sebenarnya seperti di atas.
 
 ## Konvensi
 - Semua halaman demo `noindex, nofollow`; `robots.txt` = `Disallow: /`. Jangan hapus.
