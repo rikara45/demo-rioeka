@@ -1,37 +1,60 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#FBF6F2">
-<title>Halaman web untuk salon dan barbershop di Bandung</title>
-<meta name="description" content="Tiga paket halaman usaha lokal, masing-masing bisa dicoba sendiri.">
-<style>
-@font-face{font-family:Archivo;font-style:normal;font-weight:400 800;font-stretch:62% 125%;font-display:swap;src:url(/font/archivo-latin.woff2) format('woff2')}
-:root{
-  --latar:#F4F1E9;
+FONT = "@font-face{font-family:Archivo;font-style:normal;font-weight:400 800;font-stretch:62% 125%;font-display:swap;src:url(/font/archivo-latin.woff2) format('woff2')}"
+
+THEME_SALON = """
+  --latar:#FBF6F2;
   --kartu:#FFFFFF;
-  --kartu-turun:#E9E5D9;
-  --tinta:#16221E;
-  --tinta-redup:#4A5852;
-  --garis:#DAD5C6;
-  --garis-kuat:#7C877F;
-  --sinyal:#B03A18;
-  --sinyal-gelap:#8F2E12;
-  --sinyal-lembut:#FBE3DA;
+  --kartu-turun:#F4EAE3;
+  --tinta:#2B1B24;
+  --tinta-redup:#6A5560;
+  --garis:#E6D6CE;
+  --garis-kuat:#8A7580;
+  --sinyal:#B0305A;
+  --sinyal-gelap:#8F2147;
+  --sinyal-lembut:#FBE6EC;
   --di-atas-sinyal:#FFFFFF;
-  --fokus:#B03A18;
-  --hijau:#16221E;
-  --krem:#F4F1E9;
-  --krem-redup:#A9B8B0;
-  --garis-hijau:#2A3A35;
-  --jingga:#F57A4E;
+  --fokus:#B0305A;
+  --salah:#A8261A;
   --ok:#2F6B4F;
   --r:20px;
   --r-kecil:14px;
   --r-tombol:999px;
-}
+  --bayang:0 1px 2px rgba(43,27,36,.06),0 8px 24px rgba(43,27,36,.06);
+  --h-berat:700;
+  --h-lebar:100%;
+  --h-huruf:none;
+  --h-ls:-.01em;
+  --pole-tinggi:0px;
+  --pole:none;
+"""
 
+THEME_BARBER = """
+  --latar:#141210;
+  --kartu:#1E1B18;
+  --kartu-turun:#28241F;
+  --tinta:#F4EFE7;
+  --tinta-redup:#B5AA9C;
+  --garis:#3A342C;
+  --garis-kuat:#7E7468;
+  --sinyal:#E9A23B;
+  --sinyal-gelap:#F2B554;
+  --sinyal-lembut:#3A2E18;
+  --di-atas-sinyal:#17110A;
+  --fokus:#E9A23B;
+  --salah:#FF9C87;
+  --ok:#7FCB9A;
+  --r:10px;
+  --r-kecil:8px;
+  --r-tombol:8px;
+  --bayang:none;
+  --h-berat:800;
+  --h-lebar:72%;
+  --h-huruf:uppercase;
+  --h-ls:.01em;
+  --pole-tinggi:10px;
+  --pole:repeating-linear-gradient(135deg,var(--sinyal) 0 14px,var(--tinta) 14px 28px);
+"""
+
+BASE = """
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-padding-top:72px;background:var(--latar);accent-color:var(--sinyal)}
 @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
@@ -126,7 +149,123 @@ svg{display:block;flex:none}
 .bar-bawah .tombol.garis{flex:0 0 auto}
 @media (min-width:760px){.bar-bawah{display:none}body{padding-bottom:0}}
 @media (prefers-reduced-motion:reduce){*{transition-duration:.001ms !important;animation-duration:.001ms !important}}
+"""
 
+BOOKING = """
+.pesan{padding:16px 16px 16px;scroll-margin-top:68px}
+.langkah-kepala{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.langkah-no{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--tinta-redup)}
+.langkah-nama{font-size:13px;font-weight:600;color:var(--tinta-redup)}
+.progres{height:6px;margin:10px 0 20px;border-radius:99px;background:var(--kartu-turun);overflow:hidden}
+.progres i{display:block;height:100%;width:0;border-radius:99px;background:var(--sinyal);transition:width .3s}
+.panel h3{font-size:24px;font-weight:var(--h-berat);font-stretch:var(--h-lebar);text-transform:var(--h-huruf);letter-spacing:var(--h-ls);line-height:1.1}
+.panel h3:focus{outline:0}
+.panel .tip{margin:6px 0 14px;font-size:14px;color:var(--tinta-redup)}
+.sub{margin:18px 0 8px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--tinta-redup)}
+.opsi-daftar{display:grid;gap:8px}
+.opsi{display:block;position:relative}
+.opsi input{position:absolute;opacity:0;width:1px;height:1px;margin:0}
+.opsi-kotak{display:grid;grid-template-columns:auto 1fr auto;gap:2px 12px;align-items:center;min-height:64px;padding:12px 14px;border:2px solid var(--garis);border-radius:var(--r-kecil);background:var(--kartu);cursor:pointer;transition:border-color .15s,background-color .15s}
+.opsi-kotak:hover{border-color:var(--garis-kuat)}
+.opsi-tanda{grid-row:1 / 3;display:grid;place-items:center;width:24px;height:24px;border:2px solid var(--garis-kuat);border-radius:50%}
+.opsi-tanda::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--di-atas-sinyal);transform:scale(0);transition:transform .15s}
+.opsi-nama{grid-column:2;font-weight:700}
+.opsi-ket{grid-column:2 / 4;font-size:14px;color:var(--tinta-redup)}
+.opsi-harga{grid-column:3;grid-row:1;font-weight:700;white-space:nowrap}
+.opsi input:checked + .opsi-kotak{border-color:var(--sinyal);background:var(--sinyal-lembut)}
+.opsi input:checked + .opsi-kotak .opsi-tanda{border-color:var(--sinyal);background:var(--sinyal)}
+.opsi input:checked + .opsi-kotak .opsi-tanda::after{transform:scale(1)}
+.opsi input:focus-visible + .opsi-kotak{outline:3px solid var(--fokus);outline-offset:2px}
+
+.hari-strip{position:relative;display:flex;gap:8px;overflow-x:auto;margin:0 -16px;padding:4px 16px 12px;scroll-snap-type:x proximity;scrollbar-width:thin}
+.hari{flex:0 0 70px;display:grid;place-content:center;min-height:80px;padding:6px 4px;border:2px solid var(--garis);border-radius:var(--r-kecil);background:var(--kartu);color:var(--tinta);font:inherit;text-align:center;line-height:1.2;cursor:pointer;scroll-snap-align:start}
+.hari:hover:not(:disabled){border-color:var(--garis-kuat)}
+.hari .hr{font-size:12px;font-weight:600;color:var(--tinta-redup)}
+.hari .tg{font-size:24px;font-weight:800}
+.hari .bl{font-size:12px;color:var(--tinta-redup)}
+.hari[aria-pressed="true"]{border-color:var(--sinyal);background:var(--sinyal);color:var(--di-atas-sinyal)}
+.hari[aria-pressed="true"] .hr,.hari[aria-pressed="true"] .bl{color:var(--di-atas-sinyal)}
+.hari:disabled{border-style:dashed;cursor:not-allowed;opacity:.6}
+.petunjuk{font-size:13px;color:var(--tinta-redup)}
+.jam-label{margin:12px 0 10px;font-weight:700}
+.jam-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+@media (min-width:480px){.jam-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.jam-grid button{min-height:52px;border:2px solid var(--garis);border-radius:var(--r-kecil);background:var(--kartu);color:var(--tinta);font:inherit;font-weight:600;font-variant-numeric:tabular-nums;cursor:pointer}
+.jam-grid button:hover:not(:disabled){border-color:var(--garis-kuat)}
+.jam-grid button[aria-pressed="true"]{border-color:var(--sinyal);background:var(--sinyal);color:var(--di-atas-sinyal)}
+.jam-grid button:disabled{border-style:dashed;background:transparent;color:var(--tinta-redup);text-decoration:line-through;cursor:not-allowed}
+
+.kolom{display:grid;gap:6px;margin-top:14px}
+.kolom label{font-weight:600}
+.kolom input{min-height:52px;padding:0 14px;border:2px solid var(--garis-kuat);border-radius:var(--r-kecil);background:var(--kartu);color:var(--tinta);font:inherit;font-size:16px}
+.kolom input::placeholder{color:var(--tinta-redup);opacity:.8}
+.kolom input[aria-invalid="true"]{border-color:var(--salah)}
+.kolom .bantu{font-size:14px;color:var(--tinta-redup)}
+.kolom .salah{font-size:14px;font-weight:600;color:var(--salah)}
+
+.tinjau{margin-top:4px}
+.tinjau > div{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:0 12px;align-items:center;padding:10px 0;border-top:1px solid var(--garis)}
+.tinjau > div:first-child{border-top:0}
+.tinjau dt{grid-column:1;grid-row:1;font-size:13px;color:var(--tinta-redup)}
+.tinjau dd{grid-column:1;grid-row:2;font-weight:700;overflow-wrap:anywhere}
+.tinjau .ubah{grid-column:2;grid-row:1 / 3;min-height:44px;padding:0 10px;border:0;border-radius:var(--r-tombol);background:transparent;color:var(--sinyal);font:inherit;font-weight:700;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.tinjau .ubah:hover{background:var(--sinyal-lembut)}
+.tinjau .total,.tinjau .rw{padding:12px 0}
+.tinjau .total dt,.tinjau .rw dt,.tinjau .total dd,.tinjau .rw dd{grid-row:1}
+.tinjau .total dd,.tinjau .rw dd{grid-column:2;text-align:right}
+.tinjau .total{border-top:2px solid var(--tinta)}
+.tinjau .total dt{font-size:15px;font-weight:700;color:var(--tinta)}
+.tinjau .total dd{font-size:20px}
+.tinjau .rw dd{font-weight:600}
+
+.qris{width:min(220px,60vw);aspect-ratio:1;margin:16px 0 8px;border:10px solid var(--kartu);outline:2px solid var(--tinta);background:repeating-conic-gradient(var(--tinta) 0 25%,var(--kartu) 0 50%) 0 0/22px 22px;position:relative}
+.qris::after{content:"CONTOH";position:absolute;inset:0;display:grid;place-items:center;background:var(--kartu-turun);color:var(--salah);font-weight:800;letter-spacing:.14em}
+.panel-bayar{margin-top:14px;padding:14px;border-radius:var(--r-kecil);background:var(--kartu-turun);font-size:14px}
+.panel-bayar p + p{margin-top:8px}
+
+.aksi-langkah{position:sticky;bottom:0;z-index:5;margin:20px -16px -16px;padding:12px 16px calc(12px + env(safe-area-inset-bottom));border-top:1px solid var(--garis);border-radius:0 0 var(--r) var(--r);background:var(--kartu)}
+.ringkas-mini{margin-bottom:8px;overflow:hidden;font-size:14px;color:var(--tinta-redup);text-overflow:ellipsis;white-space:nowrap}
+.ringkas-mini b{color:var(--tinta)}
+.pesan-sistem{margin-bottom:8px;font-size:14px;font-weight:600;color:var(--salah)}
+.pesan-sistem:empty{display:none}
+.baris-aksi{display:grid;grid-template-columns:auto 1fr;gap:10px}
+.baris-aksi .tombol{padding:0 16px}
+#lanjut{white-space:nowrap}
+.baris-aksi.tanpa-kembali{grid-template-columns:1fr}
+
+.selesai h3{margin:14px 0 4px;font-size:26px;font-weight:var(--h-berat);font-stretch:var(--h-lebar);text-transform:var(--h-huruf);letter-spacing:var(--h-ls)}
+.selesai h3:focus{outline:0}
+.centang{display:grid;place-items:center;width:56px;height:56px;border-radius:50%;background:var(--sinyal);color:var(--di-atas-sinyal)}
+.centang .ikon{width:28px;height:28px;stroke-width:3}
+.kode{margin:6px 0 14px;font-size:30px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:.06em}
+.selesai .aksi{margin-top:18px}
+"""
+
+INDEX_TOKENS = """
+  --latar:#F4F1E9;
+  --kartu:#FFFFFF;
+  --kartu-turun:#E9E5D9;
+  --tinta:#16221E;
+  --tinta-redup:#4A5852;
+  --garis:#DAD5C6;
+  --garis-kuat:#7C877F;
+  --sinyal:#B03A18;
+  --sinyal-gelap:#8F2E12;
+  --sinyal-lembut:#FBE3DA;
+  --di-atas-sinyal:#FFFFFF;
+  --fokus:#B03A18;
+  --hijau:#16221E;
+  --krem:#F4F1E9;
+  --krem-redup:#A9B8B0;
+  --garis-hijau:#2A3A35;
+  --jingga:#F57A4E;
+  --ok:#2F6B4F;
+  --r:20px;
+  --r-kecil:14px;
+  --r-tombol:999px;
+"""
+
+INDEX = """
 .atas.atas-hijau{border-bottom-color:var(--garis-hijau)}
 .merek{display:inline-flex;align-items:baseline;gap:10px;min-height:44px;padding:8px 0;text-decoration:none;font-weight:800;font-size:18px}
 .merek span{font-weight:500;font-size:14px;opacity:.75}
@@ -166,44 +305,4 @@ svg{display:block;flex:none}
 .kaki p + p{margin-top:10px}
 .kaki a{display:inline-flex;align-items:center;min-height:44px;color:var(--tinta);font-weight:600}
 body{padding-bottom:0}
-
-</style>
-</head>
-<body>
-<header class="atas atas-hijau"><div class="wadah wadah-lebar"><a class="merek" href="/">Halaman usaha lokal<span>Bandung</span></a></div></header>
-<main>
-<section class="hero"><div class="wadah wadah-lebar">
-<p class="eyebrow">Jasa halaman web &middot; Bandung</p>
-<h1>Halaman web untuk salon dan barbershop</h1>
-<p class="lead">Dibuat satu orang, di Bandung. Isinya daftar harga, jam buka, tombol WhatsApp, dan kalau perlu sekalian sistem booking. Pilih paket untuk melihat bedanya, lalu buka demonya dan coba sendiri di HP.</p>
-<ul class="fitur"><li><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Harga dan jam buka</li><li><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.4 8.4 0 1 1 21 11.5Z"/></svg> Tombol WhatsApp</li><li><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> Sistem booking</li><li><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Bayar muka</li></ul>
-<div class="aksi"><a class="tombol" href="#paket">Lihat tiga paket</a></div>
-</div></section>
-<section class="bagian" id="paket"><div class="wadah wadah-lebar">
-<h2>Pilih paket, coba demonya</h2>
-<p class="bagian-lead">Demo memakai data contoh. Nama, harga, dan nomor di dalamnya bukan usaha sungguhan.</p>
-<div class="pilih-usaha" id="pilih-usaha" role="group" aria-label="Jenis usaha demo"><button type="button" aria-pressed="true" data-usaha="salon">Untuk salon</button><button type="button" aria-pressed="false" data-usaha="barbershop">Untuk barbershop</button></div>
-<p class="nama-demo" aria-live="polite">Demo memakai nama <b id="nama-demo">Salon Melati</b>.</p>
-<ul class="paket-daftar paket"><li class="paket"><article><div><span class="no">Paket 1</span><h3>Halaman informasi</h3></div><p class="ket">Harga layanan, jam buka, alamat, dan tombol WhatsApp. Yang paling cepat jadi dan paling murah.</p><p class="cocok"><b>Cocok</b> Kalau yang dibutuhkan hanya supaya orang menemukan salon dan bisa bertanya.</p><ul class="isi" aria-label="Isi paket 1"><li><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Daftar harga layanan</span></li><li><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Jam buka dan hari tutup</span></li><li><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Alamat lengkap dengan tombol peta</span></li><li><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Tombol WhatsApp di setiap layar</span></li><li><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Status buka dihitung dari jam sebenarnya</span></li></ul><div class="bawah"><a class="tombol" href="/salon/paket-1/" data-buka="1">Buka demo paket 1</a><p class="harga-tag">Harga belum diisi &middot; sekali bayar</p></div></article></li><li class="paket"><article><div><span class="no">Paket 2</span><h3>Tambah sistem booking</h3></div><p class="ket">Pengunjung memilih layanan, stylist, tanggal, dan jam sendiri. Tidak perlu bolak-balik WhatsApp.</p><p class="cocok"><b>Cocok</b> Kalau jadwal sudah ramai dan pesanan sering bertabrakan.</p><ul class="isi" aria-label="Isi paket 2"><li><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Semua isi paket 1</span></li><li><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Pilih layanan dan stylist</span></li><li><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Pilih tanggal dan jam yang tersedia</span></li><li><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Jam yang sudah penuh tertutup sendiri</span></li><li><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Ringkasan sebelum dikonfirmasi</span></li></ul><div class="bawah"><a class="tombol" href="/salon/paket-2/" data-buka="2">Buka demo paket 2</a><p class="harga-tag">Harga belum diisi &middot; sekali bayar</p></div></article></li><li class="paket"><article><div><span class="no">Paket 3</span><h3>Tambah pembayaran</h3></div><p class="ket">Pengunjung membayar muka saat memesan, supaya yang memesan tidak hilang begitu saja.</p><p class="cocok"><b>Cocok</b> Kalau sering ada yang memesan lalu tidak datang.</p><ul class="isi" aria-label="Isi paket 3"><li><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Semua isi paket 2</span></li><li><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Bayar muka saat memesan</span></li><li><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Pilihan QRIS, transfer, atau bayar di tempat</span></li><li><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Nota pemesanan otomatis</span></li></ul><div class="bawah"><a class="tombol" href="/salon/paket-3/" data-buka="3">Buka demo paket 3</a><p class="harga-tag">Harga belum diisi &middot; sekali bayar</p></div></article></li></ul>
-<p class="catatan-akhir">Semua demo sengaja tidak didaftarkan ke mesin pencari, dan tidak ada angka atau penilaian yang dikarang di halaman ini.</p>
-</div></section>
-</main>
-<footer class="kaki"><div class="wadah wadah-lebar"><p>Dikerjakan oleh Rio Ekaputra Siswa, Bandung. <a href="https://rioeka.com">rioeka.com</a></p><p>Harga ketiga paket belum diisi karena pemilik usaha belum memutuskan. Angka tidak dikarang.</p></div></footer>
-<script>
-
-(function(){
-  var NAMA={salon:"Salon Melati",barbershop:"Barbershop Cukur Rapi"};
-  var tombol=[].slice.call(document.querySelectorAll("#pilih-usaha button"));
-  var tautan=[].slice.call(document.querySelectorAll("[data-buka]"));
-  var nama=document.getElementById("nama-demo");
-  function gambar(usaha){
-    tombol.forEach(function(b){b.setAttribute("aria-pressed",b.dataset.usaha===usaha?"true":"false")});
-    tautan.forEach(function(a){a.href="/"+usaha+"/paket-"+a.dataset.buka+"/"});
-    nama.textContent=NAMA[usaha];
-  }
-  tombol.forEach(function(b){b.addEventListener("click",function(){gambar(b.dataset.usaha)})});
-  gambar("salon");
-})();
-</script>
-</body>
-</html>
+"""

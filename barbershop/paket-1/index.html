@@ -3,467 +3,199 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#141210">
 <title>Barbershop Cukur Rapi, Coblong</title>
 <meta name="description" content="Harga, jam buka, alamat, dan cara menghubungi Barbershop Cukur Rapi.">
-<meta name="robots" content="noindex, nofollow">
 <style>
 @font-face{font-family:Archivo;font-style:normal;font-weight:400 800;font-stretch:62% 125%;font-display:swap;src:url(/font/archivo-latin.woff2) format('woff2')}
-/* Papan harga: satu bidang papan, huruf tulang, satu merah sinyal.
-   Dipakai bersama oleh halaman daftar paket dan ketiga halaman demo.
-   Aturan huruf disuntik terpisah oleh penyusun, dengan alamat mutlak /font/. */
-
 :root{
-  /* papan, untuk halaman daftar paket */
-  --papan:#1B2A26;
-  --papan-naik:#22332E;
-  --tulang:#F2EDE3;
-  --tulang-redup:#9FB3AB;
-  --garis-papan:rgba(242,237,227,.20);
-
-  /* kertas: diturunkan dari hijau papan, bukan krem hangat bawaan */
-  --kertas:#E9EBE4;
-  --kertas-turun:#DDE1D7;
-  --tinta:#14130F;
-  --tinta-redup:#4E5348;
-  --garis-kertas:#B9BFB0;
-  --salah:#8A2B14;
-
-  /* satu aksen, hanya di baris aktif dan tindakan utama */
-  --sinyal:#E2542C;
-  --di-atas-sinyal:#14130F;
-
-  --lebar-papan:900px;
-  --lebar-kertas:760px;
+  --latar:#141210;
+  --kartu:#1E1B18;
+  --kartu-turun:#28241F;
+  --tinta:#F4EFE7;
+  --tinta-redup:#B5AA9C;
+  --garis:#3A342C;
+  --garis-kuat:#7E7468;
+  --sinyal:#E9A23B;
+  --sinyal-gelap:#F2B554;
+  --sinyal-lembut:#3A2E18;
+  --di-atas-sinyal:#17110A;
+  --fokus:#E9A23B;
+  --salah:#FF9C87;
+  --ok:#7FCB9A;
+  --r:10px;
+  --r-kecil:8px;
+  --r-tombol:8px;
+  --bayang:none;
+  --h-berat:800;
+  --h-lebar:72%;
+  --h-huruf:uppercase;
+  --h-ls:.01em;
+  --pole-tinggi:10px;
+  --pole:repeating-linear-gradient(135deg,var(--sinyal) 0 14px,var(--tinta) 14px 28px);
 }
 
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;background:#0E1512;accent-color:#E2542C;scrollbar-color:#3A4A44 #0E1512}
-::-webkit-scrollbar{width:12px;height:12px}
-::-webkit-scrollbar-track{background:#0E1512}
-::-webkit-scrollbar-thumb{background:#3A4A44;border:3px solid #0E1512}
-::-webkit-scrollbar-thumb:hover{background:var(--sinyal)}
-
-body{
-  margin:0;
-  font-family:Archivo,system-ui,-apple-system,"Segoe UI",sans-serif;
-  font-weight:400;
-  font-size:clamp(15px,.35vw + 14px,16.5px);
-  line-height:1.55;
-  font-variant-numeric:tabular-nums;
-  text-underline-offset:3px;
-  text-decoration-thickness:1px;
-}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:72px;background:var(--latar);accent-color:var(--sinyal)}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{margin:0;overflow-x:clip;background:var(--latar);color:var(--tinta);font-family:Archivo,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:16px;line-height:1.55;padding-bottom:calc(84px + env(safe-area-inset-bottom))}
+h1,h2,h3,p,ul,ol,dl,dd,figure{margin:0}
+ul,ol{padding:0;list-style:none}
+a{color:inherit}
+svg{display:block;flex:none}
+:focus-visible{outline:3px solid var(--fokus);outline-offset:2px}
 ::selection{background:var(--sinyal);color:var(--di-atas-sinyal)}
-.kertas ::selection{background:var(--tinta);color:var(--kertas)}
-:focus-visible{outline:3px solid var(--sinyal);outline-offset:2px}
-.kertas :focus-visible{outline-color:var(--tinta)}
+[hidden]{display:none !important}
+.wadah{width:100%;max-width:760px;margin:0 auto;padding:0 16px}
+.ikon{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 
-.papan{background:var(--papan);color:var(--tulang);caret-color:var(--sinyal)}
-.kertas{background:var(--kertas);color:var(--tinta);caret-color:var(--sinyal)}
+.tombol{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 22px;border:2px solid var(--sinyal);border-radius:var(--r-tombol);background:var(--sinyal);color:var(--di-atas-sinyal);font:inherit;font-weight:700;text-decoration:none;text-align:center;cursor:pointer;transition:background-color .15s,border-color .15s}
+.tombol:hover{background:var(--sinyal-gelap);border-color:var(--sinyal-gelap)}
+.tombol.garis{background:transparent;border-color:var(--garis-kuat);color:var(--tinta)}
+.tombol.garis:hover{background:var(--kartu-turun)}
+.tombol[aria-disabled="true"]{background:var(--kartu-turun);border-color:var(--kartu-turun);color:var(--tinta-redup);cursor:not-allowed}
+.tombol[aria-busy="true"]{cursor:progress}
 
-.bungkus{max-width:var(--lebar-papan);margin:0 auto;padding:0 clamp(16px,4vw,28px)}
-.bungkus-kertas{max-width:var(--lebar-kertas);margin:0 auto;padding:0 clamp(16px,4vw,28px)}
+.atas{position:sticky;top:0;z-index:30;background:var(--latar);border-bottom:1px solid var(--garis)}
+.atas .wadah{display:flex;align-items:center;gap:10px;min-height:56px}
+.balik{display:inline-flex;align-items:center;gap:2px;min-height:44px;padding:0 12px 0 6px;margin-left:-6px;border-radius:var(--r-tombol);font-weight:600;font-size:15px;text-decoration:none;white-space:nowrap}
+.balik:hover{background:var(--kartu-turun)}
+.nama-atas{margin-left:auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:700;font-size:15px;color:var(--tinta-redup)}
 
-/* ---- kepala papan ---- */
-.papan-judul{
-  font-weight:800;font-stretch:66%;
-  font-size:clamp(30px,7.2vw,64px);
-  line-height:.98;letter-spacing:-.01em;margin:0;
-}
-.papan-ket{color:var(--tulang-redup);max-width:66ch;margin:16px 0 0}
-.papan-lebih{margin:26px 0 0}
-
-/* ---- baris papan: inti dunia ini ---- */
-.baris-papan{
-  display:grid;grid-template-columns:2.2ch 1fr auto;align-items:baseline;
-  gap:clamp(8px,1.2vw,14px);
-  width:100%;text-align:left;
-  background:transparent;color:inherit;font:inherit;
-  border:0;border-top:1px solid var(--garis-papan);
-  padding:clamp(14px,2.4vw,22px) 12px;
-  cursor:pointer;position:relative;isolation:isolate;
-  transition:color .18s cubic-bezier(.16,1,.3,1);
-}
-.baris-papan:last-of-type{border-bottom:1px solid var(--garis-papan)}
-.baris-papan .nomor{
-  font-weight:800;font-stretch:62%;font-size:clamp(13px,1.8vw,17px);
-  color:var(--tulang-redup);letter-spacing:.04em;
-}
-.baris-papan .nama{
-  font-weight:800;font-stretch:70%;
-  font-size:clamp(19px,3.4vw,32px);line-height:1.04;letter-spacing:-.005em;
-}
-.baris-papan .rinci{
-  display:block;font-weight:400;font-stretch:100%;
-  font-size:clamp(13px,1.5vw,15px);color:var(--tulang-redup);
-  margin-top:7px;max-width:52ch;
-}
-.baris-papan .harga{font-weight:700;font-size:clamp(15px,2.1vw,21px);white-space:nowrap}
-.baris-papan .harga .satuan{
-  display:block;font-weight:400;font-size:12px;color:var(--tulang-redup);
-  letter-spacing:.02em;margin-top:3px;
-}
-
-/* baris yang dipilih: bidang sinyal mengisi dari kiri. satu satunya gerakan di halaman. */
-.baris-papan::before{
-  content:"";position:absolute;inset:0;z-index:-1;
-  background:var(--sinyal);transform:scaleX(0);transform-origin:left center;
-  transition:transform .34s cubic-bezier(.16,1,.3,1)
-}
-.baris-papan[aria-pressed="true"]{color:var(--di-atas-sinyal)}
-.baris-papan[aria-pressed="true"]::before{transform:scaleX(1)}
-.baris-papan[aria-pressed="true"] .rinci,
-.baris-papan[aria-pressed="true"] .harga .satuan{color:var(--di-atas-sinyal)}
-.baris-papan[aria-pressed="true"] .nomor{color:var(--di-atas-sinyal)}
-.baris-papan[aria-pressed="true"] .tanda-demo{border-color:var(--di-atas-sinyal);color:var(--di-atas-sinyal)}
-.baris-papan:hover:not([aria-pressed="true"]){color:#FFF9EE}
-.baris-papan:hover:not([aria-pressed="true"]) .nama{text-decoration:underline}
-.baris-papan[aria-pressed="true"] .nama::after{
-  content:"dipilih";font-weight:400;font-stretch:100%;font-size:13px;
-  letter-spacing:.02em;margin-left:10px;border:1px solid var(--di-atas-sinyal);
-  padding:1px 7px;vertical-align:3px
-}
-
-/* papan yang tidak bisa dipilih, hanya menampilkan harga */
-.baris-papan.statis{cursor:default}
-.baris-papan.statis:hover .nama{text-decoration:none}
-.baris-papan.statis::before{display:none}
-
-/* ---- tombol ---- */
-.tombol{
-  display:inline-flex;align-items:center;justify-content:center;
-  min-height:48px;padding:13px 22px;
-  background:var(--sinyal);color:var(--di-atas-sinyal);
-  font:inherit;font-weight:700;
-  border:0;border-radius:0;text-decoration:none;cursor:pointer;
-  transition:background-color .18s cubic-bezier(.16,1,.3,1)
-}
-.tombol:hover{background:#F0663C}
-.tombol.garis{background:transparent;color:inherit;border:1px solid currentColor;font-weight:500}
-.kertas .tombol.garis:hover{background:var(--tinta);color:var(--kertas)}
-.papan .tombol.garis:hover{background:rgba(242,237,227,.10);color:var(--tulang)}
-.tombol[disabled]{opacity:.45;cursor:not-allowed}
-
-/* ---- kertas: halaman pelanggan ---- */
-.kertas h1,.kertas h2,.kertas h3{
-  font-weight:800;font-stretch:70%;line-height:1.05;margin:0;letter-spacing:-.005em
-}
-.kertas h1{font-size:clamp(26px,5.4vw,42px)}
-.kertas h2{font-size:clamp(19px,3vw,26px)}
-.kertas h3{font-size:clamp(15px,2vw,18px);font-stretch:80%}
-.kertas a{color:inherit}
-.kertas-ket{color:var(--tinta-redup);margin:10px 0 0;max-width:68ch}
-
-.kepala-kertas{
-  display:flex;justify-content:space-between;align-items:flex-start;gap:18px;
-  flex-wrap:wrap;padding:20px 0 18px;border-bottom:2px solid var(--tinta)
-}
-.kepala-kertas .nama-usaha{font-weight:800;font-stretch:68%;font-size:clamp(22px,4vw,32px);line-height:1}
-.kepala-kertas .nama-usaha span{
-  display:block;font-weight:400;font-stretch:100%;font-size:13.5px;
-  color:var(--tinta-redup);margin-top:6px
-}
-.kepala-kertas .kanan{display:flex;flex-direction:column;align-items:flex-end;gap:10px}
-
-.bagian{padding:clamp(30px,5vw,52px) 0;border-bottom:1px solid var(--garis-kertas)}
-.bagian:last-of-type{border-bottom:0}
-
-.daftar{list-style:none;margin:0;padding:0}
-.daftar li{
-  display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:6px 18px;
-  padding:13px 0;border-bottom:1px solid var(--garis-kertas)
-}
-.daftar .nm{font-weight:600;font-stretch:85%}
-.daftar .hr{font-weight:700;white-space:nowrap}
-.daftar .rw{grid-column:1 / -1;color:var(--tinta-redup);font-size:14px;margin:0}
-
-/* pemilihan pada alur booking: baris juga, bukan kartu */
-.pilih{display:grid;gap:0;margin:0;padding:0;list-style:none}
-.pilih li{border-bottom:1px solid var(--garis-kertas);position:relative}
-.pilih label{
-  display:grid;grid-template-columns:auto 1fr auto;align-items:baseline;
-  gap:6px 14px;padding:15px 0;cursor:pointer
-}
-.pilih input{position:absolute;opacity:0;width:1px;height:1px}
-.pilih .tanda{width:20px;height:20px;border:2px solid var(--tinta);position:relative;top:3px}
-.pilih input:checked + .tanda{background:var(--sinyal);border-color:var(--tinta)}
-.pilih input:checked + .tanda::after{
-  content:"";position:absolute;left:5px;top:5px;width:6px;height:6px;background:var(--di-atas-sinyal)
-}
-.pilih input:focus-visible + .tanda{outline:3px solid var(--sinyal);outline-offset:2px}
-.pilih .judul{font-weight:700;font-stretch:85%}
-.pilih .ket{grid-column:2;color:var(--tinta-redup);font-size:14px}
-.pilih .angka{font-weight:700;white-space:nowrap}
-.pilih input:disabled + .tanda{border-style:dashed;background:transparent}
-.pilih li.mati .judul,.pilih li.mati .angka{color:var(--tinta-redup)}
-.pilih li.mati{background:repeating-linear-gradient(135deg,transparent 0 6px,rgba(20,19,15,.055) 6px 12px)}
-.pilih li.mati .tanda{border-style:dashed}
-
-.jam-kisi{display:grid;grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:8px;margin-top:14px}
-.jam-kisi button{
-  font:inherit;font-weight:600;min-height:48px;cursor:pointer;
-  background:transparent;color:var(--tinta);border:1px solid var(--tinta);border-radius:0
-}
-.jam-kisi button:hover:not([disabled]){background:var(--tinta);color:var(--kertas)}
-.jam-kisi button[aria-pressed="true"]{background:var(--sinyal);color:var(--di-atas-sinyal);border-color:var(--tinta)}
-.jam-kisi button[disabled]{
-  cursor:not-allowed;color:var(--tinta-redup);border-style:dashed;
-  background:repeating-linear-gradient(135deg,transparent 0 6px,rgba(20,19,15,.055) 6px 12px)
-}
-
-.hari-kisi{display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:8px;padding:14px 0 6px;margin:0;list-style:none}
-.hari-kisi button{
-  font:inherit;font-weight:600;min-height:64px;cursor:pointer;width:100%;
-  background:transparent;color:var(--tinta);border:1px solid var(--tinta);border-radius:0;
-  display:grid;place-content:center;gap:2px;padding:8px 6px
-}
-.hari-kisi button small{font-weight:400;font-size:12px;color:var(--tinta-redup)}
-.hari-kisi button:hover:not([disabled]){background:var(--tinta);color:var(--kertas)}
-.hari-kisi button:hover:not([disabled]) small{color:var(--kertas)}
-.hari-kisi button[aria-pressed="true"]{background:var(--sinyal);color:var(--di-atas-sinyal)}
-.hari-kisi button[aria-pressed="true"] small{color:var(--di-atas-sinyal)}
-.hari-kisi button[disabled]{
-  cursor:not-allowed;color:var(--tinta-redup);border-style:dashed;
-  background:repeating-linear-gradient(135deg,transparent 0 6px,rgba(20,19,15,.055) 6px 12px)
-}
-
-.langkah{display:grid;gap:26px;counter-reset:l}
-.langkah > section{counter-increment:l;display:grid;grid-template-columns:auto 1fr;gap:14px}
-.langkah > section::before{
-  content:counter(l);font-weight:800;font-stretch:62%;font-size:15px;
-  color:var(--tinta);border:2px solid var(--tinta);width:30px;height:30px;
-  display:grid;place-items:center
-}
-.langkah .isi{min-width:0}
-
-.kolom{display:grid;gap:6px;margin-top:14px;max-width:420px}
-.kolom label{font-weight:600;font-size:14px}
-.kolom input{
-  font:inherit;font-weight:500;padding:12px 13px;min-height:48px;
-  background:var(--kertas);color:var(--tinta);border:1px solid var(--tinta);border-radius:0
-}
-.kolom input::placeholder{color:var(--tinta-redup)}
-.kolom .salah{border-color:var(--salah);border-width:2px}
-.kolom .pesan-salah{color:var(--salah);font-size:14px;font-weight:600}
-
-.catatan{
-  border-top:1px solid var(--garis-kertas);padding-top:16px;margin-top:24px;
-  color:var(--tinta-redup);font-size:14px;max-width:68ch
-}
-.catatan b{color:var(--tinta)}
-.catatan.salah{color:var(--salah);border-top-color:var(--salah);font-weight:600}
-.tanda-demo{
-  display:inline-block;border:2px solid var(--sinyal);color:var(--salah);
-  font-weight:700;font-size:12.5px;letter-spacing:.06em;padding:5px 11px;
-  text-transform:uppercase;white-space:nowrap
-}
-
-.ringkas{display:grid;gap:0;margin:0}
-.ringkas > div{
-  display:grid;grid-template-columns:1fr auto;gap:10px 18px;
-  padding:11px 0;border-bottom:1px solid var(--garis-kertas)
-}
-.ringkas dt{font-weight:600;font-stretch:85%;margin:0}
-.ringkas dd{margin:0;text-align:right;font-weight:700}
-.ringkas > div.rw dd,.ringkas > div.rw dt{font-weight:400;color:var(--tinta-redup);font-size:14px}
-.ringkas .total{border-bottom:0;border-top:2px solid var(--tinta);margin-top:6px;padding-top:13px}
-.ringkas .total dt{font-weight:800;font-stretch:70%;font-size:19px}
-.ringkas .total dd{font-weight:800;font-size:19px}
-
-.nota-selesai{border:2px solid var(--tinta);padding:clamp(20px,4vw,32px);background:var(--kertas-turun);max-width:560px}
-.nota-selesai h2{font-size:clamp(20px,3.4vw,28px)}
-.kode{font-weight:800;font-stretch:62%;font-size:clamp(26px,6vw,42px);letter-spacing:.06em}
-
-.qris{
-  width:min(230px,60vw);aspect-ratio:1;margin:18px 0;
-  background:
-    repeating-conic-gradient(var(--tinta) 0 25%, transparent 0 50%) 0 0/22px 22px,
-    repeating-conic-gradient(var(--tinta) 0 25%, transparent 0 50%) 0 0/22px 22px;
-  border:10px solid var(--kertas);outline:2px solid var(--tinta);position:relative
-}
-.qris::after{
-  content:"DEMO";position:absolute;inset:0;display:grid;place-items:center;
-  background:var(--kertas-turun);color:var(--salah);font-weight:800;font-stretch:62%;
-  font-size:var(--min,34px);letter-spacing:.14em
-}
-
-.jam-tutup{display:grid;gap:0;max-width:420px;margin-top:6px}
-.jam-tutup > div{display:flex;justify-content:space-between;gap:14px;padding:8px 0;border-bottom:1px solid var(--garis-kertas)}
-.jam-tutup > div.hari-ini{font-weight:700;border-bottom-color:var(--tinta)}
-.jam-tutup .tanda-hari{
-  font-weight:400;font-size:12.5px;color:var(--salah);
-  border:1px solid var(--garis-kertas);padding:1px 6px;margin-left:8px;vertical-align:1px
-}
-
-.status{display:flex;align-items:center;gap:9px;font-size:14.5px;margin:18px 0 0;flex-wrap:wrap}
-.titik{width:10px;height:10px;background:var(--sinyal);flex:none}
+.pole{height:var(--pole-tinggi);background:var(--pole)}
+.hero{padding:28px 0 4px}
+.eyebrow{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--tinta-redup)}
+.hero h1{margin:8px 0 14px;font-size:clamp(36px,11vw,56px);font-weight:var(--h-berat);font-stretch:var(--h-lebar);text-transform:var(--h-huruf);letter-spacing:var(--h-ls);line-height:1.02;text-wrap:balance}
+.status{display:inline-flex;align-items:center;gap:9px;padding:8px 14px;border:1px solid var(--garis);border-radius:999px;background:var(--kartu);font-size:15px;font-weight:600}
+.titik{width:10px;height:10px;border-radius:50%;background:var(--ok);flex:none}
 .titik.tutup{background:var(--tinta-redup)}
+.lead{margin-top:14px;max-width:46ch;color:var(--tinta-redup)}
+.aksi{display:grid;gap:10px;margin-top:20px}
+@media (min-width:520px){.aksi{grid-template-columns:auto auto;justify-content:start}}
+.catatan-demo{display:flex;gap:10px;align-items:flex-start;margin-top:20px;padding:12px 14px;border-radius:var(--r-kecil);background:var(--sinyal-lembut);font-size:14px}
+.tanda-contoh{flex:none;padding:2px 9px;border-radius:999px;background:var(--sinyal);color:var(--di-atas-sinyal);font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.paket-nav{margin-top:22px}
+.paket-nav p{font-size:13px;font-weight:600;color:var(--tinta-redup);margin-bottom:6px}
+.paket-nav ul{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:4px;border:1px solid var(--garis);border-radius:var(--r-kecil);background:var(--kartu)}
+.paket-nav a{display:grid;place-content:center;min-height:52px;padding:4px 6px;border-radius:calc(var(--r-kecil) - 4px);text-align:center;text-decoration:none;line-height:1.2}
+.paket-nav a b{display:block;font-size:13px;color:var(--tinta-redup)}
+.paket-nav a span{font-weight:700}
+.paket-nav a:hover{background:var(--kartu-turun)}
+.paket-nav a[aria-current="page"]{background:var(--tinta);color:var(--latar)}
+.paket-nav a[aria-current="page"] b{color:var(--latar)}
+.loncat{display:flex;gap:8px;overflow-x:auto;margin:20px -16px 0;padding:2px 16px 6px;scrollbar-width:none}
+.loncat::-webkit-scrollbar{display:none}
+.loncat a{flex:none;display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border:1px solid var(--garis-kuat);border-radius:999px;font-weight:600;font-size:15px;text-decoration:none}
+.loncat a:hover{background:var(--kartu-turun)}
 
-.galeri{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.petak{
-  background:var(--kertas-turun);border:1px dashed var(--garis-kertas);
-  aspect-ratio:4/3;display:flex;align-items:flex-end;padding:10px;
-  color:var(--tinta-redup);font-size:13px
-}
-
-.tautan-balik{
-  display:inline-flex;align-items:center;min-height:44px;
-  color:var(--tinta-redup);text-decoration:none;font-size:14px
-}
-.tautan-balik:hover{color:var(--salah);text-decoration:underline}
-
-.bar-bawah{display:none}
-
-footer.papan{padding:34px 0 44px;color:var(--tulang-redup);font-size:14px}
-footer.papan a{color:var(--tulang);text-decoration:none;display:inline-block;padding:12px 0}
-footer.papan a:hover{text-decoration:underline;color:var(--sinyal)}
-footer.kertas{padding:30px 0 34px;color:var(--tinta-redup);font-size:13.5px;
-  border-top:1px solid var(--garis-kertas);margin-top:6px}
-footer.kertas a{color:var(--tinta);text-decoration:none;display:inline-block;padding:12px 0}
-footer.kertas a:hover{text-decoration:underline;color:var(--salah)}
-footer.kertas p a{min-height:44px}
-
-/* halaman daftar paket */
-.papan-baris-tutup{display:grid;gap:0;margin:0;padding:0;list-style:none}
-.papan-kaki{display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin-top:28px}
-.papan-kaki .keterangan{color:var(--tulang-redup);font-size:14px;max-width:44ch}
-.pilih-usaha{display:flex;gap:4px;margin:0;padding:4px;list-style:none;border:1px solid var(--garis-papan)}
-.pilih-usaha button{
-  font:inherit;font-weight:600;min-height:44px;padding:0 16px;cursor:pointer;
-  background:transparent;color:var(--tulang-redup);border:0;border-radius:0
-}
-.pilih-usaha button[aria-pressed="true"]{background:var(--tulang);color:var(--papan)}
-.papan-kisi{display:grid;gap:clamp(24px,4vw,44px);grid-template-columns:1fr}
-@media (min-width:900px){ .papan-kisi{grid-template-columns:1.05fr .95fr} }
-
-@media (min-width:720px){
-  .galeri{grid-template-columns:repeat(3,1fr)}
-  .daftar.ganda{column-count:2;column-gap:38px}
-  .daftar.ganda li{break-inside:avoid}
-}
-@media (max-width:719px){
-  .bagian{padding:30px 0}
-  .baris-papan{grid-template-columns:auto 1fr;gap:4px 12px;padding-left:10px;padding-right:10px}
-  .baris-papan .harga{grid-column:2;text-align:left;margin-top:8px}
-  .bar-bawah{
-    display:block;position:fixed;left:0;right:0;bottom:0;z-index:20;
-    background:var(--kertas);border-top:2px solid var(--tinta);
-    padding:10px 16px calc(10px + env(safe-area-inset-bottom))
-  }
-  .bar-bawah .tombol{width:100%}
-  .kertas{padding-bottom:92px}
-}
-@media (prefers-reduced-motion:reduce){
-  *{transition-duration:.001ms !important;animation-duration:.001ms !important}
-}
+.bagian{padding:36px 0 4px}
+.bagian h2{font-size:clamp(26px,7vw,34px);font-weight:var(--h-berat);font-stretch:var(--h-lebar);text-transform:var(--h-huruf);letter-spacing:var(--h-ls);line-height:1.08;text-wrap:balance}
+.bagian-lead{margin-top:8px;max-width:56ch;color:var(--tinta-redup)}
+.kartu{margin-top:16px;padding:16px;border:1px solid var(--garis);border-radius:var(--r);background:var(--kartu);box-shadow:var(--bayang)}
+.kartu > h3{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--tinta-redup)}
+.harga{margin-top:6px}
+.harga li{display:grid;grid-template-columns:1fr auto;gap:2px 16px;padding:14px 0;border-top:1px solid var(--garis)}
+.harga li:first-child{border-top:0}
+.harga .nm{font-weight:600}
+.harga .hr{font-weight:700;white-space:nowrap}
+.harga .ket{grid-column:1 / -1;font-size:14px;color:var(--tinta-redup)}
+.catatan{margin-top:14px;font-size:14px;color:var(--tinta-redup);max-width:60ch}
+.jam li{display:flex;justify-content:space-between;gap:12px;padding:12px 10px;margin:0 -10px;border-radius:var(--r-kecil)}
+.jam li + li{border-top:1px solid var(--garis);border-top-left-radius:0;border-top-right-radius:0}
+.jam li.hari-ini{background:var(--sinyal-lembut);border-top-color:transparent;font-weight:700}
+.jam li.hari-ini + li{border-top-color:transparent}
+.jam .tanda-hari{margin-left:8px;padding:1px 8px;border-radius:999px;background:var(--sinyal);color:var(--di-atas-sinyal);font-size:12px;font-weight:700}
+.alamat{margin-top:16px;font-style:normal;line-height:1.7}
+.aksi-lokasi{display:grid;gap:10px;margin-top:16px}
+@media (min-width:520px){.aksi-lokasi{grid-template-columns:auto auto;justify-content:start}}
+.galeri{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:16px}
+@media (min-width:600px){.galeri{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.petak{display:flex;align-items:flex-end;aspect-ratio:4/3;padding:10px;border:1px dashed var(--garis-kuat);border-radius:var(--r-kecil);background:var(--kartu-turun);font-size:13px;color:var(--tinta-redup)}
+.tanya{margin-top:12px;border-bottom:1px solid var(--garis)}
+.tanya details{border-top:1px solid var(--garis)}
+.tanya summary{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:56px;padding:12px 0;font-weight:600;cursor:pointer;list-style:none}
+.tanya summary::-webkit-details-marker{display:none}
+.tanya summary svg{transition:transform .2s}
+.tanya details[open] summary svg{transform:rotate(180deg)}
+.tanya details p{padding:0 0 16px;color:var(--tinta-redup);max-width:60ch}
+.ganti-paket{margin-top:28px;padding:16px;border:1px solid var(--garis);border-radius:var(--r);background:var(--kartu)}
+.ganti-paket p{margin-bottom:12px}
+.kaki{margin-top:36px;padding:28px 0 32px;border-top:1px solid var(--garis);font-size:14px;color:var(--tinta-redup)}
+.kaki p + p{margin-top:10px}
+.kaki a{display:inline-flex;align-items:center;min-height:44px;color:var(--tinta);font-weight:600}
+.bar-bawah{position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;gap:10px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:var(--latar);border-top:1px solid var(--garis);transition:transform .25s}
+.bar-bawah.sembunyi{transform:translateY(110%);visibility:hidden}
+.bar-bawah .tombol{flex:1 1 auto;min-height:52px;padding:0 14px;white-space:nowrap}
+.bar-bawah .tombol.garis{flex:0 0 auto}
+@media (min-width:760px){.bar-bawah{display:none}body{padding-bottom:0}}
+@media (prefers-reduced-motion:reduce){*{transition-duration:.001ms !important;animation-duration:.001ms !important}}
 
 </style>
 </head>
-<body class="kertas">
-<div class="bungkus-kertas">
-<header class="kepala-kertas"><div>
-<div class="nama-usaha">Barbershop Cukur Rapi<span>Coblong, Kota Bandung</span></div>
-</div><div class="kanan">
-<a class="tautan-balik" href="/">&#8592; Semua paket</a>
-<a class="tombol garis" href="/salon/paket-2/">Versi dengan booking</a>
-</div></header>
+<body>
+<header class="atas"><div class="wadah"><a class="balik" href="/"><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg> Semua paket</a><span class="nama-atas">Barbershop Cukur Rapi</span></div></header>
+<div class="pole" aria-hidden="true"></div>
+<main>
+<div class="wadah">
+<section class="hero">
+<p class="eyebrow">Barbershop &middot; Coblong, Kota Bandung</p>
+<h1>Barbershop Cukur Rapi</h1>
 <p class="status" id="status"><span class="titik" id="titik"></span><span id="status-teks">Memuat jam buka</span></p>
+<p class="lead">Potong, cukur jenggot, dan styling. Harga tetap, tanpa tambahan.</p>
+<div class="aksi"><a class="tombol" href="https://wa.me/6287712345678?text=Bang%2C%20saya%20mau%20tanya%20soal%20booking%20potong%20di%20Cukur%20Rapi."><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.4 8.4 0 1 1 21 11.5Z"/></svg> Tanya lewat WhatsApp</a><a class="tombol garis" href="/barbershop/paket-2/">Lihat versi dengan booking</a></div>
+
+<nav class="paket-nav" aria-label="Pilih paket demo"><p>Lihat paket lain</p><ul><li><a href="/barbershop/paket-1/" aria-current="page"><b>Paket 1</b><span>Info</span></a></li><li><a href="/barbershop/paket-2/"><b>Paket 2</b><span>Booking</span></a></li><li><a href="/barbershop/paket-3/"><b>Paket 3</b><span>Bayar</span></a></li></ul></nav>
+<nav class="loncat" aria-label="Loncat ke bagian"><a href="#harga">Harga</a><a href="#lokasi">Lokasi</a><a href="#galeri">Galeri</a><a href="#tanya">Tanya jawab</a></nav>
+</section>
 <section class="bagian" id="harga">
 <h2>Daftar harga</h2>
-<p class="kertas-ket">Harga tetap, tidak ada tambahan. Cukur dan rapikan sudah termasuk cuci.</p>
-<h3 style="margin-top:26px">Potong</h3>
-<ul class="daftar ganda">
-<li><span class="nm">Potong biasa</span><span class="hr">Rp 35.000</span>
-</li>
-<li><span class="nm">Potong dan cuci</span><span class="hr">Rp 45.000</span>
-</li>
-<li><span class="nm">Potong anak</span><span class="hr">Rp 30.000</span>
-</li>
-<li><span class="nm">Cukur jenggot</span><span class="hr">Rp 25.000</span>
-</li>
-</ul>
-<h3 style="margin-top:26px">Perawatan</h3>
-<ul class="daftar ganda">
-<li><span class="nm">Pomade dan styling</span><span class="hr">Rp 20.000</span>
-</li>
-<li><span class="nm">Masker rambut</span><span class="hr">Rp 50.000</span>
-</li>
-<li><span class="nm">Cukur kumis rapi</span><span class="hr">Rp 15.000</span>
-</li>
-<li><span class="nm">Paket lengkap</span><span class="hr">Rp 90.000</span>
-<p class="rw">Potong, cuci, cukur jenggot, dan styling.</p>
-</li>
-</ul>
-<p class="catatan">Anak di bawah 10 tahun dapat harga potong anak.</p>
+<p class="bagian-lead">Harga tetap, tidak ada tambahan. Cukur dan rapikan sudah termasuk cuci.</p>
+<div class="kartu"><h3>Potong</h3><ul class="harga"><li><span class="nm">Potong biasa</span><span class="hr">Rp 35.000</span></li><li><span class="nm">Potong dan cuci</span><span class="hr">Rp 45.000</span></li><li><span class="nm">Potong anak</span><span class="hr">Rp 30.000</span></li><li><span class="nm">Cukur jenggot</span><span class="hr">Rp 25.000</span></li></ul></div><div class="kartu"><h3>Perawatan</h3><ul class="harga"><li><span class="nm">Pomade dan styling</span><span class="hr">Rp 20.000</span></li><li><span class="nm">Masker rambut</span><span class="hr">Rp 50.000</span></li><li><span class="nm">Cukur kumis rapi</span><span class="hr">Rp 15.000</span></li><li><span class="nm">Paket lengkap</span><span class="hr">Rp 90.000</span><span class="ket">Potong, cuci, cukur jenggot, dan styling.</span></li></ul></div><p class="catatan">Anak di bawah 10 tahun dapat harga potong anak.</p>
 </section>
 <section class="bagian" id="lokasi">
 <h2>Lokasi dan jam buka</h2>
-<p class="kertas-ket">Tutup hari Minggu. Sabtu paling ramai, sebaiknya memesan lebih dulu.</p>
-<div class="jam-tutup" id="kartu-jam">
-<div data-hari="0"><span>Minggu</span><span>tutup</span></div>
-<div data-hari="1"><span>Senin</span><span>11.00 sampai 21.00</span></div>
-<div data-hari="2"><span>Selasa</span><span>11.00 sampai 21.00</span></div>
-<div data-hari="3"><span>Rabu</span><span>11.00 sampai 21.00</span></div>
-<div data-hari="4"><span>Kamis</span><span>11.00 sampai 21.00</span></div>
-<div data-hari="5"><span>Jumat</span><span>11.00 sampai 22.00</span></div>
-<div data-hari="6"><span>Sabtu</span><span>10.00 sampai 22.00</span></div>
-</div>
-<address style="font-style:normal;margin-top:22px;line-height:1.7">Jl. Contoh Raya No. 27, Ruko Blok B<br>Coblong, Kota Bandung 40132<br>Sebelah warung kopi, di lantai dua.</address>
-<p style="margin:16px 0 0"><a class="tombol garis" href="https://www.google.com/maps/search/?api=1&amp;query=Jl.%20Contoh%20Raya%20No.%2027%20Coblong%20Bandung">Buka di Google Maps</a></p>
+<p class="bagian-lead">Tutup hari Minggu. Sabtu paling ramai, sebaiknya memesan lebih dulu.</p>
+<div class="kartu"><h3>Jam buka</h3><ul class="jam" id="kartu-jam"><li data-hari="1"><span>Senin</span><span>11.00 sampai 21.00</span></li><li data-hari="2"><span>Selasa</span><span>11.00 sampai 21.00</span></li><li data-hari="3"><span>Rabu</span><span>11.00 sampai 21.00</span></li><li data-hari="4"><span>Kamis</span><span>11.00 sampai 21.00</span></li><li data-hari="5"><span>Jumat</span><span>11.00 sampai 22.00</span></li><li data-hari="6"><span>Sabtu</span><span>10.00 sampai 22.00</span></li><li data-hari="0"><span>Minggu</span><span>tutup</span></li></ul></div>
+<div class="kartu"><h3>Alamat</h3><address class="alamat">Jl. Contoh Raya No. 27, Ruko Blok B<br>Coblong, Kota Bandung 40132<br>Sebelah warung kopi, di lantai dua.</address><div class="aksi-lokasi"><a class="tombol garis" href="https://www.google.com/maps/search/?api=1&amp;query=Jl.%20Contoh%20Raya%20No.%2027%20Coblong%20Bandung"><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> Buka di Google Maps</a></div></div>
 </section>
 <section class="bagian" id="galeri">
 <h2>Galeri</h2>
-<p class="kertas-ket">Enam kotak ini tempat foto Barbershop Cukur Rapi. Kirim enam foto, dan semuanya dipasang di sini.</p>
-<div class="galeri">
-<div class="petak">Foto depan</div>
-<div class="petak">Kursi potong</div>
-<div class="petak">Cermin</div>
-<div class="petak">Hasil fade</div>
-<div class="petak">Alat cukur</div>
-<div class="petak">Area tunggu</div>
-</div></section>
+<p class="bagian-lead">Enam kotak ini tempat foto Barbershop Cukur Rapi. Kirim enam foto, dan semuanya dipasang di sini.</p>
+<div class="galeri"><div class="petak">Foto depan</div><div class="petak">Kursi potong</div><div class="petak">Cermin</div><div class="petak">Hasil fade</div><div class="petak">Alat cukur</div><div class="petak">Area tunggu</div></div>
+</section>
 <section class="bagian" id="tanya">
 <h2>Pertanyaan yang sering masuk</h2>
-<details style="border-bottom:1px solid var(--garis-kertas)">
-<summary style="cursor:pointer;padding:15px 0;font-weight:600">Perlu pesan dulu?</summary>
-<p style="margin:0 0 16px;color:var(--tinta-redup);max-width:64ch">Tidak wajib, tapi Sabtu dan Minggu hampir selalu penuh. Memesan lebih dulu menghemat waktu tunggu.</p>
-</details>
-<details style="border-bottom:1px solid var(--garis-kertas)">
-<summary style="cursor:pointer;padding:15px 0;font-weight:600">Berapa lama satu kali potong?</summary>
-<p style="margin:0 0 16px;color:var(--tinta-redup);max-width:64ch">Sekitar tiga puluh menit untuk potong biasa, dan sampai satu jam untuk paket lengkap.</p>
-</details>
-<details style="border-bottom:1px solid var(--garis-kertas)">
-<summary style="cursor:pointer;padding:15px 0;font-weight:600">Bisa minta model tertentu dari foto?</summary>
-<p style="margin:0 0 16px;color:var(--tinta-redup);max-width:64ch">Bisa. Kirim fotonya lewat WhatsApp sebelum datang, supaya waktunya bisa diperkirakan.</p>
-</details>
-<details style="border-bottom:1px solid var(--garis-kertas)">
-<summary style="cursor:pointer;padding:15px 0;font-weight:600">Terima anak kecil?</summary>
-<p style="margin:0 0 16px;color:var(--tinta-redup);max-width:64ch">Terima, dan ada harga khusus untuk anak di bawah sepuluh tahun.</p>
-</details>
+<div class="tanya"><details><summary>Perlu pesan dulu?<svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><p>Tidak wajib, tapi Sabtu dan Minggu hampir selalu penuh. Memesan lebih dulu menghemat waktu tunggu.</p></details><details><summary>Berapa lama satu kali potong?<svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><p>Sekitar tiga puluh menit untuk potong biasa, dan sampai satu jam untuk paket lengkap.</p></details><details><summary>Bisa minta model tertentu dari foto?<svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><p>Bisa. Kirim fotonya lewat WhatsApp sebelum datang, supaya waktunya bisa diperkirakan.</p></details><details><summary>Terima anak kecil?<svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><p>Terima, dan ada harga khusus untuk anak di bawah sepuluh tahun.</p></details></div>
 </section>
 </div>
-<footer class="kertas"><div class="bungkus-kertas">
-<p style="margin:0 0 8px">Pesan dan pertanyaan:</p>
-<p style="margin:0 0 14px"><a href="https://wa.me/6287712345678?text=Bang%2C%20saya%20mau%20potong.%20Layanan%3A%20%20%20Jam%3A%20">WhatsApp 0877-1234-5678</a></p>
-<p style="margin:0;color:var(--tinta-redup)">Halaman ini contoh peragaan. Dibuat oleh Rio, jasa halaman web untuk usaha lokal di Bandung.</p>
-</div></footer>
-<div class="bar-bawah"><a class="tombol" href="https://wa.me/6287712345678?text=Bang%2C%20saya%20mau%20potong.%20Layanan%3A%20%20%20Jam%3A%20">Tanya lewat WhatsApp</a></div>
+</main>
+<footer class="kaki"><div class="wadah"><p>Pesan dan pertanyaan:</p><p><a href="https://wa.me/6287712345678?text=Bang%2C%20saya%20mau%20tanya%20soal%20booking%20potong%20di%20Cukur%20Rapi.">WhatsApp 0877-1234-5678</a></p><p>Halaman ini contoh peragaan. Dibuat oleh Rio, jasa halaman web untuk usaha lokal di Bandung.</p></div></footer>
+<div class="bar-bawah" id="bar-bawah"><a class="tombol" href="https://wa.me/6287712345678?text=Bang%2C%20saya%20mau%20tanya%20soal%20booking%20potong%20di%20Cukur%20Rapi."><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.4 8.4 0 1 1 21 11.5Z"/></svg> Tanya lewat WhatsApp</a></div>
 <script>
+
 (function(){
-  var J={"jam": {"0": null, "1": ["11.00", "21.00"], "2": ["11.00", "21.00"], "3": ["11.00", "21.00"], "4": ["11.00", "21.00"], "5": ["11.00", "22.00"], "6": ["10.00", "22.00"]}, "hari": ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"]};
-  var jam=J.jam, namaHari=J.hari, kini=new Date(), hari=kini.getDay();
-  var blok=jam[hari], teks=document.getElementById("status-teks"), titik=document.getElementById("titik");
-  var barisKartu=document.querySelector('.jam-tutup [data-hari="'+hari+'"]');
-  if(barisKartu){barisKartu.className="hari-ini";
-    var t=document.createElement("span");t.className="tanda-hari";t.textContent="hari ini";
-    barisKartu.firstElementChild.appendChild(t);}
-  function f(m){var j=Math.floor(m/60),s=m%60;return (j<10?"0":"")+j+"."+(s<10?"0":"")+s;}
-  if(!blok){teks.textContent="Tutup hari ini, "+namaHari[hari];titik.className="titik tutup";}
-  else{var b1=blok[0].split("."),b2=blok[1].split(".");
-    var buka=(+b1[0])*60+(+b1[1]), tutup=(+b2[0])*60+(+b2[1]), m=kini.getHours()*60+kini.getMinutes();
-    if(m<buka){teks.textContent="Tutup. Buka hari ini pukul "+f(buka);titik.className="titik tutup";}
-    else if(m>=tutup){teks.textContent="Tutup. Sudah lewat jam buka hari ini";titik.className="titik tutup";}
-    else{teks.textContent="Buka sekarang, sampai pukul "+f(tutup);titik.className="titik";}}
+  var J={"0": null, "1": ["11.00", "21.00"], "2": ["11.00", "21.00"], "3": ["11.00", "21.00"], "4": ["11.00", "21.00"], "5": ["11.00", "22.00"], "6": ["10.00", "22.00"]};
+  var NH=["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
+  var kini=new Date(), hari=kini.getDay(), menitKini=kini.getHours()*60+kini.getMinutes();
+  function mnt(t){var p=t.split(".");return (+p[0])*60+(+p[1])}
+  function f(m){var j=Math.floor(m/60),s=m%60;return (j<10?"0":"")+j+"."+(s<10?"0":"")+s}
+  var teks=document.getElementById("status-teks"), titik=document.getElementById("titik");
+  var baris=document.querySelector('#kartu-jam [data-hari="'+hari+'"]');
+  if(baris){baris.className="hari-ini";var t=document.createElement("span");t.className="tanda-hari";t.textContent="hari ini";baris.firstElementChild.appendChild(t)}
+  var blok=J[hari];
+  function berikut(){
+    for(var n=1;n<=7;n++){var h=(hari+n)%7;if(J[h]){return NH[h]+" pukul "+J[h][0]}}
+    return "";
+  }
+  if(blok&&menitKini>=mnt(blok[0])&&menitKini<mnt(blok[1])){
+    teks.textContent="Buka sekarang, tutup pukul "+blok[1];titik.className="titik";
+  }else if(blok&&menitKini<mnt(blok[0])){
+    teks.textContent="Tutup. Buka hari ini pukul "+blok[0];titik.className="titik tutup";
+  }else{
+    teks.textContent="Tutup. Buka lagi "+berikut();titik.className="titik tutup";
+  }
 })();
 </script>
-</body></html>
+</body>
+</html>

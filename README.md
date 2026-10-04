@@ -11,6 +11,14 @@ Situs ini berisi halaman statis:
 
 Semua nama, alamat, harga, foto, dan nomor di dalamnya masih data contoh.
 
+## Mengubah halaman
+
+Ketujuh berkas HTML dihasilkan oleh generator di `tools/bangun/`. Ubah sumbernya (`css.py`, `data.py`, `js.py`, `build.py`), lalu jalankan dari root repo:
+
+```
+python tools/bangun/build.py
+```
+
 ## Disajikan bagaimana
 
 Dockerfile memakai nginx dan menyalin berkas yang perlu saja. Wadahnya mendengarkan di port 80.
