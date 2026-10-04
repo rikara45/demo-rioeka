@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Barbershop Uji Coba dengan Nama Panjang Sekali Jl. Raya Cibaduyut</title>
+<meta name="description" content="Jam buka, daftar harga, dan booking lewat WhatsApp untuk Barbershop Uji Coba dengan Nama Panjang Sekali.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Karla:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --kertas:#FBF9F5;
+  --kertas-2:#F3EDE5;
+  --tinta:#1E1A16;
+  --tinta-2:#6A6156;
+  --aksen:#9C4A2F;
+  --aksen-gelap:#7E3A24;
+  --garis:#E2D9CC;
+  --r:3px;
+  --lebar:820px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--kertas);color:var(--tinta);
+  font-family:Karla,system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:clamp(15px,.4vw + 14px,16.5px);line-height:1.6;
+}
+h1,h2,h3{font-family:Fraunces,Georgia,"Times New Roman",serif;font-weight:600;line-height:1.15;margin:0}
+a{color:var(--aksen)}
+:focus-visible{outline:2px solid var(--aksen);outline-offset:2px;border-radius:2px}
+.bungkus{max-width:var(--lebar);margin:0 auto;padding:0 20px}
+
+.bar-contoh{
+  background:var(--kertas-2);border-bottom:1px solid var(--garis);
+  font-size:13px;color:var(--tinta-2);text-align:center;padding:8px 20px;
+}
+.bar-contoh strong{color:var(--tinta);font-weight:700}
+
+header.kepala{border-bottom:1px solid var(--garis)}
+.kepala-isi{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 0;flex-wrap:wrap}
+.nama{font-family:Fraunces,Georgia,serif;font-size:clamp(20px,3vw,26px);font-weight:600;letter-spacing:-.01em}
+.nama span{display:block;font-family:Karla,sans-serif;font-size:13px;color:var(--tinta-2);font-weight:400;letter-spacing:0;margin-top:2px}
+nav.anchor{display:flex;gap:22px}
+nav.anchor a{color:var(--tinta-2);text-decoration:none;font-size:15px;padding:10px 0}
+nav.anchor a:hover{color:var(--aksen)}
+
+.status{display:flex;align-items:center;gap:8px;font-size:14px;margin:26px 0 0}
+.titik{width:9px;height:9px;border-radius:50%;background:var(--aksen);flex:none}
+.titik.tutup{background:var(--tinta-2)}
+
+h2{font-size:clamp(21px,2.6vw,27px);margin-bottom:6px}
+.keterangan{color:var(--tinta-2);font-size:14.5px;margin:0 0 20px;max-width:56ch}
+section{padding:44px 0;border-bottom:1px solid var(--garis)}
+section:last-of-type{border-bottom:0}
+
+.tombol{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  min-height:48px;padding:12px 22px;background:var(--aksen);color:#fff;
+  text-decoration:none;border-radius:var(--r);font-weight:700;font-size:16px;
+  border:1px solid var(--aksen-gelap);transition:background-color .12s ease;
+}
+.tombol:hover{background:var(--aksen-gelap)}
+.tombol.datar{background:transparent;color:var(--aksen);border-color:var(--garis);font-weight:500}
+.tombol.datar:hover{background:var(--kertas-2);color:var(--aksen-gelap)}
+
+.harga-grup{display:grid;grid-template-columns:1fr;gap:34px}
+.harga-grup h3{font-size:17px;font-family:Karla,sans-serif;font-weight:700;letter-spacing:.02em;
+  color:var(--tinta);padding-bottom:8px;border-bottom:2px solid var(--aksen);margin-bottom:14px}
+.daftar{list-style:none;margin:0;padding:0}
+.daftar li{display:flex;align-items:baseline;gap:10px;padding:9px 0;border-bottom:1px dotted var(--garis)}
+.daftar .nama-layanan{min-width:0}
+.daftar .pisah{flex:1;border-bottom:1px dotted var(--garis);transform:translateY(-4px)}
+.daftar .harga{font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--tinta)}
+.catatan-harga{font-size:13.5px;color:var(--tinta-2);margin-top:16px}
+
+.galeri{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.petak{background:var(--kertas-2);border:1px dashed var(--garis);border-radius:var(--r);
+  aspect-ratio:4/3;display:flex;align-items:flex-end;padding:10px;color:var(--tinta-2);font-size:13px}
+
+.langkah{list-style:none;margin:0;padding:0;counter-reset:l;display:grid;gap:18px}
+.langkah li{display:grid;grid-template-columns:26px 1fr;gap:12px;counter-increment:l}
+.langkah li::before{content:counter(l);font-family:Fraunces,Georgia,serif;font-size:17px;color:var(--aksen);line-height:1.5}
+.langkah p{margin:0}
+
+details{border-bottom:1px solid var(--garis)}
+summary{cursor:pointer;padding:15px 0;font-weight:500;list-style:none;display:flex;justify-content:space-between;gap:12px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--aksen);font-size:19px;line-height:1}
+details[open] summary::after{content:"\2212"}
+details p{margin:0 0 16px;color:var(--tinta-2);max-width:60ch}
+
+.lokasi{display:grid;gap:14px;grid-template-columns:1fr}
+.kartu-jam{background:var(--kertas-2);border-radius:var(--r);padding:16px 18px}
+.jam-baris{display:flex;justify-content:space-between;gap:12px;padding:5px 0;font-size:15px}
+.jam-baris.hari-ini{font-weight:700}
+.tanda-hari{display:inline-block;margin-left:8px;font-family:Karla,sans-serif;font-size:12px;
+  font-weight:400;color:var(--aksen);border:1px solid var(--garis);border-radius:2px;padding:1px 6px;
+  vertical-align:1px}
+.alamat{font-style:normal;line-height:1.7}
+
+footer{padding:36px 0 0;color:var(--tinta-2);font-size:14px}
+.kaki-atas{display:grid;gap:16px;grid-template-columns:1fr}
+footer a{color:var(--aksen);text-decoration:none}
+footer a:hover{text-decoration:underline}
+.kaki-atas a{display:inline-block;padding:12px 0;min-height:44px}
+.hak{padding:22px 0 26px;margin-top:22px;border-top:1px solid var(--garis);font-size:13px}
+
+.bar-bawah{display:none}
+
+@media (min-width:700px){
+  .harga-grup{grid-template-columns:1fr 1fr;gap:44px}
+  .galeri{grid-template-columns:repeat(3,1fr)}
+  .lokasi{grid-template-columns:1.1fr .9fr;gap:26px}
+  .kaki-atas{grid-template-columns:1fr 1fr}
+}
+@media (max-width:699px){
+  section{padding:32px 0}
+  nav.anchor{display:none}
+  .kepala .tombol{display:none}
+  footer{padding-bottom:96px}
+  .bar-bawah{
+    display:block;position:fixed;left:0;right:0;bottom:0;z-index:20;
+    background:var(--kertas);border-top:1px solid var(--garis);
+    padding:10px 16px calc(10px + env(safe-area-inset-bottom));
+  }
+  .bar-bawah .tombol{width:100%}
+}
+@media (prefers-reduced-motion:reduce){
+  .tombol{transition:none}
+}
+
+:root{--aksen:#2F5D50;--aksen-gelap:#254A40}
+</style>
+</head>
+<body>
+<p class="bar-contoh"><strong>Halaman contoh.</strong> Nama, alamat, harga, foto, dan nomor di halaman ini masih contoh, dan diganti dengan data barbershop Anda.</p>
+<header class="kepala">
+<div class="bungkus kepala-isi">
+<div class="nama">Barbershop Uji Coba dengan Nama Panjang Sekali<span>Jl. Raya Cibaduyut, Kecamatan Bojongloa Kidul, Kota Bandung</span></div>
+<nav class="anchor" aria-label="Bagian halaman">
+<a href="#harga">Harga</a>
+<a href="#galeri">Galeri</a>
+<a href="#cara">Cara booking</a>
+<a href="#lokasi">Lokasi</a>
+</nav>
+<a class="tombol" href="https://wa.me/6287712345678?text=Bang%2C%20saya%20mau%20potong.%20Jam%3A%20">Booking lewat WhatsApp</a>
+</div>
+</header>
+<main class="bungkus">
+<p class="status" id="status"><span class="titik" id="titik" aria-hidden="true"></span> <span id="status-teks">Memuat jam buka</span></p>
+<section id="harga">
+<h2>Daftar harga</h2>
+<div class="harga-grup">
+<div>
+<h3>Potong</h3>
+<ul class="daftar">
+<li><span class="nama-layanan">Potong biasa</span><span class="pisah"></span><span class="harga">Rp 35.000</span></li>
+<li><span class="nama-layanan">Potong dan cuci</span><span class="pisah"></span><span class="harga">Rp 45.000</span></li>
+<li><span class="nama-layanan">Cukur jenggot</span><span class="pisah"></span><span class="harga">Rp 25.000</span></li>
+</ul>
+</div>
+<div>
+<h3>Perawatan</h3>
+<ul class="daftar">
+<li><span class="nama-layanan">Pomade dan styling</span><span class="pisah"></span><span class="harga">Rp 20.000</span></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="galeri">
+<h2>Galeri</h2>
+<p class="keterangan">Tiga kotak ini tempat foto Barbershop Uji Coba dengan Nama Panjang Sekali. Kirim tiga foto, dan semuanya dipasang di sini.</p>
+<div class="galeri">
+<div class="petak">Foto depan</div>
+<div class="petak">Foto kursi</div>
+<div class="petak">Foto hasil</div>
+</div>
+</section>
+<section id="cara">
+<h2>Cara booking</h2>
+<ol class="langkah">
+<li><p>Pilih layanan.</p></li>
+<li><p>Kirim WhatsApp, sebut jam yang diinginkan.</p></li>
+</ol>
+</section>
+<section id="lokasi">
+<h2>Lokasi dan jam buka</h2>
+<div class="lokasi">
+<div class="kartu-jam" id="kartu-jam">
+<div class="jam-baris" data-hari="0"><span>Minggu</span><span>tutup</span></div>
+<div class="jam-baris" data-hari="1"><span>Senin</span><span>tutup</span></div>
+<div class="jam-baris" data-hari="2"><span>Selasa</span><span>11.00 sampai 21.00</span></div>
+<div class="jam-baris" data-hari="3"><span>Rabu</span><span>11.00 sampai 21.00</span></div>
+<div class="jam-baris" data-hari="4"><span>Kamis</span><span>11.00 sampai 21.00</span></div>
+<div class="jam-baris" data-hari="5"><span>Jumat</span><span>11.00 sampai 21.00</span></div>
+<div class="jam-baris" data-hari="6"><span>Sabtu</span><span>10.00 sampai 22.00</span></div>
+</div>
+<div>
+<address class="alamat">
+Jl. Raya Cibaduyut No. 123, Blok C, Lantai 2, Ruko Sebelah Indomaret
+</address>
+<p style="margin:16px 0 0"><a class="tombol datar" href="https://www.google.com/maps/search/?api=1&amp;query=Jl.%20Raya%20Cibaduyut%20No.%20123%20Bandung">Buka di Google Maps</a></p>
+</div>
+</div>
+</section>
+</main>
+<footer>
+<div class="bungkus">
+<div class="kaki-atas">
+<div>
+<div class="nama" style="font-size:20px">Barbershop Uji Coba dengan Nama Panjang Sekali</div>
+<address class="alamat" style="margin-top:10px">Jl. Raya Cibaduyut No. 123, Blok C, Lantai 2, Ruko Sebelah Indomaret</address>
+</div>
+<div>
+<p style="margin:0 0 10px">Booking dan pertanyaan:</p>
+<p style="margin:0"><a href="https://wa.me/6287712345678?text=Bang%2C%20saya%20mau%20potong.%20Jam%3A%20">WhatsApp 0877-1234-5678</a></p>
+</div>
+</div>
+<p class="hak">Halaman contoh.</p>
+</div>
+</footer>
+<div class="bar-bawah">
+<a class="tombol" href="https://wa.me/6287712345678?text=Bang%2C%20saya%20mau%20potong.%20Jam%3A%20">Booking lewat WhatsApp</a>
+</div>
+<script>
+(function(){
+var jam={"2": [660, 1260], "3": [660, 1260], "4": [660, 1260], "5": [660, 1260], "6": [600, 1320]};
+var namaHari=["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"];
+var sekarang=new Date();
+var hari=sekarang.getDay();
+var menit=sekarang.getHours()*60+sekarang.getMinutes();
+var blok=jam[hari];
+var teks=document.getElementById("status-teks");
+var titik=document.getElementById("titik");
+var hariIni=document.querySelector('.jam-baris[data-hari="'+hari+'"]');
+if(hariIni){hariIni.className="jam-baris hari-ini";hariIni.setAttribute("aria-current","true");
+var t=document.createElement("span");t.className="tanda-hari";t.textContent="hari ini";
+hariIni.firstElementChild.appendChild(t);}
+function f(m){var j=Math.floor(m/60),s=m%60;return (j<10?"0":"")+j+"."+(s<10?"0":"")+s;}
+if(!blok){teks.textContent="Tutup hari ini, "+namaHari[hari];titik.className="titik tutup";}
+else if(menit<blok[0]){teks.textContent="Tutup. Buka hari ini pukul "+f(blok[0]);titik.className="titik tutup";}
+else if(menit>=blok[1]){teks.textContent="Tutup. Sudah lewat jam buka hari ini";titik.className="titik tutup";}
+else{teks.textContent="Buka sekarang, sampai pukul "+f(blok[1]);titik.className="titik";}
+})();
+</script>
+</body>
+</html>

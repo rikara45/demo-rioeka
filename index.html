@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contoh halaman usaha lokal</title>
+<meta name="description" content="Contoh halaman web untuk salon dan barbershop, dibuat oleh Rio Ekaputra Siswa.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Karla:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --kertas:#FBF9F5; --kertas-2:#F3EDE5; --tinta:#1E1A16; --tinta-2:#6A6156;
+    --aksen:#9C4A2F; --aksen-gelap:#7E3A24; --garis:#E2D9CC; --r:3px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--kertas);color:var(--tinta);
+    font-family:Karla,system-ui,-apple-system,"Segoe UI",sans-serif;
+    font-size:clamp(15px,.4vw + 14px,16.5px);line-height:1.6}
+  h1,h2{font-family:Fraunces,Georgia,"Times New Roman",serif;font-weight:600;line-height:1.15;margin:0}
+  a{color:var(--aksen)}
+  :focus-visible{outline:2px solid var(--aksen);outline-offset:2px;border-radius:2px}
+  .bungkus{max-width:var(--lebar,860px);margin:0 auto;padding:0 20px}
+  .bar{background:var(--kertas-2);border-bottom:1px solid var(--garis);font-size:13px;color:var(--tinta-2);text-align:center;padding:8px 20px}
+  .bar a{color:var(--tinta);display:inline-block;padding:12px 2px}
+  header{padding:40px 0 26px;border-bottom:1px solid var(--garis)}
+  h1{font-size:clamp(25px,4vw,36px);letter-spacing:-.01em}
+  .keterangan{color:var(--tinta-2);max-width:58ch;margin:14px 0 0;font-size:15.5px}
+  main{padding:36px 0 8px}
+  .daftar{display:grid;gap:22px;grid-template-columns:1fr;list-style:none;margin:0;padding:0}
+  .kartu{background:var(--kertas);border:1px solid var(--garis);border-radius:var(--r);
+    display:grid;grid-template-columns:1fr;overflow:hidden}
+  .kartu img{display:block;width:100%;aspect-ratio:3/2;height:auto;object-fit:cover;object-position:top center;
+    background:var(--kertas-2);border-bottom:1px solid var(--garis)}
+  .isi{padding:18px 20px 20px;display:flex;flex-direction:column;gap:12px}
+  .isi h2{font-size:22px}
+  .isi p{margin:0;color:var(--tinta-2);font-size:14.5px}
+  .tanda{display:flex;flex-wrap:wrap;gap:6px;list-style:none;margin:0;padding:0}
+  .tanda li{border:1px solid var(--garis);border-radius:2px;padding:3px 8px;font-size:12.5px;color:var(--tinta-2)}
+  .tombol{display:inline-flex;align-items:center;justify-content:center;min-height:44px;
+    padding:11px 18px;background:var(--aksen);color:#fff;text-decoration:none;font-weight:700;
+    border-radius:var(--r);border:1px solid var(--aksen-gelap);align-self:flex-start;font-size:15.5px}
+  .tombol:hover{background:var(--aksen-gelap)}
+  .catatan{background:var(--kertas-2);border-radius:var(--r);padding:16px 18px;margin:30px 0 0;
+    font-size:14.5px;color:var(--tinta-2)}
+  footer{padding:30px 0 40px;color:var(--tinta-2);font-size:14px;border-top:1px solid var(--garis);margin-top:34px}
+  footer a{color:var(--aksen);text-decoration:none;display:inline-block;padding:10px 0;min-height:44px}
+  footer a:hover{text-decoration:underline}
+  @media (min-width:720px){ .daftar{grid-template-columns:1fr 1fr} }
+</style>
+</head>
+<body>
+
+<p class="bar">Demo halaman web untuk usaha lokal, dibuat oleh <a href="https://rioeka.com">Rio Ekaputra Siswa</a></p>
+
+<header>
+  <div class="bungkus">
+    <h1>Contoh halaman usaha lokal</h1>
+    <p class="keterangan">Dua contoh halaman yang bisa dibuka dan digulir seperti halaman sungguhan, bukan gambar. Isinya masih data contoh, dan diganti dengan data usaha Anda kalau lanjut.</p>
+  </div>
+</header>
+
+<main class="bungkus">
+  <ul class="daftar">
+    <li class="kartu">
+      <img src="img/salon.png" alt="Pratinjau halaman salon" width="390" height="260" decoding="async">
+      <div class="isi">
+        <h2>Salon</h2>
+        <p>Daftar harga, jam buka termasuk hari tutup, status buka atau tutup yang dihitung dari jam sebenarnya, dan tombol booking yang langsung membuka WhatsApp.</p>
+        <ul class="tanda"><li>Daftar harga</li><li>Status buka</li><li>Booking WhatsApp</li></ul>
+        <a class="tombol" href="salon/">Buka halaman salon</a>
+      </div>
+    </li>
+    <li class="kartu">
+      <img src="img/barbershop.png" alt="Pratinjau halaman barbershop" width="390" height="260" decoding="async">
+      <div class="isi">
+        <h2>Barbershop</h2>
+        <p>Versi dengan warna berbeda dan daftar harga yang lebih pendek. Bagian pertanyaan tidak ditampilkan karena isinya tidak diperlukan.</p>
+        <ul class="tanda"><li>Warna berbeda</li><li>Tanpa bagian pertanyaan</li></ul>
+        <a class="tombol" href="barbershop/">Buka halaman barbershop</a>
+      </div>
+    </li>
+  </ul>
+
+  <p class="catatan">Semua nama, alamat, harga, foto, dan nomor di kedua halaman itu masih data contoh. Halaman contoh ini sengaja tidak didaftarkan ke mesin pencari.</p>
+</main>
+
+<footer>
+  <div class="bungkus">
+    <a href="https://rioeka.com">rioeka.com</a>
+  </div>
+</footer>
+
+</body>
+</html>
