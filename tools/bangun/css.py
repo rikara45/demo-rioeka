@@ -153,6 +153,14 @@ WARNA_TEMA = {
 
 WARNA_INDEX = "#16221E"
 
+AKSEN_JENIS = {
+    "salon": ("#B0305A", "#FBE6EC"),
+    "barbershop": ("#A5711F", "#F7EBD3"),
+    "spa": ("#2F6B4F", "#E1EEE3"),
+    "penginapan": ("#1F5F7A", "#DFEDF2"),
+    "katering": ("#A8431A", "#FBE6D6"),
+}
+
 BASE = """
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-padding-top:104px;background:var(--latar);accent-color:var(--sinyal)}
@@ -399,6 +407,7 @@ INDEX_TOKENS = """
   --r:20px;
   --r-kecil:14px;
   --r-tombol:999px;
+  --bayang:0 1px 2px rgba(22,34,30,.05),0 10px 26px rgba(22,34,30,.06);
 """
 
 INDEX = """
@@ -423,13 +432,13 @@ INDEX = """
 .bagian h2{font-size:clamp(28px,7.5vw,40px);font-weight:800;font-stretch:80%;line-height:1.05;letter-spacing:-.005em;text-wrap:balance}
 .atas-hijau .balik{margin-left:auto;margin-right:-6px;color:var(--krem)}
 .atas-hijau .balik:hover{background:var(--garis-hijau)}
-.jenis-daftar{display:grid;gap:14px;margin-top:20px}
-@media (min-width:700px){.jenis-daftar{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (min-width:1000px){.jenis-daftar{grid-template-columns:repeat(3,minmax(0,1fr))}}
-.jenis-kartu{display:flex;flex-direction:column;gap:12px;height:100%;padding:20px;border:1px solid var(--garis);border-radius:var(--r);background:var(--kartu)}
-.jenis-ikon{display:grid;place-items:center;width:48px;height:48px;border-radius:var(--r-kecil);background:var(--sinyal-lembut);color:var(--sinyal)}
-.jenis-ikon .ikon{width:24px;height:24px}
-.jenis-kartu h3{font-size:24px;font-weight:800;font-stretch:80%;line-height:1.1}
+.jenis-daftar{display:flex;flex-wrap:wrap;justify-content:center;gap:16px;margin-top:22px}
+.jenis-kartu{position:relative;display:flex;flex:1 1 300px;flex-direction:column;gap:14px;max-width:380px;padding:22px;border:1px solid var(--garis);border-top:4px solid var(--jenis-aksen,var(--sinyal));border-radius:var(--r);background:var(--kartu);box-shadow:var(--bayang);transition:transform .15s,box-shadow .15s}
+.jenis-kartu:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(22,34,30,.12)}
+.jenis-kartu:focus-within{outline:3px solid var(--jenis-aksen,var(--sinyal));outline-offset:2px}
+.jenis-ikon{display:grid;place-items:center;width:58px;height:58px;border-radius:16px;background:var(--jenis-lembut,var(--sinyal-lembut));color:var(--jenis-aksen,var(--sinyal));box-shadow:inset 0 0 0 1.5px var(--jenis-aksen,var(--sinyal))}
+.jenis-ikon .ikon{width:30px;height:30px}
+.jenis-kartu h3{font-size:24px;font-weight:800;font-stretch:80%;line-height:1.12}
 .jenis-kartu p{color:var(--tinta-redup)}
 .jenis-kartu .tombol{margin-top:auto}
 .nama-demo{margin-top:12px;font-size:14px;color:var(--tinta-redup)}

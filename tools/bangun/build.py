@@ -2,7 +2,7 @@ import json, os, sys
 from html import escape as e
 from urllib.parse import quote
 sys.path.insert(0, os.path.dirname(__file__))
-from css import FONT, BASE, BOOKING, TEMA, WARNA_TEMA, WARNA_INDEX, INDEX_TOKENS, INDEX, ERR
+from css import FONT, BASE, BOOKING, TEMA, WARNA_TEMA, WARNA_INDEX, AKSEN_JENIS, INDEX_TOKENS, INDEX, ERR
 from data import USAHA, URUT_HARI
 from js import STATUS_JS, BAR_JS, BOOKING_JS, WIZARD_JS
 
@@ -24,7 +24,7 @@ I_WA = ikon('<path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.4 8.4 0 1
 I_PETA = ikon('<path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>')
 I_KALENDER = ikon('<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>')
 I_GUNTING = ikon('<circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.12 15.88M14.47 14.48 20 20M8.12 8.12 12 12"/>')
-I_STAF = ikon('<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>')
+I_STAF = ikon('<rect x="9" y="2" width="6" height="20" rx="3"/><path d="M9 7 15 4.4M9 11.6 15 9M9 16.2 15 13.6"/>')
 I_DAUN = ikon('<path d="M12 3c2.5 3 6 5 6 9a6 6 0 0 1-12 0c0-4 3.5-6 6-9z"/><path d="M12 12v9"/>')
 I_RANJANG = ikon('<path d="M3 18V8a2 2 0 0 1 2-2h11a3 3 0 0 1 3 3v9"/><path d="M3 14h18"/><path d="M3 18v2M21 18v2"/><path d="M7 10h3v4H7z"/>')
 I_MANGKUK = ikon('<path d="M4 11a8 8 0 0 1 16 0z"/><path d="M3 15h18"/><path d="M6 19h12"/>')
@@ -518,8 +518,8 @@ def kartu_paket(no, nama, rinci, cocok, isi, harga, tahunan, bawah):
 def halaman_index():
     css = FONT + "\n:root{" + INDEX_TOKENS + "}\n" + BASE + INDEX
     jenis = "".join(
-        '<li class="jenis-kartu"><span class="jenis-ikon">%s</span><h3>%s</h3><p>%s</p>'
-        '<a class="tombol" href="/%s/">Lihat paket dan demo</a></li>' % (IKON[u["slug"]], e(u["label"]), e(u["ringkas"]), u["slug"])
+        '<li class="jenis-kartu" style="--jenis-aksen:%s;--jenis-lembut:%s"><span class="jenis-ikon">%s</span><h3>%s</h3><p>%s</p>'
+        '<a class="tombol" href="/%s/">Lihat paket dan demo</a></li>' % (AKSEN_JENIS[u["slug"]][0], AKSEN_JENIS[u["slug"]][1], IKON[u["slug"]], e(u["label"]), e(u["ringkas"]), u["slug"])
         for u in USAHA
     )
     harga = []
