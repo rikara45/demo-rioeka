@@ -2,9 +2,11 @@ import json, os, sys
 from html import escape as e
 from urllib.parse import quote
 sys.path.insert(0, os.path.dirname(__file__))
-from css import FONT, FONT_SERIF, BASE, BOOKING, GAYA, GAYA_UMUM, GAYA_SALON, GAYA_SALON_WIZARD, TEMA, WARNA_TEMA, WARNA_INDEX, AKSEN_JENIS, INDEX_TOKENS, INDEX, ERR
+from css import FONT, FONT_SERIF, BASE, BOOKING, GAYA, GAYA_UMUM, GAYA_SALON, GAYA_SALON_WIZARD, GAYA_SPA, GAYA_SPA_WIZARD, TEMA, WARNA_TEMA, WARNA_INDEX, AKSEN_JENIS, INDEX_TOKENS, INDEX, ERR
 from data import USAHA, URUT_HARI
 from js import STATUS_JS, BAR_JS, BOOKING_JS, WIZARD_JS
+
+GAYA_HALAMAN = {"butik": (GAYA_SALON, GAYA_SALON_WIZARD), "tenang": (GAYA_SPA, GAYA_SPA_WIZARD)}
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 NH = {0: "Minggu", 1: "Senin", 2: "Selasa", 3: "Rabu", 4: "Kamis", 5: "Jumat", 6: "Sabtu"}
@@ -331,7 +333,7 @@ def html_fakta(u):
 
 def seksi_harga(u):
     mode = u.get("mode", "jadwal")
-    butik = u.get("gaya") == "butik"
+    butik = u.get("gaya") in GAYA_HALAMAN
     if u.get("mode") == "inap":
         judul, lead = "Daftar kamar dan harga", u["harga_lead"]
     elif u.get("mode") == "pesan":
@@ -378,7 +380,7 @@ def seksi_lokasi(u):
 
 
 def seksi_galeri(u):
-    if u.get("gaya") == "butik":
+    if u.get("gaya") in GAYA_HALAMAN:
         p = "".join(
             '<figure class="petak"><img src="/%s/img/%s.jpg" alt="" width="720" height="540" loading="lazy" decoding="async"><figcaption>%s</figcaption></figure>' % (u["slug"], f, e(a))
             for f, a in u["galeri"]
@@ -401,9 +403,10 @@ def seksi_tanya(u):
 
 def halaman_demo(u, n):
     mode = u.get("mode", "jadwal")
-    butik = u.get("gaya") == "butik"
+    butik = u.get("gaya") in GAYA_HALAMAN
     if butik:
-        css = FONT + "\n" + FONT_SERIF + "\n:root{" + TEMA[u["tema"]] + "}\n" + BASE + (BOOKING if n >= 2 else "") + GAYA_UMUM + GAYA_SALON + (GAYA_SALON_WIZARD if n >= 2 else "")
+        g_utama, g_wizard = GAYA_HALAMAN[u["gaya"]]
+        css = FONT + "\n" + FONT_SERIF + "\n:root{" + TEMA[u["tema"]] + "}\n" + BASE + (BOOKING if n >= 2 else "") + GAYA_UMUM + g_utama + (g_wizard if n >= 2 else "")
         preload = '<link rel="preload" href="/font/cormorant-garamond-latin.woff2" as="font" type="font/woff2" crossorigin>\n'
     else:
         css = FONT + "\n:root{" + TEMA[u["tema"]] + "}\n" + BASE + (BOOKING if n >= 2 else "") + GAYA

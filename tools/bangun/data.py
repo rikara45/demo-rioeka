@@ -215,8 +215,10 @@ SPA = dict(
         ("Nadia", "Massage batu hangat", "Khusus massage batu hangat dan aromaterapi.",
          ["Massage batu hangat", "Massage aromaterapi"]),
     ],
-    galeri=[("g1", "Ruang pijat bersih dengan tempat tidur perawatan"), ("g2", "Tangan terapis memijat lengan pelanggan"), ("g3", "Minyak esensial dan handuk"), ("g4", "Lilin dan handuk gulung di ruang perawatan"), ("g5", "Wadah lulur dan garam mandi"), ("g6", "Bak mandi dengan lilin di atas rak kayu")],
+    galeri=[("g1", "Ruang pijat bersih dengan tempat tidur perawatan"), ("g6", "Bak mandi dengan lilin di atas rak kayu"), ("g2", "Tangan terapis memijat lengan pelanggan"), ("g3", "Minyak esensial dan handuk"), ("g5", "Wadah lulur dan garam mandi"), ("g4", "Lilin dan handuk gulung di ruang perawatan")],
     galeri_lead="Enam foto suasana dan perawatan spa. Di website sungguhan, foto ini diganti foto usaha Anda sendiri.",
+    gaya="tenang",
+    hero_foto=("g4", "Lilin, handuk gulung, dan botol aroma dengan ranting daun"),
     faq=[
         ("Perlu reservasi dulu?", "Disarankan, apalagi akhir pekan. Bisa lewat halaman ini atau lewat WhatsApp."),
         ("Bisa datang tanpa janji?", "Bisa, dan dilayani kalau ruang perawatan sedang kosong. Kalau penuh, Anda diberi tahu perkiraan waktu tunggunya lebih dulu."),

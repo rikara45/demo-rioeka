@@ -7,8 +7,11 @@
 <meta name="theme-color" content="#F3F6F1">
 <title>Kenanga Spa, booking</title>
 <meta name="description" content="Pesan perawatan, pilih terapis, tanggal, dan jam di Kenanga Spa.">
+<link rel="preload" href="/font/cormorant-garamond-latin.woff2" as="font" type="font/woff2" crossorigin>
 <style>
 @font-face{font-family:Archivo;font-style:normal;font-weight:400 800;font-stretch:62% 125%;font-display:swap;src:url(/font/archivo-latin.woff2) format('woff2')}
+@font-face{font-family:'Cormorant Garamond';font-style:normal;font-weight:500 700;font-display:swap;src:url(/font/cormorant-garamond-latin.woff2) format('woff2')}
+@font-face{font-family:'Cormorant Garamond';font-style:italic;font-weight:500 600;font-display:swap;src:url(/font/cormorant-garamond-italic-latin.woff2) format('woff2')}
 :root{
   --latar:#F3F6F1;
   --kartu:#FFFFFF;
@@ -27,6 +30,8 @@
   --r:24px;
   --r-kecil:16px;
   --r-tombol:999px;
+  --lengkung:999px;
+  --serif:"Cormorant Garamond",Georgia,"Times New Roman",serif;
   --bayang:0 1px 2px rgba(29,43,36,.05),0 10px 28px rgba(29,43,36,.06);
   --h-berat:600;
   --h-lebar:100%;
@@ -264,81 +269,120 @@ svg{display:block;flex:none}
 .fakta .f-nilai{font-size:15px;font-weight:800;line-height:1.25;overflow-wrap:anywhere}
 .dur{display:inline-block;margin-right:6px;padding:0 8px;border-radius:99px;background:var(--sinyal-lembut);color:var(--sinyal-gelap);font-size:13px;font-weight:700}
 
-/* salon: mawar, kelopak, titik penghubung */
-[data-j=salon] .hero-isi{padding:20px 18px 22px;border-radius:var(--r);background:var(--sinyal-lembut)}
-[data-j=salon] .hero-isi::before{top:6px;right:6px;width:130px;height:130px;background:var(--sinyal);opacity:.18;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='black' stroke-width='3'%3E%3Ccircle cx='60' cy='40' r='22'/%3E%3Ccircle cx='40' cy='72' r='22'/%3E%3Ccircle cx='80' cy='72' r='22'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='black' stroke-width='3'%3E%3Ccircle cx='60' cy='40' r='22'/%3E%3Ccircle cx='40' cy='72' r='22'/%3E%3Ccircle cx='80' cy='72' r='22'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat}
-[data-j=salon] .fakta li{border:0;background:var(--sinyal-lembut)}
-[data-j=salon] .fakta .f-nilai{color:var(--sinyal-gelap)}
-[data-j=salon] .bagian h2::after{content:"";display:block;width:44px;height:4px;margin-top:10px;border-radius:99px;background:var(--sinyal)}
-[data-j=salon] .harga li{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 8px;border-top:0;padding:12px 0}
-[data-j=salon] .harga .nm{display:flex;flex:1 1 auto;align-items:baseline;gap:8px;min-width:0}
-[data-j=salon] .harga .nm::after{content:"";flex:1 1 20px;min-width:20px;border-bottom:2px dotted var(--garis-kuat);transform:translateY(-4px)}
-[data-j=salon] .harga .ket{flex:1 1 100%}
-[data-j=salon] .galeri .petak:first-child,[data-j=salon] .galeri .petak:last-child{grid-column:1 / -1;aspect-ratio:16/10}
-@media (min-width:600px){
-[data-j=salon] .galeri .petak:first-child{grid-column:span 2;grid-row:span 2;aspect-ratio:auto}
-[data-j=salon] .galeri .petak:last-child{grid-column:auto;aspect-ratio:4/3}
+
+/* spa, gaya tenang-organik: simetris tengah, oval batu, ranting daun */
+[data-j=spa] :is(.hero h1,.bagian h2,.panel h3,.selesai h3,#harga .kartu > h3,.kartu.pesan-buka > h3,.f-nilai,.harga .hr,.hari .tg,.tinjau .total dd,.kode,.penutup h2,.tanya summary){font-family:var(--serif);font-stretch:100%;font-weight:500;font-variant-numeric:lining-nums;letter-spacing:0;text-transform:none}
+[data-j=spa] .hero{padding:28px 0 4px;text-align:center}
+[data-j=spa] .hero-isi::before{display:none}
+[data-j=spa] .hero .eyebrow{font-size:12px;letter-spacing:.24em;color:var(--sinyal-gelap)}
+[data-j=spa] .hero h1{margin:14px 0 14px;font-size:clamp(48px,15vw,80px);line-height:.98;text-wrap:balance}
+[data-j=spa] .hero h1 em{font-style:italic;font-weight:500;color:var(--sinyal-gelap)}
+[data-j=spa] .hero .lead{max-width:40ch;margin-left:auto;margin-right:auto;font-size:17px}
+[data-j=spa] .hero-foto{position:relative;isolation:isolate;width:min(100%,320px);margin:24px auto 40px}
+[data-j=spa] .hero-foto::before{content:"";position:absolute;z-index:-1;inset:0;transform:translate(10px,10px);border:1px solid var(--sinyal);border-radius:50% / 42%}
+[data-j=spa] .hero-foto img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:46% 50%;border-radius:50% / 42%;background:var(--kartu-turun)}
+[data-j=spa] .lencana{position:absolute;left:50%;bottom:-18px;transform:translateX(-50%);display:inline-flex;align-items:center;min-height:36px;padding:0 18px;border-radius:999px;background:var(--sinyal);color:var(--di-atas-sinyal);font-size:12px;font-weight:700;letter-spacing:.16em;line-height:1;text-transform:uppercase;white-space:nowrap}
+[data-j=spa] .hero-foto + .tag-baris{margin-top:6px}
+[data-j=spa] .status{margin-top:8px;background:transparent;border-color:var(--garis)}
+[data-j=spa] .aksi{justify-items:stretch}
+@media (min-width:520px){[data-j=spa] .aksi{justify-content:center}}
+[data-j=spa] .fakta{grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:30px;border-top:1px solid var(--garis);border-bottom:1px solid var(--garis)}
+[data-j=spa] .fakta li{justify-items:center;align-content:center;gap:6px;padding:18px 8px;border:0;border-left:1px solid var(--garis);border-radius:0;background:none;text-align:center}
+[data-j=spa] .fakta li:first-child{border-left:0}
+[data-j=spa] .fakta .f-label{font-size:12px;letter-spacing:.12em}
+[data-j=spa] .fakta .f-nilai{font-size:24px;line-height:1.05;color:var(--tinta);overflow-wrap:normal}
+[data-j=spa] .loncat{justify-content:safe center}
+[data-j=spa] .loncat a{border-color:var(--garis);background:transparent}
+[data-j=spa] .loncat a:hover{background:var(--kartu-turun)}
+[data-j=spa] .demo-kartu{margin:28px 0 0;background:var(--sinyal-lembut)}
+
+[data-j=spa] .bagian{padding:64px 0 4px;text-align:center}
+[data-j=spa] .bagian h2{font-size:clamp(34px,10vw,46px);line-height:1.02}
+[data-j=spa] .bagian:not(.penutup) h2::before{content:"";display:block;width:40px;height:28px;margin:0 auto 14px;background:var(--sinyal);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 28'%3E%3Cpath d='M20 27V9' stroke='black' stroke-width='1.2' fill='none'/%3E%3Cpath d='M20 9C14 9 11 5 11 1C17 1 20 4 20 9ZM20 17C26 17 29 13 29 9C23 9 20 12 20 17ZM20 20C14 20 11 18 10 15C15 14 19 16 20 20Z' fill='black'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 28'%3E%3Cpath d='M20 27V9' stroke='black' stroke-width='1.2' fill='none'/%3E%3Cpath d='M20 9C14 9 11 5 11 1C17 1 20 4 20 9ZM20 17C26 17 29 13 29 9C23 9 20 12 20 17ZM20 20C14 20 11 18 10 15C15 14 19 16 20 20Z' fill='black'/%3E%3C/svg%3E") center/contain no-repeat}
+[data-j=spa] .bagian:not(.penutup) h2::after{content:"";display:block;width:56px;height:1px;margin:16px auto 0;background:var(--sinyal)}
+[data-j=spa] .bagian-lead{margin:16px auto 0}
+[data-j=spa] .kartu{border-color:var(--garis)}
+[data-j=spa] .tag-baris{text-align:center}
+
+[data-j=spa] #harga .kartu{margin-top:34px;padding:0;border:0;border-radius:0;background:none;box-shadow:none}
+[data-j=spa] #harga .kartu > h3{display:flex;align-items:center;gap:14px;font-size:30px;font-style:italic;line-height:1;color:var(--sinyal-gelap)}
+[data-j=spa] #harga .kartu > h3::before,[data-j=spa] #harga .kartu > h3::after{content:"";flex:1;border-top:1px solid var(--garis)}
+[data-j=spa] .harga{margin-top:8px}
+[data-j=spa] .harga li{display:flex;flex-direction:column;align-items:center;gap:4px;padding:18px 0;text-align:center}
+[data-j=spa] .harga li + li{border-top:1px solid var(--garis)}
+[data-j=spa] .harga .nm{font-weight:600}
+[data-j=spa] .harga .hr{font-size:26px;line-height:1;color:var(--sinyal-gelap)}
+[data-j=spa] .harga .ket{max-width:44ch}
+[data-j=spa] .dur{display:inline;margin:0;padding:0;background:none;color:var(--sinyal-gelap);font-size:inherit;font-weight:600}
+[data-j=spa] .dur + .ket-teks::before{content:"\00A0\00B7\00A0"}
+
+[data-j=spa] .galeri{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 14px;align-items:start;margin-top:34px}
+[data-j=spa] .petak{aspect-ratio:auto;overflow:visible;border-radius:0;background:none}
+[data-j=spa] .petak img{height:auto;aspect-ratio:4/5;border-radius:50% / 42%;background:var(--kartu-turun)}
+[data-j=spa] .petak figcaption{margin-top:10px;font-size:13px;line-height:1.35;text-align:center;color:var(--tinta-redup)}
+[data-j=spa] .petak:nth-child(odd){margin-top:16px}
+[data-j=spa] .petak:first-child,[data-j=spa] .petak:last-child{grid-column:1 / -1;margin-top:0}
+[data-j=spa] .petak:first-child img{aspect-ratio:16/10;border-radius:50% / 46%}
+[data-j=spa] .petak:nth-child(3) img{aspect-ratio:1;border-radius:42% 58% 55% 45% / 55% 45% 55% 45%}
+[data-j=spa] .petak:nth-child(4) img{aspect-ratio:1;border-radius:58% 42% 45% 55% / 45% 55% 45% 55%}
+[data-j=spa] .petak:last-child img{aspect-ratio:16/10;border-radius:42% 58% 46% 54% / 62% 58% 42% 38%}
+[data-j=spa] .kredit{text-align:center}
+
+[data-j=spa] #lokasi .kartu{margin-top:30px;padding:0;border:0;border-radius:0;background:none;box-shadow:none}
+[data-j=spa] #lokasi .kartu > h3{text-align:center}
+[data-j=spa] .jam{max-width:420px;margin-left:auto;margin-right:auto}
+[data-j=spa] .jam li{margin:0;padding:13px 0 13px 12px;border-radius:0}
+[data-j=spa] .jam li:first-child{border-top:1px solid var(--garis)}
+[data-j=spa] .jam li:last-child{border-bottom:1px solid var(--garis)}
+[data-j=spa] .jam li.hari-ini{background:none;box-shadow:inset 3px 0 0 var(--sinyal)}
+[data-j=spa] .jam li.hari-ini,[data-j=spa] .jam li.hari-ini + li{border-top-color:var(--garis)}
+[data-j=spa] #lokasi .kartu + .kartu{padding:24px 20px;border:1px solid var(--garis);border-radius:var(--r);background:var(--kartu);text-align:center}
+@media (min-width:520px){[data-j=spa] .aksi-lokasi{justify-content:center}}
+
+[data-j=spa] .tanya{border-bottom:1px solid var(--garis);text-align:left}
+[data-j=spa] .tanya details{border-top-color:var(--garis)}
+[data-j=spa] .tanya summary{min-height:64px;padding:16px 0;font-size:24px;line-height:1.15}
+[data-j=spa] .tanya summary svg{display:none}
+[data-j=spa] .tanya summary::after{content:"+";flex:none;margin-left:auto;font-size:30px;font-weight:500;line-height:1;color:var(--sinyal-gelap)}
+[data-j=spa] .tanya details[open] summary::after{content:"\2212"}
+[data-j=spa] .tanya details p{padding:0 0 18px}
+
+[data-j=spa] .penutup .kartu{padding:34px 22px;border:0;border-radius:var(--r);background:var(--sinyal-lembut);box-shadow:none}
+[data-j=spa] .penutup h2{font-size:clamp(30px,8.5vw,40px);line-height:1.04}
+[data-j=spa] .kaki{border-top-color:var(--garis)}
+
+@supports (animation-timeline:view()){
+@media (prefers-reduced-motion:no-preference){
+@keyframes naik{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+[data-j=spa] .bagian > h2,[data-j=spa] .petak{animation:naik linear both;animation-timeline:view();animation-range:entry 0% entry 70%}
+}
 }
 
-/* barbershop: garis tegas, kapital, kotak */
-[data-j=barbershop] .hero-isi{padding-left:16px;border-left:6px solid var(--sinyal)}
-[data-j=barbershop] .hero-isi::before{top:0;right:0;width:130px;height:130px;background:repeating-linear-gradient(135deg,var(--sinyal) 0 6px,transparent 6px 16px);opacity:.22;-webkit-mask:linear-gradient(to left,black,transparent);mask:linear-gradient(to left,black,transparent)}
-[data-j=barbershop] .fakta li{border:0;border-left:4px solid var(--sinyal);border-radius:0;background:var(--kartu)}
-[data-j=barbershop] .fakta .f-nilai{font-stretch:80%;font-size:17px;text-transform:uppercase;letter-spacing:.02em}
-[data-j=barbershop] .bagian h2{padding-left:12px;border-left:6px solid var(--sinyal)}
-[data-j=barbershop] .harga li{border-top:1px dashed var(--garis-kuat)}
-[data-j=barbershop] .harga li:first-child{border-top:0}
-[data-j=barbershop] .harga .nm{font-stretch:80%;font-size:18px;text-transform:uppercase;letter-spacing:.02em}
-[data-j=barbershop] .harga .hr{font-size:20px;font-weight:800;color:var(--sinyal)}
-[data-j=barbershop] .galeri{gap:8px}
-[data-j=barbershop] .petak{aspect-ratio:1;border:2px solid var(--garis-kuat);filter:grayscale(.55) contrast(1.05)}
-[data-j=barbershop] .opsi-nama{font-stretch:80%;text-transform:uppercase;letter-spacing:.02em}
-
-/* spa: tenang, tengah, lengkung */
-[data-j=spa] .hero-isi{padding:8px 0 4px;text-align:center}
-[data-j=spa] .hero-isi::before{top:-2px;right:50%;width:160px;height:160px;margin-right:-80px;background:var(--sinyal);opacity:.12;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='black' stroke-width='2'%3E%3Ccircle cx='60' cy='60' r='14'/%3E%3Ccircle cx='60' cy='60' r='28'/%3E%3Ccircle cx='60' cy='60' r='42'/%3E%3Ccircle cx='60' cy='60' r='56'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='black' stroke-width='2'%3E%3Ccircle cx='60' cy='60' r='14'/%3E%3Ccircle cx='60' cy='60' r='28'/%3E%3Ccircle cx='60' cy='60' r='42'/%3E%3Ccircle cx='60' cy='60' r='56'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat}
-[data-j=spa] .hero .lead{margin-left:auto;margin-right:auto}
-[data-j=spa] .hero .aksi{justify-items:stretch}
-@media (min-width:520px){[data-j=spa] .hero .aksi{justify-content:center}}
-[data-j=spa] .loncat{justify-content:safe center}
-[data-j=spa] .fakta li{border:0;border-top:2px solid var(--sinyal);border-radius:0;background:transparent;text-align:center}
-[data-j=spa] .bagian h2,[data-j=spa] .bagian-lead,[data-j=spa] .bagian > .tag-baris{text-align:center}
-[data-j=spa] .bagian-lead{margin-left:auto;margin-right:auto}
-[data-j=spa] .bagian h2::after{content:"";display:block;width:40px;height:2px;margin:12px auto 0;background:var(--sinyal)}
-[data-j=spa] .kartu > h3{text-align:center}
-[data-j=spa] .harga li{grid-template-columns:1fr;justify-items:center;gap:4px;text-align:center;padding:18px 0}
-[data-j=spa] .harga .ket{grid-column:auto}
-[data-j=spa] .harga .hr{color:var(--sinyal-gelap);font-weight:600;font-size:18px}
-[data-j=spa] .galeri{gap:12px}
-[data-j=spa] .petak{aspect-ratio:3/4;border-radius:999px 999px var(--r-kecil) var(--r-kecil)}
-[data-j=spa] .opsi-kotak{box-shadow:var(--bayang)}
-
-/* penginapan: nomor bagian, lengkung jendela, foto lebar */
-[data-j=penginapan] .hero-isi{padding-bottom:6px;border-bottom:1px solid var(--garis)}
-[data-j=penginapan] .hero-isi::before{top:0;right:0;width:120px;height:120px;background:var(--sinyal);opacity:.14;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='black' stroke-width='3'%3E%3Cpath d='M10 116V54a40 40 0 0 1 80 0v62'/%3E%3Cpath d='M26 116V56a24 24 0 0 1 48 0v60'/%3E%3Cpath d='M42 116V58a8 8 0 0 1 16 0v58'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='black' stroke-width='3'%3E%3Cpath d='M10 116V54a40 40 0 0 1 80 0v62'/%3E%3Cpath d='M26 116V56a24 24 0 0 1 48 0v60'/%3E%3Cpath d='M42 116V58a8 8 0 0 1 16 0v58'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat}
-[data-j=penginapan] .fakta li{border:0;border-top:3px solid var(--sinyal);border-radius:var(--r-kecil) var(--r-kecil) 0 0;background:var(--kartu-turun)}
-body[data-j=penginapan]{counter-reset:bag}
-[data-j=penginapan] .bagian h2::before{counter-increment:bag;content:"0" counter(bag);display:block;margin-bottom:6px;font-size:13px;font-stretch:100%;font-weight:700;letter-spacing:.16em;color:var(--sinyal-gelap)}
-[data-j=penginapan] .harga li{padding:18px 0}
-[data-j=penginapan] .harga .nm{font-size:18px;font-weight:700}
-[data-j=penginapan] .harga .hr{font-size:22px;font-weight:800;color:var(--sinyal-gelap)}
-[data-j=penginapan] .galeri{grid-template-columns:repeat(2,minmax(0,1fr))}
-[data-j=penginapan] .galeri .petak:first-child,[data-j=penginapan] .galeri .petak:last-child{grid-column:1 / -1;aspect-ratio:16/9}
-[data-j=penginapan] .opsi-kotak{border-left-width:6px}
-
-/* katering: taplak kotak-kotak, lencana harga, foto kartu pos */
-[data-j=katering] .hero-isi::before{top:-4px;right:-4px;width:140px;height:120px;background-image:repeating-linear-gradient(0deg,transparent 0 12px,var(--sinyal) 12px 24px),repeating-linear-gradient(90deg,transparent 0 12px,var(--sinyal) 12px 24px);opacity:.13;-webkit-mask:linear-gradient(to left,black 40%,transparent);mask:linear-gradient(to left,black 40%,transparent)}
-[data-j=katering] .fakta li{border:2px dashed var(--sinyal);background:var(--kartu)}
-[data-j=katering] .bagian h2::after{content:"";display:block;width:72px;margin-top:10px;border-bottom:4px dotted var(--sinyal)}
-[data-j=katering] .harga li{align-items:start}
-[data-j=katering] .harga .hr{align-self:start;padding:3px 12px;border-radius:99px;background:var(--sinyal-lembut);color:var(--sinyal-gelap)}
-[data-j=katering] .galeri{gap:16px 12px;padding:6px 4px 10px}
-[data-j=katering] .petak{aspect-ratio:auto;padding:8px 8px 22px;border:1px solid var(--garis);border-radius:4px;background:var(--kartu);box-shadow:var(--bayang)}
-[data-j=katering] .petak img{height:auto;aspect-ratio:4/3;border-radius:2px}
-[data-j=katering] .petak:nth-child(odd){rotate:-1.2deg}
-[data-j=katering] .petak:nth-child(even){rotate:1.2deg}
-[data-j=katering] .menu-baris{border-style:dashed}
-[data-j=katering] .menu-baris.aktif{border-style:solid}
+[data-j=spa] .kartu.pesan,[data-j=spa] .kartu.pesan-buka{background:var(--kartu)}
+[data-j=spa] .kartu.pesan-buka{text-align:center}
+[data-j=spa] .kartu.pesan-buka > h3{font-size:32px;line-height:1;color:var(--tinta)}
+[data-j=spa] .pesan-buka p{margin:10px auto 18px}
+[data-j=spa] .panel h3{font-size:34px;line-height:1}
+[data-j=spa] .langkah-no{letter-spacing:.18em;color:var(--sinyal-gelap)}
+[data-j=spa] .progres{height:3px;background:var(--garis)}
+[data-j=spa] .sub{color:var(--sinyal-gelap)}
+[data-j=spa] .opsi-kotak{border-width:1px;border-color:var(--garis)}
+[data-j=spa] .opsi input:checked + .opsi-kotak{box-shadow:inset 0 0 0 1px var(--sinyal)}
+[data-j=spa] .opsi-nama{font-weight:600}
+[data-j=spa] .opsi-harga{font-family:var(--serif);font-size:24px;font-weight:500;line-height:1.1;font-variant-numeric:lining-nums;color:var(--sinyal-gelap)}
+[data-j=spa] .panel[data-langkah=bayar] .opsi-harga{font-family:Archivo,system-ui,sans-serif;font-size:14px;font-weight:600;line-height:1.3}
+[data-j=spa] .hari{border-width:1px;border-color:var(--garis)}
+[data-j=spa] .hari .tg{font-size:30px;line-height:1.05}
+[data-j=spa] .jam-grid button{border-width:1px}
+[data-j=spa] .stepper{border-width:1px}
+[data-j=spa] .st-nilai{border-left-width:1px;border-right-width:1px}
+[data-j=spa] .kolom input,[data-j=spa] .kolom textarea{border-width:1px}
+[data-j=spa] .tinjau .total{border-top:1px solid var(--tinta)}
+[data-j=spa] .tinjau .total dd{font-size:32px;line-height:1}
+[data-j=spa] .selesai h3{font-size:38px;line-height:1}
+[data-j=spa] .kode{font-size:46px;line-height:1;letter-spacing:.03em;font-variant-numeric:lining-nums tabular-nums;color:var(--sinyal-gelap)}
+[data-j=spa] .kartu.pesan{text-align:left}
+[data-j=spa] .kartu.pesan .selesai{text-align:center}
 
 </style>
 </head>
@@ -348,17 +392,19 @@ body[data-j=penginapan]{counter-reset:bag}
 <main>
 <div class="wadah">
 <section class="hero">
-<section class="demo-kartu" aria-label="Penjelasan halaman demo"><span class="tanda-contoh">Demo Paket 2</span><p class="demo-judul">Ini halaman demo, bukan spa sungguhan</p><p class="demo-teks">Beginilah tampilan website Anda nanti kalau memakai jasa Rio Ekaputra Siswa. Bayangkan isinya jadi milik spa Anda.</p><div class="ganti-kepala" aria-hidden="true"><span>Di demo ini</span><span></span><span>Di website Anda</span></div><ul class="ganti-daftar"><li><span class="kini">Kenanga Spa</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Nama spa Anda</span></li><li><span class="kini">Jl. Contoh No. 18</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Alamat spa Anda</span></li><li><span class="kini">Terapis: Sari, Maya, Nadia</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Nama terapis di tempat Anda</span></li><li><span class="kini">Massage badan, Rp 150.000</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Perawatan dan harga Anda</span></li><li><span class="kini">0812-3456-7891</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Nomor WhatsApp Anda</span></li><li><span class="kini">devario.rioeka.com</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>namaspaanda.com</span></li></ul><p class="demo-paket">Paket 2: pesanan di halaman ini tidak tersimpan, hanya memperlihatkan alurnya. Di website Anda, pesanan masuk ke WhatsApp atau ke catatan spa.</p></section>
 <div class="hero-isi">
 <p class="eyebrow">Spa &middot; Dago, Kota Bandung</p>
-<h1>Kenanga Spa</h1>
+<h1>Kenanga <em>Spa</em></h1>
 <p class="tag-baris"><span class="tag-anda">Nama spa Anda tampil di sini</span></p>
+<figure class="hero-foto"><img src="/spa/img/g4.jpg" alt="Lilin, handuk gulung, dan botol aroma dengan ranting daun" width="720" height="540" fetchpriority="high" decoding="async"><span class="lencana">Dago</span></figure>
+<p class="tag-baris"><span class="tag-anda">Foto spa Anda tampil di sini</span></p>
 <p class="status" id="status"><span class="titik" id="titik"></span><span id="status-teks">Memuat jam buka</span></p>
 <p class="lead">Massage, refleksi, dan perawatan tubuh dengan harga yang tertera jelas.</p>
 <div class="aksi"><a class="tombol" href="#pesan"><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> Pesan sekarang</a><a class="tombol garis" href="https://wa.me/6281234567891?text=Halo%2C%20saya%20mau%20tanya%20soal%20booking%20di%20Kenanga%20Spa."><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.4 8.4 0 1 1 21 11.5Z"/></svg> Tanya lewat WhatsApp</a></div>
 </div>
 <ul class="fakta"><li><span class="f-label">Mulai dari</span><span class="f-nilai">Rp 90.000</span></li><li><span class="f-label">Terapis</span><span class="f-nilai">3 orang</span></li><li><span class="f-label">Lama layanan</span><span class="f-nilai">45-90 menit</span></li></ul>
 <nav class="loncat" aria-label="Loncat ke bagian"><a href="#pesan">Pesan</a><a href="#harga">Harga</a><a href="#lokasi">Lokasi</a><a href="#tanya">Tanya jawab</a></nav>
+<section class="demo-kartu" aria-label="Penjelasan halaman demo"><span class="tanda-contoh">Demo Paket 2</span><p class="demo-judul">Ini halaman demo, bukan spa sungguhan</p><p class="demo-teks">Beginilah tampilan website Anda nanti kalau memakai jasa Rio Ekaputra Siswa. Bayangkan isinya jadi milik spa Anda.</p><div class="ganti-kepala" aria-hidden="true"><span>Di demo ini</span><span></span><span>Di website Anda</span></div><ul class="ganti-daftar"><li><span class="kini">Kenanga Spa</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Nama spa Anda</span></li><li><span class="kini">Jl. Contoh No. 18</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Alamat spa Anda</span></li><li><span class="kini">Terapis: Sari, Maya, Nadia</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Nama terapis di tempat Anda</span></li><li><span class="kini">Massage badan, Rp 150.000</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Perawatan dan harga Anda</span></li><li><span class="kini">0812-3456-7891</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Nomor WhatsApp Anda</span></li><li><span class="kini">devario.rioeka.com</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>namaspaanda.com</span></li></ul><p class="demo-paket">Paket 2: pesanan di halaman ini tidak tersimpan, hanya memperlihatkan alurnya. Di website Anda, pesanan masuk ke WhatsApp atau ke catatan spa.</p></section>
 </section>
 <section class="bagian" id="bagian-pesan" aria-labelledby="j-pesan">
 <p class="tag-baris"><span class="tag-anda">Layanan dan jam sesuai usaha Anda</span></p>
@@ -383,7 +429,7 @@ body[data-j=penginapan]{counter-reset:bag}
 <p class="tag-baris"><span class="tag-anda">Harga spa Anda</span></p>
 <h2>Daftar harga</h2>
 <p class="bagian-lead">Semua perawatan dihitung per sesi. Durasi tertera di tiap layanan.</p>
-<div class="kartu"><h3>Massage</h3><ul class="harga"><li><span class="nm">Massage badan</span><span class="hr">Rp 150.000</span><span class="ket"><span class="dur">1 jam</span></span></li><li><span class="nm">Massage aromaterapi</span><span class="hr">Rp 185.000</span><span class="ket"><span class="dur">1 jam 30 menit</span>Minyak pilihan: lavender, serai, atau kenanga.</span></li><li><span class="nm">Massage tradisional</span><span class="hr">Rp 130.000</span><span class="ket"><span class="dur">1 jam</span></span></li><li><span class="nm">Massage batu hangat</span><span class="hr">Rp 220.000</span><span class="ket"><span class="dur">1 jam 30 menit</span>Batu hangat di punggung dan kaki.</span></li></ul></div><div class="kartu"><h3>Refleksi</h3><ul class="harga"><li><span class="nm">Refleksi kaki</span><span class="hr">Rp 90.000</span><span class="ket"><span class="dur">45 menit</span></span></li><li><span class="nm">Refleksi punggung</span><span class="hr">Rp 110.000</span><span class="ket"><span class="dur">45 menit</span></span></li><li><span class="nm">Refleksi tangan dan kaki</span><span class="hr">Rp 130.000</span><span class="ket"><span class="dur">1 jam</span></span></li></ul></div><div class="kartu"><h3>Perawatan wajah dan tubuh</h3><ul class="harga"><li><span class="nm">Facial dasar</span><span class="hr">Rp 150.000</span><span class="ket"><span class="dur">1 jam</span>Pembersihan dan masker, tanpa tindakan medis.</span></li><li><span class="nm">Scrub badan</span><span class="hr">Rp 140.000</span><span class="ket"><span class="dur">45 menit</span></span></li><li><span class="nm">Lulur tradisional</span><span class="hr">Rp 160.000</span><span class="ket"><span class="dur">1 jam</span></span></li><li><span class="nm">Body mask</span><span class="hr">Rp 175.000</span><span class="ket"><span class="dur">1 jam</span></span></li></ul></div><p class="catatan">Tidak ada tindakan medis di sini. Untuk keluhan kulit, konsultasikan dulu dengan dokter.</p>
+<div class="kartu"><h3>Massage</h3><ul class="harga"><li><span class="nm">Massage badan</span><span class="hr">Rp 150.000</span><span class="ket"><span class="dur">1 jam</span></span></li><li><span class="nm">Massage aromaterapi</span><span class="hr">Rp 185.000</span><span class="ket"><span class="dur">1 jam 30 menit</span><span class="ket-teks">Minyak pilihan: lavender, serai, atau kenanga.</span></span></li><li><span class="nm">Massage tradisional</span><span class="hr">Rp 130.000</span><span class="ket"><span class="dur">1 jam</span></span></li><li><span class="nm">Massage batu hangat</span><span class="hr">Rp 220.000</span><span class="ket"><span class="dur">1 jam 30 menit</span><span class="ket-teks">Batu hangat di punggung dan kaki.</span></span></li></ul></div><div class="kartu"><h3>Refleksi</h3><ul class="harga"><li><span class="nm">Refleksi kaki</span><span class="hr">Rp 90.000</span><span class="ket"><span class="dur">45 menit</span></span></li><li><span class="nm">Refleksi punggung</span><span class="hr">Rp 110.000</span><span class="ket"><span class="dur">45 menit</span></span></li><li><span class="nm">Refleksi tangan dan kaki</span><span class="hr">Rp 130.000</span><span class="ket"><span class="dur">1 jam</span></span></li></ul></div><div class="kartu"><h3>Perawatan wajah dan tubuh</h3><ul class="harga"><li><span class="nm">Facial dasar</span><span class="hr">Rp 150.000</span><span class="ket"><span class="dur">1 jam</span><span class="ket-teks">Pembersihan dan masker, tanpa tindakan medis.</span></span></li><li><span class="nm">Scrub badan</span><span class="hr">Rp 140.000</span><span class="ket"><span class="dur">45 menit</span></span></li><li><span class="nm">Lulur tradisional</span><span class="hr">Rp 160.000</span><span class="ket"><span class="dur">1 jam</span></span></li><li><span class="nm">Body mask</span><span class="hr">Rp 175.000</span><span class="ket"><span class="dur">1 jam</span></span></li></ul></div><p class="catatan">Tidak ada tindakan medis di sini. Untuk keluhan kulit, konsultasikan dulu dengan dokter.</p>
 </section>
 <section class="bagian" id="lokasi">
 <p class="tag-baris"><span class="tag-anda">Alamat dan jam buka spa Anda</span></p>
