@@ -37,7 +37,7 @@
 }
 
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;scroll-padding-top:72px;background:var(--latar);accent-color:var(--sinyal)}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:104px;background:var(--latar);accent-color:var(--sinyal)}
 @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
 body{margin:0;overflow-x:clip;background:var(--latar);color:var(--tinta);font-family:Archivo,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:16px;line-height:1.55;padding-bottom:calc(84px + env(safe-area-inset-bottom))}
 h1,h2,h3,p,ul,ol,dl,dd,figure{margin:0}
@@ -59,6 +59,7 @@ svg{display:block;flex:none}
 
 .atas{position:sticky;top:0;z-index:30;background:var(--latar);border-bottom:1px solid var(--garis)}
 .atas .wadah{display:flex;align-items:center;gap:10px;min-height:56px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .balik{display:inline-flex;align-items:center;gap:2px;min-height:44px;padding:0 12px 0 6px;margin-left:-6px;border-radius:var(--r-tombol);font-weight:600;font-size:15px;text-decoration:none;white-space:nowrap}
 .balik:hover{background:var(--kartu-turun)}
 .nama-atas{margin-left:auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:700;font-size:15px;color:var(--tinta-redup)}
@@ -73,7 +74,24 @@ svg{display:block;flex:none}
 .lead{margin-top:14px;max-width:46ch;color:var(--tinta-redup)}
 .aksi{display:grid;gap:10px;margin-top:20px}
 @media (min-width:520px){.aksi{grid-template-columns:auto auto;justify-content:start}}
-.catatan-demo{display:flex;gap:10px;align-items:flex-start;margin-top:20px;padding:12px 14px;border-radius:var(--r-kecil);background:var(--sinyal-lembut);font-size:14px}
+.demo-strip{display:flex;justify-content:center;align-items:center;gap:8px;min-height:32px;padding:4px 16px;background:var(--sinyal);color:var(--di-atas-sinyal);font-size:13px;font-weight:600;text-align:center}
+.demo-strip .tanda-contoh{background:var(--di-atas-sinyal);color:var(--sinyal-gelap)}
+.demo-kartu{margin-bottom:22px;padding:16px;border:2px dashed var(--sinyal);border-radius:var(--r);background:var(--sinyal-lembut)}
+.demo-judul{margin-top:10px;font-size:21px;font-weight:800;line-height:1.2;text-wrap:balance}
+.demo-teks{margin-top:8px;font-size:15px}
+.ganti-kepala,.ganti-daftar li{display:grid;grid-template-columns:minmax(0,1fr) 20px minmax(0,1fr);gap:8px;align-items:center}
+.ganti-kepala{margin-top:14px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--tinta-redup)}
+.ganti-daftar{margin-top:4px}
+.ganti-daftar li{padding:10px 0;border-top:1px solid var(--garis);font-size:14px;line-height:1.35}
+.ganti-daftar .kini{color:var(--tinta-redup)}
+.ganti-daftar .nanti{font-weight:700}
+.ganti-daftar .ikon{width:18px;height:18px;color:var(--sinyal-gelap)}
+.demo-paket{margin-top:12px;padding-top:12px;border-top:1px solid var(--garis);font-size:14px}
+.tag-baris{margin-bottom:10px}
+.tag-anda{display:inline-flex;align-items:center;min-height:28px;padding:2px 10px;border:1.5px dashed var(--sinyal);border-radius:999px;background:var(--sinyal-lembut);color:var(--sinyal-gelap);font-size:13px;font-weight:700}
+.hero .tag-baris{margin:0 0 4px}
+.penutup .kartu{padding:20px}
+.penutup h2{font-size:clamp(22px,6vw,28px)}
 .tanda-contoh{flex:none;padding:2px 9px;border-radius:999px;background:var(--sinyal);color:var(--di-atas-sinyal);font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
 .loncat{display:flex;gap:8px;overflow-x:auto;margin:20px -16px 0;padding:2px 16px 6px;scrollbar-width:none}
 .loncat::-webkit-scrollbar{display:none}
@@ -128,31 +146,35 @@ svg{display:block;flex:none}
 </style>
 </head>
 <body>
-<header class="atas"><div class="wadah"><a class="balik" href="/"><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg> Daftar paket</a><span class="nama-atas">Salon Melati</span></div></header>
+<header class="atas"><div class="demo-strip" role="note"><span class="tanda-contoh">Demo</span><span>Contoh website untuk salon Anda</span></div><div class="wadah"><a class="balik" href="/"><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg> Daftar paket</a><span class="nama-atas">Salon Melati</span></div></header>
 <div class="pole" aria-hidden="true"></div>
 <main>
 <div class="wadah">
 <section class="hero">
+<section class="demo-kartu" aria-label="Penjelasan halaman demo"><span class="tanda-contoh">Demo Paket 1</span><p class="demo-judul">Ini halaman demo, bukan salon sungguhan</p><p class="demo-teks">Beginilah tampilan website Anda nanti kalau memakai jasa Rio Ekaputra Siswa. Bayangkan isinya jadi milik salon Anda.</p><div class="ganti-kepala" aria-hidden="true"><span>Di demo ini</span><span></span><span>Di website Anda</span></div><ul class="ganti-daftar"><li><span class="kini">Salon Melati</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Nama salon Anda</span></li><li><span class="kini">Jl. Contoh No. 10</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Alamat salon Anda</span></li><li><span class="kini">Potong rambut wanita, Rp 75.000</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Layanan dan harga Anda</span></li><li><span class="kini">0812-3456-7890</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Nomor WhatsApp Anda</span></li><li><span class="kini">Foto contoh</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Foto asli salon Anda</span></li></ul><p class="demo-paket">Paket 1: halaman informasi, tanpa booking. Untuk melihat versi yang bisa menerima pesanan, buka demo Paket 2.</p></section>
 <p class="eyebrow">Salon &middot; Bandung Wetan, Kota Bandung</p>
 <h1>Salon Melati</h1>
+<p class="tag-baris"><span class="tag-anda">Nama salon Anda tampil di sini</span></p>
 <p class="status" id="status"><span class="titik" id="titik"></span><span id="status-teks">Memuat jam buka</span></p>
 <p class="lead">Potong, warna, dan perawatan rambut dengan harga yang tertera jelas.</p>
 <div class="aksi"><a class="tombol" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20tanya%20soal%20booking%20di%20Salon%20Melati."><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.4 8.4 0 1 1 21 11.5Z"/></svg> Tanya lewat WhatsApp</a><a class="tombol garis" href="/salon/paket-2/">Buka demo Paket 2, dengan booking <svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a></div>
-<p class="catatan-demo"><span class="tanda-contoh">Demo Paket 1</span><span>Anda sedang membuka demo halaman informasi, tanpa booking. Untuk melihat versi yang bisa menerima pesanan, buka demo Paket 2.</span></p>
 <nav class="loncat" aria-label="Loncat ke bagian"><a href="#harga">Harga</a><a href="#lokasi">Lokasi</a><a href="#galeri">Galeri</a><a href="#tanya">Tanya jawab</a></nav>
 </section>
 <section class="bagian" id="harga">
+<p class="tag-baris"><span class="tag-anda">Harga salon Anda</span></p>
 <h2>Daftar harga</h2>
 <p class="bagian-lead">Panjang dan ketebalan rambut bisa menambah biaya pada layanan warna dan perawatan. Itu dikonfirmasi sebelum dikerjakan.</p>
 <div class="kartu"><h3>Potong, cuci, dan tatanan</h3><ul class="harga"><li><span class="nm">Potong rambut wanita</span><span class="hr">Rp 75.000</span></li><li><span class="nm">Potong rambut pria</span><span class="hr">Rp 50.000</span></li><li><span class="nm">Cuci dan blow</span><span class="hr">Rp 60.000</span></li><li><span class="nm">Catok atau curly</span><span class="hr">Rp 65.000</span></li><li><span class="nm">Sanggul dan tatanan acara</span><span class="hr">Rp 200.000</span></li></ul></div><div class="kartu"><h3>Warna dan perawatan</h3><ul class="harga"><li><span class="nm">Pewarnaan seluruh rambut</span><span class="hr">Rp 350.000</span><span class="ket">Perlu konsultasi warna lebih dulu.</span></li><li><span class="nm">Highlight</span><span class="hr">Rp 450.000</span><span class="ket">Waktu menyesuaikan panjang rambut.</span></li><li><span class="nm">Smoothing</span><span class="hr">Rp 550.000</span></li><li><span class="nm">Creambath</span><span class="hr">Rp 90.000</span></li><li><span class="nm">Perawatan kulit kepala</span><span class="hr">Rp 130.000</span></li></ul></div><p class="catatan">Layanan pengantin dihitung per paket, termasuk uji tatanan sebelum hari acara.</p>
 </section>
 <section class="bagian" id="lokasi">
+<p class="tag-baris"><span class="tag-anda">Alamat dan jam buka salon Anda</span></p>
 <h2>Lokasi dan jam buka</h2>
 <p class="bagian-lead">Hari yang tutup ditulis jelas, supaya tidak ada yang datang ke tempat kosong.</p>
 <div class="kartu"><h3>Jam buka</h3><ul class="jam" id="kartu-jam"><li data-hari="1"><span>Senin</span><span>tutup</span></li><li data-hari="2"><span>Selasa</span><span>10.00 sampai 19.00</span></li><li data-hari="3"><span>Rabu</span><span>10.00 sampai 19.00</span></li><li data-hari="4"><span>Kamis</span><span>10.00 sampai 19.00</span></li><li data-hari="5"><span>Jumat</span><span>10.00 sampai 19.00</span></li><li data-hari="6"><span>Sabtu</span><span>09.00 sampai 20.00</span></li><li data-hari="0"><span>Minggu</span><span>10.00 sampai 17.00</span></li></ul></div>
 <div class="kartu"><h3>Alamat</h3><address class="alamat">Jl. Contoh No. 10<br>Bandung Wetan, Kota Bandung 40115<br>Sebelah apotek, ada parkir di depan.</address><div class="aksi-lokasi"><a class="tombol garis" href="https://www.google.com/maps/search/?api=1&amp;query=Jl.%20Contoh%20No.%2010%20Bandung%20Wetan"><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> Buka di Google Maps</a></div></div>
 </section>
 <section class="bagian" id="galeri">
+<p class="tag-baris"><span class="tag-anda">Foto asli salon Anda</span></p>
 <h2>Galeri</h2>
 <p class="bagian-lead">Enam foto suasana dan layanan salon. Di website sungguhan, foto ini diganti foto usaha Anda sendiri.</p>
 <div class="galeri"><figure class="petak"><img src="/salon/img/g6.jpg" alt="Ruang depan dan meja resepsionis" width="720" height="540" loading="lazy" decoding="async"></figure><figure class="petak"><img src="/salon/img/g1.jpg" alt="Area potong dengan cermin" width="720" height="540" loading="lazy" decoding="async"></figure><figure class="petak"><img src="/salon/img/g2.jpg" alt="Meja cermin dan kursi" width="720" height="540" loading="lazy" decoding="async"></figure><figure class="petak"><img src="/salon/img/g3.jpg" alt="Meja cuci" width="720" height="540" loading="lazy" decoding="async"></figure><figure class="petak"><img src="/salon/img/g4.jpg" alt="Proses potong rambut" width="720" height="540" loading="lazy" decoding="async"></figure><figure class="petak"><img src="/salon/img/g5.jpg" alt="Proses pewarnaan rambut" width="720" height="540" loading="lazy" decoding="async"></figure></div>
@@ -161,6 +183,11 @@ svg{display:block;flex:none}
 <section class="bagian" id="tanya">
 <h2>Pertanyaan yang sering masuk</h2>
 <div class="tanya"><details><summary>Perlu reservasi dulu?<svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><p>Disarankan, terutama Sabtu dan Minggu. Bisa lewat halaman ini atau lewat WhatsApp.</p></details><details><summary>Bisa datang tanpa janji?<svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><p>Bisa, dan akan dilayani kalau kursi sedang kosong. Kalau sedang penuh, Anda diberi tahu perkiraan waktu tunggunya sebelum memutuskan menunggu.</p></details><details><summary>Melayani perawatan pengantin?<svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><p>Ya, dihitung per paket, termasuk uji tatanan sebelum hari acara. Kirim tanggal acara untuk mendapat rincian dan ketersediaan.</p></details><details><summary>Bisa bayar pakai QRIS atau kartu?<svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><p>QRIS dan kartu diterima, selain uang tunai.</p></details><details><summary>Rambut saya pernah diwarnai di tempat lain, bisa ditangani?<svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><p>Bisa. Kirim satu foto rambut Anda saat ini lewat WhatsApp, supaya hasil dan biayanya bisa diperkirakan lebih dulu.</p></details></div>
+</section>
+<section class="bagian penutup" aria-label="Penutup">
+<div class="kartu"><h2>Bayangkan ini website salon Anda</h2>
+<p class="bagian-lead">Nama, alamat, daftar harga, jam buka, dan foto di halaman ini nanti diganti dengan milik salon Anda. Salon Melati hanya nama contoh.</p>
+<div class="aksi"><a class="tombol" href="/#paket">Kembali ke daftar paket</a><a class="tombol garis" href="https://rioeka.com">Kunjungi rioeka.com</a></div></div>
 </section>
 </div>
 </main>

@@ -37,7 +37,7 @@
 }
 
 *{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%;scroll-padding-top:72px;background:var(--latar);accent-color:var(--sinyal)}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:104px;background:var(--latar);accent-color:var(--sinyal)}
 @media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
 body{margin:0;overflow-x:clip;background:var(--latar);color:var(--tinta);font-family:Archivo,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:16px;line-height:1.55;padding-bottom:calc(84px + env(safe-area-inset-bottom))}
 h1,h2,h3,p,ul,ol,dl,dd,figure{margin:0}
@@ -59,6 +59,7 @@ svg{display:block;flex:none}
 
 .atas{position:sticky;top:0;z-index:30;background:var(--latar);border-bottom:1px solid var(--garis)}
 .atas .wadah{display:flex;align-items:center;gap:10px;min-height:56px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .balik{display:inline-flex;align-items:center;gap:2px;min-height:44px;padding:0 12px 0 6px;margin-left:-6px;border-radius:var(--r-tombol);font-weight:600;font-size:15px;text-decoration:none;white-space:nowrap}
 .balik:hover{background:var(--kartu-turun)}
 .nama-atas{margin-left:auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:700;font-size:15px;color:var(--tinta-redup)}
@@ -73,7 +74,24 @@ svg{display:block;flex:none}
 .lead{margin-top:14px;max-width:46ch;color:var(--tinta-redup)}
 .aksi{display:grid;gap:10px;margin-top:20px}
 @media (min-width:520px){.aksi{grid-template-columns:auto auto;justify-content:start}}
-.catatan-demo{display:flex;gap:10px;align-items:flex-start;margin-top:20px;padding:12px 14px;border-radius:var(--r-kecil);background:var(--sinyal-lembut);font-size:14px}
+.demo-strip{display:flex;justify-content:center;align-items:center;gap:8px;min-height:32px;padding:4px 16px;background:var(--sinyal);color:var(--di-atas-sinyal);font-size:13px;font-weight:600;text-align:center}
+.demo-strip .tanda-contoh{background:var(--di-atas-sinyal);color:var(--sinyal-gelap)}
+.demo-kartu{margin-bottom:22px;padding:16px;border:2px dashed var(--sinyal);border-radius:var(--r);background:var(--sinyal-lembut)}
+.demo-judul{margin-top:10px;font-size:21px;font-weight:800;line-height:1.2;text-wrap:balance}
+.demo-teks{margin-top:8px;font-size:15px}
+.ganti-kepala,.ganti-daftar li{display:grid;grid-template-columns:minmax(0,1fr) 20px minmax(0,1fr);gap:8px;align-items:center}
+.ganti-kepala{margin-top:14px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--tinta-redup)}
+.ganti-daftar{margin-top:4px}
+.ganti-daftar li{padding:10px 0;border-top:1px solid var(--garis);font-size:14px;line-height:1.35}
+.ganti-daftar .kini{color:var(--tinta-redup)}
+.ganti-daftar .nanti{font-weight:700}
+.ganti-daftar .ikon{width:18px;height:18px;color:var(--sinyal-gelap)}
+.demo-paket{margin-top:12px;padding-top:12px;border-top:1px solid var(--garis);font-size:14px}
+.tag-baris{margin-bottom:10px}
+.tag-anda{display:inline-flex;align-items:center;min-height:28px;padding:2px 10px;border:1.5px dashed var(--sinyal);border-radius:999px;background:var(--sinyal-lembut);color:var(--sinyal-gelap);font-size:13px;font-weight:700}
+.hero .tag-baris{margin:0 0 4px}
+.penutup .kartu{padding:20px}
+.penutup h2{font-size:clamp(22px,6vw,28px)}
 .tanda-contoh{flex:none;padding:2px 9px;border-radius:999px;background:var(--sinyal);color:var(--di-atas-sinyal);font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
 .loncat{display:flex;gap:8px;overflow-x:auto;margin:20px -16px 0;padding:2px 16px 6px;scrollbar-width:none}
 .loncat::-webkit-scrollbar{display:none}
@@ -125,7 +143,7 @@ svg{display:block;flex:none}
 @media (min-width:760px){.bar-bawah{display:none}body{padding-bottom:0}}
 @media (prefers-reduced-motion:reduce){*{transition-duration:.001ms !important;animation-duration:.001ms !important}}
 
-.pesan{padding:16px 16px 16px;scroll-margin-top:68px}
+.pesan{padding:16px 16px 16px;scroll-margin-top:100px}
 .langkah-kepala{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
 .langkah-no{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--tinta-redup)}
 .langkah-nama{font-size:13px;font-weight:600;color:var(--tinta-redup)}
@@ -223,20 +241,22 @@ svg{display:block;flex:none}
 </style>
 </head>
 <body>
-<header class="atas"><div class="wadah"><a class="balik" href="/"><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg> Daftar paket</a><span class="nama-atas">Barbershop Cukur Rapi</span></div></header>
+<header class="atas"><div class="demo-strip" role="note"><span class="tanda-contoh">Demo</span><span>Contoh website untuk barbershop Anda</span></div><div class="wadah"><a class="balik" href="/"><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg> Daftar paket</a><span class="nama-atas">Barbershop Cukur Rapi</span></div></header>
 <div class="pole" aria-hidden="true"></div>
 <main>
 <div class="wadah">
 <section class="hero">
+<section class="demo-kartu" aria-label="Penjelasan halaman demo"><span class="tanda-contoh">Demo Paket 2</span><p class="demo-judul">Ini halaman demo, bukan barbershop sungguhan</p><p class="demo-teks">Beginilah tampilan website Anda nanti kalau memakai jasa Rio Ekaputra Siswa. Bayangkan isinya jadi milik barbershop Anda.</p><div class="ganti-kepala" aria-hidden="true"><span>Di demo ini</span><span></span><span>Di website Anda</span></div><ul class="ganti-daftar"><li><span class="kini">Barbershop Cukur Rapi</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Nama barbershop Anda</span></li><li><span class="kini">Jl. Contoh Raya No. 27, Ruko Blok B</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Alamat barbershop Anda</span></li><li><span class="kini">Barber: Andra, Budi, Sandi</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Nama barber di tempat Anda</span></li><li><span class="kini">Potong biasa, Rp 35.000</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Layanan dan harga Anda</span></li><li><span class="kini">0877-1234-5678</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Nomor WhatsApp Anda</span></li></ul><p class="demo-paket">Paket 2: pesanan di halaman ini tidak tersimpan, hanya memperlihatkan alurnya. Di website Anda, pesanan masuk ke WhatsApp atau ke catatan barbershop.</p></section>
 <p class="eyebrow">Barbershop &middot; Coblong, Kota Bandung</p>
 <h1>Barbershop Cukur Rapi</h1>
+<p class="tag-baris"><span class="tag-anda">Nama barbershop Anda tampil di sini</span></p>
 <p class="status" id="status"><span class="titik" id="titik"></span><span id="status-teks">Memuat jam buka</span></p>
 <p class="lead">Potong, cukur jenggot, dan styling. Harga tetap, tanpa tambahan.</p>
 <div class="aksi"><a class="tombol" href="#pesan"><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> Pesan sekarang</a><a class="tombol garis" href="https://wa.me/6287712345678?text=Bang%2C%20saya%20mau%20tanya%20soal%20booking%20potong%20di%20Cukur%20Rapi."><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.4 8.4 0 1 1 21 11.5Z"/></svg> Tanya lewat WhatsApp</a></div>
-<p class="catatan-demo"><span class="tanda-contoh">Demo Paket 2</span><span>Pesanan di halaman ini tidak tersimpan. Halaman contoh ini hanya memperlihatkan alurnya. Setelah halaman ini terpasang di tempat Anda, pesanan masuk ke WhatsApp atau ke catatan barbershop.</span></p>
 <nav class="loncat" aria-label="Loncat ke bagian"><a href="#pesan">Pesan</a><a href="#harga">Harga</a><a href="#lokasi">Lokasi</a><a href="#tanya">Tanya jawab</a></nav>
 </section>
 <section class="bagian" id="bagian-pesan" aria-labelledby="j-pesan">
+<p class="tag-baris"><span class="tag-anda">Layanan dan jam sesuai usaha Anda</span></p>
 <h2 id="j-pesan">Isi pesanan</h2>
 <p class="bagian-lead">Datang langsung atau memesan lebih dulu, keduanya bisa.</p>
 <div class="kartu pesan" id="pesan">
@@ -255,11 +275,13 @@ svg{display:block;flex:none}
 </div>
 </section>
 <section class="bagian" id="harga">
+<p class="tag-baris"><span class="tag-anda">Harga barbershop Anda</span></p>
 <h2>Daftar harga</h2>
 <p class="bagian-lead">Harga tetap, tidak ada tambahan. Cukur dan rapikan sudah termasuk cuci.</p>
 <div class="kartu"><h3>Potong</h3><ul class="harga"><li><span class="nm">Potong biasa</span><span class="hr">Rp 35.000</span></li><li><span class="nm">Potong dan cuci</span><span class="hr">Rp 45.000</span></li><li><span class="nm">Potong anak</span><span class="hr">Rp 30.000</span></li><li><span class="nm">Cukur jenggot</span><span class="hr">Rp 25.000</span></li></ul></div><div class="kartu"><h3>Perawatan</h3><ul class="harga"><li><span class="nm">Pomade dan styling</span><span class="hr">Rp 20.000</span></li><li><span class="nm">Masker rambut</span><span class="hr">Rp 50.000</span></li><li><span class="nm">Cukur kumis rapi</span><span class="hr">Rp 15.000</span></li><li><span class="nm">Paket lengkap</span><span class="hr">Rp 90.000</span><span class="ket">Potong, cuci, cukur jenggot, dan styling.</span></li></ul></div><p class="catatan">Anak di bawah 10 tahun dapat harga potong anak.</p>
 </section>
 <section class="bagian" id="lokasi">
+<p class="tag-baris"><span class="tag-anda">Alamat dan jam buka barbershop Anda</span></p>
 <h2>Lokasi dan jam buka</h2>
 <p class="bagian-lead">Tutup hari Minggu. Sabtu paling ramai, sebaiknya memesan lebih dulu.</p>
 <div class="kartu"><h3>Jam buka</h3><ul class="jam" id="kartu-jam"><li data-hari="1"><span>Senin</span><span>11.00 sampai 21.00</span></li><li data-hari="2"><span>Selasa</span><span>11.00 sampai 21.00</span></li><li data-hari="3"><span>Rabu</span><span>11.00 sampai 21.00</span></li><li data-hari="4"><span>Kamis</span><span>11.00 sampai 21.00</span></li><li data-hari="5"><span>Jumat</span><span>11.00 sampai 22.00</span></li><li data-hari="6"><span>Sabtu</span><span>10.00 sampai 22.00</span></li><li data-hari="0"><span>Minggu</span><span>tutup</span></li></ul></div>
@@ -268,6 +290,11 @@ svg{display:block;flex:none}
 <section class="bagian" id="tanya">
 <h2>Pertanyaan yang sering masuk</h2>
 <div class="tanya"><details><summary>Perlu pesan dulu?<svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><p>Tidak wajib, tapi Sabtu dan Minggu hampir selalu penuh. Memesan lebih dulu menghemat waktu tunggu.</p></details><details><summary>Berapa lama satu kali potong?<svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><p>Sekitar tiga puluh menit untuk potong biasa, dan sampai satu jam untuk paket lengkap.</p></details><details><summary>Bisa minta model tertentu dari foto?<svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><p>Bisa. Kirim fotonya lewat WhatsApp sebelum datang, supaya waktunya bisa diperkirakan.</p></details><details><summary>Terima anak kecil?<svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><p>Terima, dan ada harga khusus untuk anak di bawah sepuluh tahun.</p></details></div>
+</section>
+<section class="bagian penutup" aria-label="Penutup">
+<div class="kartu"><h2>Bayangkan ini website barbershop Anda</h2>
+<p class="bagian-lead">Nama, alamat, daftar harga, jam buka, dan foto di halaman ini nanti diganti dengan milik barbershop Anda. Barbershop Cukur Rapi hanya nama contoh.</p>
+<div class="aksi"><a class="tombol" href="/#paket">Kembali ke daftar paket</a><a class="tombol garis" href="https://rioeka.com">Kunjungi rioeka.com</a></div></div>
 </section>
 </div>
 </main>
@@ -577,7 +604,7 @@ svg{display:block;flex:none}
     var h=$("h3",panel[id]);
     if(h){h.focus({preventScroll:true})}
     var r=kartu.getBoundingClientRect();
-    if(r.top<60||r.top>window.innerHeight*0.5){kartu.scrollIntoView({block:"start",behavior:redam?"auto":"smooth"})}
+    if(r.top<96||r.top>window.innerHeight*0.5){kartu.scrollIntoView({block:"start",behavior:redam?"auto":"smooth"})}
   }
   function fokusKeSalah(id){
     var f=null;

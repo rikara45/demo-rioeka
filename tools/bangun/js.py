@@ -309,7 +309,7 @@ BOOKING_JS = r"""
     var h=$("h3",panel[id]);
     if(h){h.focus({preventScroll:true})}
     var r=kartu.getBoundingClientRect();
-    if(r.top<60||r.top>window.innerHeight*0.5){kartu.scrollIntoView({block:"start",behavior:redam?"auto":"smooth"})}
+    if(r.top<96||r.top>window.innerHeight*0.5){kartu.scrollIntoView({block:"start",behavior:redam?"auto":"smooth"})}
   }
   function fokusKeSalah(id){
     var f=null;
