@@ -47,7 +47,8 @@ BOOKING_JS = r"""
   function el(tag,cls,txt){var e=document.createElement(tag);if(cls){e.className=cls}if(txt!=null){e.textContent=txt}return e}
   function ikonCentang(){var n="http://www.w3.org/2000/svg",s=document.createElementNS(n,"svg");s.setAttribute("class","ikon");s.setAttribute("viewBox","0 0 24 24");s.setAttribute("aria-hidden","true");var p=document.createElementNS(n,"path");p.setAttribute("d","M20 6 9 17l-5-5");s.appendChild(p);return s}
 
-  var S={layanan:null,stylist:null,tgl:null,jam:null,nama:"",wa:"",cara:null};
+  var infoStylist, daftarStylist=[];
+  var S={layanan:[],stylist:null,tgl:null,jam:null,nama:"",wa:"",cara:null};
   var LANGKAH=[["layanan","Layanan"],["stylist",D.noun],["waktu","Waktu"],["data","Data Anda"],["tinjau","Periksa"]];
   if(D.bayar){LANGKAH.push(["bayar","Pembayaran"])}
   var IDX={};LANGKAH.forEach(function(l,n){IDX[l[0]]=n});
@@ -60,23 +61,31 @@ BOOKING_JS = r"""
 
   function tanggalTeks(d){return NH[d.getDay()]+", "+d.getDate()+" "+NB[d.getMonth()]}
   function waktuTeks(){return S.tgl&&S.jam!==null?tanggalTeks(S.tgl.d)+", pukul "+fmt(S.jam):""}
-  function muka(){return Math.round(S.layanan.harga*0.3/500)*500}
+  function total(){var t=0;S.layanan.forEach(function(l){t+=l.harga});return t}
+  function durasi(){var t=0;S.layanan.forEach(function(l){t+=l.menit});return t}
+  function durTeks(m){var j=Math.floor(m/60),s=m%60;return (j?j+" jam":"")+(j&&s?" ":"")+(s?s+" menit":"")}
+  function namaLayanan(){return S.layanan.map(function(l){return l.nama})}
+  function muka(){return Math.round(total()*0.3/500)*500}
 
   /* langkah 1: layanan */
+  var daftarLayanan=[];
   (function(){
     var kotak=$("#pilih-layanan");
     D.grup.forEach(function(g){
       kotak.appendChild(el("h4","sub",g.nama));
       var daftar=el("div","opsi-daftar");
       g.item.forEach(function(l){
-        var lb=el("label","opsi"), inp=el("input"), kk=el("span","opsi-kotak");
-        inp.type="radio";inp.name="layanan";inp.value=l.nama;
+        var lb=el("label","opsi cek"), inp=el("input"), kk=el("span","opsi-kotak");
+        inp.type="checkbox";inp.name="layanan";inp.value=l.nama;daftarLayanan.push({l:l,inp:inp});
         kk.appendChild(el("span","opsi-tanda"));
         kk.appendChild(el("span","opsi-nama",l.nama));
         kk.appendChild(el("span","opsi-harga",rp(l.harga)));
         kk.appendChild(el("span","opsi-ket","Sekitar "+l.menit+" menit"+(l.ket?" · "+l.ket:"")));
         lb.appendChild(inp);lb.appendChild(kk);daftar.appendChild(lb);
-        inp.addEventListener("change",function(){S.layanan=l;bersih();perbarui()});
+        inp.addEventListener("change",function(){
+          S.layanan=daftarLayanan.filter(function(x){return x.inp.checked}).map(function(x){return x.l});
+          selarasStylist();bersih();perbarui();
+        });
       });
       kotak.appendChild(daftar);
     });
@@ -85,17 +94,50 @@ BOOKING_JS = r"""
   /* langkah 2: stylist */
   (function(){
     var kotak=$("#pilih-stylist"), daftar=el("div","opsi-daftar");
-    [{nama:D.siapaSaja,keahlian:D.siapaSajaKet,rinci:""}].concat(D.stylist).forEach(function(s){
-      var lb=el("label","opsi"), inp=el("input"), kk=el("span","opsi-kotak");
+    infoStylist=el("p","tip info-stylist");infoStylist.hidden=true;
+    kotak.appendChild(infoStylist);
+    [{nama:D.siapaSaja,keahlian:D.siapaSajaKet,rinci:"",bisa:null}].concat(D.stylist).forEach(function(s){
+      var lb=el("label","opsi"), inp=el("input"), kk=el("span","opsi-kotak"), ket=el("span","opsi-ket");
       inp.type="radio";inp.name="stylist";inp.value=s.nama;
       kk.appendChild(el("span","opsi-tanda"));
       kk.appendChild(el("span","opsi-nama",s.nama));
-      kk.appendChild(el("span","opsi-ket",[s.keahlian,s.rinci].filter(Boolean).join(" · ")));
+      kk.appendChild(ket);
       lb.appendChild(inp);lb.appendChild(kk);daftar.appendChild(lb);
+      daftarStylist.push({s:s,inp:inp,ket:ket});
       inp.addEventListener("change",function(){S.stylist=s.nama;bersih();perbarui()});
     });
     kotak.appendChild(daftar);
+    selarasStylist();
   })();
+  function kurang(s){
+    if(!s.bisa){return []}
+    return namaLayanan().filter(function(n){return s.bisa.indexOf(n)<0});
+  }
+  function selarasStylist(){
+    var ada=0, semua=0;
+    daftarStylist.forEach(function(x){
+      if(!x.s.bisa){return}
+      semua++;
+      var k=kurang(x.s);
+      x.inp.disabled=k.length>0;
+      if(k.length){
+        x.ket.textContent=x.s.keahlian+" · Tidak mengerjakan "+k.join(", ");
+        if(x.inp.checked){x.inp.checked=false;S.stylist=null}
+      }else{
+        ada++;
+        x.ket.textContent=[x.s.keahlian,x.s.rinci].filter(Boolean).join(" · ");
+      }
+    });
+    var pecah=S.layanan.length>1&&ada===0;
+    var s0=daftarStylist[0];
+    if(s0){
+      s0.ket.textContent=pecah?"Tiap layanan dikerjakan "+D.noun.toLowerCase()+" yang sesuai":D.siapaSajaKet;
+    }
+    infoStylist.hidden=!(S.layanan.length&&semua&&ada<semua);
+    infoStylist.textContent=pecah
+      ?"Layanan yang Anda pilih dikerjakan oleh lebih dari satu "+D.noun.toLowerCase()+". Pilih \""+D.siapaSaja+"\", kami yang mengatur."
+      :D.noun+" yang tidak bisa dipilih tidak mengerjakan salah satu layanan Anda.";
+  }
 
   /* langkah 3: tanggal dan jam */
   var hariKotak=$("#pilih-hari"), jamKotak=$("#pilih-jam"), jamJudul=$("#jam-judul");
@@ -183,20 +225,21 @@ BOOKING_JS = r"""
   }
   function isiTinjau(){
     tinjauEl.textContent="";
-    tinjauEl.appendChild(barisTinjau("Layanan",S.layanan.nama+", "+rp(S.layanan.harga),"layanan"));
+    tinjauEl.appendChild(barisTinjau("Layanan",S.layanan.map(function(l){return l.nama+", "+rp(l.harga)}).join("\n"),"layanan"));
     tinjauEl.appendChild(barisTinjau(D.noun,S.stylist,"stylist"));
     tinjauEl.appendChild(barisTinjau("Waktu",waktuTeks(),"waktu"));
     tinjauEl.appendChild(barisTinjau("Nama",S.nama,"data"));
     tinjauEl.appendChild(barisTinjau("WhatsApp",S.wa,"data"));
+    var dur=barisTinjau("Perkiraan lama",durTeks(durasi()));dur.className="rw";tinjauEl.appendChild(dur);
     var rw=barisTinjau("Bayar muka 30 persen",D.bayar?rp(muka()):"");
     if(D.bayar){rw.className="rw";tinjauEl.appendChild(rw)}
-    var tot=barisTinjau("Harga layanan",rp(S.layanan.harga));tot.className="total";tinjauEl.appendChild(tot);
+    var tot=barisTinjau(S.layanan.length>1?"Total harga":"Harga layanan",rp(total()));tot.className="total";tinjauEl.appendChild(tot);
   }
 
   /* langkah 6: bayar (paket 3) */
   function isiBayar(){
     var a=$("#b-total"), b=$("#b-muka");
-    if(a){a.textContent=rp(S.layanan.harga)}
+    if(a){a.textContent=rp(total())}
     if(b){b.textContent=rp(muka())}
   }
   $$('input[name="cara"]').forEach(function(r){
@@ -211,7 +254,7 @@ BOOKING_JS = r"""
 
   /* inti alur */
   function galat(id){
-    if(id==="layanan"){return S.layanan?"":"Pilih satu layanan untuk lanjut."}
+    if(id==="layanan"){return S.layanan.length?"":"Pilih minimal satu layanan untuk lanjut."}
     if(id==="stylist"){return S.stylist?"":"Pilih "+D.noun.toLowerCase()+", atau pilih "+D.siapaSaja.toLowerCase()+"."}
     if(id==="waktu"){return !S.tgl?"Pilih tanggal dulu.":(S.jam===null?"Pilih jam yang masih kosong.":"")}
     if(id==="data"){return !namaOk()?"Isi nama Anda untuk lanjut.":(!waOk()?"Nomor WhatsApp belum lengkap.":"")}
@@ -224,9 +267,12 @@ BOOKING_JS = r"""
     if(id==="bayar"){return S.cara==="tempat"?"Konfirmasi, bayar di tempat":(S.cara==="transfer"?"Saya sudah transfer":(S.cara==="qris"?"Saya sudah bayar":"Konfirmasi pembayaran"))}
     return "Lanjut";
   }
+  function ringkasLayanan(){
+    return S.layanan.length>1?S.layanan.length+" layanan "+rp(total()):S.layanan[0].nama+" "+rp(total());
+  }
   function ringkasMini(id){
     var p=[];
-    if(S.layanan&&id!=="layanan"){p.push(S.layanan.nama+" "+rp(S.layanan.harga))}
+    if(S.layanan.length&&id!=="layanan"){p.push(ringkasLayanan())}
     if(S.stylist&&IDX[id]>IDX.stylist){p.push(S.stylist)}
     if(S.jam!==null&&IDX[id]>IDX.waktu){p.push(waktuTeks())}
     return p.join(" · ");
@@ -246,7 +292,7 @@ BOOKING_JS = r"""
     else{
       mini.textContent="";var r=ringkasMini(id);
       if(r){mini.textContent=r}
-      else if(id==="layanan"&&S.layanan){mini.textContent=S.layanan.nama+" · "+rp(S.layanan.harga)}
+      else if(id==="layanan"&&S.layanan.length){mini.textContent=ringkasLayanan()+" · sekitar "+durTeks(durasi())}
     }
     mini.hidden=!mini.textContent;
   }
@@ -255,6 +301,7 @@ BOOKING_JS = r"""
     LANGKAH.forEach(function(l,k){panel[l[0]].hidden=k!==i});
     var id=LANGKAH[i][0];
     if(id==="waktu"){gulirHari()}
+    if(id==="stylist"){selarasStylist()}
     if(id==="tinjau"){isiTinjau()}
     if(id==="bayar"){isiBayar()}
     bersih();perbarui();
@@ -310,10 +357,10 @@ BOOKING_JS = r"""
       var c=$("#k-centang");c.textContent="";c.appendChild(ikonCentang());
       $("#k-kode").textContent=kode();
       var rk=$("#k-ringkas");rk.textContent="";
-      [["Layanan",S.layanan.nama+", "+rp(S.layanan.harga)],[D.noun,S.stylist],["Waktu",waktuTeks()],["Nama",S.nama],["Pembayaran",cara]].forEach(function(r){
+      [["Layanan",S.layanan.map(function(l){return l.nama+", "+rp(l.harga)}).join("\n")],["Total harga",rp(total())],[D.noun,S.stylist],["Waktu",waktuTeks()],["Nama",S.nama],["Pembayaran",cara]].forEach(function(r){
         var d=el("div");d.appendChild(el("dt",null,r[0]));d.appendChild(el("dd",null,r[1]));rk.appendChild(d);
       });
-      $("#k-wa").href="https://wa.me/"+D.wa+"?text="+encodeURIComponent("Halo, saya "+S.nama+". Saya memesan "+S.layanan.nama+(S.stylist===D.siapaSaja?"":" dengan "+S.stylist)+" pada "+waktuTeks()+". Kode: "+kode());
+      $("#k-wa").href="https://wa.me/"+D.wa+"?text="+encodeURIComponent("Halo, saya "+S.nama+". Saya memesan "+namaLayanan().join(", ")+(S.stylist===D.siapaSaja?"":" dengan "+S.stylist)+" pada "+waktuTeks()+". Kode: "+kode());
       var h=$("h3",selesaiEl);h.focus({preventScroll:true});
       kartu.scrollIntoView({block:"start",behavior:redam?"auto":"smooth"});
     },900);

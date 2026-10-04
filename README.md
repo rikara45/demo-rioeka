@@ -1,6 +1,6 @@
 # Halaman demo usaha lokal
 
-Contoh halaman web untuk salon dan barbershop, dibuat oleh [Rio Ekaputra Siswa](https://rioeka.com).
+Contoh halaman web untuk salon dan barbershop, dibuat oleh [Rio Ekaputra Siswa](https://rioeka.com), developer aplikasi web di Bandung.
 
 Situs ini berisi halaman statis:
 

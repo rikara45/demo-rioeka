@@ -145,6 +145,13 @@ svg{display:block;flex:none}
 .opsi-nama{grid-column:2;font-weight:700}
 .opsi-ket{grid-column:2 / 4;font-size:14px;color:var(--tinta-redup)}
 .opsi-harga{grid-column:3;grid-row:1;font-weight:700;white-space:nowrap}
+.opsi.cek .opsi-tanda{border-radius:6px}
+.opsi.cek .opsi-tanda::after{width:6px;height:11px;margin-top:-2px;border-radius:0;background:none;border:solid var(--di-atas-sinyal);border-width:0 2.5px 2.5px 0;transform:rotate(45deg) scale(0)}
+.opsi.cek input:checked + .opsi-kotak .opsi-tanda::after{transform:rotate(45deg) scale(1)}
+.opsi input:disabled + .opsi-kotak{border-style:dashed;background:var(--kartu-turun);cursor:not-allowed}
+.opsi input:disabled + .opsi-kotak:hover{border-color:var(--garis)}
+.opsi input:disabled + .opsi-kotak .opsi-nama,.opsi input:disabled + .opsi-kotak .opsi-tanda{opacity:.55}
+.info-stylist{padding:10px 12px;border-left:3px solid var(--sinyal);background:var(--sinyal-lembut);border-radius:var(--r-kecil);color:var(--tinta)}
 .opsi input:checked + .opsi-kotak{border-color:var(--sinyal);background:var(--sinyal-lembut)}
 .opsi input:checked + .opsi-kotak .opsi-tanda{border-color:var(--sinyal);background:var(--sinyal)}
 .opsi input:checked + .opsi-kotak .opsi-tanda::after{transform:scale(1)}
@@ -180,7 +187,7 @@ svg{display:block;flex:none}
 .tinjau > div{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:0 12px;align-items:center;padding:10px 0;border-top:1px solid var(--garis)}
 .tinjau > div:first-child{border-top:0}
 .tinjau dt{grid-column:1;grid-row:1;font-size:13px;color:var(--tinta-redup)}
-.tinjau dd{grid-column:1;grid-row:2;font-weight:700;overflow-wrap:anywhere}
+.tinjau dd{grid-column:1;grid-row:2;font-weight:700;overflow-wrap:anywhere;white-space:pre-line}
 .tinjau .ubah{grid-column:2;grid-row:1 / 3;min-height:44px;padding:0 10px;border:0;border-radius:var(--r-tombol);background:transparent;color:var(--sinyal);font:inherit;font-weight:700;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
 .tinjau .ubah:hover{background:var(--sinyal-lembut)}
 .tinjau .total,.tinjau .rw{padding:12px 0}
@@ -236,7 +243,7 @@ svg{display:block;flex:none}
 <div id="alur">
 <div class="langkah-kepala"><span class="langkah-no" id="l-no">Langkah 1 dari 6</span><span class="langkah-nama" id="l-nama">Layanan</span></div>
 <div class="progres" id="progres" role="progressbar" aria-label="Kemajuan pesanan" aria-valuemin="1" aria-valuemax="6" aria-valuenow="1"><i id="progres-isi"></i></div>
-<div class="panel" data-langkah="layanan"><h3 tabindex="-1">Pilih layanan</h3><p class="tip">Pilih satu layanan. Harga warna dan perawatan bisa bertambah sesuai panjang rambut, dikonfirmasi sebelum dikerjakan.</p><div id="pilih-layanan"></div></div>
+<div class="panel" data-langkah="layanan"><h3 tabindex="-1">Pilih layanan</h3><p class="tip">Boleh pilih lebih dari satu, total harganya dihitung otomatis. Harga warna dan perawatan bisa bertambah sesuai panjang rambut, dikonfirmasi sebelum dikerjakan.</p><div id="pilih-layanan"></div></div>
 <div class="panel" data-langkah="stylist" hidden><h3 tabindex="-1">Pilih stylist</h3><p class="tip">Tidak punya pilihan? Pilih "Terserah, siapa saja".</p><div id="pilih-stylist"></div></div>
 <div class="panel" data-langkah="waktu" hidden><h3 tabindex="-1">Pilih tanggal dan jam</h3><p class="tip">Dua minggu ke depan. Tanggal bergaris putus-putus berarti tutup.</p><div class="hari-strip" id="pilih-hari" role="group" aria-label="Tanggal"></div><p class="jam-label" id="jam-judul">Pilih tanggal dulu</p><div class="jam-grid" id="pilih-jam" role="group" aria-labelledby="jam-judul"></div><p class="petunjuk" style="margin-top:12px">Jam bergaris coret sudah terisi.</p></div>
 <div class="panel" data-langkah="data" hidden><h3 tabindex="-1">Nama dan nomor</h3><p class="tip">Kami memakai nomor ini hanya untuk mengabari jam yang dikonfirmasi.</p><div class="kolom"><label for="nama">Nama</label><input id="nama" name="nama" type="text" autocomplete="name" placeholder="Nama Anda"></div><div class="kolom"><label for="wa">Nomor WhatsApp</label><input id="wa" name="wa" type="tel" inputmode="tel" autocomplete="tel" placeholder="0812 3456 7890"></div></div>
@@ -264,7 +271,7 @@ svg{display:block;flex:none}
 </section>
 </div>
 </main>
-<footer class="kaki"><div class="wadah"><p>Booking dan pertanyaan:</p><p><a href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20tanya%20soal%20booking%20di%20Salon%20Melati.">WhatsApp 0812-3456-7890</a></p><p>Halaman ini contoh peragaan. Dibuat oleh Rio, jasa halaman web untuk usaha lokal di Bandung.</p></div></footer>
+<footer class="kaki"><div class="wadah"><p>Booking dan pertanyaan:</p><p><a href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20tanya%20soal%20booking%20di%20Salon%20Melati.">WhatsApp 0812-3456-7890</a></p><p>Halaman ini contoh peragaan, bukan usaha sungguhan. Dibuat oleh Rio Ekaputra Siswa, developer aplikasi web di Bandung yang membuat website untuk usaha lokal. <a href="https://rioeka.com">rioeka.com</a></p></div></footer>
 <div class="bar-bawah" id="bar-bawah"><a class="tombol" href="#pesan">Pesan sekarang</a><a class="tombol garis" href="https://wa.me/6281234567890?text=Halo%2C%20saya%20mau%20tanya%20soal%20booking%20di%20Salon%20Melati.">WhatsApp</a></div>
 <script>
 
@@ -294,7 +301,7 @@ svg{display:block;flex:none}
 <script>
 
 (function(){
-  var D={"noun": "Stylist", "kode": "SM", "wa": "6281234567890", "bayar": true, "siapaSaja": "Terserah, siapa saja", "siapaSajaKet": "Kami yang menentukan", "grup": [{"nama": "Potong, cuci, dan tatanan", "item": [{"nama": "Potong rambut wanita", "harga": 75000, "menit": 45, "ket": ""}, {"nama": "Potong rambut pria", "harga": 50000, "menit": 30, "ket": ""}, {"nama": "Cuci dan blow", "harga": 60000, "menit": 30, "ket": ""}, {"nama": "Catok atau curly", "harga": 65000, "menit": 30, "ket": ""}, {"nama": "Sanggul dan tatanan acara", "harga": 200000, "menit": 90, "ket": ""}]}, {"nama": "Warna dan perawatan", "item": [{"nama": "Pewarnaan seluruh rambut", "harga": 350000, "menit": 120, "ket": "Perlu konsultasi warna lebih dulu."}, {"nama": "Highlight", "harga": 450000, "menit": 150, "ket": "Waktu menyesuaikan panjang rambut."}, {"nama": "Smoothing", "harga": 550000, "menit": 180, "ket": ""}, {"nama": "Creambath", "harga": 90000, "menit": 45, "ket": ""}, {"nama": "Perawatan kulit kepala", "harga": 130000, "menit": 45, "ket": ""}]}], "stylist": [{"nama": "Melati", "keahlian": "Potong dan tatanan", "rinci": "Sudah 9 tahun menangani potong wanita dan sanggul acara."}, {"nama": "Rina", "keahlian": "Warna dan smoothing", "rinci": "Khusus pewarnaan dan pelurusan. Konsultasi warna tidak dipungut biaya."}, {"nama": "Dewi", "keahlian": "Perawatan rambut", "rinci": "Creambath dan perawatan kulit kepala."}], "jam": {"0": ["10.00", "17.00"], "1": null, "2": ["10.00", "19.00"], "3": ["10.00", "19.00"], "4": ["10.00", "19.00"], "5": ["10.00", "19.00"], "6": ["09.00", "20.00"]}};
+  var D={"noun": "Stylist", "kode": "SM", "wa": "6281234567890", "bayar": true, "siapaSaja": "Terserah, siapa saja", "siapaSajaKet": "Kami yang menentukan", "grup": [{"nama": "Potong, cuci, dan tatanan", "item": [{"nama": "Potong rambut wanita", "harga": 75000, "menit": 45, "ket": ""}, {"nama": "Potong rambut pria", "harga": 50000, "menit": 30, "ket": ""}, {"nama": "Cuci dan blow", "harga": 60000, "menit": 30, "ket": ""}, {"nama": "Catok atau curly", "harga": 65000, "menit": 30, "ket": ""}, {"nama": "Sanggul dan tatanan acara", "harga": 200000, "menit": 90, "ket": ""}]}, {"nama": "Warna dan perawatan", "item": [{"nama": "Pewarnaan seluruh rambut", "harga": 350000, "menit": 120, "ket": "Perlu konsultasi warna lebih dulu."}, {"nama": "Highlight", "harga": 450000, "menit": 150, "ket": "Waktu menyesuaikan panjang rambut."}, {"nama": "Smoothing", "harga": 550000, "menit": 180, "ket": ""}, {"nama": "Creambath", "harga": 90000, "menit": 45, "ket": ""}, {"nama": "Perawatan kulit kepala", "harga": 130000, "menit": 45, "ket": ""}]}], "stylist": [{"nama": "Melati", "keahlian": "Potong dan tatanan", "rinci": "Sudah 9 tahun menangani potong wanita dan sanggul acara.", "bisa": ["Potong rambut wanita", "Potong rambut pria", "Cuci dan blow", "Catok atau curly", "Sanggul dan tatanan acara"]}, {"nama": "Rina", "keahlian": "Warna dan smoothing", "rinci": "Khusus pewarnaan dan pelurusan. Konsultasi warna tidak dipungut biaya.", "bisa": ["Pewarnaan seluruh rambut", "Highlight", "Smoothing"]}, {"nama": "Dewi", "keahlian": "Perawatan rambut", "rinci": "Creambath dan perawatan kulit kepala.", "bisa": ["Creambath", "Perawatan kulit kepala"]}], "jam": {"0": ["10.00", "17.00"], "1": null, "2": ["10.00", "19.00"], "3": ["10.00", "19.00"], "4": ["10.00", "19.00"], "5": ["10.00", "19.00"], "6": ["09.00", "20.00"]}};
   var $=function(s,r){return (r||document).querySelector(s)};
   var $$=function(s,r){return [].slice.call((r||document).querySelectorAll(s))};
   var NH=["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
@@ -308,7 +315,8 @@ svg{display:block;flex:none}
   function el(tag,cls,txt){var e=document.createElement(tag);if(cls){e.className=cls}if(txt!=null){e.textContent=txt}return e}
   function ikonCentang(){var n="http://www.w3.org/2000/svg",s=document.createElementNS(n,"svg");s.setAttribute("class","ikon");s.setAttribute("viewBox","0 0 24 24");s.setAttribute("aria-hidden","true");var p=document.createElementNS(n,"path");p.setAttribute("d","M20 6 9 17l-5-5");s.appendChild(p);return s}
 
-  var S={layanan:null,stylist:null,tgl:null,jam:null,nama:"",wa:"",cara:null};
+  var infoStylist, daftarStylist=[];
+  var S={layanan:[],stylist:null,tgl:null,jam:null,nama:"",wa:"",cara:null};
   var LANGKAH=[["layanan","Layanan"],["stylist",D.noun],["waktu","Waktu"],["data","Data Anda"],["tinjau","Periksa"]];
   if(D.bayar){LANGKAH.push(["bayar","Pembayaran"])}
   var IDX={};LANGKAH.forEach(function(l,n){IDX[l[0]]=n});
@@ -321,23 +329,31 @@ svg{display:block;flex:none}
 
   function tanggalTeks(d){return NH[d.getDay()]+", "+d.getDate()+" "+NB[d.getMonth()]}
   function waktuTeks(){return S.tgl&&S.jam!==null?tanggalTeks(S.tgl.d)+", pukul "+fmt(S.jam):""}
-  function muka(){return Math.round(S.layanan.harga*0.3/500)*500}
+  function total(){var t=0;S.layanan.forEach(function(l){t+=l.harga});return t}
+  function durasi(){var t=0;S.layanan.forEach(function(l){t+=l.menit});return t}
+  function durTeks(m){var j=Math.floor(m/60),s=m%60;return (j?j+" jam":"")+(j&&s?" ":"")+(s?s+" menit":"")}
+  function namaLayanan(){return S.layanan.map(function(l){return l.nama})}
+  function muka(){return Math.round(total()*0.3/500)*500}
 
   /* langkah 1: layanan */
+  var daftarLayanan=[];
   (function(){
     var kotak=$("#pilih-layanan");
     D.grup.forEach(function(g){
       kotak.appendChild(el("h4","sub",g.nama));
       var daftar=el("div","opsi-daftar");
       g.item.forEach(function(l){
-        var lb=el("label","opsi"), inp=el("input"), kk=el("span","opsi-kotak");
-        inp.type="radio";inp.name="layanan";inp.value=l.nama;
+        var lb=el("label","opsi cek"), inp=el("input"), kk=el("span","opsi-kotak");
+        inp.type="checkbox";inp.name="layanan";inp.value=l.nama;daftarLayanan.push({l:l,inp:inp});
         kk.appendChild(el("span","opsi-tanda"));
         kk.appendChild(el("span","opsi-nama",l.nama));
         kk.appendChild(el("span","opsi-harga",rp(l.harga)));
         kk.appendChild(el("span","opsi-ket","Sekitar "+l.menit+" menit"+(l.ket?" · "+l.ket:"")));
         lb.appendChild(inp);lb.appendChild(kk);daftar.appendChild(lb);
-        inp.addEventListener("change",function(){S.layanan=l;bersih();perbarui()});
+        inp.addEventListener("change",function(){
+          S.layanan=daftarLayanan.filter(function(x){return x.inp.checked}).map(function(x){return x.l});
+          selarasStylist();bersih();perbarui();
+        });
       });
       kotak.appendChild(daftar);
     });
@@ -346,17 +362,50 @@ svg{display:block;flex:none}
   /* langkah 2: stylist */
   (function(){
     var kotak=$("#pilih-stylist"), daftar=el("div","opsi-daftar");
-    [{nama:D.siapaSaja,keahlian:D.siapaSajaKet,rinci:""}].concat(D.stylist).forEach(function(s){
-      var lb=el("label","opsi"), inp=el("input"), kk=el("span","opsi-kotak");
+    infoStylist=el("p","tip info-stylist");infoStylist.hidden=true;
+    kotak.appendChild(infoStylist);
+    [{nama:D.siapaSaja,keahlian:D.siapaSajaKet,rinci:"",bisa:null}].concat(D.stylist).forEach(function(s){
+      var lb=el("label","opsi"), inp=el("input"), kk=el("span","opsi-kotak"), ket=el("span","opsi-ket");
       inp.type="radio";inp.name="stylist";inp.value=s.nama;
       kk.appendChild(el("span","opsi-tanda"));
       kk.appendChild(el("span","opsi-nama",s.nama));
-      kk.appendChild(el("span","opsi-ket",[s.keahlian,s.rinci].filter(Boolean).join(" · ")));
+      kk.appendChild(ket);
       lb.appendChild(inp);lb.appendChild(kk);daftar.appendChild(lb);
+      daftarStylist.push({s:s,inp:inp,ket:ket});
       inp.addEventListener("change",function(){S.stylist=s.nama;bersih();perbarui()});
     });
     kotak.appendChild(daftar);
+    selarasStylist();
   })();
+  function kurang(s){
+    if(!s.bisa){return []}
+    return namaLayanan().filter(function(n){return s.bisa.indexOf(n)<0});
+  }
+  function selarasStylist(){
+    var ada=0, semua=0;
+    daftarStylist.forEach(function(x){
+      if(!x.s.bisa){return}
+      semua++;
+      var k=kurang(x.s);
+      x.inp.disabled=k.length>0;
+      if(k.length){
+        x.ket.textContent=x.s.keahlian+" · Tidak mengerjakan "+k.join(", ");
+        if(x.inp.checked){x.inp.checked=false;S.stylist=null}
+      }else{
+        ada++;
+        x.ket.textContent=[x.s.keahlian,x.s.rinci].filter(Boolean).join(" · ");
+      }
+    });
+    var pecah=S.layanan.length>1&&ada===0;
+    var s0=daftarStylist[0];
+    if(s0){
+      s0.ket.textContent=pecah?"Tiap layanan dikerjakan "+D.noun.toLowerCase()+" yang sesuai":D.siapaSajaKet;
+    }
+    infoStylist.hidden=!(S.layanan.length&&semua&&ada<semua);
+    infoStylist.textContent=pecah
+      ?"Layanan yang Anda pilih dikerjakan oleh lebih dari satu "+D.noun.toLowerCase()+". Pilih \""+D.siapaSaja+"\", kami yang mengatur."
+      :D.noun+" yang tidak bisa dipilih tidak mengerjakan salah satu layanan Anda.";
+  }
 
   /* langkah 3: tanggal dan jam */
   var hariKotak=$("#pilih-hari"), jamKotak=$("#pilih-jam"), jamJudul=$("#jam-judul");
@@ -444,20 +493,21 @@ svg{display:block;flex:none}
   }
   function isiTinjau(){
     tinjauEl.textContent="";
-    tinjauEl.appendChild(barisTinjau("Layanan",S.layanan.nama+", "+rp(S.layanan.harga),"layanan"));
+    tinjauEl.appendChild(barisTinjau("Layanan",S.layanan.map(function(l){return l.nama+", "+rp(l.harga)}).join("\n"),"layanan"));
     tinjauEl.appendChild(barisTinjau(D.noun,S.stylist,"stylist"));
     tinjauEl.appendChild(barisTinjau("Waktu",waktuTeks(),"waktu"));
     tinjauEl.appendChild(barisTinjau("Nama",S.nama,"data"));
     tinjauEl.appendChild(barisTinjau("WhatsApp",S.wa,"data"));
+    var dur=barisTinjau("Perkiraan lama",durTeks(durasi()));dur.className="rw";tinjauEl.appendChild(dur);
     var rw=barisTinjau("Bayar muka 30 persen",D.bayar?rp(muka()):"");
     if(D.bayar){rw.className="rw";tinjauEl.appendChild(rw)}
-    var tot=barisTinjau("Harga layanan",rp(S.layanan.harga));tot.className="total";tinjauEl.appendChild(tot);
+    var tot=barisTinjau(S.layanan.length>1?"Total harga":"Harga layanan",rp(total()));tot.className="total";tinjauEl.appendChild(tot);
   }
 
   /* langkah 6: bayar (paket 3) */
   function isiBayar(){
     var a=$("#b-total"), b=$("#b-muka");
-    if(a){a.textContent=rp(S.layanan.harga)}
+    if(a){a.textContent=rp(total())}
     if(b){b.textContent=rp(muka())}
   }
   $$('input[name="cara"]').forEach(function(r){
@@ -472,7 +522,7 @@ svg{display:block;flex:none}
 
   /* inti alur */
   function galat(id){
-    if(id==="layanan"){return S.layanan?"":"Pilih satu layanan untuk lanjut."}
+    if(id==="layanan"){return S.layanan.length?"":"Pilih minimal satu layanan untuk lanjut."}
     if(id==="stylist"){return S.stylist?"":"Pilih "+D.noun.toLowerCase()+", atau pilih "+D.siapaSaja.toLowerCase()+"."}
     if(id==="waktu"){return !S.tgl?"Pilih tanggal dulu.":(S.jam===null?"Pilih jam yang masih kosong.":"")}
     if(id==="data"){return !namaOk()?"Isi nama Anda untuk lanjut.":(!waOk()?"Nomor WhatsApp belum lengkap.":"")}
@@ -485,9 +535,12 @@ svg{display:block;flex:none}
     if(id==="bayar"){return S.cara==="tempat"?"Konfirmasi, bayar di tempat":(S.cara==="transfer"?"Saya sudah transfer":(S.cara==="qris"?"Saya sudah bayar":"Konfirmasi pembayaran"))}
     return "Lanjut";
   }
+  function ringkasLayanan(){
+    return S.layanan.length>1?S.layanan.length+" layanan "+rp(total()):S.layanan[0].nama+" "+rp(total());
+  }
   function ringkasMini(id){
     var p=[];
-    if(S.layanan&&id!=="layanan"){p.push(S.layanan.nama+" "+rp(S.layanan.harga))}
+    if(S.layanan.length&&id!=="layanan"){p.push(ringkasLayanan())}
     if(S.stylist&&IDX[id]>IDX.stylist){p.push(S.stylist)}
     if(S.jam!==null&&IDX[id]>IDX.waktu){p.push(waktuTeks())}
     return p.join(" · ");
@@ -507,7 +560,7 @@ svg{display:block;flex:none}
     else{
       mini.textContent="";var r=ringkasMini(id);
       if(r){mini.textContent=r}
-      else if(id==="layanan"&&S.layanan){mini.textContent=S.layanan.nama+" · "+rp(S.layanan.harga)}
+      else if(id==="layanan"&&S.layanan.length){mini.textContent=ringkasLayanan()+" · sekitar "+durTeks(durasi())}
     }
     mini.hidden=!mini.textContent;
   }
@@ -516,6 +569,7 @@ svg{display:block;flex:none}
     LANGKAH.forEach(function(l,k){panel[l[0]].hidden=k!==i});
     var id=LANGKAH[i][0];
     if(id==="waktu"){gulirHari()}
+    if(id==="stylist"){selarasStylist()}
     if(id==="tinjau"){isiTinjau()}
     if(id==="bayar"){isiBayar()}
     bersih();perbarui();
@@ -571,10 +625,10 @@ svg{display:block;flex:none}
       var c=$("#k-centang");c.textContent="";c.appendChild(ikonCentang());
       $("#k-kode").textContent=kode();
       var rk=$("#k-ringkas");rk.textContent="";
-      [["Layanan",S.layanan.nama+", "+rp(S.layanan.harga)],[D.noun,S.stylist],["Waktu",waktuTeks()],["Nama",S.nama],["Pembayaran",cara]].forEach(function(r){
+      [["Layanan",S.layanan.map(function(l){return l.nama+", "+rp(l.harga)}).join("\n")],["Total harga",rp(total())],[D.noun,S.stylist],["Waktu",waktuTeks()],["Nama",S.nama],["Pembayaran",cara]].forEach(function(r){
         var d=el("div");d.appendChild(el("dt",null,r[0]));d.appendChild(el("dd",null,r[1]));rk.appendChild(d);
       });
-      $("#k-wa").href="https://wa.me/"+D.wa+"?text="+encodeURIComponent("Halo, saya "+S.nama+". Saya memesan "+S.layanan.nama+(S.stylist===D.siapaSaja?"":" dengan "+S.stylist)+" pada "+waktuTeks()+". Kode: "+kode());
+      $("#k-wa").href="https://wa.me/"+D.wa+"?text="+encodeURIComponent("Halo, saya "+S.nama+". Saya memesan "+namaLayanan().join(", ")+(S.stylist===D.siapaSaja?"":" dengan "+S.stylist)+" pada "+waktuTeks()+". Kode: "+kode());
       var h=$("h3",selesaiEl);h.focus({preventScroll:true});
       kartu.scrollIntoView({block:"start",behavior:redam?"auto":"smooth"});
     },900);

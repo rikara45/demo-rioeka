@@ -166,6 +166,13 @@ BOOKING = """
 .opsi-nama{grid-column:2;font-weight:700}
 .opsi-ket{grid-column:2 / 4;font-size:14px;color:var(--tinta-redup)}
 .opsi-harga{grid-column:3;grid-row:1;font-weight:700;white-space:nowrap}
+.opsi.cek .opsi-tanda{border-radius:6px}
+.opsi.cek .opsi-tanda::after{width:6px;height:11px;margin-top:-2px;border-radius:0;background:none;border:solid var(--di-atas-sinyal);border-width:0 2.5px 2.5px 0;transform:rotate(45deg) scale(0)}
+.opsi.cek input:checked + .opsi-kotak .opsi-tanda::after{transform:rotate(45deg) scale(1)}
+.opsi input:disabled + .opsi-kotak{border-style:dashed;background:var(--kartu-turun);cursor:not-allowed}
+.opsi input:disabled + .opsi-kotak:hover{border-color:var(--garis)}
+.opsi input:disabled + .opsi-kotak .opsi-nama,.opsi input:disabled + .opsi-kotak .opsi-tanda{opacity:.55}
+.info-stylist{padding:10px 12px;border-left:3px solid var(--sinyal);background:var(--sinyal-lembut);border-radius:var(--r-kecil);color:var(--tinta)}
 .opsi input:checked + .opsi-kotak{border-color:var(--sinyal);background:var(--sinyal-lembut)}
 .opsi input:checked + .opsi-kotak .opsi-tanda{border-color:var(--sinyal);background:var(--sinyal)}
 .opsi input:checked + .opsi-kotak .opsi-tanda::after{transform:scale(1)}
@@ -201,7 +208,7 @@ BOOKING = """
 .tinjau > div{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:0 12px;align-items:center;padding:10px 0;border-top:1px solid var(--garis)}
 .tinjau > div:first-child{border-top:0}
 .tinjau dt{grid-column:1;grid-row:1;font-size:13px;color:var(--tinta-redup)}
-.tinjau dd{grid-column:1;grid-row:2;font-weight:700;overflow-wrap:anywhere}
+.tinjau dd{grid-column:1;grid-row:2;font-weight:700;overflow-wrap:anywhere;white-space:pre-line}
 .tinjau .ubah{grid-column:2;grid-row:1 / 3;min-height:44px;padding:0 10px;border:0;border-radius:var(--r-tombol);background:transparent;color:var(--sinyal);font:inherit;font-weight:700;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
 .tinjau .ubah:hover{background:var(--sinyal-lembut)}
 .tinjau .total,.tinjau .rw{padding:12px 0}
@@ -294,7 +301,6 @@ INDEX = """
 .paket .isi .ikon{width:18px;height:18px;margin-top:3px;color:var(--ok);stroke-width:3}
 .paket .bawah{display:grid;gap:10px;margin-top:auto;padding-top:6px}
 .harga-tag{font-size:13px;color:var(--tinta-redup);text-align:center}
-.catatan-akhir{margin-top:24px;font-size:14px;color:var(--tinta-redup);max-width:60ch}
 .kaki{margin-top:40px;padding:28px 0 36px;border-top:1px solid var(--garis);font-size:14px;color:var(--tinta-redup)}
 .kaki p + p{margin-top:10px}
 .kaki a{display:inline-flex;align-items:center;min-height:44px;color:var(--tinta);font-weight:600}

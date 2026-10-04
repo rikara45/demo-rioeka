@@ -210,7 +210,7 @@ def halaman_demo(u, n):
     body.append("</div>\n</main>\n")
     body.append(
         '<footer class="kaki"><div class="wadah"><p>%s</p><p><a href="%s">WhatsApp %s</a></p>'
-        "<p>Halaman ini contoh peragaan. Dibuat oleh Rio, jasa halaman web untuk usaha lokal di Bandung.</p></div></footer>\n" % (kontak, wa, e(u["wa_tampil"]))
+        "<p>Halaman ini contoh peragaan, bukan usaha sungguhan. Dibuat oleh Rio Ekaputra Siswa, developer aplikasi web di Bandung yang membuat website untuk usaha lokal. <a href=\"https://rioeka.com\">rioeka.com</a></p></div></footer>\n" % (kontak, wa, e(u["wa_tampil"]))
     )
     if n == 1:
         bar = '<a class="tombol" href="%s">%s Tanya lewat WhatsApp</a>' % (wa, I_WA)
@@ -228,7 +228,7 @@ def halaman_demo(u, n):
             "siapaSaja": u["siapa_saja"],
             "siapaSajaKet": u["siapa_saja_ket"],
             "grup": [{"nama": g, "item": [{"nama": a, "harga": b, "menit": c, "ket": d} for a, b, c, d in it]} for g, it in u["grup"]],
-            "stylist": [{"nama": a, "keahlian": b, "rinci": c} for a, b, c in u["stylist"]],
+            "stylist": [{"nama": a, "keahlian": b, "rinci": c, "bisa": d} for a, b, c, d in u["stylist"]],
             "jam": {str(h): u["jam"][h] for h in range(7)},
         }
         scripts += "<script>\n" + BOOKING_JS.replace("__DATA__", json.dumps(D, ensure_ascii=False)) + BAR_JS + "</script>\n"
@@ -277,11 +277,11 @@ def halaman_index():
         )
     body = (
         "<body>\n"
-        '<header class="atas atas-hijau"><div class="wadah wadah-lebar"><a class="merek" href="/">Demo website usaha lokal<span>Bandung</span></a></div></header>\n'
+        '<header class="atas atas-hijau"><div class="wadah wadah-lebar"><a class="merek" href="/">Demo website salon dan barbershop</a></div></header>\n'
         "<main>\n"
         '<section class="hero"><div class="wadah wadah-lebar">\n<p class="eyebrow">Situs demo &middot; jasa pembuatan website</p>\n'
         "<h1>Demo website untuk salon dan barbershop</h1>\n"
-        '<p class="lead">Ini situs uji coba, bukan usaha sungguhan. Di sini Anda bisa melihat dan mencoba sendiri tampilan dan fitur website yang Anda dapatkan kalau memakai jasa pembuatan website dari Rio Ekaputra Siswa, Bandung.</p>\n'
+        '<p class="lead">Ini situs uji coba, bukan usaha sungguhan. Di sini Anda bisa melihat dan mencoba sendiri tampilan dan fitur website yang Anda dapatkan kalau memakai jasa pembuatan website dari Rio Ekaputra Siswa, developer aplikasi web di Bandung.</p>\n'
         '<ul class="fitur"><li>%s Harga dan jam buka</li><li>%s Tombol WhatsApp</li><li>%s Sistem booking</li><li>%s Bayar muka</li></ul>\n'
         '<div class="aksi"><a class="tombol" href="#paket">Coba demonya</a></div>\n</div></section>\n'
         '<section class="bagian" id="paket"><div class="wadah wadah-lebar">\n<h2>Tiga paket yang bisa dipilih</h2>\n'
@@ -291,13 +291,12 @@ def halaman_index():
         '<button type="button" aria-pressed="false" data-usaha="barbershop">Untuk barbershop</button></div>\n'
         '<p class="nama-demo" aria-live="polite">Contoh usaha di demo ini: <b id="nama-demo">Salon Melati</b>.</p>\n'
         '<ul class="paket-daftar paket">%s</ul>\n'
-        '<p class="catatan-akhir">Semua demo sengaja tidak didaftarkan ke mesin pencari, dan tidak ada angka atau penilaian yang dikarang di halaman ini.</p>\n'
         "</div></section>\n</main>\n"
-        '<footer class="kaki"><div class="wadah wadah-lebar"><p>Dikerjakan oleh Rio Ekaputra Siswa, Bandung. <a href="https://rioeka.com">rioeka.com</a></p>'
+        '<footer class="kaki"><div class="wadah wadah-lebar"><p>Dibuat oleh Rio Ekaputra Siswa, developer aplikasi web di Bandung. <a href="https://rioeka.com">rioeka.com</a></p>'
         "<p>Harga ketiga paket belum diisi karena pemilik usaha belum memutuskan. Angka tidak dikarang.</p></div></footer>\n"
         "<script>\n%s</script>\n</body>\n</html>\n"
     ) % (I_CENTANG, I_WA, I_KALENDER, I_CENTANG, "".join(cards), INDEX_JS)
-    return head("Demo website untuk salon dan barbershop, Bandung", "Situs uji coba: lihat dan coba tampilan serta fitur website untuk salon dan barbershop yang bisa Anda dapatkan lewat jasa pembuatan website Rio Ekaputra Siswa.", css, robots=False) + body
+    return head("Demo website untuk salon dan barbershop, Bandung", "Situs uji coba: lihat dan coba tampilan serta fitur website untuk salon dan barbershop yang bisa Anda dapatkan lewat jasa pembuatan website Rio Ekaputra Siswa, developer aplikasi web di Bandung.", css, robots=False) + body
 
 
 def tulis(rel, isi):
