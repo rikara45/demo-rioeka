@@ -3,8 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Halaman web untuk salon dan barbershop di Bandung</title>
-<meta name="description" content="Tiga paket halaman usaha lokal, masing-masing bisa dicoba sendiri.">
+<title>Barbershop Cukur Rapi, Coblong</title>
+<meta name="description" content="Harga, jam buka, alamat, dan cara menghubungi Barbershop Cukur Rapi.">
+<meta name="robots" content="noindex, nofollow">
 <style>
 @font-face{font-family:Archivo;font-style:normal;font-weight:400 800;font-stretch:62% 125%;font-display:swap;src:url(/font/archivo-latin.woff2) format('woff2')}
 /* Papan harga: satu bidang papan, huruf tulang, satu merah sinyal.
@@ -358,106 +359,111 @@ footer.kertas p a{min-height:44px}
 
 </style>
 </head>
-<body class="papan">
-<div class="bungkus">
-<header style="padding:clamp(40px,8vw,84px) 0 clamp(24px,4vw,40px)">
-<h1 class="papan-judul">Halaman web<br>untuk salon<br>dan barbershop</h1>
-<p class="papan-ket">Dibuat satu orang, di Bandung. Isinya daftar harga, jam buka, tombol WhatsApp, dan kalau perlu sekalian sistem booking. Pilih baris untuk melihat bedanya, lalu buka demonya dan coba sendiri di HP.</p>
-</header>
-<ul class="papan-baris-tutup" id="daftar-paket">
-<li><button class="baris-papan" type="button" aria-pressed="false" data-paket="1">
-<span class="nomor">1</span>
-<span class="nama">Halaman informasi<span class="rinci">Harga layanan, jam buka, alamat, dan tombol WhatsApp. Yang paling cepat jadi dan paling murah.</span></span>
-<span class="harga"><span class="tanda-demo">harga belum diisi</span><span class="satuan">sekali bayar</span></span>
-</button></li>
-<li><button class="baris-papan" type="button" aria-pressed="true" data-paket="2">
-<span class="nomor">2</span>
-<span class="nama">Tambah sistem booking<span class="rinci">Pengunjung memilih layanan, stylist, tanggal, dan jam sendiri. Tidak perlu bolak-balik WhatsApp.</span></span>
-<span class="harga"><span class="tanda-demo">harga belum diisi</span><span class="satuan">sekali bayar</span></span>
-</button></li>
-<li><button class="baris-papan" type="button" aria-pressed="false" data-paket="3">
-<span class="nomor">3</span>
-<span class="nama">Tambah pembayaran<span class="rinci">Pengunjung membayar muka saat memesan, supaya yang memesan tidak hilang begitu saja.</span></span>
-<span class="harga"><span class="tanda-demo">harga belum diisi</span><span class="satuan">sekali bayar</span></span>
-</button></li>
+<body class="kertas">
+<div class="bungkus-kertas">
+<header class="kepala-kertas"><div>
+<div class="nama-usaha">Barbershop Cukur Rapi<span>Coblong, Kota Bandung</span></div>
+</div><div class="kanan">
+<a class="tautan-balik" href="/">&#8592; Semua paket</a>
+<a class="tombol garis" href="/salon/paket-2/">Versi dengan booking</a>
+</div></header>
+<p class="status" id="status"><span class="titik" id="titik"></span><span id="status-teks">Memuat jam buka</span></p>
+<section class="bagian" id="harga">
+<h2>Daftar harga</h2>
+<p class="kertas-ket">Harga tetap, tidak ada tambahan. Cukur dan rapikan sudah termasuk cuci.</p>
+<h3 style="margin-top:26px">Potong</h3>
+<ul class="daftar ganda">
+<li><span class="nm">Potong biasa</span><span class="hr">Rp 35.000</span>
+</li>
+<li><span class="nm">Potong dan cuci</span><span class="hr">Rp 45.000</span>
+</li>
+<li><span class="nm">Potong anak</span><span class="hr">Rp 30.000</span>
+</li>
+<li><span class="nm">Cukur jenggot</span><span class="hr">Rp 25.000</span>
+</li>
 </ul>
-<div class="papan-kaki">
-<a class="tombol" id="buka-demo" href="/salon/paket-2/">Buka demo paket ini</a>
-<p class="keterangan" id="keterangan-paket">Kalau jadwal sudah ramai dan pesanan sering bertabrakan.</p>
+<h3 style="margin-top:26px">Perawatan</h3>
+<ul class="daftar ganda">
+<li><span class="nm">Pomade dan styling</span><span class="hr">Rp 20.000</span>
+</li>
+<li><span class="nm">Masker rambut</span><span class="hr">Rp 50.000</span>
+</li>
+<li><span class="nm">Cukur kumis rapi</span><span class="hr">Rp 15.000</span>
+</li>
+<li><span class="nm">Paket lengkap</span><span class="hr">Rp 90.000</span>
+<p class="rw">Potong, cuci, cukur jenggot, dan styling.</p>
+</li>
+</ul>
+<p class="catatan">Anak di bawah 10 tahun dapat harga potong anak.</p>
+</section>
+<section class="bagian" id="lokasi">
+<h2>Lokasi dan jam buka</h2>
+<p class="kertas-ket">Tutup hari Minggu. Sabtu paling ramai, sebaiknya memesan lebih dulu.</p>
+<div class="jam-tutup" id="kartu-jam">
+<div data-hari="0"><span>Minggu</span><span>tutup</span></div>
+<div data-hari="1"><span>Senin</span><span>11.00 sampai 21.00</span></div>
+<div data-hari="2"><span>Selasa</span><span>11.00 sampai 21.00</span></div>
+<div data-hari="3"><span>Rabu</span><span>11.00 sampai 21.00</span></div>
+<div data-hari="4"><span>Kamis</span><span>11.00 sampai 21.00</span></div>
+<div data-hari="5"><span>Jumat</span><span>11.00 sampai 22.00</span></div>
+<div data-hari="6"><span>Sabtu</span><span>10.00 sampai 22.00</span></div>
 </div>
+<address style="font-style:normal;margin-top:22px;line-height:1.7">Jl. Contoh Raya No. 27, Ruko Blok B<br>Coblong, Kota Bandung 40132<br>Sebelah warung kopi, di lantai dua.</address>
+<p style="margin:16px 0 0"><a class="tombol garis" href="https://www.google.com/maps/search/?api=1&amp;query=Jl.%20Contoh%20Raya%20No.%2027%20Coblong%20Bandung">Buka di Google Maps</a></p>
+</section>
+<section class="bagian" id="galeri">
+<h2>Galeri</h2>
+<p class="kertas-ket">Enam kotak ini tempat foto Barbershop Cukur Rapi. Kirim enam foto, dan semuanya dipasang di sini.</p>
+<div class="galeri">
+<div class="petak">Foto depan</div>
+<div class="petak">Kursi potong</div>
+<div class="petak">Cermin</div>
+<div class="petak">Hasil fade</div>
+<div class="petak">Alat cukur</div>
+<div class="petak">Area tunggu</div>
+</div></section>
+<section class="bagian" id="tanya">
+<h2>Pertanyaan yang sering masuk</h2>
+<details style="border-bottom:1px solid var(--garis-kertas)">
+<summary style="cursor:pointer;padding:15px 0;font-weight:600">Perlu pesan dulu?</summary>
+<p style="margin:0 0 16px;color:var(--tinta-redup);max-width:64ch">Tidak wajib, tapi Sabtu dan Minggu hampir selalu penuh. Memesan lebih dulu menghemat waktu tunggu.</p>
+</details>
+<details style="border-bottom:1px solid var(--garis-kertas)">
+<summary style="cursor:pointer;padding:15px 0;font-weight:600">Berapa lama satu kali potong?</summary>
+<p style="margin:0 0 16px;color:var(--tinta-redup);max-width:64ch">Sekitar tiga puluh menit untuk potong biasa, dan sampai satu jam untuk paket lengkap.</p>
+</details>
+<details style="border-bottom:1px solid var(--garis-kertas)">
+<summary style="cursor:pointer;padding:15px 0;font-weight:600">Bisa minta model tertentu dari foto?</summary>
+<p style="margin:0 0 16px;color:var(--tinta-redup);max-width:64ch">Bisa. Kirim fotonya lewat WhatsApp sebelum datang, supaya waktunya bisa diperkirakan.</p>
+</details>
+<details style="border-bottom:1px solid var(--garis-kertas)">
+<summary style="cursor:pointer;padding:15px 0;font-weight:600">Terima anak kecil?</summary>
+<p style="margin:0 0 16px;color:var(--tinta-redup);max-width:64ch">Terima, dan ada harga khusus untuk anak di bawah sepuluh tahun.</p>
+</details>
+</section>
 </div>
-<div class="bungkus" style="padding-top:clamp(40px,7vw,72px)">
-<div class="papan-kisi">
-<div><h2 style="font-weight:800;font-stretch:70%;font-size:clamp(20px,3vw,28px);margin:0">Yang ada di dalam tiap paket</h2>
-<div id="isi-paket" style="margin-top:18px">
-<ul class="daftar-papan-isi" data-paket="1" hidden>
-<li style="padding:9px 0;border-bottom:1px solid var(--garis-papan)">Daftar harga layanan</li>
-<li style="padding:9px 0;border-bottom:1px solid var(--garis-papan)">Jam buka dan hari tutup</li>
-<li style="padding:9px 0;border-bottom:1px solid var(--garis-papan)">Alamat lengkap dengan tombol peta</li>
-<li style="padding:9px 0;border-bottom:1px solid var(--garis-papan)">Tombol WhatsApp di setiap layar</li>
-<li style="padding:9px 0;border-bottom:1px solid var(--garis-papan)">Status buka dihitung dari jam sebenarnya</li>
-</ul>
-<ul class="daftar-papan-isi" data-paket="2">
-<li style="padding:9px 0;border-bottom:1px solid var(--garis-papan)">Semua isi paket 1</li>
-<li style="padding:9px 0;border-bottom:1px solid var(--garis-papan)">Pilih layanan dan stylist</li>
-<li style="padding:9px 0;border-bottom:1px solid var(--garis-papan)">Pilih tanggal dan jam yang tersedia</li>
-<li style="padding:9px 0;border-bottom:1px solid var(--garis-papan)">Jam yang sudah penuh tertutup sendiri</li>
-<li style="padding:9px 0;border-bottom:1px solid var(--garis-papan)">Ringkasan sebelum dikonfirmasi</li>
-</ul>
-<ul class="daftar-papan-isi" data-paket="3" hidden>
-<li style="padding:9px 0;border-bottom:1px solid var(--garis-papan)">Semua isi paket 2</li>
-<li style="padding:9px 0;border-bottom:1px solid var(--garis-papan)">Bayar muka saat memesan</li>
-<li style="padding:9px 0;border-bottom:1px solid var(--garis-papan)">Pilihan QRIS, transfer, atau bayar di tempat</li>
-<li style="padding:9px 0;border-bottom:1px solid var(--garis-papan)">Nota pemesanan otomatis</li>
-</ul>
-</div></div>
-<div><h2 style="font-weight:800;font-stretch:70%;font-size:clamp(20px,3vw,28px);margin:0">Coba demonya</h2>
-<p class="papan-ket" style="margin-top:12px">Demo memakai data contoh. Nama, harga, dan nomor di dalamnya bukan usaha sungguhan.</p>
-<ul class="pilih-usaha" id="pilih-usaha" style="margin-top:16px">
-<li><button type="button" aria-pressed="true" data-usaha="salon">Untuk salon</button></li>
-<li><button type="button" aria-pressed="false" data-usaha="barbershop">Untuk barbershop</button></li>
-</ul>
-<ul id="daftar-demo" style="list-style:none;margin:18px 0 0;padding:0"></ul>
-<p class="papan-ket" style="margin-top:18px">Semua demo sengaja tidak didaftarkan ke mesin pencari, dan tidak ada angka atau penilaian yang dikarang di halaman ini.</p>
-</div>
-</div>
-</div></div>
-<footer class="papan"><div class="bungkus">
-<p style="margin:0 0 10px">Dikerjakan oleh Rio Ekaputra Siswa, Bandung. <a href="https://rioeka.com">rioeka.com</a></p>
-<p style="margin:0">Harga ketiga paket belum diisi karena pemilik usaha belum memutuskan. Angka tidak dikarang.</p>
+<footer class="kertas"><div class="bungkus-kertas">
+<p style="margin:0 0 8px">Pesan dan pertanyaan:</p>
+<p style="margin:0 0 14px"><a href="https://wa.me/6287712345678?text=Bang%2C%20saya%20mau%20potong.%20Layanan%3A%20%20%20Jam%3A%20">WhatsApp 0877-1234-5678</a></p>
+<p style="margin:0;color:var(--tinta-redup)">Halaman ini contoh peragaan. Dibuat oleh Rio, jasa halaman web untuk usaha lokal di Bandung.</p>
 </div></footer>
+<div class="bar-bawah"><a class="tombol" href="https://wa.me/6287712345678?text=Bang%2C%20saya%20mau%20potong.%20Layanan%3A%20%20%20Jam%3A%20">Tanya lewat WhatsApp</a></div>
 <script>
 (function(){
-  var PAKET=[{"nomor": "1", "nama": "Halaman informasi", "cocok": "Kalau yang dibutuhkan hanya supaya orang menemukan salon dan bisa bertanya."}, {"nomor": "2", "nama": "Tambah sistem booking", "cocok": "Kalau jadwal sudah ramai dan pesanan sering bertabrakan."}, {"nomor": "3", "nama": "Tambah pembayaran", "cocok": "Kalau sering ada yang memesan lalu tidak datang."}], DEMO={"salon": [{"nomor": "1", "judul": "Salon Melati, halaman informasi", "rinci": "Harga, jam buka, alamat, dan tombol WhatsApp."}, {"nomor": "2", "judul": "Salon Melati, dengan booking", "rinci": "Pilih layanan, stylist, tanggal, dan jam."}, {"nomor": "3", "judul": "Salon Melati, dengan pembayaran", "rinci": "Booking ditambah bayar muka."}], "barbershop": [{"nomor": "1", "judul": "Barbershop Cukur Rapi, halaman informasi", "rinci": "Harga, jam buka, alamat, dan tombol WhatsApp."}, {"nomor": "2", "judul": "Barbershop Cukur Rapi, dengan booking", "rinci": "Pilih layanan, stylist, tanggal, dan jam."}, {"nomor": "3", "judul": "Barbershop Cukur Rapi, dengan pembayaran", "rinci": "Booking ditambah bayar muka."}]}, usaha="salon", pilih="2";
-  var baris=[].slice.call(document.querySelectorAll(".baris-papan"));
-  var isi=[].slice.call(document.querySelectorAll(".daftar-papan-isi"));
-  function gambar(){
-    baris.forEach(function(b){b.setAttribute("aria-pressed", b.dataset.paket===pilih ? "true":"false")});
-    isi.forEach(function(u){u.hidden = u.dataset.paket!==pilih});
-    var p=PAKET.filter(function(x){return x.nomor===pilih})[0];
-    document.getElementById("keterangan-paket").textContent=p.cocok;
-    var t=document.getElementById("buka-demo");
-    t.href="/"+usaha+"/paket-"+pilih+"/";
-    t.textContent="Buka demo paket "+pilih;
-    var d=DEMO[usaha].filter(function(x){return x.nomor===pilih})[0];
-    var kotak=document.getElementById("daftar-demo");
-    kotak.innerHTML="";
-    var li=document.createElement("li");
-    li.style.cssText="border-top:1px solid var(--garis-papan);padding:14px 0";
-    li.innerHTML='<a href="/'+usaha+'/paket-'+pilih+'/" style="display:block;color:inherit;text-decoration:none">'+
-      '<b style="font-stretch:70%;font-size:19px">'+d.judul+'</b>'+
-      '<span style="display:block;color:var(--tulang-redup);font-size:14px;margin-top:6px">'+d.rinci+'</span>'+
-      '<span style="display:inline-block;margin-top:10px;color:var(--sinyal);font-weight:700">Buka halaman ini</span></a>';
-    kotak.appendChild(li);
-  }
-  baris.forEach(function(b){b.addEventListener("click",function(){pilih=b.dataset.paket;gambar()})});
-  var tombolUsaha=[].slice.call(document.querySelectorAll("#pilih-usaha button"));
-  tombolUsaha.forEach(function(b){b.addEventListener("click",function(){
-    usaha=b.dataset.usaha;
-    tombolUsaha.forEach(function(x){x.setAttribute("aria-pressed", x===b?"true":"false")});
-    gambar();
-  })});
-  gambar();
+  var J={"jam": {"0": null, "1": ["11.00", "21.00"], "2": ["11.00", "21.00"], "3": ["11.00", "21.00"], "4": ["11.00", "21.00"], "5": ["11.00", "22.00"], "6": ["10.00", "22.00"]}, "hari": ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jumat", "Sabtu"]};
+  var jam=J.jam, namaHari=J.hari, kini=new Date(), hari=kini.getDay();
+  var blok=jam[hari], teks=document.getElementById("status-teks"), titik=document.getElementById("titik");
+  var barisKartu=document.querySelector('.jam-tutup [data-hari="'+hari+'"]');
+  if(barisKartu){barisKartu.className="hari-ini";
+    var t=document.createElement("span");t.className="tanda-hari";t.textContent="hari ini";
+    barisKartu.firstElementChild.appendChild(t);}
+  function f(m){var j=Math.floor(m/60),s=m%60;return (j<10?"0":"")+j+"."+(s<10?"0":"")+s;}
+  if(!blok){teks.textContent="Tutup hari ini, "+namaHari[hari];titik.className="titik tutup";}
+  else{var b1=blok[0].split("."),b2=blok[1].split(".");
+    var buka=(+b1[0])*60+(+b1[1]), tutup=(+b2[0])*60+(+b2[1]), m=kini.getHours()*60+kini.getMinutes();
+    if(m<buka){teks.textContent="Tutup. Buka hari ini pukul "+f(buka);titik.className="titik tutup";}
+    else if(m>=tutup){teks.textContent="Tutup. Sudah lewat jam buka hari ini";titik.className="titik tutup";}
+    else{teks.textContent="Buka sekarang, sampai pukul "+f(tutup);titik.className="titik";}}
 })();
 </script>
 </body></html>
