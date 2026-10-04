@@ -353,6 +353,18 @@ footer.kertas p a{min-height:44px}
   .bar-bawah .tombol{width:100%}
   .kertas{padding-bottom:92px}
 }
+.kepala-langkah{display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;min-height:30px}
+.kepala-langkah h3{flex:1 1 auto}
+.ringkas-langkah{flex:1 1 100%;margin:0;color:var(--tinta-redup);font-size:14px}
+.ubah{font:inherit;font-weight:600;font-size:14px;min-height:44px;padding:0 14px;cursor:pointer;background:transparent;color:var(--tinta);border:1px solid var(--tinta);border-radius:0}
+.ubah:hover{background:var(--tinta);color:var(--kertas)}
+.langkah > section[hidden],.ubah[hidden],.ringkas-langkah[hidden],.badan[hidden]{display:none}
+
+@media (max-width:719px){
+  .hari-kisi{display:flex;overflow-x:auto;scroll-snap-type:x proximity;gap:8px;padding:12px 0 8px;-webkit-overflow-scrolling:touch}
+  .hari-kisi li{flex:0 0 84px;scroll-snap-align:start}
+  .jam-kisi{grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:6px}
+}
 @media (prefers-reduced-motion:reduce){
   *{transition-duration:.001ms !important;animation-duration:.001ms !important}
 }
@@ -712,6 +724,67 @@ footer.kertas p a{min-height:44px}
   }
   if(tombolTempat){tombolTempat.addEventListener("click",function(){ tampilSelesai("bayar di tempat") })}
   if(tombolUlang){tombolUlang.addEventListener("click",function(){ location.reload() })}
+
+  /* langkah booking: hanya satu langkah terbuka, yang sudah terisi diringkas jadi satu baris */
+  (function(){
+    var daftar=[].slice.call(document.querySelectorAll("#langkah-isi .langkah > section"));
+    if(daftar.length<5){return}
+    var paksa=null, terakhir=null, awal=true;
+    var redam=window.matchMedia&&window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+    var langkah=daftar.map(function(sec,i){
+      var isiEl=sec.querySelector(".isi"), h=isiEl.querySelector("h3");
+      var kepala=document.createElement("div"); kepala.className="kepala-langkah";
+      var badan=document.createElement("div"); badan.className="badan"; badan.id="badan-langkah-"+i;
+      while(h.nextSibling){badan.appendChild(h.nextSibling)}
+      var ket=document.createElement("p"); ket.className="ringkas-langkah";
+      var ubah=document.createElement("button"); ubah.type="button"; ubah.className="ubah"; ubah.textContent="Ubah";
+      ubah.setAttribute("aria-controls",badan.id);
+      ubah.setAttribute("aria-label","Ubah "+h.textContent.toLowerCase());
+      ubah.addEventListener("click",function(){
+        paksa=i; gambarLangkah(true);
+        var f=badan.querySelector("input:checked,button:not([disabled]),input");
+        if(f){f.focus({preventScroll:true})}
+      });
+      isiEl.insertBefore(kepala,h); kepala.appendChild(h); kepala.appendChild(ubah); kepala.appendChild(ket);
+      isiEl.appendChild(badan);
+      return {badan:badan,ket:ket,ubah:ubah};
+    });
+    function selesaiLangkah(i){
+      if(i===0){return !!S.layanan}
+      if(i===1){return !!S.stylist}
+      if(i===2){return !!S.tgl&&S.jam!==null}
+      return false;
+    }
+    function ringkasLangkah(i){
+      if(i===0&&S.layanan){return S.layanan.nama+", "+S.layanan.harga}
+      if(i===1&&S.stylist){return S.stylist}
+      if(i===2&&S.tgl&&S.jam!==null){return tanggal(S.tgl.tanggal)+", "+S.tgl.tanggal.getDate()+" "+bulan(S.tgl.tanggal)+", pukul "+fmt(S.jam)}
+      return "";
+    }
+    function gambarLangkah(geser){
+      var a=3; for(var k=0;k<3;k++){if(!selesaiLangkah(k)){a=k;break}}
+      var kunci=a+"/"+paksa;
+      langkah.forEach(function(l,i){
+        daftar[i].hidden=i>=3&&a<3;
+        var buka=i===a||i===paksa||i>=3, ringkas=!buka&&selesaiLangkah(i);
+        l.badan.hidden=!buka;
+        l.ubah.hidden=!ringkas;
+        l.ket.hidden=!ringkas;
+        l.ket.textContent=ringkasLangkah(i);
+      });
+      if(geser&&kunci!==terakhir){
+        daftar[paksa!==null?paksa:a].scrollIntoView({block:"start",behavior:redam?"auto":"smooth"});
+      }
+      terakhir=kunci;
+    }
+    var periksaAsli=periksa;
+    periksa=function(){
+      periksaAsli();
+      if(!awal){paksa=null}
+      gambarLangkah(!awal);
+      awal=false;
+    };
+  })();
 
   periksa();
 })();
