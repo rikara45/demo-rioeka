@@ -4,30 +4,37 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#FBF5EA">
+<meta name="theme-color" content="#FBF6E8">
 <title>Dapur Bu Sari, booking</title>
 <meta name="description" content="Pesan katering dan kue, pilih menu, tanggal, dan cara terima di Dapur Bu Sari.">
+<link rel="preload" href="/font/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
 <style>
 @font-face{font-family:Archivo;font-style:normal;font-weight:400 800;font-stretch:62% 125%;font-display:swap;src:url(/font/archivo-latin.woff2) format('woff2')}
+@font-face{font-family:'Fraunces';font-style:normal;font-weight:500 700;font-display:swap;src:url(/font/fraunces-latin.woff2) format('woff2')}
+@font-face{font-family:'Fraunces';font-style:italic;font-weight:500 600;font-display:swap;src:url(/font/fraunces-italic-latin.woff2) format('woff2')}
 :root{
-  --latar:#FBF5EA;
+  --latar:#FBF6E8;
   --kartu:#FFFFFF;
-  --kartu-turun:#F2E7D3;
-  --tinta:#2E1D14;
-  --tinta-redup:#6A5444;
-  --garis:#E8DAC0;
-  --garis-kuat:#8A7660;
-  --sinyal:#A8431A;
-  --sinyal-gelap:#8A3514;
-  --sinyal-lembut:#FBE6D6;
+  --kartu-turun:#F3EAD0;
+  --tinta:#2B2417;
+  --tinta-redup:#5E5440;
+  --garis:#E6DBBA;
+  --garis-kuat:#8C8061;
+  --sinyal:#2E5A32;
+  --sinyal-gelap:#1F4425;
+  --sinyal-lembut:#E4EDD6;
   --di-atas-sinyal:#FFFFFF;
-  --fokus:#A8431A;
+  --fokus:#2E5A32;
+  --kunyit:#F0BE3A;
+  --kunyit-gelap:#8A5B00;
+  --kunyit-lembut:#FBEBB5;
   --salah:#A8261A;
   --ok:#2F6B4F;
   --r:18px;
   --r-kecil:12px;
   --r-tombol:999px;
-  --bayang:0 1px 2px rgba(46,29,20,.06),0 8px 22px rgba(46,29,20,.07);
+  --serif:"Fraunces",Georgia,"Times New Roman",serif;
+  --bayang:0 1px 2px rgba(43,36,23,.06),0 8px 22px rgba(43,36,23,.07);
   --h-berat:800;
   --h-lebar:86%;
   --h-huruf:none;
@@ -264,81 +271,136 @@ svg{display:block;flex:none}
 .fakta .f-nilai{font-size:15px;font-weight:800;line-height:1.25;overflow-wrap:anywhere}
 .dur{display:inline-block;margin-right:6px;padding:0 8px;border-radius:99px;background:var(--sinyal-lembut);color:var(--sinyal-gelap);font-size:13px;font-weight:700}
 
-/* salon: mawar, kelopak, titik penghubung */
-[data-j=salon] .hero-isi{padding:20px 18px 22px;border-radius:var(--r);background:var(--sinyal-lembut)}
-[data-j=salon] .hero-isi::before{top:6px;right:6px;width:130px;height:130px;background:var(--sinyal);opacity:.18;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='black' stroke-width='3'%3E%3Ccircle cx='60' cy='40' r='22'/%3E%3Ccircle cx='40' cy='72' r='22'/%3E%3Ccircle cx='80' cy='72' r='22'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='black' stroke-width='3'%3E%3Ccircle cx='60' cy='40' r='22'/%3E%3Ccircle cx='40' cy='72' r='22'/%3E%3Ccircle cx='80' cy='72' r='22'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat}
-[data-j=salon] .fakta li{border:0;background:var(--sinyal-lembut)}
-[data-j=salon] .fakta .f-nilai{color:var(--sinyal-gelap)}
-[data-j=salon] .bagian h2::after{content:"";display:block;width:44px;height:4px;margin-top:10px;border-radius:99px;background:var(--sinyal)}
-[data-j=salon] .harga li{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 8px;border-top:0;padding:12px 0}
-[data-j=salon] .harga .nm{display:flex;flex:1 1 auto;align-items:baseline;gap:8px;min-width:0}
-[data-j=salon] .harga .nm::after{content:"";flex:1 1 20px;min-width:20px;border-bottom:2px dotted var(--garis-kuat);transform:translateY(-4px)}
-[data-j=salon] .harga .ket{flex:1 1 100%}
-[data-j=salon] .galeri .petak:first-child,[data-j=salon] .galeri .petak:last-child{grid-column:1 / -1;aspect-ratio:16/10}
-@media (min-width:600px){
-[data-j=salon] .galeri .petak:first-child{grid-column:span 2;grid-row:span 2;aspect-ratio:auto}
-[data-j=salon] .galeri .petak:last-child{grid-column:auto;aspect-ratio:4/3}
+
+/* katering, gaya hajatan: daun pisang + kunyit, tepi bergerigi, stempel, nota */
+[data-j=katering]{counter-reset:bag}
+[data-j=katering] :is(.hero h1,.bagian h2,.panel h3,.selesai h3,#harga .kartu > h3,.kartu.pesan-buka > h3,.f-nilai,.harga .hr,.hari .tg,.tinjau .total dd,.kode,.penutup h2){font-family:var(--serif);font-stretch:100%;font-weight:600;font-variant-numeric:lining-nums;letter-spacing:0;text-transform:none}
+[data-j=katering] .hero{padding:24px 0 4px}
+[data-j=katering] .hero-isi::before{display:none}
+[data-j=katering] .hero .eyebrow{font-size:12px;letter-spacing:.2em;color:var(--sinyal-gelap)}
+[data-j=katering] .hero h1{margin:12px 0 14px;font-size:clamp(40px,11vw,72px);line-height:1;text-wrap:balance}
+[data-j=katering] .hero h1 em{font-style:italic;font-weight:600;color:var(--kunyit-gelap)}
+[data-j=katering] .hero .lead{max-width:44ch;font-size:17px}
+[data-j=katering] .hero-foto{position:relative;isolation:isolate;margin:22px 12px 26px 0}
+[data-j=katering] .hero-foto::before{content:"";position:absolute;z-index:-1;inset:0;transform:translate(10px,10px);border-radius:20px;background:var(--kunyit)}
+[data-j=katering] .hero-foto img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;object-position:50% 45%;border-radius:20px 20px 0 0;background:var(--kartu-turun);-webkit-mask:radial-gradient(circle at 50% 100%,#000 7px,#0000 8px) bottom/26px 14px repeat-x,linear-gradient(#000,#000) top left/100% calc(100% - 14px) no-repeat;mask:radial-gradient(circle at 50% 100%,#000 7px,#0000 8px) bottom/26px 14px repeat-x,linear-gradient(#000,#000) top left/100% calc(100% - 14px) no-repeat}
+[data-j=katering] .lencana{position:absolute;right:-4px;bottom:30px;display:grid;place-content:center;width:92px;aspect-ratio:1;padding:10px;border-radius:50%;background:var(--kunyit);color:var(--tinta);font-size:12px;font-weight:700;letter-spacing:.1em;line-height:1.25;text-align:center;text-transform:uppercase;transform:rotate(-10deg);outline:2px dashed var(--tinta);outline-offset:-6px}
+[data-j=katering] .hero-foto + .tag-baris{margin-top:6px}
+[data-j=katering] .status{margin-top:8px;background:transparent;border-color:var(--garis)}
+[data-j=katering] .fakta{grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:28px}
+[data-j=katering] .fakta li{position:relative;justify-items:start;align-content:start;gap:4px;padding:16px 8px;border:0;border-radius:0;background:radial-gradient(circle at 0 50%,var(--latar) 6px,#0000 7px) left center/12px 12px no-repeat,radial-gradient(circle at 100% 50%,var(--latar) 6px,#0000 7px) right center/12px 12px no-repeat,var(--kartu)}
+[data-j=katering] .fakta li + li::before{content:"";position:absolute;left:0;top:14px;bottom:14px;border-left:2px dashed var(--kunyit)}
+[data-j=katering] .fakta .f-label{font-size:12px;letter-spacing:.1em}
+[data-j=katering] .fakta .f-nilai{font-size:22px;line-height:1.1;color:var(--sinyal-gelap);overflow-wrap:normal}
+[data-j=katering] .loncat a{border-color:var(--garis);background:transparent}
+[data-j=katering] .loncat a:hover{background:var(--kartu-turun)}
+[data-j=katering] .demo-kartu{margin:26px 0 0;background:var(--sinyal-lembut)}
+
+[data-j=katering] .bagian{padding:56px 0 4px}
+[data-j=katering] .bagian:not(.penutup){position:relative}
+[data-j=katering] .bagian:not(.penutup)::before{content:"";position:absolute;left:0;right:0;top:0;height:8px;background:radial-gradient(circle at 50% 100%,var(--kunyit) 5px,#0000 6px) bottom/14px 8px repeat-x,linear-gradient(var(--kunyit),var(--kunyit)) top/100% 3px no-repeat}
+[data-j=katering] .bagian h2{font-size:clamp(34px,10vw,48px);line-height:1}
+[data-j=katering] .bagian:not(.penutup) h2::before{content:"";display:block;width:34px;height:30px;margin-bottom:12px;background:var(--sinyal);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 30'%3E%3Cpath d='M17 3 30 27H4Z' fill='none' stroke='black' stroke-width='2'/%3E%3Ccircle cx='17' cy='11' r='1.6'/%3E%3Ccircle cx='13.5' cy='17' r='1.6'/%3E%3Ccircle cx='20.5' cy='17' r='1.6'/%3E%3Ccircle cx='17' cy='21.5' r='1.6'/%3E%3C/svg%3E") left bottom/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 34 30'%3E%3Cpath d='M17 3 30 27H4Z' fill='none' stroke='black' stroke-width='2'/%3E%3Ccircle cx='17' cy='11' r='1.6'/%3E%3Ccircle cx='13.5' cy='17' r='1.6'/%3E%3Ccircle cx='20.5' cy='17' r='1.6'/%3E%3Ccircle cx='17' cy='21.5' r='1.6'/%3E%3C/svg%3E") left bottom/contain no-repeat}
+[data-j=katering] .bagian:not(.penutup) h2::after{content:"";display:block;width:72px;height:8px;margin-top:14px;background:var(--kunyit);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 72 8'%3E%3Cpath d='M0 4c6-5 12-5 18 0s12 5 18 0 12-5 18 0 12 5 18 0' stroke='black' stroke-width='2' fill='none'/%3E%3C/svg%3E") left center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 72 8'%3E%3Cpath d='M0 4c6-5 12-5 18 0s12 5 18 0 12-5 18 0 12 5 18 0' stroke='black' stroke-width='2' fill='none'/%3E%3C/svg%3E") left center/contain no-repeat}
+[data-j=katering] .bagian-lead{margin-top:16px}
+[data-j=katering] .kartu{border-color:var(--garis);box-shadow:none}
+
+[data-j=katering] #harga .kartu{margin-top:30px;padding:20px 16px 22px;border:0;border-radius:var(--r) var(--r) 0 0;background:var(--kartu);box-shadow:none;-webkit-mask:repeating-conic-gradient(from 135deg at 50% 0,#000 0 90deg,#0000 0 180deg) bottom/16px 8px repeat-x,linear-gradient(#000,#000) top left/100% calc(100% - 7px) no-repeat;mask:repeating-conic-gradient(from 135deg at 50% 0,#000 0 90deg,#0000 0 180deg) bottom/16px 8px repeat-x,linear-gradient(#000,#000) top left/100% calc(100% - 7px) no-repeat}
+[data-j=katering] #harga .kartu > h3{display:flex;align-items:center;gap:14px;font-size:28px;line-height:1.05;color:var(--sinyal-gelap)}
+[data-j=katering] #harga .kartu > h3::after{content:"";flex:1;border-top:2px dashed var(--kunyit)}
+[data-j=katering] .harga{margin-top:8px}
+[data-j=katering] .harga li{align-items:center;padding:14px 0;border-top:1px dashed var(--garis-kuat)}
+[data-j=katering] .harga li:first-child{border-top:0}
+[data-j=katering] .harga .nm{font-weight:600}
+[data-j=katering] .harga .hr{justify-self:end;align-self:start;padding:4px 14px;border-radius:var(--r-kecil);background:radial-gradient(circle at 0 50%,var(--kartu) 5px,#0000 6px) left center/10px 10px no-repeat,radial-gradient(circle at 100% 50%,var(--kartu) 5px,#0000 6px) right center/10px 10px no-repeat,var(--kunyit-lembut);color:var(--tinta);font-size:24px;line-height:1.1;white-space:nowrap}
+[data-j=katering] .harga .ket{grid-column:1 / -1;margin-top:4px}
+[data-j=katering] .harga .ket-teks{font-size:14px;font-weight:400;color:var(--tinta-redup)}
+[data-j=katering] .dur{display:inline;margin:0;padding:0;background:none;color:var(--sinyal-gelap);font-size:inherit;font-weight:600}
+
+[data-j=katering] .galeri{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 12px;margin-top:30px;align-items:start}
+[data-j=katering] .petak{aspect-ratio:auto;overflow:visible;border-radius:0;background:none}
+[data-j=katering] .petak img{height:auto;aspect-ratio:1;object-fit:cover;border-radius:var(--r-kecil);background:var(--kartu-turun)}
+[data-j=katering] .petak figcaption{margin-top:10px;font-family:var(--serif);font-style:italic;font-size:16px;line-height:1.3;color:var(--tinta-redup)}
+[data-j=katering] .petak:nth-child(odd){margin-top:16px}
+[data-j=katering] .petak:first-child,[data-j=katering] .petak:last-child{grid-column:1 / -1;margin-top:0}
+[data-j=katering] .petak:first-child img{aspect-ratio:16/10;border-radius:0 0 var(--r-kecil) var(--r-kecil);-webkit-mask:radial-gradient(circle at 50% 100%,#000 7px,#0000 8px) top/26px 14px repeat-x,linear-gradient(#000,#000) bottom left/100% calc(100% - 14px) no-repeat;mask:radial-gradient(circle at 50% 100%,#000 7px,#0000 8px) top/26px 14px repeat-x,linear-gradient(#000,#000) bottom left/100% calc(100% - 14px) no-repeat}
+[data-j=katering] .petak:last-child img{aspect-ratio:16/10;border-radius:var(--r)}
+[data-j=katering] .petak:nth-child(2) img,[data-j=katering] .petak:nth-child(4) img{aspect-ratio:1;border-radius:50%;box-shadow:0 0 0 4px var(--kartu),0 0 0 8px var(--kunyit)}
+[data-j=katering] .petak:nth-child(3),[data-j=katering] .petak:nth-child(5){position:relative;padding:8px;border:1px solid var(--garis);border-radius:4px;background:var(--kartu)}
+[data-j=katering] .petak:nth-child(3){rotate:-1.2deg}
+[data-j=katering] .petak:nth-child(5){rotate:1.2deg}
+[data-j=katering] .petak:nth-child(3) img,[data-j=katering] .petak:nth-child(5) img{border-radius:2px}
+[data-j=katering] .petak:nth-child(3)::before,[data-j=katering] .petak:nth-child(5)::before{content:"";position:absolute;top:-9px;left:50%;width:60px;height:18px;background:var(--kunyit-lembut);opacity:.85}
+[data-j=katering] .petak:nth-child(3)::before{transform:translateX(-50%) rotate(-4deg)}
+[data-j=katering] .petak:nth-child(5)::before{transform:translateX(-50%) rotate(4deg)}
+
+[data-j=katering] #lokasi .kartu{padding:0;border:0;border-radius:0;background:none;box-shadow:none}
+[data-j=katering] #lokasi .kartu > h3{font-size:15px;letter-spacing:.1em}
+[data-j=katering] .jam{margin-top:8px;border:1px solid var(--garis);border-radius:var(--r-kecil);background:var(--kartu);overflow:hidden}
+[data-j=katering] .jam li{margin:0;padding:12px 10px;border-radius:0;font-variant-numeric:tabular-nums}
+[data-j=katering] .jam li + li{border-top:1px dashed var(--garis-kuat);border-top-left-radius:0;border-top-right-radius:0}
+[data-j=katering] .jam li.hari-ini{background:var(--kunyit-lembut);box-shadow:inset 3px 0 0 var(--sinyal);border-top-color:transparent}
+[data-j=katering] .jam li.hari-ini + li{border-top-color:transparent}
+[data-j=katering] #lokasi .kartu + .kartu{margin-top:16px;padding:20px 16px;border-top:3px solid var(--kunyit);border-radius:0 0 var(--r) var(--r);background:var(--kartu);box-shadow:none}
+
+[data-j=katering] .tanya{counter-reset:q;border-bottom:1px solid var(--garis)}
+[data-j=katering] .tanya details{counter-increment:q;border-top-color:var(--garis)}
+[data-j=katering] .tanya summary{justify-content:flex-start;gap:14px;min-height:64px;padding:16px 0;font-family:var(--serif);font-size:22px;font-weight:600;line-height:1.15}
+[data-j=katering] .tanya summary::before{content:counter(q,decimal-leading-zero);flex:none;font-family:Archivo,system-ui,sans-serif;font-size:12px;font-weight:700;letter-spacing:.14em;color:var(--sinyal-gelap)}
+[data-j=katering] .tanya summary svg{display:none}
+[data-j=katering] .tanya summary::after{content:"+";flex:none;margin-left:auto;font-size:30px;font-weight:500;line-height:1;color:var(--sinyal-gelap)}
+[data-j=katering] .tanya details[open] summary::after{content:"\2212"}
+[data-j=katering] .tanya details p{padding:0 0 18px 34px}
+
+[data-j=katering] .penutup .kartu{padding:30px 22px;border:0;border-radius:var(--r);background:var(--sinyal);color:var(--di-atas-sinyal);box-shadow:none}
+[data-j=katering] .penutup h2{font-size:clamp(30px,8.5vw,40px);line-height:1.05;color:var(--di-atas-sinyal)}
+[data-j=katering] .penutup .bagian-lead{color:var(--sinyal-lembut)}
+[data-j=katering] .penutup .tombol{background:var(--kunyit);border-color:var(--kunyit);color:var(--tinta)}
+[data-j=katering] .penutup .tombol:hover{background:var(--kunyit-gelap);border-color:var(--kunyit-gelap);color:var(--di-atas-sinyal)}
+[data-j=katering] .penutup .tombol.garis{background:transparent;border-color:var(--di-atas-sinyal);color:var(--di-atas-sinyal)}
+[data-j=katering] .penutup .tombol.garis:hover{background:var(--sinyal-gelap);border-color:var(--di-atas-sinyal)}
+[data-j=katering] .kaki{border-top-color:var(--garis)}
+
+@supports (animation-timeline:view()){
+@media (prefers-reduced-motion:no-preference){
+@keyframes naik{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+[data-j=katering] .bagian > h2,[data-j=katering] .petak{animation:naik linear both;animation-timeline:view();animation-range:entry 0% entry 70%}
+}
 }
 
-/* barbershop: garis tegas, kapital, kotak */
-[data-j=barbershop] .hero-isi{padding-left:16px;border-left:6px solid var(--sinyal)}
-[data-j=barbershop] .hero-isi::before{top:0;right:0;width:130px;height:130px;background:repeating-linear-gradient(135deg,var(--sinyal) 0 6px,transparent 6px 16px);opacity:.22;-webkit-mask:linear-gradient(to left,black,transparent);mask:linear-gradient(to left,black,transparent)}
-[data-j=barbershop] .fakta li{border:0;border-left:4px solid var(--sinyal);border-radius:0;background:var(--kartu)}
-[data-j=barbershop] .fakta .f-nilai{font-stretch:80%;font-size:17px;text-transform:uppercase;letter-spacing:.02em}
-[data-j=barbershop] .bagian h2{padding-left:12px;border-left:6px solid var(--sinyal)}
-[data-j=barbershop] .harga li{border-top:1px dashed var(--garis-kuat)}
-[data-j=barbershop] .harga li:first-child{border-top:0}
-[data-j=barbershop] .harga .nm{font-stretch:80%;font-size:18px;text-transform:uppercase;letter-spacing:.02em}
-[data-j=barbershop] .harga .hr{font-size:20px;font-weight:800;color:var(--sinyal)}
-[data-j=barbershop] .galeri{gap:8px}
-[data-j=barbershop] .petak{aspect-ratio:1;border:2px solid var(--garis-kuat);filter:grayscale(.55) contrast(1.05)}
-[data-j=barbershop] .opsi-nama{font-stretch:80%;text-transform:uppercase;letter-spacing:.02em}
-
-/* spa: tenang, tengah, lengkung */
-[data-j=spa] .hero-isi{padding:8px 0 4px;text-align:center}
-[data-j=spa] .hero-isi::before{top:-2px;right:50%;width:160px;height:160px;margin-right:-80px;background:var(--sinyal);opacity:.12;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='black' stroke-width='2'%3E%3Ccircle cx='60' cy='60' r='14'/%3E%3Ccircle cx='60' cy='60' r='28'/%3E%3Ccircle cx='60' cy='60' r='42'/%3E%3Ccircle cx='60' cy='60' r='56'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='black' stroke-width='2'%3E%3Ccircle cx='60' cy='60' r='14'/%3E%3Ccircle cx='60' cy='60' r='28'/%3E%3Ccircle cx='60' cy='60' r='42'/%3E%3Ccircle cx='60' cy='60' r='56'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat}
-[data-j=spa] .hero .lead{margin-left:auto;margin-right:auto}
-[data-j=spa] .hero .aksi{justify-items:stretch}
-@media (min-width:520px){[data-j=spa] .hero .aksi{justify-content:center}}
-[data-j=spa] .loncat{justify-content:safe center}
-[data-j=spa] .fakta li{border:0;border-top:2px solid var(--sinyal);border-radius:0;background:transparent;text-align:center}
-[data-j=spa] .bagian h2,[data-j=spa] .bagian-lead,[data-j=spa] .bagian > .tag-baris{text-align:center}
-[data-j=spa] .bagian-lead{margin-left:auto;margin-right:auto}
-[data-j=spa] .bagian h2::after{content:"";display:block;width:40px;height:2px;margin:12px auto 0;background:var(--sinyal)}
-[data-j=spa] .kartu > h3{text-align:center}
-[data-j=spa] .harga li{grid-template-columns:1fr;justify-items:center;gap:4px;text-align:center;padding:18px 0}
-[data-j=spa] .harga .ket{grid-column:auto}
-[data-j=spa] .harga .hr{color:var(--sinyal-gelap);font-weight:600;font-size:18px}
-[data-j=spa] .galeri{gap:12px}
-[data-j=spa] .petak{aspect-ratio:3/4;border-radius:999px 999px var(--r-kecil) var(--r-kecil)}
-[data-j=spa] .opsi-kotak{box-shadow:var(--bayang)}
-
-/* penginapan: nomor bagian, lengkung jendela, foto lebar */
-[data-j=penginapan] .hero-isi{padding-bottom:6px;border-bottom:1px solid var(--garis)}
-[data-j=penginapan] .hero-isi::before{top:0;right:0;width:120px;height:120px;background:var(--sinyal);opacity:.14;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='black' stroke-width='3'%3E%3Cpath d='M10 116V54a40 40 0 0 1 80 0v62'/%3E%3Cpath d='M26 116V56a24 24 0 0 1 48 0v60'/%3E%3Cpath d='M42 116V58a8 8 0 0 1 16 0v58'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='black' stroke-width='3'%3E%3Cpath d='M10 116V54a40 40 0 0 1 80 0v62'/%3E%3Cpath d='M26 116V56a24 24 0 0 1 48 0v60'/%3E%3Cpath d='M42 116V58a8 8 0 0 1 16 0v58'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat}
-[data-j=penginapan] .fakta li{border:0;border-top:3px solid var(--sinyal);border-radius:var(--r-kecil) var(--r-kecil) 0 0;background:var(--kartu-turun)}
-body[data-j=penginapan]{counter-reset:bag}
-[data-j=penginapan] .bagian h2::before{counter-increment:bag;content:"0" counter(bag);display:block;margin-bottom:6px;font-size:13px;font-stretch:100%;font-weight:700;letter-spacing:.16em;color:var(--sinyal-gelap)}
-[data-j=penginapan] .harga li{padding:18px 0}
-[data-j=penginapan] .harga .nm{font-size:18px;font-weight:700}
-[data-j=penginapan] .harga .hr{font-size:22px;font-weight:800;color:var(--sinyal-gelap)}
-[data-j=penginapan] .galeri{grid-template-columns:repeat(2,minmax(0,1fr))}
-[data-j=penginapan] .galeri .petak:first-child,[data-j=penginapan] .galeri .petak:last-child{grid-column:1 / -1;aspect-ratio:16/9}
-[data-j=penginapan] .opsi-kotak{border-left-width:6px}
-
-/* katering: taplak kotak-kotak, lencana harga, foto kartu pos */
-[data-j=katering] .hero-isi::before{top:-4px;right:-4px;width:140px;height:120px;background-image:repeating-linear-gradient(0deg,transparent 0 12px,var(--sinyal) 12px 24px),repeating-linear-gradient(90deg,transparent 0 12px,var(--sinyal) 12px 24px);opacity:.13;-webkit-mask:linear-gradient(to left,black 40%,transparent);mask:linear-gradient(to left,black 40%,transparent)}
-[data-j=katering] .fakta li{border:2px dashed var(--sinyal);background:var(--kartu)}
-[data-j=katering] .bagian h2::after{content:"";display:block;width:72px;margin-top:10px;border-bottom:4px dotted var(--sinyal)}
-[data-j=katering] .harga li{align-items:start}
-[data-j=katering] .harga .hr{align-self:start;padding:3px 12px;border-radius:99px;background:var(--sinyal-lembut);color:var(--sinyal-gelap)}
-[data-j=katering] .galeri{gap:16px 12px;padding:6px 4px 10px}
-[data-j=katering] .petak{aspect-ratio:auto;padding:8px 8px 22px;border:1px solid var(--garis);border-radius:4px;background:var(--kartu);box-shadow:var(--bayang)}
-[data-j=katering] .petak img{height:auto;aspect-ratio:4/3;border-radius:2px}
-[data-j=katering] .petak:nth-child(odd){rotate:-1.2deg}
-[data-j=katering] .petak:nth-child(even){rotate:1.2deg}
-[data-j=katering] .menu-baris{border-style:dashed}
-[data-j=katering] .menu-baris.aktif{border-style:solid}
+[data-j=katering] .kartu.pesan,[data-j=katering] .kartu.pesan-buka{background:var(--kartu)}
+[data-j=katering] .kartu.pesan-buka > h3{font-size:32px;line-height:1;color:var(--tinta)}
+[data-j=katering] .panel h3{font-size:34px;line-height:1}
+[data-j=katering] .langkah-no{letter-spacing:.18em;color:var(--sinyal-gelap)}
+[data-j=katering] .progres{height:4px;background:var(--garis)}
+[data-j=katering] .sub{color:var(--sinyal-gelap)}
+[data-j=katering] .opsi-kotak{border-width:1px;border-color:var(--garis);border-radius:var(--r)}
+[data-j=katering] .opsi input:checked + .opsi-kotak{border-color:var(--sinyal);background:var(--sinyal-lembut)}
+[data-j=katering] .opsi input:checked + .opsi-kotak .opsi-tanda{border-color:var(--sinyal);background:var(--sinyal)}
+[data-j=katering] .opsi-nama{font-weight:600}
+[data-j=katering] .opsi-harga{font-family:var(--serif);font-size:24px;font-weight:600;line-height:1.1;font-variant-numeric:lining-nums;color:var(--sinyal-gelap)}
+[data-j=katering] .menu-info .opsi-harga{font-family:Archivo,system-ui,sans-serif;font-size:15px;font-weight:700;line-height:1.3;color:var(--tinta-redup);white-space:normal}
+[data-j=katering] .panel[data-langkah=bayar] .opsi-harga{font-family:Archivo,system-ui,sans-serif;font-size:14px;font-weight:600;line-height:1.3}
+[data-j=katering] .hari{border-width:1px;border-color:var(--garis)}
+[data-j=katering] .hari .tg{font-size:30px;line-height:1.05}
+[data-j=katering] .hari[aria-pressed=true]{border-color:var(--sinyal);background:var(--sinyal);color:var(--di-atas-sinyal)}
+[data-j=katering] .jam-grid button{border-width:1px}
+[data-j=katering] .stepper{border-width:1px;border-color:var(--garis);grid-template-columns:44px minmax(44px,60px) 44px}
+[data-j=katering] .st-btn{background:var(--kunyit);color:var(--tinta)}
+[data-j=katering] .st-btn:hover:not(:disabled){background:var(--kunyit-gelap);color:var(--di-atas-sinyal)}
+[data-j=katering] .st-btn:disabled{background:var(--kartu-turun);color:var(--tinta-redup)}
+[data-j=katering] .st-nilai{border-left-width:1px;border-right-width:1px;border-color:var(--garis);background:var(--kartu);font-family:var(--serif);font-size:24px;font-weight:600}
+[data-j=katering] .menu-baris{border-width:1px;border-style:dashed;border-color:var(--garis-kuat);border-radius:var(--r-kecil)}
+[data-j=katering] .menu-baris.aktif{border-style:solid;border-color:var(--sinyal);background:var(--sinyal-lembut)}
+[data-j=katering] .kolom input,[data-j=katering] .kolom textarea{border-width:1px}
+[data-j=katering] .tinjau{margin-top:8px;padding:6px 14px 0;background:var(--kartu);border-radius:var(--r) var(--r) 0 0;-webkit-mask:repeating-conic-gradient(from 135deg at 50% 0,#000 0 90deg,#0000 0 180deg) bottom/16px 8px repeat-x,linear-gradient(#000,#000) top left/100% calc(100% - 7px) no-repeat;mask:repeating-conic-gradient(from 135deg at 50% 0,#000 0 90deg,#0000 0 180deg) bottom/16px 8px repeat-x,linear-gradient(#000,#000) top left/100% calc(100% - 7px) no-repeat}
+[data-j=katering] .tinjau > div{border-top:1px dashed var(--garis-kuat)}
+[data-j=katering] .tinjau .total{border-top:2px solid var(--tinta)}
+[data-j=katering] .tinjau .total dd{font-size:32px;line-height:1;font-variant-numeric:tabular-nums}
+[data-j=katering] .selesai h3{font-size:38px;line-height:1}
+[data-j=katering] .kode{font-size:46px;line-height:1;letter-spacing:.03em;font-variant-numeric:lining-nums tabular-nums;color:var(--sinyal-gelap)}
+[data-j=katering] .kartu.pesan .selesai{padding:22px 18px;border:2px dashed var(--kunyit);border-radius:var(--r);background:var(--kunyit-lembut)}
+[data-j=katering] .selesai .centang{background:var(--sinyal)}
 
 </style>
 </head>
@@ -348,17 +410,19 @@ body[data-j=penginapan]{counter-reset:bag}
 <main>
 <div class="wadah">
 <section class="hero">
-<section class="demo-kartu" aria-label="Penjelasan halaman demo"><span class="tanda-contoh">Demo Paket 2</span><p class="demo-judul">Ini halaman demo, bukan katering sungguhan</p><p class="demo-teks">Beginilah tampilan website Anda nanti kalau memakai jasa Rio Ekaputra Siswa. Bayangkan isinya jadi milik katering Anda.</p><div class="ganti-kepala" aria-hidden="true"><span>Di demo ini</span><span></span><span>Di website Anda</span></div><ul class="ganti-daftar"><li><span class="kini">Dapur Bu Sari</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Nama katering Anda</span></li><li><span class="kini">Jl. Contoh No. 5</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Alamat katering Anda</span></li><li><span class="kini">Nasi box ayam bakar, Rp 35.000</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Menu dan harga Anda</span></li><li><span class="kini">0812-3456-7893</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Nomor WhatsApp Anda</span></li><li><span class="kini">devario.rioeka.com</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>namakateringanda.com</span></li></ul><p class="demo-paket">Paket 2: pesanan di halaman ini tidak tersimpan, hanya memperlihatkan alurnya. Di website Anda, pesanan masuk ke WhatsApp atau ke catatan katering.</p></section>
 <div class="hero-isi">
 <p class="eyebrow">Katering &middot; Kota Bandung</p>
-<h1>Dapur Bu Sari</h1>
+<h1>Dapur Bu <em>Sari</em></h1>
 <p class="tag-baris"><span class="tag-anda">Nama katering Anda tampil di sini</span></p>
+<figure class="hero-foto"><img src="/katering/img/g1.jpg" alt="Tumpeng nasi kuning dengan lauk, sayuran, dan hiasan tomat dan cabai" width="720" height="540" fetchpriority="high" decoding="async"><span class="lencana">Kota Bandung</span></figure>
+<p class="tag-baris"><span class="tag-anda">Foto katering Anda tampil di sini</span></p>
 <p class="status" id="status"><span class="titik" id="titik"></span><span id="status-teks">Memuat jam buka</span></p>
 <p class="lead">Nasi box, tumpeng, dan kue untuk acara, dengan harga per porsi yang jelas.</p>
 <div class="aksi"><a class="tombol" href="#pesan"><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> Pesan sekarang</a><a class="tombol garis" href="https://wa.me/6281234567893?text=Halo%2C%20saya%20mau%20tanya%20soal%20pesanan%20katering%20di%20Dapur%20Bu%20Sari."><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.4 8.4 0 1 1 21 11.5Z"/></svg> Tanya lewat WhatsApp</a></div>
 </div>
 <ul class="fakta"><li><span class="f-label">Mulai dari</span><span class="f-nilai">Rp 30.000</span></li><li><span class="f-label">Ongkos antar</span><span class="f-nilai">Rp 20.000</span></li><li><span class="f-label">Pesan sebelum</span><span class="f-nilai">H-2 sampai H-4</span></li></ul>
 <nav class="loncat" aria-label="Loncat ke bagian"><a href="#pesan">Pesan</a><a href="#harga">Harga</a><a href="#lokasi">Lokasi</a><a href="#tanya">Tanya jawab</a></nav>
+<section class="demo-kartu" aria-label="Penjelasan halaman demo"><span class="tanda-contoh">Demo Paket 2</span><p class="demo-judul">Ini halaman demo, bukan katering sungguhan</p><p class="demo-teks">Beginilah tampilan website Anda nanti kalau memakai jasa Rio Ekaputra Siswa. Bayangkan isinya jadi milik katering Anda.</p><div class="ganti-kepala" aria-hidden="true"><span>Di demo ini</span><span></span><span>Di website Anda</span></div><ul class="ganti-daftar"><li><span class="kini">Dapur Bu Sari</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Nama katering Anda</span></li><li><span class="kini">Jl. Contoh No. 5</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Alamat katering Anda</span></li><li><span class="kini">Nasi box ayam bakar, Rp 35.000</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Menu dan harga Anda</span></li><li><span class="kini">0812-3456-7893</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Nomor WhatsApp Anda</span></li><li><span class="kini">devario.rioeka.com</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>namakateringanda.com</span></li></ul><p class="demo-paket">Paket 2: pesanan di halaman ini tidak tersimpan, hanya memperlihatkan alurnya. Di website Anda, pesanan masuk ke WhatsApp atau ke catatan katering.</p></section>
 </section>
 <section class="bagian" id="bagian-pesan" aria-labelledby="j-pesan">
 <p class="tag-baris"><span class="tag-anda">Menu dan tanggal sesuai usaha Anda</span></p>
@@ -382,7 +446,7 @@ body[data-j=penginapan]{counter-reset:bag}
 <p class="tag-baris"><span class="tag-anda">Harga katering Anda</span></p>
 <h2>Daftar menu dan harga</h2>
 <p class="bagian-lead">Harga per porsi, buah, atau toples. Pesanan ada jumlah minimalnya, tertera di tiap menu.</p>
-<div class="kartu"><h3>Nasi box</h3><ul class="harga"><li><span class="nm">Nasi box ayam bakar</span><span class="hr">Rp 35.000</span><span class="ket">Nasi, ayam bakar, lalap, sambal. Minimal 10 box, pesan H-2.</span></li><li><span class="nm">Nasi box rendang</span><span class="hr">Rp 40.000</span><span class="ket">Nasi, rendang, sayur, kerupuk. Minimal 10 box, pesan H-2.</span></li><li><span class="nm">Nasi box vegetarian</span><span class="hr">Rp 30.000</span><span class="ket">Tahu, tempe, sayur, sambal. Minimal 10 box, pesan H-3.</span></li></ul></div><div class="kartu"><h3>Tumpeng</h3><ul class="harga"><li><span class="nm">Tumpeng mini</span><span class="hr">Rp 450.000</span><span class="ket">Untuk 8 sampai 10 orang. Minimal 1 buah, pesan H-3.</span></li><li><span class="nm">Tumpeng besar</span><span class="hr">Rp 850.000</span><span class="ket">Untuk 20 sampai 25 orang. Minimal 1 buah, pesan H-4.</span></li></ul></div><div class="kartu"><h3>Kue ulang tahun</h3><ul class="harga"><li><span class="nm">Kue ulang tahun 20 cm</span><span class="hr">Rp 280.000</span><span class="ket">Bisa tulis nama di atas kue. Minimal 1 buah, pesan H-3.</span></li><li><span class="nm">Kue ulang tahun 24 cm</span><span class="hr">Rp 380.000</span><span class="ket">Bisa tulis nama di atas kue. Minimal 1 buah, pesan H-3.</span></li></ul></div><div class="kartu"><h3>Kue kering</h3><ul class="harga"><li><span class="nm">Kue kering nastar</span><span class="hr">Rp 90.000</span><span class="ket">Isi sekitar 500 gram. Minimal 2 toples, pesan H-2.</span></li><li><span class="nm">Kue kering kastengel</span><span class="hr">Rp 100.000</span><span class="ket">Isi sekitar 500 gram. Minimal 2 toples, pesan H-2.</span></li></ul></div><p class="catatan">Harga belum termasuk ongkos antar. Pesanan besar sebaiknya dipesan lebih awal.</p>
+<div class="kartu"><h3>Nasi box</h3><ul class="harga"><li><span class="nm">Nasi box ayam bakar</span><span class="hr">Rp 35.000</span><span class="ket"><span class="ket-teks">Nasi, ayam bakar, lalap, sambal. Minimal 10 box, pesan H-2.</span></span></li><li><span class="nm">Nasi box rendang</span><span class="hr">Rp 40.000</span><span class="ket"><span class="ket-teks">Nasi, rendang, sayur, kerupuk. Minimal 10 box, pesan H-2.</span></span></li><li><span class="nm">Nasi box vegetarian</span><span class="hr">Rp 30.000</span><span class="ket"><span class="ket-teks">Tahu, tempe, sayur, sambal. Minimal 10 box, pesan H-3.</span></span></li></ul></div><div class="kartu"><h3>Tumpeng</h3><ul class="harga"><li><span class="nm">Tumpeng mini</span><span class="hr">Rp 450.000</span><span class="ket"><span class="ket-teks">Untuk 8 sampai 10 orang. Minimal 1 buah, pesan H-3.</span></span></li><li><span class="nm">Tumpeng besar</span><span class="hr">Rp 850.000</span><span class="ket"><span class="ket-teks">Untuk 20 sampai 25 orang. Minimal 1 buah, pesan H-4.</span></span></li></ul></div><div class="kartu"><h3>Kue ulang tahun</h3><ul class="harga"><li><span class="nm">Kue ulang tahun 20 cm</span><span class="hr">Rp 280.000</span><span class="ket"><span class="ket-teks">Bisa tulis nama di atas kue. Minimal 1 buah, pesan H-3.</span></span></li><li><span class="nm">Kue ulang tahun 24 cm</span><span class="hr">Rp 380.000</span><span class="ket"><span class="ket-teks">Bisa tulis nama di atas kue. Minimal 1 buah, pesan H-3.</span></span></li></ul></div><div class="kartu"><h3>Kue kering</h3><ul class="harga"><li><span class="nm">Kue kering nastar</span><span class="hr">Rp 90.000</span><span class="ket"><span class="ket-teks">Isi sekitar 500 gram. Minimal 2 toples, pesan H-2.</span></span></li><li><span class="nm">Kue kering kastengel</span><span class="hr">Rp 100.000</span><span class="ket"><span class="ket-teks">Isi sekitar 500 gram. Minimal 2 toples, pesan H-2.</span></span></li></ul></div><p class="catatan">Harga belum termasuk ongkos antar. Pesanan besar sebaiknya dipesan lebih awal.</p>
 </section>
 <section class="bagian" id="lokasi">
 <p class="tag-baris"><span class="tag-anda">Alamat dan jam buka katering Anda</span></p>

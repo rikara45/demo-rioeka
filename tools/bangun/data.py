@@ -345,8 +345,10 @@ KATERING = dict(
             {"nama": "Kue kering kastengel", "harga": 100000, "min": 2, "maks": 50, "satuan": "toples", "ket": "Isi sekitar 500 gram", "lead": 2},
         ]),
     ],
-    galeri=[("g1", "Tumpeng nasi kuning dengan lauk dan sayuran"), ("g2", "Boks makanan siap antar di atas meja kayu"), ("g3", "Hidangan prasmanan dalam wadah saji"), ("g4", "Kue ulang tahun dengan lilin"), ("g5", "Kue mini di atas rak saji bertingkat"), ("g6", "Pai dan roti kecil di atas piring")],
+    galeri=[("g3", "Hidangan prasmanan dalam wadah saji"), ("g5", "Kue mini di atas rak saji bertingkat"), ("g2", "Boks makanan siap antar di atas meja kayu"), ("g4", "Kue ulang tahun dengan lilin"), ("g6", "Pai dan roti kecil di atas piring"), ("g1", "Tumpeng nasi kuning dengan lauk dan sayuran")],
     galeri_lead="Enam foto menu dan hasil masakan. Di website sungguhan, foto ini diganti foto usaha Anda sendiri.",
+    gaya="hajatan",
+    hero_foto=("g1", "Tumpeng nasi kuning dengan lauk, sayuran, dan hiasan tomat dan cabai"),
     faq=[
         ("Berapa minimal pesanan?", "Nasi box minimal 10, tumpeng dan kue minimal 1, kue kering minimal 2 toples. Tertera di tiap menu."),
         ("Berapa lama sebelumnya harus pesan?", "Nasi box 2 sampai 3 hari sebelumnya, tumpeng dan kue 3 sampai 4 hari sebelumnya. Di tiap menu tertulis perkiraannya."),

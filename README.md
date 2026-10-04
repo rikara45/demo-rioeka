@@ -45,4 +45,4 @@ Tanpa Docker (path font mutlak tetap jalan): `npx serve .` atau `python -m http.
 
 Semua halaman dipasang `noindex, nofollow`, dan `robots.txt` menolak semua mesin pencari. Jadi situs ini tidak muncul di hasil pencarian.
 
-Foto galeri memakai foto Unsplash gratis (disimpan lokal, kredit di bagian galeri). Font Archivo (dan Cormorant Garamond untuk salon) di-host sendiri di `font/` dan dimuat lewat path mutlak `/font/`, jadi halaman harus disajikan dari root domain.
+Foto galeri memakai foto Unsplash gratis (disimpan lokal, kredit di bagian galeri). Font Archivo, Cormorant Garamond (salon dan spa), dan Fraunces (katering) di-host sendiri di `font/` dan dimuat lewat path mutlak `/font/`, jadi halaman harus disajikan dari root domain.

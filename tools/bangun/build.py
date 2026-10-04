@@ -2,11 +2,11 @@ import json, os, sys
 from html import escape as e
 from urllib.parse import quote
 sys.path.insert(0, os.path.dirname(__file__))
-from css import FONT, FONT_SERIF, BASE, BOOKING, GAYA, GAYA_UMUM, GAYA_SALON, GAYA_SALON_WIZARD, GAYA_SPA, GAYA_SPA_WIZARD, TEMA, WARNA_TEMA, WARNA_INDEX, AKSEN_JENIS, INDEX_TOKENS, INDEX, ERR
+from css import FONT, FONT_SERIF, FONT_FRAUNCES, BASE, BOOKING, GAYA, GAYA_UMUM, GAYA_SALON, GAYA_SALON_WIZARD, GAYA_SPA, GAYA_SPA_WIZARD, GAYA_KATERING, GAYA_KATERING_WIZARD, TEMA, WARNA_TEMA, WARNA_INDEX, AKSEN_JENIS, INDEX_TOKENS, INDEX, ERR
 from data import USAHA, URUT_HARI
 from js import STATUS_JS, BAR_JS, BOOKING_JS, WIZARD_JS
 
-GAYA_HALAMAN = {"butik": (GAYA_SALON, GAYA_SALON_WIZARD), "tenang": (GAYA_SPA, GAYA_SPA_WIZARD)}
+GAYA_HALAMAN = {"butik": (GAYA_SALON, GAYA_SALON_WIZARD, FONT_SERIF, "cormorant-garamond-latin.woff2"), "tenang": (GAYA_SPA, GAYA_SPA_WIZARD, FONT_SERIF, "cormorant-garamond-latin.woff2"), "hajatan": (GAYA_KATERING, GAYA_KATERING_WIZARD, FONT_FRAUNCES, "fraunces-latin.woff2")}
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 NH = {0: "Minggu", 1: "Senin", 2: "Selasa", 3: "Rabu", 4: "Kamis", 5: "Jumat", 6: "Sabtu"}
@@ -405,9 +405,9 @@ def halaman_demo(u, n):
     mode = u.get("mode", "jadwal")
     butik = u.get("gaya") in GAYA_HALAMAN
     if butik:
-        g_utama, g_wizard = GAYA_HALAMAN[u["gaya"]]
-        css = FONT + "\n" + FONT_SERIF + "\n:root{" + TEMA[u["tema"]] + "}\n" + BASE + (BOOKING if n >= 2 else "") + GAYA_UMUM + g_utama + (g_wizard if n >= 2 else "")
-        preload = '<link rel="preload" href="/font/cormorant-garamond-latin.woff2" as="font" type="font/woff2" crossorigin>\n'
+        g_utama, g_wizard, g_font, g_preload = GAYA_HALAMAN[u["gaya"]]
+        css = FONT + "\n" + g_font + "\n:root{" + TEMA[u["tema"]] + "}\n" + BASE + (BOOKING if n >= 2 else "") + GAYA_UMUM + g_utama + (g_wizard if n >= 2 else "")
+        preload = '<link rel="preload" href="/font/%s" as="font" type="font/woff2" crossorigin>\n' % g_preload
     else:
         css = FONT + "\n:root{" + TEMA[u["tema"]] + "}\n" + BASE + (BOOKING if n >= 2 else "") + GAYA
         preload = ""
