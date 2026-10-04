@@ -9,7 +9,7 @@ Situs ini berisi halaman statis:
 - `/barbershop/paket-1/`, `/barbershop/paket-2/`, `/barbershop/paket-3/` contoh halaman barbershop
 - `/salon/` dan `/barbershop/` hanya mengalihkan ke `/`
 
-Semua nama, alamat, harga, foto, dan nomor di dalamnya masih data contoh.
+Semua nama, alamat, harga layanan, foto, dan nomor di dalam halaman demo masih data contoh. Harga paket di halaman utama adalah harga sebenarnya.
 
 ## Mengubah halaman
 

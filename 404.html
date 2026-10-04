@@ -151,6 +151,9 @@ svg{display:block;flex:none}
 .hero .aksi{margin-top:24px}
 .hero .tombol{background:var(--jingga);border-color:var(--jingga);color:var(--hijau)}
 .hero .tombol:hover{background:var(--krem);border-color:var(--krem)}
+.hero .tombol.garis{background:transparent;border-color:var(--krem-redup);color:var(--krem)}
+.hero .tombol.garis:hover{background:var(--garis-hijau);border-color:var(--krem)}
+.tombol .ikon{width:18px;height:18px}
 .fitur{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
 .fitur li{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border:1px solid var(--garis-hijau);border-radius:999px;font-size:14px}
 .fitur .ikon{width:16px;height:16px;color:var(--jingga)}
@@ -174,6 +177,34 @@ svg{display:block;flex:none}
 .paket .isi .ikon{width:18px;height:18px;margin-top:3px;color:var(--ok);stroke-width:3}
 .paket .bawah{display:grid;gap:10px;margin-top:auto;padding-top:6px}
 .harga-tag{font-size:13px;color:var(--tinta-redup);text-align:center}
+.harga{display:grid;gap:4px;padding:14px 0;border-top:1px solid var(--garis);border-bottom:1px solid var(--garis)}
+.harga-label{font-size:13px;font-weight:700;color:var(--tinta-redup)}
+.harga-angka{font-size:34px;font-weight:800;font-stretch:80%;line-height:1.05;color:var(--tinta)}
+.harga-ket{font-size:14px;color:var(--tinta-redup)}
+.beda{padding-bottom:12px}
+.catatan-harga{margin-top:16px;font-size:14px;color:var(--tinta-redup);max-width:60ch}
+.kartu-hubungi{padding:24px 20px;border-radius:var(--r);background:var(--hijau);color:var(--krem)}
+.kartu-hubungi .bagian-lead{color:var(--krem-redup)}
+.kartu-hubungi .tombol{background:var(--jingga);border-color:var(--jingga);color:var(--hijau)}
+.kartu-hubungi .tombol:hover{background:var(--krem);border-color:var(--krem)}
+@media (min-width:700px){.hero .aksi,.kartu-hubungi .aksi{display:flex;flex-wrap:wrap}}
+.alamat-banding{display:grid;gap:12px;margin-top:20px}
+@media (min-width:700px){.alamat-banding{grid-template-columns:1fr 1fr}}
+.alamat-pil{display:grid;gap:4px;align-content:start;padding:16px 18px;border-radius:var(--r);font-size:14px;overflow-wrap:anywhere}
+.alamat-pil b{font-size:19px;font-weight:700}
+.alamat-label{font-size:13px;font-weight:700}
+.alamat-pil.redup{background:var(--kartu-turun);color:var(--tinta-redup)}
+.alamat-pil.redup b{text-decoration:line-through;text-decoration-thickness:1px}
+.alamat-pil.unggul{background:var(--hijau);color:var(--krem)}
+.alamat-pil.unggul b{color:var(--jingga)}
+.alamat-pil.unggul span:last-child{color:var(--krem-redup)}
+.banding{width:100%;margin-top:20px;border-collapse:separate;border-spacing:0;border:1px solid var(--garis);border-radius:var(--r);background:var(--kartu);overflow:hidden;font-size:14px}
+.banding th,.banding td{padding:12px 14px;text-align:left;vertical-align:top;width:50%}
+.banding th{font-size:14px;background:var(--kartu-turun);color:var(--tinta-redup)}
+.banding th + th{background:var(--hijau);color:var(--krem)}
+.banding td{border-top:1px solid var(--garis);color:var(--tinta-redup)}
+.banding td + td{color:var(--tinta);font-weight:600;border-left:1px solid var(--garis)}
+.beda-tutup{margin-top:16px;max-width:60ch;font-weight:600}
 .kaki{margin-top:40px;padding:28px 0 36px;border-top:1px solid var(--garis);font-size:14px;color:var(--tinta-redup)}
 .kaki p + p{margin-top:10px}
 .kaki a{display:inline-flex;align-items:center;min-height:44px;color:var(--tinta);font-weight:600}

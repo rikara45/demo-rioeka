@@ -72,6 +72,7 @@ def kartu_demo(u, n):
         baris.append(("%s: %s" % (u["noun"], ", ".join(s[0] for s in u["stylist"])), "Nama %s di tempat Anda" % noun))
     baris.append(("%s, %s" % (item[0], rp(item[1])), "Layanan dan harga Anda"))
     baris.append((u["wa_tampil"], "Nomor WhatsApp Anda"))
+    baris.append(("demo.rioeka.com", "nama%sanda.com" % j))
     if n == 1:
         baris.append(("Foto contoh", "Foto asli %s Anda" % j))
     li = "".join(
@@ -99,9 +100,9 @@ def penutup_demo(u):
     j = u["jenis"].lower()
     return (
         '<section class="bagian penutup" aria-label="Penutup">\n<div class="kartu"><h2>Bayangkan ini website %s Anda</h2>\n'
-        '<p class="bagian-lead">Nama, alamat, daftar harga, jam buka, dan foto di halaman ini nanti diganti dengan milik %s Anda. %s hanya nama contoh.</p>\n'
-        '<div class="aksi"><a class="tombol" href="/#paket">Kembali ke daftar paket</a>'
-        '<a class="tombol garis" href="https://rioeka.com">Kunjungi rioeka.com</a></div></div>\n</section>\n' % (j, j, e(u["nama"]))
+        '<p class="bagian-lead">Nama, alamat, daftar harga, jam buka, dan foto di halaman ini nanti diganti dengan milik %s Anda. %s hanya nama contoh. Alamat websitenya didaftarkan atas nama usaha Anda sendiri, misalnya nama%sanda.com.</p>\n'
+        '<div class="aksi"><a class="tombol" href="/#paket">Lihat paket dan harga</a>'
+        '<a class="tombol garis" href="https://rioeka.com">Kunjungi rioeka.com</a></div></div>\n</section>\n' % (j, j, e(u["nama"]), j)
     )
 
 
@@ -289,16 +290,24 @@ def halaman_demo(u, n):
     return head(judul, desc, css) + "".join(body) + scripts + "</body>\n</html>\n"
 
 
+WA_PEMILIK = "6287834471149"
+WA_PEMILIK_TAMPIL = "0878-3447-1149"
+WA_PEMILIK_PESAN = "Halo, saya tertarik dengan paket website dari demo.rioeka.com. Boleh tanya-tanya dulu?"
+PERAWATAN = "menjaga situs tetap aktif dan aman, serta bantu ubah teks kecil seperti harga dan jam buka"
+
 PAKET = [
     ("1", "Halaman informasi", "Harga layanan, jam buka, alamat, dan tombol WhatsApp. Yang paling cepat jadi dan paling murah.",
      "Kalau yang dibutuhkan hanya supaya orang menemukan salon dan bisa bertanya.",
-     ["Daftar harga layanan", "Jam buka dan hari tutup", "Alamat lengkap dengan tombol peta", "Tombol WhatsApp di setiap layar", "Status buka dihitung dari jam sebenarnya"]),
+     ["Daftar harga layanan", "Jam buka dan hari tutup", "Alamat lengkap dengan tombol peta", "Tombol WhatsApp di setiap layar", "Status buka dihitung dari jam sebenarnya"],
+     1000000, 300000),
     ("2", "Tambah sistem booking", "Pengunjung memilih layanan, stylist, tanggal, dan jam sendiri. Tidak perlu bolak-balik WhatsApp.",
      "Kalau jadwal sudah ramai dan pesanan sering bertabrakan.",
-     ["Semua isi paket 1", "Pilih layanan dan stylist", "Pilih tanggal dan jam yang tersedia", "Jam yang sudah penuh tertutup sendiri", "Ringkasan sebelum dikonfirmasi"]),
+     ["Semua isi paket 1", "Pilih layanan dan stylist", "Pilih tanggal dan jam yang tersedia", "Jam yang sudah penuh tertutup sendiri", "Ringkasan sebelum dikonfirmasi"],
+     1500000, 500000),
     ("3", "Tambah pembayaran", "Pengunjung membayar muka saat memesan, supaya yang memesan tidak hilang begitu saja.",
      "Kalau sering ada yang memesan lalu tidak datang.",
-     ["Semua isi paket 2", "Bayar muka saat memesan", "Pilihan QRIS, transfer, atau bayar di tempat", "Nota pemesanan otomatis"]),
+     ["Semua isi paket 2", "Bayar muka saat memesan", "Pilihan QRIS, transfer, atau bayar di tempat", "Nota pemesanan otomatis"],
+     1650000, 600000),
 ]
 
 INDEX_JS = r"""
@@ -318,17 +327,46 @@ INDEX_JS = r"""
 """
 
 
+BEDA = (
+    '<section class="bagian beda" id="beda"><div class="wadah wadah-lebar">\n'
+    "<h2>Website sendiri, bukan website numpang</h2>\n"
+    '<p class="bagian-lead">Website murah sekitar Rp 300 ribu biasanya numpang di alamat orang lain, seperti membuka lapak di teras toko orang. '
+    "Website dari saya seperti punya toko sendiri: alamatnya didaftarkan atas nama usaha Anda, tampilannya dibuat khusus untuk usaha Anda.</p>\n"
+    '<div class="alamat-banding">'
+    '<div class="alamat-pil redup"><span class="alamat-label">Website numpang</span><b>namasalon.layananweb.com</b>'
+    "<span>Alamat gratisan, ada nama layanan lain di belakangnya.</span></div>"
+    '<div class="alamat-pil unggul"><span class="alamat-label">Website dari saya</span><b>namasalon.com</b>'
+    "<span>atau namasalon.id. Alamat web didaftarkan atas nama usaha Anda.</span></div></div>\n"
+    '<table class="banding"><caption class="sr">Perbandingan website murah dan website dari saya</caption>'
+    '<thead><tr><th scope="col">Website murah (numpang)</th><th scope="col">Website dari saya</th></tr></thead><tbody>'
+    "<tr><td>Tampilan memilih dari contoh yang juga dipakai usaha lain</td><td>Dirancang khusus untuk salon atau barbershop Anda</td></tr>"
+    "<tr><td>Alamat ada nama layanan lain di belakangnya</td><td>Alamat .com atau .id atas nama usaha Anda</td></tr>"
+    "<tr><td>Terkesan percobaan, orang ragu</td><td>Terkesan usaha yang mapan dan layak dipercaya</td></tr>"
+    "<tr><td>Umumnya hanya halaman info</td><td>Bisa booking dan bayar muka (Paket 2 dan 3)</td></tr>"
+    "</tbody></table>\n"
+    '<p class="beda-tutup">Dari luar sama-sama website. Bedanya terasa saat pelanggan pertama kali melihat alamatnya dan menimbang apakah usaha Anda bisa dipercaya.</p>\n'
+    "</div></section>\n"
+)
+
+
+def wa_pemilik():
+    return "https://wa.me/%s?text=%s" % (WA_PEMILIK, quote(WA_PEMILIK_PESAN, safe=""))
+
+
 def halaman_index():
     css = FONT + "\n:root{" + INDEX_TOKENS + "}\n" + BASE + INDEX
     cards = []
-    for no, nama, rinci, cocok, isi in PAKET:
+    for no, nama, rinci, cocok, isi, harga, tahunan in PAKET:
         li = "".join("<li>%s<span>%s</span></li>" % (I_CENTANG, e(x)) for x in isi)
         cards.append(
             '<li class="paket"><article><div><span class="no">Paket %s</span><h3>%s</h3></div><p class="ket">%s</p>'
+            '<div class="harga"><p class="harga-label">Harga paket</p><p class="harga-angka">%s</p>'
+            '<p class="harga-ket">Sudah termasuk alamat web (domain) atas nama Anda dan hosting tahun pertama.</p>'
+            '<p class="harga-ket">Tahun berikutnya %s per tahun: alamat web, hosting, dan perawatan.</p></div>'
             '<p class="cocok"><b>Cocok</b> %s</p><ul class="isi" aria-label="Isi paket %s">%s</ul>'
             '<div class="bawah"><a class="tombol" href="/salon/paket-%s/" data-buka="%s">Buka demo Paket %s</a>'
             '<p class="harga-tag">Yang terbuka halaman contoh, bukan usaha sungguhan</p>'
-            '<p class="harga-tag">Harga belum diisi &middot; sekali bayar</p></div></article></li>' % (no, e(nama), e(rinci), e(cocok), no, li, no, no, no)
+            '</div></article></li>' % (no, e(nama), e(rinci), rp(harga), rp(tahunan), e(cocok), no, li, no, no, no)
         )
     body = (
         "<body>\n"
@@ -337,21 +375,29 @@ def halaman_index():
         '<section class="hero"><div class="wadah wadah-lebar">\n<p class="eyebrow">Situs demo &middot; jasa pembuatan website</p>\n'
         "<h1>Demo website untuk salon dan barbershop</h1>\n"
         '<p class="lead">Ini situs uji coba, bukan usaha sungguhan. Di sini Anda bisa melihat dan mencoba sendiri tampilan dan fitur website yang Anda dapatkan kalau memakai jasa pembuatan website dari Rio Ekaputra Siswa, developer aplikasi web di Bandung.</p>\n'
-        '<ul class="fitur"><li>%s Harga dan jam buka</li><li>%s Tombol WhatsApp</li><li>%s Sistem booking</li><li>%s Bayar muka</li></ul>\n'
-        '<div class="aksi"><a class="tombol" href="#paket">Coba demonya</a></div>\n</div></section>\n'
+        '<ul class="fitur"><li>%s Harga dan jam buka</li><li>%s Tombol WhatsApp</li><li>%s Sistem booking</li><li>%s Bayar muka</li><li>%s Alamat web sendiri (.com, .id)</li></ul>\n'
+        '<div class="aksi"><a class="tombol" href="#paket">Coba demonya</a><a class="tombol garis" href="%s">%s Tanya lewat WhatsApp</a></div>\n</div></section>\n'
+        "%s"
         '<section class="bagian" id="paket"><div class="wadah wadah-lebar">\n<h2>Tiga paket yang bisa dipilih</h2>\n'
-        '<p class="bagian-lead">Pilih jenis usaha, lalu buka demo tiap paket dan coba langsung di HP. Yang terbuka adalah halaman contoh, seperti website Anda nanti. Semua nama usaha, harga, alamat, dan nomor di dalam demo hanya contoh.</p>\n'
+        '<p class="bagian-lead">Pilih jenis usaha, lalu buka demo tiap paket dan coba langsung di HP. Yang terbuka adalah halaman contoh, seperti website Anda nanti. Nama usaha dan harga layanan di dalam demo hanya contoh. Harga paket di bawah adalah harga sebenarnya.</p>\n'
         '<div class="pilih-usaha" id="pilih-usaha" role="group" aria-label="Jenis usaha demo">'
         '<button type="button" aria-pressed="true" data-usaha="salon">Untuk salon</button>'
         '<button type="button" aria-pressed="false" data-usaha="barbershop">Untuk barbershop</button></div>\n'
         '<p class="nama-demo" aria-live="polite">Contoh usaha di demo ini: <b id="nama-demo">Salon Melati</b>.</p>\n'
         '<ul class="paket-daftar paket">%s</ul>\n'
+        '<p class="catatan-harga">Perawatan tahunan berarti %s.</p>\n'
+        '</div></section>\n'
+        '<section class="bagian hubungi" id="hubungi"><div class="wadah wadah-lebar"><div class="kartu-hubungi">\n'
+        '<h2>Tertarik atau mau tanya dulu?</h2>\n'
+        '<p class="bagian-lead">Kirim pesan lewat WhatsApp. Ceritakan usaha Anda, nanti saya bantu pilih paket yang paling pas. Nomor WhatsApp saya: %s.</p>\n'
+        '<div class="aksi"><a class="tombol" href="%s">%s Chat WhatsApp</a></div>\n'
         "</div></section>\n</main>\n"
         '<footer class="kaki"><div class="wadah wadah-lebar"><p>Dibuat oleh Rio Ekaputra Siswa, developer aplikasi web di Bandung. <a href="https://rioeka.com">rioeka.com</a></p>'
-        "<p>Harga ketiga paket belum diisi karena pemilik usaha belum memutuskan. Angka tidak dikarang.</p></div></footer>\n"
+        "<p>Harga di atas tetap, tanpa biaya tersembunyi. Nama, harga layanan, dan alamat di dalam demo hanya contoh.</p>"
+        '<p><a href="%s">WhatsApp %s</a></p></div></footer>\n'
         "<script>\n%s</script>\n</body>\n</html>\n"
-    ) % (I_CENTANG, I_WA, I_KALENDER, I_CENTANG, "".join(cards), INDEX_JS)
-    return head("Demo website untuk salon dan barbershop, Bandung", "Situs uji coba: lihat dan coba tampilan serta fitur website untuk salon dan barbershop yang bisa Anda dapatkan lewat jasa pembuatan website Rio Ekaputra Siswa, developer aplikasi web di Bandung.", css, robots=False) + body
+    ) % (I_CENTANG, I_WA, I_KALENDER, I_CENTANG, I_CENTANG, wa_pemilik(), I_WA, BEDA, "".join(cards), PERAWATAN, WA_PEMILIK_TAMPIL, wa_pemilik(), I_WA, wa_pemilik(), WA_PEMILIK_TAMPIL, INDEX_JS)
+    return head("Demo website untuk salon dan barbershop, Bandung", "Situs uji coba: lihat dan coba tampilan serta fitur website dengan alamat web sendiri untuk salon dan barbershop, lewat jasa pembuatan website Rio Ekaputra Siswa, developer aplikasi web di Bandung.", css, robots=False) + body
 
 GALAT_JS = r"""
 (function(){
