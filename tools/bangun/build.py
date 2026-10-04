@@ -2,12 +2,14 @@ import json, os, sys
 from html import escape as e
 from urllib.parse import quote
 sys.path.insert(0, os.path.dirname(__file__))
-from css import FONT, THEME_SALON, THEME_BARBER, BASE, BOOKING, INDEX_TOKENS, INDEX, ERR
-from data import SALON, BARBER, URUT_HARI
-from js import STATUS_JS, BAR_JS, BOOKING_JS
+from css import FONT, BASE, BOOKING, TEMA, WARNA_TEMA, WARNA_INDEX, INDEX_TOKENS, INDEX, ERR
+from data import USAHA, URUT_HARI
+from js import STATUS_JS, BAR_JS, BOOKING_JS, WIZARD_JS
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 NH = {0: "Minggu", 1: "Senin", 2: "Selasa", 3: "Rabu", 4: "Kamis", 5: "Jumat", 6: "Sabtu"}
+DOMAIN = "devario.rioeka.com"
+MERK = "Devario"
 
 
 def ikon(path, extra=""):
@@ -21,6 +23,12 @@ I_CENTANG = ikon('<path d="M20 6 9 17l-5-5"/>')
 I_WA = ikon('<path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.4 8.4 0 1 1 21 11.5Z"/>')
 I_PETA = ikon('<path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>')
 I_KALENDER = ikon('<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>')
+I_GUNTING = ikon('<circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.12 15.88M14.47 14.48 20 20M8.12 8.12 12 12"/>')
+I_STAF = ikon('<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>')
+I_DAUN = ikon('<path d="M12 3c2.5 3 6 5 6 9a6 6 0 0 1-12 0c0-4 3.5-6 6-9z"/><path d="M12 12v9"/>')
+I_RANJANG = ikon('<path d="M3 18V8a2 2 0 0 1 2-2h11a3 3 0 0 1 3 3v9"/><path d="M3 14h18"/><path d="M3 18v2M21 18v2"/><path d="M7 10h3v4H7z"/>')
+I_MANGKUK = ikon('<path d="M4 11a8 8 0 0 1 16 0z"/><path d="M3 15h18"/><path d="M6 19h12"/>')
+IKON = {"salon": I_GUNTING, "barbershop": I_STAF, "spa": I_DAUN, "penginapan": I_RANJANG, "katering": I_MANGKUK}
 
 
 def rp(n):
@@ -40,15 +48,11 @@ def head(title, desc, css, robots=True, warna=None):
         '<!DOCTYPE html>\n<html lang="id">\n<head>\n<meta charset="utf-8">\n'
         '<meta name="viewport" content="width=device-width, initial-scale=1">\n'
         + ('<meta name="robots" content="noindex, nofollow">\n' if robots else "")
-        + '<meta name="theme-color" content="%s">\n' % (warna or ("#141210" if "E9A23B" in css else "#FBF6F2"))
+        + '<meta name="theme-color" content="%s">\n' % (warna or "#FBF6F2")
         + "<title>%s</title>\n" % e(title)
         + '<meta name="description" content="%s">\n' % e(desc)
         + "<style>\n" + css + "\n</style>\n</head>\n"
     )
-
-
-def kunci_tema(u):
-    return THEME_SALON if u["tema"] == "salon" else THEME_BARBER
 
 
 def opsi_radio(name, value, nama, harga, ket):
@@ -65,14 +69,13 @@ def tag(teks):
 
 def kartu_demo(u, n):
     j = u["jenis"].lower()
-    noun = u["noun"].lower()
     item = u["grup"][0][1][0]
     baris = [(u["nama"], "Nama %s Anda" % j), (u["alamat"][0], "Alamat %s Anda" % j)]
-    if n >= 2:
-        baris.append(("%s: %s" % (u["noun"], ", ".join(s[0] for s in u["stylist"])), "Nama %s di tempat Anda" % noun))
-    baris.append(("%s, %s" % (item[0], rp(item[1])), "Layanan dan harga Anda"))
+    if u.get("mode", "jadwal") == "jadwal" and n >= 2:
+        baris.append(("%s: %s" % (u["noun"], ", ".join(s[0] for s in u["stylist"])), "Nama %s di tempat Anda" % u["noun"].lower()))
+    baris.append(("%s, %s" % (item[0], rp(item[1])), u["label_item"]))
     baris.append((u["wa_tampil"], "Nomor WhatsApp Anda"))
-    baris.append(("demo.rioeka.com", "nama%sanda.com" % j))
+    baris.append((DOMAIN, u["contoh_domain"]))
     if n == 1:
         baris.append(("Foto contoh", "Foto asli %s Anda" % j))
     li = "".join(
@@ -82,7 +85,7 @@ def kartu_demo(u, n):
     if n == 1:
         paket = "Paket 1: halaman informasi, tanpa booking. Untuk melihat versi yang bisa menerima pesanan, buka demo Paket 2."
     elif n == 2:
-        paket = "Paket 2: pesanan di halaman ini tidak tersimpan, hanya memperlihatkan alurnya. Di website Anda, pesanan masuk ke WhatsApp atau ke catatan %s." % u["jenis"].lower()
+        paket = "Paket 2: pesanan di halaman ini tidak tersimpan, hanya memperlihatkan alurnya. Di website Anda, pesanan masuk ke WhatsApp atau ke catatan %s." % j
     else:
         paket = "Paket 3: pembayaran di halaman ini simulasi. Tidak ada uang yang berpindah, dan tidak ada data kartu yang diminta."
     return (
@@ -100,13 +103,22 @@ def penutup_demo(u):
     j = u["jenis"].lower()
     return (
         '<section class="bagian penutup" aria-label="Penutup">\n<div class="kartu"><h2>Bayangkan ini website %s Anda</h2>\n'
-        '<p class="bagian-lead">Nama, alamat, daftar harga, jam buka, dan foto di halaman ini nanti diganti dengan milik %s Anda. %s hanya nama contoh. Alamat websitenya didaftarkan atas nama usaha Anda sendiri, misalnya nama%sanda.com.</p>\n'
-        '<div class="aksi"><a class="tombol" href="/#paket">Lihat paket dan harga</a>'
-        '<a class="tombol garis" href="https://rioeka.com">Kunjungi rioeka.com</a></div></div>\n</section>\n' % (j, j, e(u["nama"]), j)
+        '<p class="bagian-lead">Nama, alamat, daftar harga, jam buka, dan foto di halaman ini nanti diganti dengan milik %s Anda. %s hanya nama contoh. Alamat websitenya didaftarkan atas nama usaha Anda sendiri, misalnya %s.</p>\n'
+        '<div class="aksi"><a class="tombol" href="/%s/#paket">Lihat paket dan harga</a>'
+        '<a class="tombol garis" href="https://rioeka.com">Kunjungi rioeka.com</a></div></div>\n</section>\n' % (j, j, e(u["nama"]), e(u["contoh_domain"]), u["slug"])
     )
 
 
 def seksi_pesan(u, n):
+    mode = u.get("mode", "jadwal")
+    if mode == "inap":
+        return seksi_pesan_inap(u, n)
+    if mode == "pesan":
+        return seksi_pesan_menu(u, n)
+    return seksi_pesan_jadwal(u, n)
+
+
+def seksi_pesan_jadwal(u, n):
     bayar = n == 3
     total = 6 if bayar else 5
     nom = u["noun"]
@@ -148,37 +160,159 @@ def seksi_pesan(u, n):
         '<p class="jam-label" id="jam-judul">Pilih tanggal dulu</p>'
         '<div class="jam-grid" id="pilih-jam" role="group" aria-labelledby="jam-judul"></div>'
         '<p class="petunjuk" style="margin-top:12px">Jam bergaris coret sudah terisi.</p></div>\n'
+        '%s\n'
+        '%s\n'
+        '%s\n'
+        '%s\n'
+        '%s\n'
+        '</div>\n'
+        '</section>\n'
+    ) % (e(lead), buka, total, total, e(u["tip_layanan"]), e(nom.lower()), e(u["siapa_saja"]),
+         panel_data_html(), panel_tinjau_html(), panel_bayar, aksi_langkah_html(), selesai_html())
+
+
+def panel_data_html():
+    return (
         '<div class="panel" data-langkah="data" hidden><h3 tabindex="-1">Nama dan nomor</h3>'
-        '<p class="tip">Kami memakai nomor ini hanya untuk mengabari jam yang dikonfirmasi.</p>'
+        '<p class="tip">Kami memakai nomor ini hanya untuk mengabari pesanan yang dikonfirmasi.</p>'
         '<div class="kolom"><label for="nama">Nama</label><input id="nama" name="nama" type="text" autocomplete="name" placeholder="Nama Anda"></div>'
-        '<div class="kolom"><label for="wa">Nomor WhatsApp</label><input id="wa" name="wa" type="tel" inputmode="tel" autocomplete="tel" placeholder="0812 3456 7890"></div></div>\n'
+        '<div class="kolom"><label for="wa">Nomor WhatsApp</label><input id="wa" name="wa" type="tel" inputmode="tel" autocomplete="tel" placeholder="0812 3456 7890"></div></div>'
+    )
+
+
+def panel_tinjau_html():
+    return (
         '<div class="panel" data-langkah="tinjau" hidden><h3 tabindex="-1">Periksa pesanan</h3>'
         '<p class="tip">Ketuk "Ubah" untuk memperbaiki. Pesanan di halaman contoh ini tidak tersimpan.</p>'
-        '<dl class="tinjau" id="tinjau"></dl></div>\n'
-        '%s\n'
+        '<dl class="tinjau" id="tinjau"></dl></div>'
+    )
+
+
+def panel_bayar_html(sisa, tempat_ket):
+    return (
+        '<div class="panel" data-langkah="bayar" hidden><h3 tabindex="-1">Cara bayar</h3>'
+        '<p class="tip">Total <b id="b-total"></b>. Bayar muka <b id="b-muka"></b>, %s.</p>'
+        '<div class="opsi-daftar">'
+        + opsi_radio("cara", "qris", "QRIS", "semua bank", "Pindai kode dari bank atau e-wallet apa pun.")
+        + opsi_radio("cara", "transfer", "Transfer bank", "BCA, Mandiri", "Kode bayar diberikan setelah memilih.")
+        + opsi_radio("cara", "tempat", "Bayar di tempat", "saat tiba", tempat_ket)
+        + '</div>'
+        '<div id="panel-qris" class="panel-bayar" hidden><div class="qris" aria-hidden="true"></div>'
+        '<p>Kode di atas hanya gambar, bukan kode bayar sungguhan.</p></div>'
+        '<div id="panel-transfer" class="panel-bayar" hidden><p>Di halaman sungguhan, di sini muncul nomor rekening dan kode bayar khusus pesanan ini.</p></div></div>'
+    ) % (e(sisa))
+
+
+def aksi_langkah_html():
+    return (
         '<div class="aksi-langkah">'
         '<p class="ringkas-mini" id="mini" hidden></p>'
         '<p class="pesan-sistem" id="pesan-sistem" role="status" aria-live="polite"></p>'
         '<div class="baris-aksi tanpa-kembali" id="baris-aksi">'
         '<button class="tombol garis" id="kembali" type="button" hidden>Kembali</button>'
-        '<button class="tombol" id="lanjut" type="button" aria-disabled="true">Lanjut</button></div></div>\n'
-        '</div>\n'
+        '<button class="tombol" id="lanjut" type="button" aria-disabled="true">Lanjut</button></div></div>'
+        '</div>'
+    )
+
+
+def selesai_html():
+    return (
         '<div id="selesai" class="selesai" hidden>'
         '<div id="k-centang" class="centang" aria-hidden="true"></div>'
         '<h3 tabindex="-1">Pesanan dicatat</h3><p class="langkah-nama">Kode pesanan</p><p class="kode" id="k-kode"></p>'
         '<dl class="tinjau" id="k-ringkas"></dl>'
         '<p class="catatan">Halaman contoh. Pesanan ini tidak tersimpan di mana pun.</p>'
         '<div class="aksi"><a class="tombol" id="k-wa" href="#">Kirim ke WhatsApp</a><button class="tombol garis" id="ulang" type="button">Pesan lagi</button></div>'
-        '</div>\n'
-        '</div>\n</section>\n'
-    ) % (e(lead), buka, total, total, e(u["tip_layanan"]), e(nom.lower()), e(u["siapa_saja"]), panel_bayar)
+        '</div>'
+    )
+
+
+def bagian_pesan(tag_anda, judul, lead, isi):
+    return (
+        '<section class="bagian" id="bagian-pesan" aria-labelledby="j-pesan">\n'
+        '<p class="tag-baris"><span class="tag-anda">%s</span></p>\n<h2 id="j-pesan">%s</h2>\n<p class="bagian-lead">%s</p>\n'
+        "%s</section>\n" % (e(tag_anda), e(judul), e(lead), isi)
+    )
+
+
+def kartu_pesan_buka(total, kalimat):
+    return (
+        '<div class="kartu pesan-buka" id="pesan-buka"><h3>Coba alurnya sendiri</h3>'
+        '<p>%s Pesanan di halaman contoh ini tidak tersimpan.</p>'
+        '<button class="tombol" id="buka-pesan" type="button" aria-controls="pesan" aria-expanded="false">%s Mulai coba pesan</button></div>'
+    ) % (e(kalimat), I_KALENDER)
+
+
+def seksi_pesan_inap(u, n):
+    bayar = n == 3
+    total = 6 if bayar else 5
+    isi = (
+        kartu_pesan_buka(total, "Pilih kamar, tanggal, jumlah malam, dan tamu dalam %d langkah singkat." % total)
+        + "\n"
+        + '<div class="kartu pesan" id="pesan" hidden>\n<div id="alur">\n'
+        '<div class="langkah-kepala"><span class="langkah-no" id="l-no">Langkah 1 dari %d</span><span class="langkah-nama" id="l-nama">Kamar</span></div>\n' % total
+        + '<div class="progres" id="progres" role="progressbar" aria-label="Kemajuan pesanan" aria-valuemin="1" aria-valuemax="%d" aria-valuenow="1"><i id="progres-isi"></i></div>\n' % total
+        + '<div class="panel" data-langkah="kamar"><h3 tabindex="-1">Pilih kamar</h3><p class="tip">Harga tertera per malam. Kapasitas tamu ada di tiap kamar.</p><div id="pilih-kamar"></div></div>\n'
+        + '<div class="panel" data-langkah="tanggal" hidden><h3 tabindex="-1">Tanggal menginap</h3>'
+        + '<p class="tip">Dua minggu ke depan. Tanggal bergaris putus-putus berarti kamar sudah penuh. Check-in pukul %s, check-out pukul %s.</p>' % (e(u["checkin"]), e(u["checkout"]))
+        + '<div class="hari-strip" id="pilih-hari" role="group" aria-label="Tanggal check-in"></div>'
+        + '<div id="st-malam"></div><p class="petunjuk" id="info-tgl" style="margin-top:12px"></p></div>\n'
+        + '<div class="panel" data-langkah="tamu" hidden><h3 tabindex="-1">Jumlah tamu</h3>'
+        + '<p class="tip">Jumlah tamu mengikuti kapasitas kamar yang dipilih.</p>'
+        + '<div id="st-tamu"></div><p class="petunjuk" id="info-tamu" style="margin-top:12px"></p></div>\n'
+        + panel_data_html() + "\n" + panel_tinjau_html() + "\n"
+        + ((panel_bayar_html("sisanya dibayar saat tiba", "Pesanan dicatat, dibayar saat tiba.") + "\n") if bayar else "")
+        + aksi_langkah_html() + "\n"
+        + selesai_html() + "\n</div>\n"
+    )
+    return bagian_pesan("Kamar dan tanggal sesuai usaha Anda", "Pesan kamar sendiri",
+                        "Tanpa aplikasi dan tanpa formulir panjang. Selesai di halaman ini juga.", isi)
+
+
+def seksi_pesan_menu(u, n):
+    bayar = n == 3
+    total = 6 if bayar else 5
+    isi = (
+        kartu_pesan_buka(total, "Pilih menu dan jumlah, tanggal, dan cara terima dalam %d langkah singkat." % total)
+        + "\n"
+        + '<div class="kartu pesan" id="pesan" hidden>\n<div id="alur">\n'
+        '<div class="langkah-kepala"><span class="langkah-no" id="l-no">Langkah 1 dari %d</span><span class="langkah-nama" id="l-nama">Menu</span></div>\n' % total
+        + '<div class="progres" id="progres" role="progressbar" aria-label="Kemajuan pesanan" aria-valuemin="1" aria-valuemax="%d" aria-valuenow="1"><i id="progres-isi"></i></div>\n' % total
+        + '<div class="panel" data-langkah="menu"><h3 tabindex="-1">Pilih menu</h3>'
+        + '<p class="tip">Atur jumlah tiap menu. Angka minimal dan maksimal mengikuti ketentuan tiap menu.</p><div id="pilih-menu"></div></div>\n'
+        + '<div class="panel" data-langkah="terima" hidden><h3 tabindex="-1">Tanggal dan cara terima</h3>'
+        + '<p class="tip" id="tip-lead">Dua minggu ke depan. Tanggal bergaris putus-putus berarti toko tutup.</p>'
+        + '<div class="hari-strip" id="pilih-hari" role="group" aria-label="Tanggal"></div>'
+        + '<h4 class="sub">Cara terima</h4><div id="pilih-cara"></div>'
+        + '<div class="kolom" id="kolom-alamat" hidden><label for="alamat">Alamat antar</label><input id="alamat" name="alamat" type="text" autocomplete="street-address" placeholder="Alamat lengkap untuk diantar"></div>'
+        + '<p class="jam-label" id="jam-judul">Pilih tanggal dulu</p>'
+        + '<div class="jam-grid" id="pilih-jam" role="group" aria-labelledby="jam-judul"></div>'
+        + '<p class="petunjuk" style="margin-top:12px">Jam bergaris coret sudah terisi.</p></div>\n'
+        + '<div class="panel" data-langkah="catatan" hidden><h3 tabindex="-1">Catatan</h3>'
+        + '<p class="tip">Tulis permintaan khusus, misalnya tanpa kacang, tanpa pedas, atau tulisan di kue.</p>'
+        + '<div class="kolom"><label for="catatan">Catatan (opsional)</label><textarea id="catatan" rows="3"></textarea></div></div>\n'
+        + panel_data_html() + "\n" + panel_tinjau_html() + "\n"
+        + ((panel_bayar_html("sisanya dibayar saat serah terima", "Pesanan dicatat, dibayar saat serah terima.") + "\n") if bayar else "")
+        + aksi_langkah_html() + "\n"
+        + "</div>\n" + selesai_html() + "</div>\n"
+    )
+    return bagian_pesan("Menu dan tanggal sesuai usaha Anda", "Pesan sendiri",
+                        "Tanpa aplikasi dan tanpa formulir panjang. Selesai di halaman ini juga.", isi)
 
 
 def seksi_harga(u):
-    out = ['<section class="bagian" id="harga">\n' + tag("Harga %s Anda" % u["jenis"].lower()) + '<h2>Daftar harga</h2>\n<p class="bagian-lead">%s</p>\n' % e(u["harga_lead"])]
+    if u.get("mode") == "inap":
+        judul, lead = "Daftar kamar dan harga", u["harga_lead"]
+    elif u.get("mode") == "pesan":
+        judul, lead = "Daftar menu dan harga", u["harga_lead"]
+    else:
+        judul, lead = "Daftar harga", u["harga_lead"]
+    out = ['<section class="bagian" id="harga">\n' + tag("Harga %s Anda" % u["jenis"].lower()) + '<h2>%s</h2>\n<p class="bagian-lead">%s</p>\n' % (e(judul), e(lead))]
     for nama, item in u["grup"]:
         out.append('<div class="kartu"><h3>%s</h3><ul class="harga">' % e(nama))
-        for nm, hr, _, ket in item:
+        for baris in item:
+            nm, hr = baris[0], baris[1]
+            ket = baris[3] if len(baris) > 3 else (baris[2] if len(baris) > 2 else "")
             out.append('<li><span class="nm">%s</span><span class="hr">%s</span>%s</li>' % (e(nm), rp(hr), '<span class="ket">%s</span>' % e(ket) if ket else ""))
         out.append("</ul></div>")
     out.append('<p class="catatan">%s</p>\n</section>\n' % e(u["harga_catatan"]))
@@ -186,16 +320,19 @@ def seksi_harga(u):
 
 
 def seksi_lokasi(u):
+    inap = u.get("mode") == "inap"
+    judul = "Lokasi dan jam resepsionis" if inap else "Lokasi dan jam buka"
+    label = "Alamat dan jam resepsionis %s Anda" if inap else "Alamat dan jam buka %s Anda"
     li = "".join(
         '<li data-hari="%d"><span>%s</span><span>%s</span></li>' % (h, NH[h], jam_teks(u["jam"][h])) for h in URUT_HARI
     )
     peta = "https://www.google.com/maps/search/?api=1&amp;query=" + quote(u["peta"])
     return (
-        '<section class="bagian" id="lokasi">\n' + tag("Alamat dan jam buka %s Anda" % u["jenis"].lower()) + '<h2>Lokasi dan jam buka</h2>\n<p class="bagian-lead">%s</p>\n'
-        '<div class="kartu"><h3>Jam buka</h3><ul class="jam" id="kartu-jam">%s</ul></div>\n'
+        '<section class="bagian" id="lokasi">\n' + tag(label % u["jenis"].lower()) + '<h2>%s</h2>\n<p class="bagian-lead">%s</p>\n'
+        '<div class="kartu"><h3>%s</h3><ul class="jam" id="kartu-jam">%s</ul></div>\n'
         '<div class="kartu"><h3>Alamat</h3><address class="alamat">%s</address>'
         '<div class="aksi-lokasi"><a class="tombol garis" href="%s">%s Buka di Google Maps</a></div></div>\n</section>\n'
-    ) % (e(u["jam_lead"]), li, "<br>".join(e(x) for x in u["alamat"]), peta, I_PETA)
+    ) % (e(judul), e(u["jam_lead"]), "Jam resepsionis" if inap else "Jam buka", li, "<br>".join(e(x) for x in u["alamat"]), peta, I_PETA)
 
 
 def seksi_galeri(u):
@@ -215,7 +352,8 @@ def seksi_tanya(u):
 
 
 def halaman_demo(u, n):
-    css = FONT + "\n:root{" + kunci_tema(u) + "}\n" + BASE + (BOOKING if n >= 2 else "")
+    mode = u.get("mode", "jadwal")
+    css = FONT + "\n:root{" + TEMA[u["tema"]] + "}\n" + BASE + (BOOKING if n >= 2 else "")
     judul = {1: u["title_p1"], 2: u["nama"] + ", booking", 3: u["nama"] + ", booking dan pembayaran"}[n]
     desc = u["desc_p1"] if n == 1 else (u["desc_book"] if n == 2 else u["desc_book"].rstrip(".") + ", lalu bayar muka.")
     wa = wa_link(u)
@@ -228,8 +366,14 @@ def halaman_demo(u, n):
     if n >= 2:
         loncat.insert(0, '<a href="#pesan">Pesan</a>')
 
+    if mode == "jadwal":
+        kata2 = "booking"
+    elif mode == "inap":
+        kata2 = "reservasi kamar"
+    else:
+        kata2 = "pemesanan"
     if n == 1:
-        aksi = '<a class="tombol" href="%s">%s Tanya lewat WhatsApp</a><a class="tombol garis" href="/%s/paket-2/">Buka demo Paket 2, dengan booking %s</a>' % (wa, I_WA, u["slug"], I_KANAN)
+        aksi = '<a class="tombol" href="%s">%s Tanya lewat WhatsApp</a><a class="tombol garis" href="/%s/paket-2/">Buka demo Paket 2, dengan %s %s</a>' % (wa, I_WA, u["slug"], kata2, I_KANAN)
     else:
         aksi = '<a class="tombol" href="#pesan">%s Pesan sekarang</a><a class="tombol garis" href="%s">%s Tanya lewat WhatsApp</a>' % (I_KALENDER, wa, I_WA)
 
@@ -240,17 +384,20 @@ def halaman_demo(u, n):
     else:
         demo = '<p class="catatan-demo"><span class="tanda-contoh">Demo Paket 3</span><span>Pembayaran di halaman ini simulasi. Tidak ada uang yang berpindah, dan tidak ada data kartu yang diminta.</span></p>'
 
-    kontak = "Pesan dan pertanyaan:" if u["tema"] == "barber" else "Booking dan pertanyaan:"
+    if mode == "inap":
+        status = '<p class="status"><span class="titik"></span><span id="status-teks">Resepsionis buka %s sampai %s</span></p>\n' % (u["jam"][1][0], u["jam"][1][1])
+    else:
+        status = '<p class="status" id="status"><span class="titik" id="titik"></span><span id="status-teks">Memuat jam buka</span></p>\n'
 
     body = [
         "<body>\n",
-        '<header class="atas"><div class="demo-strip" role="note"><span class="tanda-contoh">Demo</span><span>Contoh website untuk %s Anda</span></div><div class="wadah"><a class="balik" href="/">%s Daftar paket</a><span class="nama-atas">%s</span></div></header>\n' % (u["jenis"].lower(), I_KIRI, e(u["nama"])),
+        '<header class="atas"><div class="demo-strip" role="note"><span class="tanda-contoh">Demo</span><span>Contoh website untuk %s Anda</span></div><div class="wadah"><a class="balik" href="/%s/#paket">%s Semua paket %s</a><span class="nama-atas">%s</span></div></header>\n' % (u["jenis"].lower(), u["slug"], I_KIRI, u["jenis"].lower(), e(u["nama"])),
         '<div class="pole" aria-hidden="true"></div>\n',
         "<main>\n",
         '<div class="wadah">\n',
         '<section class="hero">\n' + kartu_demo(u, n) + '<p class="eyebrow">%s &middot; %s</p>\n<h1>%s</h1>\n' % (e(u["jenis"]), e(u["area"]), e(u["nama"])),
         tag("Nama %s Anda tampil di sini" % u["jenis"].lower()),
-        '<p class="status" id="status"><span class="titik" id="titik"></span><span id="status-teks">Memuat jam buka</span></p>\n',
+        status,
         '<p class="lead">%s</p>\n<div class="aksi">%s</div>\n' % (e(u["lead"]), aksi),
         '<nav class="loncat" aria-label="Loncat ke bagian">%s</nav>\n</section>\n' % "".join(loncat),
     ]
@@ -265,7 +412,7 @@ def halaman_demo(u, n):
     body.append("</div>\n</main>\n")
     body.append(
         '<footer class="kaki"><div class="wadah"><p>%s</p><p><a href="%s">WhatsApp %s</a></p>'
-        "<p>Halaman ini contoh peragaan, bukan usaha sungguhan. Dibuat oleh Rio Ekaputra Siswa, developer aplikasi web di Bandung yang membuat website untuk usaha lokal. <a href=\"https://rioeka.com\">rioeka.com</a></p></div></footer>\n" % (kontak, wa, e(u["wa_tampil"]))
+        "<p>Halaman ini contoh peragaan, bukan usaha sungguhan. Dibuat oleh Rio Ekaputra Siswa, developer aplikasi web di Bandung yang membuat website untuk usaha lokal. <a href=\"https://rioeka.com\">rioeka.com</a></p></div></footer>\n" % (u["kontak"], wa, e(u["wa_tampil"]))
     )
     if n == 1:
         bar = '<a class="tombol" href="%s">%s Tanya lewat WhatsApp</a>' % (wa, I_WA)
@@ -273,59 +420,62 @@ def halaman_demo(u, n):
         bar = '<a class="tombol" href="#pesan">Pesan sekarang</a><a class="tombol garis" href="%s">WhatsApp</a>' % wa
     body.append('<div class="bar-bawah" id="bar-bawah">%s</div>\n' % bar)
 
-    scripts = "<script>\n" + STATUS_JS.replace("__JAM__", jam_json) + "</script>\n"
+    scripts = ""
+    if mode != "inap":
+        scripts += "<script>\n" + STATUS_JS.replace("__JAM__", jam_json) + "</script>\n"
     if n >= 2:
-        D = {
-            "noun": u["noun"],
-            "kode": u["kode"],
-            "wa": u["wa"],
-            "bayar": n == 3,
-            "siapaSaja": u["siapa_saja"],
-            "siapaSajaKet": u["siapa_saja_ket"],
-            "grup": [{"nama": g, "item": [{"nama": a, "harga": b, "menit": c, "ket": d} for a, b, c, d in it]} for g, it in u["grup"]],
-            "stylist": [{"nama": a, "keahlian": b, "rinci": c, "bisa": d} for a, b, c, d in u["stylist"]],
-            "jam": {str(h): u["jam"][h] for h in range(7)},
-        }
-        scripts += "<script>\n" + BOOKING_JS.replace("__DATA__", json.dumps(D, ensure_ascii=False)) + BAR_JS + "</script>\n"
-    return head(judul, desc, css) + "".join(body) + scripts + "</body>\n</html>\n"
+        if mode == "jadwal":
+            D = {
+                "noun": u["noun"],
+                "kode": u["kode"],
+                "wa": u["wa"],
+                "bayar": n == 3,
+                "siapaSaja": u["siapa_saja"],
+                "siapaSajaKet": u["siapa_saja_ket"],
+                "grup": [{"nama": g, "item": [{"nama": a, "harga": b, "menit": c, "ket": d} for a, b, c, d in it]} for g, it in u["grup"]],
+                "stylist": [{"nama": a, "keahlian": b, "rinci": c, "bisa": d} for a, b, c, d in u["stylist"]],
+                "jam": {str(h): u["jam"][h] for h in range(7)},
+            }
+            scripts += "<script>\n" + BOOKING_JS.replace("__DATA__", json.dumps(D, ensure_ascii=False)) + BAR_JS + "</script>\n"
+        elif mode == "inap":
+            D = {
+                "mode": "inap",
+                "kode": u["kode"], "wa": u["wa"], "bayar": n == 3,
+                "muka": u["muka"], "mukaTeks": u["mukaTeks"], "bayarNanti": u["bayarNanti"],
+                "checkin": u["checkin"], "checkout": u["checkout"],
+                "jam": {str(h): u["jam"][h] for h in range(7)},
+                "kamar": [{"nama": a, "harga": b, "kap": c, "ket": d} for a, b, c, d in u["kamar"]],
+            }
+            scripts += "<script>\n" + WIZARD_JS.replace("__DATA__", json.dumps(D, ensure_ascii=False)) + BAR_JS + "</script>\n"
+        else:
+            D = {
+                "mode": "pesan",
+                "kode": u["kode"], "wa": u["wa"], "bayar": n == 3,
+                "muka": u["muka"], "mukaTeks": u["mukaTeks"], "bayarNanti": u["bayarNanti"],
+                "ongkir": u["ongkir"], "areaAntar": u["areaAntar"], "tempatAmbil": u["tempatAmbil"],
+                "jam": {str(h): u["jam"][h] for h in range(7)},
+                "menu": [{"nama": g, "item": items} for g, items in u["menu"]],
+            }
+            scripts += "<script>\n" + WIZARD_JS.replace("__DATA__", json.dumps(D, ensure_ascii=False)) + BAR_JS + "</script>\n"
+    return head(judul, desc, css, warna=WARNA_TEMA[u["tema"]]) + "".join(body) + scripts + "</body>\n</html>\n"
 
 
 WA_PEMILIK = "6287834471149"
 WA_PEMILIK_TAMPIL = "0878-3447-1149"
-WA_PEMILIK_PESAN = "Halo, saya tertarik dengan paket website dari demo.rioeka.com. Boleh tanya-tanya dulu?"
+WA_PEMILIK_PESAN = "Halo, saya tertarik dengan paket website dari devario.rioeka.com. Boleh tanya-tanya dulu?"
 PERAWATAN = "menjaga situs tetap aktif dan aman, serta bantu ubah teks kecil seperti harga dan jam buka"
 
 PAKET = [
     ("1", "Halaman informasi", "Harga layanan, jam buka, alamat, dan tombol WhatsApp. Yang paling cepat jadi dan paling murah.",
-     "Kalau yang dibutuhkan hanya supaya orang menemukan salon dan bisa bertanya.",
-     ["Daftar harga layanan", "Jam buka dan hari tutup", "Alamat lengkap dengan tombol peta", "Tombol WhatsApp di setiap layar", "Status buka dihitung dari jam sebenarnya"],
+     "Kalau usaha Anda hanya perlu supaya orang menemukan dan bisa bertanya.",
      1000000, 300000),
-    ("2", "Tambah sistem booking", "Pengunjung memilih layanan, stylist, tanggal, dan jam sendiri. Tidak perlu bolak-balik WhatsApp.",
+    ("2", "Tambah sistem booking", "Pengunjung memilih layanan, nama staf, tanggal, dan jam sendiri. Tidak perlu bolak-balik WhatsApp.",
      "Kalau jadwal sudah ramai dan pesanan sering bertabrakan.",
-     ["Semua isi paket 1", "Pilih layanan dan stylist", "Pilih tanggal dan jam yang tersedia", "Jam yang sudah penuh tertutup sendiri", "Ringkasan sebelum dikonfirmasi"],
      1500000, 500000),
     ("3", "Tambah pembayaran", "Pengunjung membayar muka saat memesan, supaya yang memesan tidak hilang begitu saja.",
      "Kalau sering ada yang memesan lalu tidak datang.",
-     ["Semua isi paket 2", "Bayar muka saat memesan", "Pilihan QRIS, transfer, atau bayar di tempat", "Nota pemesanan otomatis"],
      1650000, 600000),
 ]
-
-INDEX_JS = r"""
-(function(){
-  var NAMA={salon:"Salon Melati",barbershop:"Barbershop Cukur Rapi"};
-  var tombol=[].slice.call(document.querySelectorAll("#pilih-usaha button"));
-  var tautan=[].slice.call(document.querySelectorAll("[data-buka]"));
-  var nama=document.getElementById("nama-demo");
-  function gambar(usaha){
-    tombol.forEach(function(b){b.setAttribute("aria-pressed",b.dataset.usaha===usaha?"true":"false")});
-    tautan.forEach(function(a){a.href="/"+usaha+"/paket-"+a.dataset.buka+"/"});
-    nama.textContent=NAMA[usaha];
-  }
-  tombol.forEach(function(b){b.addEventListener("click",function(){gambar(b.dataset.usaha)})});
-  gambar("salon");
-})();
-"""
-
 
 BEDA = (
     '<section class="bagian beda" id="beda"><div class="wadah wadah-lebar">\n'
@@ -333,13 +483,13 @@ BEDA = (
     '<p class="bagian-lead">Website murah sekitar Rp 300 ribu biasanya numpang di alamat orang lain, seperti membuka lapak di teras toko orang. '
     "Website dari saya seperti punya toko sendiri: alamatnya didaftarkan atas nama usaha Anda, tampilannya dibuat khusus untuk usaha Anda.</p>\n"
     '<div class="alamat-banding">'
-    '<div class="alamat-pil redup"><span class="alamat-label">Website numpang</span><b>namasalon.layananweb.com</b>'
+    '<div class="alamat-pil redup"><span class="alamat-label">Website numpang</span><b>namausaha.layananweb.com</b>'
     "<span>Alamat gratisan, ada nama layanan lain di belakangnya.</span></div>"
-    '<div class="alamat-pil unggul"><span class="alamat-label">Website dari saya</span><b>namasalon.com</b>'
-    "<span>atau namasalon.id. Alamat web didaftarkan atas nama usaha Anda.</span></div></div>\n"
+    '<div class="alamat-pil unggul"><span class="alamat-label">Website dari saya</span><b>namausaha.com</b>'
+    "<span>atau namausaha.id. Alamat web didaftarkan atas nama usaha Anda.</span></div></div>\n"
     '<table class="banding"><caption class="sr">Perbandingan website murah dan website dari saya</caption>'
     '<thead><tr><th scope="col">Website murah (numpang)</th><th scope="col">Website dari saya</th></tr></thead><tbody>'
-    "<tr><td>Tampilan memilih dari contoh yang juga dipakai usaha lain</td><td>Dirancang khusus untuk salon atau barbershop Anda</td></tr>"
+    "<tr><td>Tampilan memilih dari contoh yang juga dipakai usaha lain</td><td>Dirancang khusus untuk usaha Anda</td></tr>"
     "<tr><td>Alamat ada nama layanan lain di belakangnya</td><td>Alamat .com atau .id atas nama usaha Anda</td></tr>"
     "<tr><td>Terkesan percobaan, orang ragu</td><td>Terkesan usaha yang mapan dan layak dipercaya</td></tr>"
     "<tr><td>Umumnya hanya halaman info</td><td>Bisa booking dan bayar muka (Paket 2 dan 3)</td></tr>"
@@ -353,51 +503,99 @@ def wa_pemilik():
     return "https://wa.me/%s?text=%s" % (WA_PEMILIK, quote(WA_PEMILIK_PESAN, safe=""))
 
 
+def kartu_paket(no, nama, rinci, cocok, isi, harga, tahunan, bawah):
+    li = "".join("<li>%s<span>%s</span></li>" % (I_CENTANG, e(x)) for x in isi)
+    return (
+        '<li class="paket"><article><div><span class="no">Paket %s</span><h3>%s</h3></div><p class="ket">%s</p>'
+        '<div class="harga"><p class="harga-label">Harga paket</p><p class="harga-angka">%s</p>'
+        '<p class="harga-ket">Sudah termasuk alamat web (domain) atas nama Anda dan hosting tahun pertama.</p>'
+        '<p class="harga-ket">Tahun berikutnya %s per tahun: alamat web, hosting, dan perawatan.</p></div>'
+        '<p class="cocok"><b>Cocok</b> %s</p><ul class="isi" aria-label="Isi paket %s">%s</ul>'
+        '<div class="bawah">%s</div></article></li>' % (no, e(nama), e(rinci), rp(harga), rp(tahunan), e(cocok), no, li, bawah)
+    )
+
+
 def halaman_index():
     css = FONT + "\n:root{" + INDEX_TOKENS + "}\n" + BASE + INDEX
-    cards = []
-    for no, nama, rinci, cocok, isi, harga, tahunan in PAKET:
-        li = "".join("<li>%s<span>%s</span></li>" % (I_CENTANG, e(x)) for x in isi)
-        cards.append(
-            '<li class="paket"><article><div><span class="no">Paket %s</span><h3>%s</h3></div><p class="ket">%s</p>'
+    jenis = "".join(
+        '<li class="jenis-kartu"><span class="jenis-ikon">%s</span><h3>%s</h3><p>%s</p>'
+        '<a class="tombol" href="/%s/">Lihat paket dan demo</a></li>' % (IKON[u["slug"]], e(u["label"]), e(u["ringkas"]), u["slug"])
+        for u in USAHA
+    )
+    harga = []
+    for no, nama, rinci, cocok, hrg, tahunan in PAKET:
+        bawah = (
             '<div class="harga"><p class="harga-label">Harga paket</p><p class="harga-angka">%s</p>'
             '<p class="harga-ket">Sudah termasuk alamat web (domain) atas nama Anda dan hosting tahun pertama.</p>'
             '<p class="harga-ket">Tahun berikutnya %s per tahun: alamat web, hosting, dan perawatan.</p></div>'
-            '<p class="cocok"><b>Cocok</b> %s</p><ul class="isi" aria-label="Isi paket %s">%s</ul>'
-            '<div class="bawah"><a class="tombol" href="/salon/paket-%s/" data-buka="%s">Buka demo Paket %s</a>'
-            '<p class="harga-tag">Yang terbuka halaman contoh, bukan usaha sungguhan</p>'
-            '</div></article></li>' % (no, e(nama), e(rinci), rp(harga), rp(tahunan), e(cocok), no, li, no, no, no)
+            '<p class="cocok"><b>Cocok</b> %s</p>'
+        ) % (rp(hrg), rp(tahunan), e(cocok))
+        harga.append(
+            '<li class="paket"><article><div><span class="no">Paket %s</span><h3>%s</h3></div><p class="ket">%s</p>%s</article></li>'
+            % (no, e(nama), e(rinci), bawah)
         )
     body = (
         "<body>\n"
-        '<header class="atas atas-hijau"><div class="wadah wadah-lebar"><a class="merek" href="/">Demo website salon dan barbershop</a></div></header>\n'
+        '<header class="atas atas-hijau"><div class="wadah wadah-lebar"><a class="merek" href="/">%s</a></div></header>\n'
         "<main>\n"
         '<section class="hero"><div class="wadah wadah-lebar">\n<p class="eyebrow">Situs demo &middot; jasa pembuatan website</p>\n'
-        "<h1>Demo website untuk salon dan barbershop</h1>\n"
-        '<p class="lead">Ini situs uji coba, bukan usaha sungguhan. Di sini Anda bisa melihat dan mencoba sendiri tampilan dan fitur website yang Anda dapatkan kalau memakai jasa pembuatan website dari Rio Ekaputra Siswa, developer aplikasi web di Bandung.</p>\n'
-        '<ul class="fitur"><li>%s Harga dan jam buka</li><li>%s Tombol WhatsApp</li><li>%s Sistem booking</li><li>%s Bayar muka</li><li>%s Alamat web sendiri (.com, .id)</li></ul>\n'
-        '<div class="aksi"><a class="tombol" href="#paket">Coba demonya</a><a class="tombol garis" href="%s">%s Tanya lewat WhatsApp</a></div>\n</div></section>\n'
+        "<h1>Website untuk usaha lokal Anda</h1>\n"
+        '<p class="lead">%s adalah situs peragaan, bukan usaha sungguhan. Di sini Anda bisa melihat dan mencoba sendiri tampilan dan fitur website yang Anda dapatkan kalau memakai jasa pembuatan website dari Rio Ekaputra Siswa, developer aplikasi web di Bandung. Pilih jenis usaha Anda di bawah.</p>\n'
+        '<div class="aksi"><a class="tombol" href="#jenis">Pilih jenis usaha</a><a class="tombol garis" href="%s">%s Tanya lewat WhatsApp</a></div>\n</div></section>\n'
+        '<section class="bagian" id="jenis"><div class="wadah wadah-lebar">\n<h2>Pilih jenis usaha Anda</h2>\n'
+        '<p class="bagian-lead">Setiap jenis punya halaman paket sendiri dan tiga demo yang bisa dicoba langsung di HP.</p>\n'
+        '<ul class="jenis-daftar">%s</ul>\n</div></section>\n'
         "%s"
-        '<section class="bagian" id="paket"><div class="wadah wadah-lebar">\n<h2>Tiga paket yang bisa dipilih</h2>\n'
-        '<p class="bagian-lead">Pilih jenis usaha, lalu buka demo tiap paket dan coba langsung di HP. Yang terbuka adalah halaman contoh, seperti website Anda nanti. Nama usaha dan harga layanan di dalam demo hanya contoh. Harga paket di bawah adalah harga sebenarnya.</p>\n'
-        '<div class="pilih-usaha" id="pilih-usaha" role="group" aria-label="Jenis usaha demo">'
-        '<button type="button" aria-pressed="true" data-usaha="salon">Untuk salon</button>'
-        '<button type="button" aria-pressed="false" data-usaha="barbershop">Untuk barbershop</button></div>\n'
-        '<p class="nama-demo" aria-live="polite">Contoh usaha di demo ini: <b id="nama-demo">Salon Melati</b>.</p>\n'
+        '<section class="bagian" id="harga"><div class="wadah wadah-lebar">\n<h2>Tiga paket yang bisa dipilih</h2>\n'
+        '<p class="bagian-lead">Harga paket sama untuk semua jenis usaha. Isi tiap paket menyesuaikan jenis usaha Anda, pilih jenis di atas. Harga di bawah adalah harga sebenarnya.</p>\n'
         '<ul class="paket-daftar paket">%s</ul>\n'
         '<p class="catatan-harga">Perawatan tahunan berarti %s.</p>\n'
-        '</div></section>\n'
+        "</div></section>\n"
         '<section class="bagian hubungi" id="hubungi"><div class="wadah wadah-lebar"><div class="kartu-hubungi">\n'
-        '<h2>Tertarik atau mau tanya dulu?</h2>\n'
+        "<h2>Tertarik atau mau tanya dulu?</h2>\n"
         '<p class="bagian-lead">Kirim pesan lewat WhatsApp. Ceritakan usaha Anda, nanti saya bantu pilih paket yang paling pas. Nomor WhatsApp saya: %s.</p>\n'
         '<div class="aksi"><a class="tombol" href="%s">%s Chat WhatsApp</a></div>\n'
-        "</div></section>\n</main>\n"
+        "</div></div></section>\n</main>\n"
         '<footer class="kaki"><div class="wadah wadah-lebar"><p>Dibuat oleh Rio Ekaputra Siswa, developer aplikasi web di Bandung. <a href="https://rioeka.com">rioeka.com</a></p>'
         "<p>Harga di atas tetap, tanpa biaya tersembunyi. Nama, harga layanan, dan alamat di dalam demo hanya contoh.</p>"
         '<p><a href="%s">WhatsApp %s</a></p></div></footer>\n'
-        "<script>\n%s</script>\n</body>\n</html>\n"
-    ) % (I_CENTANG, I_WA, I_KALENDER, I_CENTANG, I_CENTANG, wa_pemilik(), I_WA, BEDA, "".join(cards), PERAWATAN, WA_PEMILIK_TAMPIL, wa_pemilik(), I_WA, wa_pemilik(), WA_PEMILIK_TAMPIL, INDEX_JS)
-    return head("Demo website untuk salon dan barbershop, Bandung", "Situs uji coba: lihat dan coba tampilan serta fitur website dengan alamat web sendiri untuk salon dan barbershop, lewat jasa pembuatan website Rio Ekaputra Siswa, developer aplikasi web di Bandung.", css, robots=False) + body
+        "</body>\n</html>\n"
+    ) % (MERK, MERK, wa_pemilik(), I_WA, jenis, BEDA, "".join(harga), PERAWATAN, WA_PEMILIK_TAMPIL, wa_pemilik(), I_WA, wa_pemilik(), WA_PEMILIK_TAMPIL)
+    return head(MERK + ", demo website untuk usaha lokal", "Situs uji coba: lihat dan coba tampilan serta fitur website dengan alamat web sendiri untuk salon, barbershop, spa, penginapan, dan katering, lewat jasa pembuatan website Rio Ekaputra Siswa.", css, warna=WARNA_INDEX) + body
+
+
+def halaman_jenis(u):
+    css = FONT + "\n:root{" + INDEX_TOKENS + "}\n" + BASE + INDEX
+    cards = "".join(
+        kartu_paket(no, nama, t[1], t[2], u["paket_isi"][idx], harga, tahunan,
+                    '<a class="tombol" href="/%s/paket-%s/">Buka demo Paket %s</a>'
+                    '<p class="harga-tag">Yang terbuka halaman contoh, bukan usaha sungguhan</p>' % (u["slug"], no, no))
+        for idx, (no, nama, rinci, cocok, harga, tahunan) in enumerate(PAKET)
+        for t in [u["paket_teks"][idx]]
+    )
+    body = (
+        "<body>\n"
+        '<header class="atas atas-hijau"><div class="wadah wadah-lebar"><a class="merek" href="/">%s</a><a class="balik" href="/#jenis">%s Semua jenis usaha</a></div></header>\n'
+        "<main>\n"
+        '<section class="hero"><div class="wadah wadah-lebar">\n<p class="eyebrow">Paket 1 sampai 3 &middot; demo bisa dicoba</p>\n'
+        "<h1>Website untuk %s</h1>\n<p class=\"lead\">%s</p>\n"
+        '<div class="aksi"><a class="tombol" href="#paket">Lihat tiga paket</a><a class="tombol garis" href="%s">%s Tanya lewat WhatsApp</a></div>\n</div></section>\n'
+        '<section class="bagian" id="paket"><div class="wadah wadah-lebar">\n<h2>Tiga paket untuk %s</h2>\n'
+        '<p class="bagian-lead">Pilih paket, lalu buka demonya dan coba langsung di HP. Nama usaha dan harga layanan di dalam demo hanya contoh. Harga paket di bawah adalah harga sebenarnya.</p>\n'
+        '<ul class="paket-daftar paket">%s</ul>\n'
+        '<p class="catatan-harga">Perawatan tahunan berarti %s.</p>\n</div></section>\n'
+        '<section class="bagian hubungi" id="hubungi"><div class="wadah wadah-lebar"><div class="kartu-hubungi">\n'
+        "<h2>Tertarik atau mau tanya dulu?</h2>\n"
+        '<p class="bagian-lead">Kirim pesan lewat WhatsApp. Ceritakan usaha Anda, nanti saya bantu pilih paket yang paling pas. Nomor WhatsApp saya: %s.</p>\n'
+        '<div class="aksi"><a class="tombol" href="%s">%s Chat WhatsApp</a></div>\n'
+        "</div></div></section>\n</main>\n"
+        '<footer class="kaki"><div class="wadah wadah-lebar"><p>Dibuat oleh Rio Ekaputra Siswa, developer aplikasi web di Bandung. <a href="https://rioeka.com">rioeka.com</a></p>'
+        "<p>Harga di atas tetap, tanpa biaya tersembunyi. Nama, harga layanan, dan alamat di dalam demo hanya contoh.</p>"
+        '<p><a href="%s">WhatsApp %s</a></p></div></footer>\n'
+        "</body>\n</html>\n"
+    ) % (MERK, I_KIRI, e(u["pendek"]), e(u["lihat"]), wa_pemilik(), I_WA, e(u["pendek"].lower()), cards, PERAWATAN, WA_PEMILIK_TAMPIL, wa_pemilik(), I_WA, wa_pemilik(), WA_PEMILIK_TAMPIL)
+    return head("%s | %s" % (u["pendek"], MERK), "%s Lihat tiga paket dan coba demonya." % e(u["lihat"]), css, warna=WARNA_INDEX) + body
+
 
 GALAT_JS = r"""
 (function(){
@@ -427,11 +625,13 @@ def halaman_galat(kode, judul, teks, bisa_kembali):
             '<a class="tombol" id="kembali" href="/">%s<span id="kembali-teks">Kembali</span></a>'
             '<a class="tombol garis" id="beranda" href="/">Ke beranda</a>' % I_KIRI
         )
+        alt_li = "".join(
+            '<li><a href="/%s/paket-1/"><span>Demo %s</span>%s</a></li>' % (u["slug"], e(u["pendek"].lower()), I_KANAN)
+            for u in USAHA
+        )
+        alt_li += '<li><a href="/"><span>Beranda</span>%s</a></li>' % I_KANAN
         alt = (
-            '<nav class="alternatif" aria-labelledby="alt-judul"><h2 id="alt-judul">Atau langsung buka</h2><ul>'
-            '<li><a href="/salon/paket-1/"><span>Demo salon</span>%s</a></li>'
-            '<li><a href="/barbershop/paket-1/"><span>Demo barbershop</span>%s</a></li>'
-            '<li><a href="/#paket"><span>Daftar paket</span>%s</a></li></ul></nav>' % (I_KANAN, I_KANAN, I_KANAN)
+            '<nav class="alternatif" aria-labelledby="alt-judul"><h2 id="alt-judul">Atau langsung buka</h2><ul>%s</ul></nav>' % alt_li
         )
         js = "<script>\n" + GALAT_JS + "</script>\n"
     else:
@@ -440,7 +640,7 @@ def halaman_galat(kode, judul, teks, bisa_kembali):
         js = ""
     body = (
         "<body>\n"
-        '<header class="atas atas-hijau"><div class="wadah wadah-lebar"><a class="merek" href="/">Demo website salon dan barbershop</a></div></header>\n'
+        '<header class="atas atas-hijau"><div class="wadah wadah-lebar"><a class="merek" href="/">%s</a></div></header>\n'
         '<main><section class="galat"><div class="wadah">\n'
         '<span class="kode-galat" aria-hidden="true">%s</span>\n'
         "<h1>%s</h1>\n"
@@ -449,12 +649,13 @@ def halaman_galat(kode, judul, teks, bisa_kembali):
         "</div></section></main>\n"
         '<footer class="kaki"><div class="wadah"><p>Dibuat oleh Rio Ekaputra Siswa, developer aplikasi web di Bandung. <a href="https://rioeka.com">rioeka.com</a></p></div></footer>\n'
         "%s</body>\n</html>\n"
-    ) % (e(kode), e(judul), e(teks), aksi, alt, js)
-    return head(judul + " | Demo website salon dan barbershop", teks, css, warna="#16221E") + body
+    ) % (MERK, e(kode), e(judul), e(teks), aksi, alt, js)
+    return head(judul + " | " + MERK, teks, css, warna=WARNA_INDEX) + body
 
 
 def tulis(rel, isi):
     path = os.path.join(ROOT, rel.replace("/", os.sep))
+    os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w", encoding="utf-8", newline="\r\n") as f:
         f.write(isi)
     print("tulis", rel, len(isi))
@@ -464,6 +665,7 @@ if __name__ == "__main__":
     tulis("index.html", halaman_index())
     for berkas, kode, judul, teks, kembali in GALAT:
         tulis(berkas, halaman_galat(kode, judul, teks, kembali))
-    for u in (SALON, BARBER):
+    for u in USAHA:
+        tulis("%s/index.html" % u["slug"], halaman_jenis(u))
         for n in (1, 2, 3):
             tulis("%s/paket-%d/index.html" % (u["slug"], n), halaman_demo(u, n))

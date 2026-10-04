@@ -3,9 +3,10 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#FBF6F2">
-<title>Demo website untuk salon dan barbershop, Bandung</title>
-<meta name="description" content="Situs uji coba: lihat dan coba tampilan serta fitur website dengan alamat web sendiri untuk salon dan barbershop, lewat jasa pembuatan website Rio Ekaputra Siswa, developer aplikasi web di Bandung.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#16221E">
+<title>Devario, demo website untuk usaha lokal</title>
+<meta name="description" content="Situs uji coba: lihat dan coba tampilan serta fitur website dengan alamat web sendiri untuk salon, barbershop, spa, penginapan, dan katering, lewat jasa pembuatan website Rio Ekaputra Siswa.">
 <style>
 @font-face{font-family:Archivo;font-style:normal;font-weight:400 800;font-stretch:62% 125%;font-display:swap;src:url(/font/archivo-latin.woff2) format('woff2')}
 :root{
@@ -158,10 +159,17 @@ svg{display:block;flex:none}
 .fitur .ikon{width:16px;height:16px;color:var(--jingga)}
 .bagian{padding:40px 0 8px}
 .bagian h2{font-size:clamp(28px,7.5vw,40px);font-weight:800;font-stretch:80%;line-height:1.05;letter-spacing:-.005em;text-wrap:balance}
-.pilih-usaha{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:20px;padding:6px;border:1px solid var(--garis);border-radius:var(--r-kecil);background:var(--kartu)}
-.pilih-usaha button{min-height:56px;padding:0 8px;border:0;border-radius:calc(var(--r-kecil) - 4px);background:transparent;color:var(--tinta);font:inherit;font-weight:700;cursor:pointer}
-.pilih-usaha button:hover{background:var(--kartu-turun)}
-.pilih-usaha button[aria-pressed="true"]{background:var(--hijau);color:var(--krem)}
+.atas-hijau .balik{margin-left:auto;margin-right:-6px;color:var(--krem)}
+.atas-hijau .balik:hover{background:var(--garis-hijau)}
+.jenis-daftar{display:grid;gap:14px;margin-top:20px}
+@media (min-width:700px){.jenis-daftar{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1000px){.jenis-daftar{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.jenis-kartu{display:flex;flex-direction:column;gap:12px;height:100%;padding:20px;border:1px solid var(--garis);border-radius:var(--r);background:var(--kartu)}
+.jenis-ikon{display:grid;place-items:center;width:48px;height:48px;border-radius:var(--r-kecil);background:var(--sinyal-lembut);color:var(--sinyal)}
+.jenis-ikon .ikon{width:24px;height:24px}
+.jenis-kartu h3{font-size:24px;font-weight:800;font-stretch:80%;line-height:1.1}
+.jenis-kartu p{color:var(--tinta-redup)}
+.jenis-kartu .tombol{margin-top:auto}
 .nama-demo{margin-top:12px;font-size:14px;color:var(--tinta-redup)}
 .nama-demo b{color:var(--tinta)}
 .paket-daftar{display:grid;gap:16px;margin-top:20px}
@@ -212,52 +220,38 @@ body{padding-bottom:0}
 </style>
 </head>
 <body>
-<header class="atas atas-hijau"><div class="wadah wadah-lebar"><a class="merek" href="/">Demo website salon dan barbershop</a></div></header>
+<header class="atas atas-hijau"><div class="wadah wadah-lebar"><a class="merek" href="/">Devario</a></div></header>
 <main>
 <section class="hero"><div class="wadah wadah-lebar">
 <p class="eyebrow">Situs demo &middot; jasa pembuatan website</p>
-<h1>Demo website untuk salon dan barbershop</h1>
-<p class="lead">Ini situs uji coba, bukan usaha sungguhan. Di sini Anda bisa melihat dan mencoba sendiri tampilan dan fitur website yang Anda dapatkan kalau memakai jasa pembuatan website dari Rio Ekaputra Siswa, developer aplikasi web di Bandung.</p>
-<ul class="fitur"><li><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Harga dan jam buka</li><li><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.4 8.4 0 1 1 21 11.5Z"/></svg> Tombol WhatsApp</li><li><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> Sistem booking</li><li><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Bayar muka</li><li><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Alamat web sendiri (.com, .id)</li></ul>
-<div class="aksi"><a class="tombol" href="#paket">Coba demonya</a><a class="tombol garis" href="https://wa.me/6287834471149?text=Halo%2C%20saya%20tertarik%20dengan%20paket%20website%20dari%20demo.rioeka.com.%20Boleh%20tanya-tanya%20dulu%3F"><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.4 8.4 0 1 1 21 11.5Z"/></svg> Tanya lewat WhatsApp</a></div>
+<h1>Website untuk usaha lokal Anda</h1>
+<p class="lead">Devario adalah situs peragaan, bukan usaha sungguhan. Di sini Anda bisa melihat dan mencoba sendiri tampilan dan fitur website yang Anda dapatkan kalau memakai jasa pembuatan website dari Rio Ekaputra Siswa, developer aplikasi web di Bandung. Pilih jenis usaha Anda di bawah.</p>
+<div class="aksi"><a class="tombol" href="#jenis">Pilih jenis usaha</a><a class="tombol garis" href="https://wa.me/6287834471149?text=Halo%2C%20saya%20tertarik%20dengan%20paket%20website%20dari%20devario.rioeka.com.%20Boleh%20tanya-tanya%20dulu%3F"><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.4 8.4 0 1 1 21 11.5Z"/></svg> Tanya lewat WhatsApp</a></div>
+</div></section>
+<section class="bagian" id="jenis"><div class="wadah wadah-lebar">
+<h2>Pilih jenis usaha Anda</h2>
+<p class="bagian-lead">Setiap jenis punya halaman paket sendiri dan tiga demo yang bisa dicoba langsung di HP.</p>
+<ul class="jenis-daftar"><li class="jenis-kartu"><span class="jenis-ikon"><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4 8.12 15.88M14.47 14.48 20 20M8.12 8.12 12 12"/></svg></span><h3>Salon</h3><p>Potong, warna, dan perawatan rambut, lengkap dengan pilihan stylist dan jam yang masih kosong.</p><a class="tombol" href="/salon/">Lihat paket dan demo</a></li><li class="jenis-kartu"><span class="jenis-ikon"><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></span><h3>Barbershop</h3><p>Potong, cukur jenggot, dan styling, lengkap dengan pilihan barber dan jam yang masih kosong.</p><a class="tombol" href="/barbershop/">Lihat paket dan demo</a></li><li class="jenis-kartu"><span class="jenis-ikon"><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c2.5 3 6 5 6 9a6 6 0 0 1-12 0c0-4 3.5-6 6-9z"/><path d="M12 12v9"/></svg></span><h3>Spa, massage, dan klinik kecantikan</h3><p>Massage, refleksi, facial, dan lulur dengan pilihan terapis dan jadwal sendiri.</p><a class="tombol" href="/spa/">Lihat paket dan demo</a></li><li class="jenis-kartu"><span class="jenis-ikon"><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 18V8a2 2 0 0 1 2-2h11a3 3 0 0 1 3 3v9"/><path d="M3 14h18"/><path d="M3 18v2M21 18v2"/><path d="M7 10h3v4H7z"/></svg></span><h3>Penginapan (guest house, homestay, hotel kecil)</h3><p>Tipe kamar, harga per malam, dan cara pesan kamar langsung dari halaman.</p><a class="tombol" href="/penginapan/">Lihat paket dan demo</a></li><li class="jenis-kartu"><span class="jenis-ikon"><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11a8 8 0 0 1 16 0z"/><path d="M3 15h18"/><path d="M6 19h12"/></svg></span><h3>Katering dan toko kue</h3><p>Menu katering dan kue dengan jumlah, tanggal, dan cara terima yang bisa dipilih.</p><a class="tombol" href="/katering/">Lihat paket dan demo</a></li></ul>
 </div></section>
 <section class="bagian beda" id="beda"><div class="wadah wadah-lebar">
 <h2>Website sendiri, bukan website numpang</h2>
 <p class="bagian-lead">Website murah sekitar Rp 300 ribu biasanya numpang di alamat orang lain, seperti membuka lapak di teras toko orang. Website dari saya seperti punya toko sendiri: alamatnya didaftarkan atas nama usaha Anda, tampilannya dibuat khusus untuk usaha Anda.</p>
-<div class="alamat-banding"><div class="alamat-pil redup"><span class="alamat-label">Website numpang</span><b>namasalon.layananweb.com</b><span>Alamat gratisan, ada nama layanan lain di belakangnya.</span></div><div class="alamat-pil unggul"><span class="alamat-label">Website dari saya</span><b>namasalon.com</b><span>atau namasalon.id. Alamat web didaftarkan atas nama usaha Anda.</span></div></div>
-<table class="banding"><caption class="sr">Perbandingan website murah dan website dari saya</caption><thead><tr><th scope="col">Website murah (numpang)</th><th scope="col">Website dari saya</th></tr></thead><tbody><tr><td>Tampilan memilih dari contoh yang juga dipakai usaha lain</td><td>Dirancang khusus untuk salon atau barbershop Anda</td></tr><tr><td>Alamat ada nama layanan lain di belakangnya</td><td>Alamat .com atau .id atas nama usaha Anda</td></tr><tr><td>Terkesan percobaan, orang ragu</td><td>Terkesan usaha yang mapan dan layak dipercaya</td></tr><tr><td>Umumnya hanya halaman info</td><td>Bisa booking dan bayar muka (Paket 2 dan 3)</td></tr></tbody></table>
+<div class="alamat-banding"><div class="alamat-pil redup"><span class="alamat-label">Website numpang</span><b>namausaha.layananweb.com</b><span>Alamat gratisan, ada nama layanan lain di belakangnya.</span></div><div class="alamat-pil unggul"><span class="alamat-label">Website dari saya</span><b>namausaha.com</b><span>atau namausaha.id. Alamat web didaftarkan atas nama usaha Anda.</span></div></div>
+<table class="banding"><caption class="sr">Perbandingan website murah dan website dari saya</caption><thead><tr><th scope="col">Website murah (numpang)</th><th scope="col">Website dari saya</th></tr></thead><tbody><tr><td>Tampilan memilih dari contoh yang juga dipakai usaha lain</td><td>Dirancang khusus untuk usaha Anda</td></tr><tr><td>Alamat ada nama layanan lain di belakangnya</td><td>Alamat .com atau .id atas nama usaha Anda</td></tr><tr><td>Terkesan percobaan, orang ragu</td><td>Terkesan usaha yang mapan dan layak dipercaya</td></tr><tr><td>Umumnya hanya halaman info</td><td>Bisa booking dan bayar muka (Paket 2 dan 3)</td></tr></tbody></table>
 <p class="beda-tutup">Dari luar sama-sama website. Bedanya terasa saat pelanggan pertama kali melihat alamatnya dan menimbang apakah usaha Anda bisa dipercaya.</p>
 </div></section>
-<section class="bagian" id="paket"><div class="wadah wadah-lebar">
+<section class="bagian" id="harga"><div class="wadah wadah-lebar">
 <h2>Tiga paket yang bisa dipilih</h2>
-<p class="bagian-lead">Pilih jenis usaha, lalu buka demo tiap paket dan coba langsung di HP. Yang terbuka adalah halaman contoh, seperti website Anda nanti. Nama usaha dan harga layanan di dalam demo hanya contoh. Harga paket di bawah adalah harga sebenarnya.</p>
-<div class="pilih-usaha" id="pilih-usaha" role="group" aria-label="Jenis usaha demo"><button type="button" aria-pressed="true" data-usaha="salon">Untuk salon</button><button type="button" aria-pressed="false" data-usaha="barbershop">Untuk barbershop</button></div>
-<p class="nama-demo" aria-live="polite">Contoh usaha di demo ini: <b id="nama-demo">Salon Melati</b>.</p>
-<ul class="paket-daftar paket"><li class="paket"><article><div><span class="no">Paket 1</span><h3>Halaman informasi</h3></div><p class="ket">Harga layanan, jam buka, alamat, dan tombol WhatsApp. Yang paling cepat jadi dan paling murah.</p><div class="harga"><p class="harga-label">Harga paket</p><p class="harga-angka">Rp 1.000.000</p><p class="harga-ket">Sudah termasuk alamat web (domain) atas nama Anda dan hosting tahun pertama.</p><p class="harga-ket">Tahun berikutnya Rp 300.000 per tahun: alamat web, hosting, dan perawatan.</p></div><p class="cocok"><b>Cocok</b> Kalau yang dibutuhkan hanya supaya orang menemukan salon dan bisa bertanya.</p><ul class="isi" aria-label="Isi paket 1"><li><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Daftar harga layanan</span></li><li><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Jam buka dan hari tutup</span></li><li><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Alamat lengkap dengan tombol peta</span></li><li><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Tombol WhatsApp di setiap layar</span></li><li><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Status buka dihitung dari jam sebenarnya</span></li></ul><div class="bawah"><a class="tombol" href="/salon/paket-1/" data-buka="1">Buka demo Paket 1</a><p class="harga-tag">Yang terbuka halaman contoh, bukan usaha sungguhan</p></div></article></li><li class="paket"><article><div><span class="no">Paket 2</span><h3>Tambah sistem booking</h3></div><p class="ket">Pengunjung memilih layanan, stylist, tanggal, dan jam sendiri. Tidak perlu bolak-balik WhatsApp.</p><div class="harga"><p class="harga-label">Harga paket</p><p class="harga-angka">Rp 1.500.000</p><p class="harga-ket">Sudah termasuk alamat web (domain) atas nama Anda dan hosting tahun pertama.</p><p class="harga-ket">Tahun berikutnya Rp 500.000 per tahun: alamat web, hosting, dan perawatan.</p></div><p class="cocok"><b>Cocok</b> Kalau jadwal sudah ramai dan pesanan sering bertabrakan.</p><ul class="isi" aria-label="Isi paket 2"><li><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Semua isi paket 1</span></li><li><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Pilih layanan dan stylist</span></li><li><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Pilih tanggal dan jam yang tersedia</span></li><li><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Jam yang sudah penuh tertutup sendiri</span></li><li><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Ringkasan sebelum dikonfirmasi</span></li></ul><div class="bawah"><a class="tombol" href="/salon/paket-2/" data-buka="2">Buka demo Paket 2</a><p class="harga-tag">Yang terbuka halaman contoh, bukan usaha sungguhan</p></div></article></li><li class="paket"><article><div><span class="no">Paket 3</span><h3>Tambah pembayaran</h3></div><p class="ket">Pengunjung membayar muka saat memesan, supaya yang memesan tidak hilang begitu saja.</p><div class="harga"><p class="harga-label">Harga paket</p><p class="harga-angka">Rp 1.650.000</p><p class="harga-ket">Sudah termasuk alamat web (domain) atas nama Anda dan hosting tahun pertama.</p><p class="harga-ket">Tahun berikutnya Rp 600.000 per tahun: alamat web, hosting, dan perawatan.</p></div><p class="cocok"><b>Cocok</b> Kalau sering ada yang memesan lalu tidak datang.</p><ul class="isi" aria-label="Isi paket 3"><li><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Semua isi paket 2</span></li><li><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Bayar muka saat memesan</span></li><li><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Pilihan QRIS, transfer, atau bayar di tempat</span></li><li><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Nota pemesanan otomatis</span></li></ul><div class="bawah"><a class="tombol" href="/salon/paket-3/" data-buka="3">Buka demo Paket 3</a><p class="harga-tag">Yang terbuka halaman contoh, bukan usaha sungguhan</p></div></article></li></ul>
+<p class="bagian-lead">Harga paket sama untuk semua jenis usaha. Isi tiap paket menyesuaikan jenis usaha Anda, pilih jenis di atas. Harga di bawah adalah harga sebenarnya.</p>
+<ul class="paket-daftar paket"><li class="paket"><article><div><span class="no">Paket 1</span><h3>Halaman informasi</h3></div><p class="ket">Harga layanan, jam buka, alamat, dan tombol WhatsApp. Yang paling cepat jadi dan paling murah.</p><div class="harga"><p class="harga-label">Harga paket</p><p class="harga-angka">Rp 1.000.000</p><p class="harga-ket">Sudah termasuk alamat web (domain) atas nama Anda dan hosting tahun pertama.</p><p class="harga-ket">Tahun berikutnya Rp 300.000 per tahun: alamat web, hosting, dan perawatan.</p></div><p class="cocok"><b>Cocok</b> Kalau usaha Anda hanya perlu supaya orang menemukan dan bisa bertanya.</p></article></li><li class="paket"><article><div><span class="no">Paket 2</span><h3>Tambah sistem booking</h3></div><p class="ket">Pengunjung memilih layanan, nama staf, tanggal, dan jam sendiri. Tidak perlu bolak-balik WhatsApp.</p><div class="harga"><p class="harga-label">Harga paket</p><p class="harga-angka">Rp 1.500.000</p><p class="harga-ket">Sudah termasuk alamat web (domain) atas nama Anda dan hosting tahun pertama.</p><p class="harga-ket">Tahun berikutnya Rp 500.000 per tahun: alamat web, hosting, dan perawatan.</p></div><p class="cocok"><b>Cocok</b> Kalau jadwal sudah ramai dan pesanan sering bertabrakan.</p></article></li><li class="paket"><article><div><span class="no">Paket 3</span><h3>Tambah pembayaran</h3></div><p class="ket">Pengunjung membayar muka saat memesan, supaya yang memesan tidak hilang begitu saja.</p><div class="harga"><p class="harga-label">Harga paket</p><p class="harga-angka">Rp 1.650.000</p><p class="harga-ket">Sudah termasuk alamat web (domain) atas nama Anda dan hosting tahun pertama.</p><p class="harga-ket">Tahun berikutnya Rp 600.000 per tahun: alamat web, hosting, dan perawatan.</p></div><p class="cocok"><b>Cocok</b> Kalau sering ada yang memesan lalu tidak datang.</p></article></li></ul>
 <p class="catatan-harga">Perawatan tahunan berarti menjaga situs tetap aktif dan aman, serta bantu ubah teks kecil seperti harga dan jam buka.</p>
 </div></section>
 <section class="bagian hubungi" id="hubungi"><div class="wadah wadah-lebar"><div class="kartu-hubungi">
 <h2>Tertarik atau mau tanya dulu?</h2>
 <p class="bagian-lead">Kirim pesan lewat WhatsApp. Ceritakan usaha Anda, nanti saya bantu pilih paket yang paling pas. Nomor WhatsApp saya: 0878-3447-1149.</p>
-<div class="aksi"><a class="tombol" href="https://wa.me/6287834471149?text=Halo%2C%20saya%20tertarik%20dengan%20paket%20website%20dari%20demo.rioeka.com.%20Boleh%20tanya-tanya%20dulu%3F"><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.4 8.4 0 1 1 21 11.5Z"/></svg> Chat WhatsApp</a></div>
-</div></section>
+<div class="aksi"><a class="tombol" href="https://wa.me/6287834471149?text=Halo%2C%20saya%20tertarik%20dengan%20paket%20website%20dari%20devario.rioeka.com.%20Boleh%20tanya-tanya%20dulu%3F"><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.4 8.4 0 1 1 21 11.5Z"/></svg> Chat WhatsApp</a></div>
+</div></div></section>
 </main>
-<footer class="kaki"><div class="wadah wadah-lebar"><p>Dibuat oleh Rio Ekaputra Siswa, developer aplikasi web di Bandung. <a href="https://rioeka.com">rioeka.com</a></p><p>Harga di atas tetap, tanpa biaya tersembunyi. Nama, harga layanan, dan alamat di dalam demo hanya contoh.</p><p><a href="https://wa.me/6287834471149?text=Halo%2C%20saya%20tertarik%20dengan%20paket%20website%20dari%20demo.rioeka.com.%20Boleh%20tanya-tanya%20dulu%3F">WhatsApp 0878-3447-1149</a></p></div></footer>
-<script>
-
-(function(){
-  var NAMA={salon:"Salon Melati",barbershop:"Barbershop Cukur Rapi"};
-  var tombol=[].slice.call(document.querySelectorAll("#pilih-usaha button"));
-  var tautan=[].slice.call(document.querySelectorAll("[data-buka]"));
-  var nama=document.getElementById("nama-demo");
-  function gambar(usaha){
-    tombol.forEach(function(b){b.setAttribute("aria-pressed",b.dataset.usaha===usaha?"true":"false")});
-    tautan.forEach(function(a){a.href="/"+usaha+"/paket-"+a.dataset.buka+"/"});
-    nama.textContent=NAMA[usaha];
-  }
-  tombol.forEach(function(b){b.addEventListener("click",function(){gambar(b.dataset.usaha)})});
-  gambar("salon");
-})();
-</script>
+<footer class="kaki"><div class="wadah wadah-lebar"><p>Dibuat oleh Rio Ekaputra Siswa, developer aplikasi web di Bandung. <a href="https://rioeka.com">rioeka.com</a></p><p>Harga di atas tetap, tanpa biaya tersembunyi. Nama, harga layanan, dan alamat di dalam demo hanya contoh.</p><p><a href="https://wa.me/6287834471149?text=Halo%2C%20saya%20tertarik%20dengan%20paket%20website%20dari%20devario.rioeka.com.%20Boleh%20tanya-tanya%20dulu%3F">WhatsApp 0878-3447-1149</a></p></div></footer>
 </body>
 </html>

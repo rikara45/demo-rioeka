@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#16221E">
-<title>Server sedang bermasalah | Demo website salon dan barbershop</title>
+<title>Server sedang bermasalah | Devario</title>
 <meta name="description" content="Halaman ini belum bisa dimuat. Ini bukan salah Anda. Tunggu sebentar, lalu muat ulang.">
 <style>
 @font-face{font-family:Archivo;font-style:normal;font-weight:400 800;font-stretch:62% 125%;font-display:swap;src:url(/font/archivo-latin.woff2) format('woff2')}
@@ -159,10 +159,17 @@ svg{display:block;flex:none}
 .fitur .ikon{width:16px;height:16px;color:var(--jingga)}
 .bagian{padding:40px 0 8px}
 .bagian h2{font-size:clamp(28px,7.5vw,40px);font-weight:800;font-stretch:80%;line-height:1.05;letter-spacing:-.005em;text-wrap:balance}
-.pilih-usaha{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:20px;padding:6px;border:1px solid var(--garis);border-radius:var(--r-kecil);background:var(--kartu)}
-.pilih-usaha button{min-height:56px;padding:0 8px;border:0;border-radius:calc(var(--r-kecil) - 4px);background:transparent;color:var(--tinta);font:inherit;font-weight:700;cursor:pointer}
-.pilih-usaha button:hover{background:var(--kartu-turun)}
-.pilih-usaha button[aria-pressed="true"]{background:var(--hijau);color:var(--krem)}
+.atas-hijau .balik{margin-left:auto;margin-right:-6px;color:var(--krem)}
+.atas-hijau .balik:hover{background:var(--garis-hijau)}
+.jenis-daftar{display:grid;gap:14px;margin-top:20px}
+@media (min-width:700px){.jenis-daftar{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1000px){.jenis-daftar{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.jenis-kartu{display:flex;flex-direction:column;gap:12px;height:100%;padding:20px;border:1px solid var(--garis);border-radius:var(--r);background:var(--kartu)}
+.jenis-ikon{display:grid;place-items:center;width:48px;height:48px;border-radius:var(--r-kecil);background:var(--sinyal-lembut);color:var(--sinyal)}
+.jenis-ikon .ikon{width:24px;height:24px}
+.jenis-kartu h3{font-size:24px;font-weight:800;font-stretch:80%;line-height:1.1}
+.jenis-kartu p{color:var(--tinta-redup)}
+.jenis-kartu .tombol{margin-top:auto}
 .nama-demo{margin-top:12px;font-size:14px;color:var(--tinta-redup)}
 .nama-demo b{color:var(--tinta)}
 .paket-daftar{display:grid;gap:16px;margin-top:20px}
@@ -236,7 +243,7 @@ main{flex:1;display:flex}
 </style>
 </head>
 <body>
-<header class="atas atas-hijau"><div class="wadah wadah-lebar"><a class="merek" href="/">Demo website salon dan barbershop</a></div></header>
+<header class="atas atas-hijau"><div class="wadah wadah-lebar"><a class="merek" href="/">Devario</a></div></header>
 <main><section class="galat"><div class="wadah">
 <span class="kode-galat" aria-hidden="true">Galat</span>
 <h1>Server sedang bermasalah</h1>
