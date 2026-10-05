@@ -298,7 +298,7 @@ def seksi_pesan_menu(u, n):
         + panel_data_html() + "\n" + panel_tinjau_html() + "\n"
         + ((panel_bayar_html("sisanya dibayar saat serah terima", "Pesanan dicatat, dibayar saat serah terima.") + "\n") if bayar else "")
         + aksi_langkah_html() + "\n"
-        + "</div>\n" + selesai_html() + "</div>\n"
+        + selesai_html() + "\n</div>\n"
     )
     return bagian_pesan("Menu dan tanggal sesuai usaha Anda", "Pesan sendiri",
                         "Tanpa aplikasi dan tanpa formulir panjang. Selesai di halaman ini juga.", isi)
