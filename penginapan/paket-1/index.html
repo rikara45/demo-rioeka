@@ -4,40 +4,34 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#F7F4EE">
-<title>Griya Asri Guest House, Dago</title>
-<meta name="description" content="Tipe kamar, harga per malam, fasilitas, lokasi, dan cara menghubungi Griya Asri Guest House.">
-<link rel="preload" href="/font/instrument-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
+<meta name="theme-color" content="#16221E">
+<title>Pilih tampilan Paket 1, Penginapan | Devario</title>
+<meta name="description" content="Pilih tampilan demo Paket 1 untuk penginapan. Struktur dan fitur sama, yang beda tampilannya.">
 <style>
 @font-face{font-family:Archivo;font-style:normal;font-weight:400 800;font-stretch:62% 125%;font-display:swap;src:url(/font/archivo-latin.woff2) format('woff2')}
-@font-face{font-family:'Instrument Serif';font-style:normal;font-weight:400;font-display:swap;src:url(/font/instrument-serif-latin.woff2) format('woff2')}
-@font-face{font-family:'Instrument Serif';font-style:italic;font-weight:400;font-display:swap;src:url(/font/instrument-serif-italic-latin.woff2) format('woff2')}
 :root{
-  --latar:#F7F4EE;
+  --latar:#F4F1E9;
   --kartu:#FFFFFF;
-  --kartu-turun:#ECE7DB;
-  --tinta:#1B2A33;
-  --tinta-redup:#52626B;
-  --garis:#DDD7C8;
-  --garis-kuat:#7C8A90;
-  --sinyal:#1F5F7A;
-  --sinyal-gelap:#174B61;
-  --sinyal-lembut:#DFEDF2;
+  --kartu-turun:#E9E5D9;
+  --tinta:#16221E;
+  --tinta-redup:#4A5852;
+  --garis:#DAD5C6;
+  --garis-kuat:#7C877F;
+  --sinyal:#B03A18;
+  --sinyal-gelap:#8F2E12;
+  --sinyal-lembut:#FBE3DA;
   --di-atas-sinyal:#FFFFFF;
-  --fokus:#1F5F7A;
-  --salah:#A8261A;
+  --fokus:#B03A18;
+  --hijau:#16221E;
+  --krem:#F4F1E9;
+  --krem-redup:#A9B8B0;
+  --garis-hijau:#2A3A35;
+  --jingga:#F57A4E;
   --ok:#2F6B4F;
-  --r:14px;
-  --r-kecil:10px;
-  --r-tombol:12px;
-  --serif:"Instrument Serif",Georgia,"Times New Roman",serif;
-  --bayang:0 1px 2px rgba(27,42,51,.06),0 6px 18px rgba(27,42,51,.06);
-  --h-berat:700;
-  --h-lebar:92%;
-  --h-huruf:none;
-  --h-ls:-.01em;
-  --pole-tinggi:0px;
-  --pole:none;
+  --r:20px;
+  --r-kecil:14px;
+  --r-tombol:999px;
+  --bayang:0 1px 2px rgba(22,34,30,.05),0 10px 26px rgba(22,34,30,.06);
 }
 
 *{box-sizing:border-box}
@@ -147,147 +141,130 @@ svg{display:block;flex:none}
 @media (min-width:760px){.bar-bawah{display:none}body{padding-bottom:0}}
 @media (prefers-reduced-motion:reduce){*{transition-duration:.001ms !important;animation-duration:.001ms !important}}
 
-.hero-isi{position:relative;isolation:isolate}
-.hero-isi::before{content:"";position:absolute;z-index:-1;right:-6px;top:-8px;width:150px;height:150px;pointer-events:none}
-.fakta{display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));gap:8px;margin-top:20px}
-.fakta li{display:grid;gap:2px;align-content:start;padding:10px 12px;border:1px solid var(--garis);border-radius:var(--r-kecil);background:var(--kartu);min-width:0}
-.fakta .f-label{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--tinta-redup)}
-.fakta .f-nilai{font-size:15px;font-weight:800;line-height:1.25;overflow-wrap:anywhere}
-.dur{display:inline-block;margin-right:6px;padding:0 8px;border-radius:99px;background:var(--sinyal-lembut);color:var(--sinyal-gelap);font-size:13px;font-weight:700}
+.atas.atas-hijau{border-bottom-color:var(--garis-hijau)}
+.merek{display:inline-flex;align-items:baseline;gap:10px;min-height:44px;padding:8px 0;text-decoration:none;font-weight:800;font-size:18px}
+.merek span{font-weight:500;font-size:14px;opacity:.75}
+.atas-hijau{background:var(--hijau);color:var(--krem)}
+.hero{background:var(--hijau);color:var(--krem);padding:20px 0 40px}
+.hero .eyebrow{color:var(--krem-redup)}
+.hero h1{margin:10px 0 16px;font-size:clamp(38px,11.5vw,68px);font-weight:800;font-stretch:78%;letter-spacing:-.01em;line-height:1}
+.hero .lead{color:var(--krem-redup);font-size:17px;max-width:52ch}
+.hero .aksi{margin-top:24px}
+.hero .tombol{background:var(--jingga);border-color:var(--jingga);color:var(--hijau)}
+.hero .tombol:hover{background:var(--krem);border-color:var(--krem)}
+.hero .tombol.garis{background:transparent;border-color:var(--krem-redup);color:var(--krem)}
+.hero .tombol.garis:hover{background:var(--garis-hijau);border-color:var(--krem)}
+.tombol .ikon{width:18px;height:18px}
+.fitur{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.fitur li{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border:1px solid var(--garis-hijau);border-radius:999px;font-size:14px}
+.fitur .ikon{width:16px;height:16px;color:var(--jingga)}
+.bagian{padding:40px 0 8px}
+.bagian h2{font-size:clamp(28px,7.5vw,40px);font-weight:800;font-stretch:80%;line-height:1.05;letter-spacing:-.005em;text-wrap:balance}
+.atas-hijau .balik{margin-left:auto;margin-right:-6px;color:var(--krem)}
+.atas-hijau .balik:hover{background:var(--garis-hijau)}
+.jenis-daftar{display:flex;flex-wrap:wrap;justify-content:center;gap:16px;margin-top:22px}
+.jenis-kartu{position:relative;display:flex;flex:1 1 300px;flex-direction:column;gap:14px;max-width:380px;padding:22px;border:1px solid var(--garis);border-top:4px solid var(--jenis-aksen,var(--sinyal));border-radius:var(--r);background:var(--kartu);box-shadow:var(--bayang);transition:transform .15s,box-shadow .15s}
+.jenis-kartu:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(22,34,30,.12)}
+.jenis-kartu:focus-within{outline:3px solid var(--jenis-aksen,var(--sinyal));outline-offset:2px}
+.jenis-ikon{display:grid;place-items:center;width:58px;height:58px;border-radius:16px;background:var(--jenis-lembut,var(--sinyal-lembut));color:var(--jenis-aksen,var(--sinyal));box-shadow:inset 0 0 0 1.5px var(--jenis-aksen,var(--sinyal))}
+.jenis-ikon .ikon{width:30px;height:30px}
+.jenis-ikon-hero{width:64px;height:64px;margin-bottom:16px}
+.jenis-ikon-hero .ikon{width:34px;height:34px}
+.jenis-kartu h3{font-size:24px;font-weight:800;font-stretch:80%;line-height:1.12}
+.jenis-kartu p{color:var(--tinta-redup)}
+.jenis-kartu .tombol{margin-top:auto}
+.nama-demo{margin-top:12px;font-size:14px;color:var(--tinta-redup)}
+.nama-demo b{color:var(--tinta)}
+.paket-daftar{display:grid;gap:16px;margin-top:20px}
+@media (min-width:900px){.paket-daftar{grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch}.wadah-lebar{max-width:1040px}}
+.paket article{display:flex;flex-direction:column;gap:14px;height:100%;padding:22px;border:1px solid var(--garis);border-top:4px solid var(--jenis-aksen,var(--sinyal));border-radius:var(--r);background:var(--kartu);box-shadow:var(--bayang);transition:transform .15s,box-shadow .15s}
+.paket .no{display:inline-block;padding:4px 12px;border-radius:999px;background:var(--jenis-aksen,var(--sinyal));color:var(--di-atas-sinyal);font-size:13px;font-weight:700}
+.paket-link article:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(22,34,30,.12)}
+.paket-link article:focus-within{outline:3px solid var(--jenis-aksen,var(--sinyal));outline-offset:2px}
+.paket-link .tombol,.paket-link .tombol:hover{background:var(--jenis-aksen,var(--sinyal));border-color:var(--jenis-aksen,var(--sinyal));color:var(--di-atas-sinyal)}
+.paket-link .tombol:hover{filter:brightness(.88)}
+.paket .cocok{border-left:3px solid var(--jenis-aksen,var(--sinyal))}
+.paket h3{margin-top:10px;font-size:26px;font-weight:800;font-stretch:80%;line-height:1.05}
+.paket .ket{color:var(--tinta-redup)}
+.paket .cocok{padding:12px 14px;border-radius:var(--r-kecil);background:var(--jenis-lembut,var(--kartu-turun));font-size:14px}
+.paket .isi{display:grid;gap:10px;font-size:15px}
+.paket .isi li{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start}
+.paket .isi .ikon{width:18px;height:18px;margin-top:3px;color:var(--ok);stroke-width:3}
+.paket .bawah{display:grid;gap:10px;margin-top:auto;padding-top:6px}
+.harga-tag{font-size:13px;color:var(--tinta-redup);text-align:center}
+.harga{display:grid;gap:4px;padding:14px 0;border-top:1px solid var(--garis);border-bottom:1px solid var(--garis)}
+.harga-label{font-size:13px;font-weight:700;color:var(--tinta-redup)}
+.harga-angka{font-size:34px;font-weight:800;font-stretch:80%;line-height:1.05;color:var(--tinta)}
+.harga-ket{font-size:14px;color:var(--tinta-redup)}
+.beda{padding-bottom:12px}
+.catatan-harga{margin-top:16px;font-size:14px;color:var(--tinta-redup);max-width:60ch}
+.kartu-hubungi{padding:24px 20px;border-radius:var(--r);background:var(--hijau);color:var(--krem)}
+.kartu-hubungi .bagian-lead{color:var(--krem-redup)}
+.kartu-hubungi .tombol{background:var(--jingga);border-color:var(--jingga);color:var(--hijau)}
+.kartu-hubungi .tombol:hover{background:var(--krem);border-color:var(--krem)}
+@media (min-width:700px){.hero .aksi,.kartu-hubungi .aksi{display:flex;flex-wrap:wrap}}
+.alamat-banding{display:grid;gap:12px;margin-top:20px}
+@media (min-width:700px){.alamat-banding{grid-template-columns:1fr 1fr}}
+.alamat-pil{display:grid;gap:4px;align-content:start;padding:16px 18px;border-radius:var(--r);font-size:14px;overflow-wrap:anywhere}
+.alamat-pil b{font-size:19px;font-weight:700}
+.alamat-label{font-size:13px;font-weight:700}
+.alamat-pil.redup{background:var(--kartu-turun);color:var(--tinta-redup)}
+.alamat-pil.redup b{text-decoration:line-through;text-decoration-thickness:1px}
+.alamat-pil.unggul{background:var(--hijau);color:var(--krem)}
+.alamat-pil.unggul b{color:var(--jingga)}
+.alamat-pil.unggul span:last-child{color:var(--krem-redup)}
+.banding{width:100%;margin-top:20px;border-collapse:separate;border-spacing:0;border:1px solid var(--garis);border-radius:var(--r);background:var(--kartu);overflow:hidden;font-size:14px}
+.banding th,.banding td{padding:12px 14px;text-align:left;vertical-align:top;width:50%}
+.banding th{font-size:14px;background:var(--kartu-turun);color:var(--tinta-redup)}
+.banding th + th{background:var(--hijau);color:var(--krem)}
+.banding td{border-top:1px solid var(--garis);color:var(--tinta-redup)}
+.banding td + td{color:var(--tinta);font-weight:600;border-left:1px solid var(--garis)}
+.beda-tutup{margin-top:16px;max-width:60ch;font-weight:600}
+.kaki{margin-top:40px;padding:28px 0 36px;border-top:1px solid var(--garis);font-size:14px;color:var(--tinta-redup)}
+.kaki p + p{margin-top:10px}
+.kaki a{display:inline-flex;align-items:center;min-height:44px;color:var(--tinta);font-weight:600}
+body{padding-bottom:0}
 
-
-/* penginapan, gaya kartu kunci: buku tamu, boarding pass, foto lebar, passe-partout */
-body[data-j=penginapan]{counter-reset:bag 100 kmr 100}
-[data-j=penginapan] :is(.hero h1,.bagian h2,.panel h3,.selesai h3,#harga .kartu > h3,.kartu.pesan-buka > h3,.f-nilai,.harga .hr,.hari .tg,.tinjau .total dd,.kode,.penutup h2,.tanya summary,.st-nilai){font-family:var(--serif);font-stretch:100%;font-weight:400;font-variant-numeric:lining-nums;letter-spacing:0;text-transform:none}
-[data-j=penginapan] .hero{padding:24px 0 4px}
-[data-j=penginapan] .hero-isi::before{display:none}
-[data-j=penginapan] .hero .eyebrow{font-size:12px;letter-spacing:.2em;color:var(--sinyal-gelap)}
-[data-j=penginapan] .hero h1{margin:12px 0 4px;font-size:clamp(54px,17vw,96px);line-height:.9;text-wrap:balance}
-[data-j=penginapan] .hero h1 em{font-style:italic;color:var(--sinyal)}
-[data-j=penginapan] .hero .lead{max-width:42ch;font-size:17px}
-[data-j=penginapan] .hero-foto{position:relative;margin:20px -16px 50px}
-[data-j=penginapan] .hero-foto img{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;object-position:50% 60%;background:var(--kartu-turun)}
-[data-j=penginapan] .lencana{position:absolute;left:16px;bottom:-34px;display:grid;place-content:center;width:84px;aspect-ratio:1;padding:22px 6px 0;border:2px solid var(--sinyal);border-radius:50%;background:radial-gradient(circle at 50% 16px,var(--latar) 6px,var(--sinyal) 6px 7px,#0000 7px),var(--kartu);color:var(--tinta);font-size:12px;font-weight:700;letter-spacing:.1em;line-height:1.2;text-align:center;text-transform:uppercase}
-[data-j=penginapan] .hero-foto + .tag-baris{margin-top:6px}
-[data-j=penginapan] .status{margin-top:8px;background:transparent;border-color:var(--garis)}
-[data-j=penginapan] .fakta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:28px;border:1px solid var(--garis);border-radius:var(--r);background:var(--kartu);box-shadow:var(--bayang)}
-[data-j=penginapan] .fakta li{position:relative;align-content:start;gap:8px;padding:16px 10px;border:0;border-radius:0;background:none}
-[data-j=penginapan] .fakta li + li{border-left:2px dashed var(--garis)}
-[data-j=penginapan] .fakta li + li::before,[data-j=penginapan] .fakta li + li::after{content:"";position:absolute;left:-8px;width:14px;height:14px;border:1px solid var(--garis);border-radius:50%;background:var(--latar)}
-[data-j=penginapan] .fakta li + li::before{top:-8px;clip-path:inset(50% 0 0 0)}
-[data-j=penginapan] .fakta li + li::after{bottom:-8px;clip-path:inset(0 0 50% 0)}
-[data-j=penginapan] .fakta .f-label{font-size:12px;letter-spacing:.12em}
-[data-j=penginapan] .fakta .f-nilai{font-size:22px;line-height:1.05;color:var(--sinyal-gelap);overflow-wrap:normal}
-[data-j=penginapan] .loncat a{border-color:var(--garis);background:transparent}
-[data-j=penginapan] .loncat a:hover{background:var(--kartu-turun)}
-[data-j=penginapan] .ganti-daftar .nanti{overflow-wrap:anywhere}
-[data-j=penginapan] .demo-kartu{margin:26px 0 0}
-
-[data-j=penginapan] .bagian{padding:60px 0 4px}
-[data-j=penginapan] .bagian h2{font-size:clamp(40px,12vw,58px);line-height:.95}
-[data-j=penginapan] .bagian:not(.penutup) h2::before{content:"No. " counter(bag);display:block;margin-bottom:12px;font-family:Archivo,system-ui,sans-serif;font-size:12px;font-weight:700;letter-spacing:.2em;line-height:1;color:var(--sinyal-gelap);counter-increment:bag}
-[data-j=penginapan] .bagian:not(.penutup) h2::after{content:"";display:block;height:1px;margin-top:18px;background:var(--garis-kuat)}
-[data-j=penginapan] .bagian-lead{margin-top:16px}
-[data-j=penginapan] .kartu{border-color:var(--garis)}
-
-[data-j=penginapan] #harga .kartu{margin-top:30px;padding:0;border:0;border-radius:0;background:none;box-shadow:none}
-[data-j=penginapan] #harga .kartu > h3{font-size:30px;font-style:italic;line-height:1;color:var(--sinyal-gelap)}
-[data-j=penginapan] .harga{margin-top:14px}
-[data-j=penginapan] .harga li{grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:2px 14px;margin-bottom:10px;padding:14px;border:1px solid var(--garis);border-radius:var(--r);background:var(--kartu);box-shadow:var(--bayang)}
-[data-j=penginapan] .harga li:first-child{border-top:1px solid var(--garis)}
-[data-j=penginapan] .harga li::before{counter-increment:kmr;content:counter(kmr);grid-row:1 / 3;display:grid;place-content:center;width:54px;aspect-ratio:1;padding-top:14px;border:2px solid var(--sinyal);border-radius:50%;background:radial-gradient(circle at 50% 11px,var(--kartu) 4px,var(--sinyal) 4px 5px,#0000 5px),var(--sinyal-lembut);color:var(--sinyal-gelap);font-size:13px;font-weight:700;letter-spacing:.06em}
-[data-j=penginapan] .harga .nm{font-size:18px;font-weight:700}
-[data-j=penginapan] .harga .hr{font-size:32px;line-height:1;text-align:right;color:var(--sinyal-gelap)}
-[data-j=penginapan] .harga .hr::after{content:"per malam";display:block;margin-top:2px;font-family:Archivo,system-ui,sans-serif;font-size:12px;font-weight:600;letter-spacing:.04em;color:var(--tinta-redup)}
-[data-j=penginapan] .harga .ket{grid-column:2 / -1;margin-top:2px}
-
-[data-j=penginapan] .galeri{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:start;margin-top:30px}
-[data-j=penginapan] .petak{aspect-ratio:auto;overflow:visible;padding:8px 8px 4px;border:1px solid var(--garis);border-radius:2px;background:var(--kartu);box-shadow:var(--bayang)}
-[data-j=penginapan] .petak img{height:auto;aspect-ratio:1;border-radius:0;background:var(--kartu-turun)}
-[data-j=penginapan] .petak figcaption{padding:8px 2px 6px;font-size:13px;line-height:1.35;color:var(--tinta-redup)}
-[data-j=penginapan] .petak:first-child,[data-j=penginapan] .petak:last-child{grid-column:1 / -1}
-[data-j=penginapan] .petak:first-child img,[data-j=penginapan] .petak:last-child img{aspect-ratio:16/9}
-[data-j=penginapan] .petak:nth-child(2) img,[data-j=penginapan] .petak:nth-child(3) img{aspect-ratio:3/4}
-
-[data-j=penginapan] #lokasi .kartu{margin-top:30px;padding:0;border:0;border-radius:0;background:none;box-shadow:none}
-[data-j=penginapan] #lokasi .kartu > h3{font-size:14px;letter-spacing:.12em}
-[data-j=penginapan] .jam li{margin:0;padding:13px 12px;border-radius:0}
-[data-j=penginapan] .jam li:first-child{border-top:1px solid var(--garis)}
-[data-j=penginapan] .jam li:last-child{border-bottom:1px solid var(--garis)}
-[data-j=penginapan] .jam li.hari-ini{background:var(--sinyal-lembut);box-shadow:inset 4px 0 0 var(--sinyal);border-top-color:var(--garis)}
-[data-j=penginapan] .jam li.hari-ini + li{border-top-color:var(--garis)}
-[data-j=penginapan] #lokasi .kartu + .kartu{margin-top:16px;padding:20px 16px;border:1px solid var(--garis);border-top:2px dashed var(--garis-kuat);border-radius:var(--r);background:var(--kartu)}
-
-[data-j=penginapan] .tanya{border-bottom:1px solid var(--garis)}
-[data-j=penginapan] .tanya details{border-top-color:var(--garis)}
-[data-j=penginapan] .tanya summary{min-height:64px;padding:16px 0;font-size:26px;line-height:1.1}
-[data-j=penginapan] .tanya summary svg{color:var(--sinyal)}
-
-[data-j=penginapan] .penutup .kartu{padding:32px 22px;border:1px solid var(--garis-kuat);border-radius:var(--r);background:var(--kartu-turun);box-shadow:0 0 0 6px var(--latar),0 0 0 7px var(--garis-kuat)}
-[data-j=penginapan] .penutup h2{font-size:clamp(36px,10vw,48px);line-height:.98}
-[data-j=penginapan] .kaki{border-top-color:var(--garis)}
-
-@supports (animation-timeline:view()){
-@media (prefers-reduced-motion:no-preference){
-@keyframes naik{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
-[data-j=penginapan] .bagian > h2,[data-j=penginapan] .petak{animation:naik linear both;animation-timeline:view();animation-range:entry 0% entry 70%}
-}
-}
+.skin-daftar{display:grid;gap:16px;margin-top:22px}
+@media (min-width:640px){.skin-daftar{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1000px){.skin-daftar{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.skin-kartu{display:flex}
+.skin-kartu > a{display:flex;flex-direction:column;flex:1;border:1px solid var(--garis);border-top:4px solid var(--jenis-aksen,var(--sinyal));border-radius:var(--r);background:var(--kartu);box-shadow:var(--bayang);color:inherit;text-decoration:none;overflow:hidden;transition:transform .15s,box-shadow .15s}
+.skin-kartu > a:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(22,34,30,.12)}
+.skin-kartu > a:focus-visible{outline:3px solid var(--jenis-aksen,var(--sinyal));outline-offset:2px}
+.skin-pratinjau{display:block;aspect-ratio:4/3;background:var(--kartu-turun);overflow:hidden}
+.skin-pratinjau img{display:block;width:100%;height:100%;object-fit:cover;object-position:top}
+.skin-contoh{display:grid;align-content:end;gap:8px;height:100%;padding:16px;background:var(--c1);color:var(--c3)}
+.skin-contoh i{display:block;height:10px;width:60%;border-radius:99px;background:var(--c3);opacity:.7}
+.skin-contoh i + i{width:40%;opacity:.4}
+.skin-contoh b{display:block;width:64%;height:34px;border-radius:8px;background:var(--c2)}
+.skin-isi{display:flex;flex-direction:column;gap:10px;flex:1;padding:16px}
+.skin-nama{font-size:24px;font-weight:800;font-stretch:80%;line-height:1.1}
+.skin-ringkas{font-size:15px;color:var(--tinta-redup)}
+.skin-cocok{font-size:14px}
+.skin-chip{display:flex;gap:6px}
+.skin-chip i{display:block;width:22px;height:22px;border:1px solid var(--garis-kuat);border-radius:50%}
+.skin-tombol{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;margin-top:auto;border-radius:var(--r-tombol);background:var(--jenis-aksen,var(--sinyal));color:var(--di-atas-sinyal);font-weight:700}
+.skin-tombol .ikon{width:18px;height:18px}
+.skin-satu{max-width:420px}
+@media (prefers-reduced-motion:reduce){.skin-kartu > a{transition:none}.skin-kartu > a:hover{transform:none}}
 
 </style>
 </head>
-<body data-j="penginapan">
-<header class="atas"><div class="demo-strip" role="note"><span class="tanda-contoh">Demo</span><span>Contoh website untuk penginapan Anda</span></div><div class="wadah"><a class="balik" href="/penginapan/#paket"><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg> Semua paket penginapan</a><span class="nama-atas">Griya Asri Guest House</span></div></header>
-<div class="pole" aria-hidden="true"></div>
-<main>
-<div class="wadah">
-<section class="hero">
-<div class="hero-isi">
-<p class="eyebrow">Penginapan &middot; Dago, Kota Bandung</p>
-<h1>Griya Asri Guest <em>House</em></h1>
-<p class="tag-baris"><span class="tag-anda">Nama penginapan Anda tampil di sini</span></p>
-<figure class="hero-foto"><img src="/penginapan/img/g4.jpg" alt="Kursi berjemur dan payung di tepi kolam di antara pohon palem" width="720" height="540" fetchpriority="high" decoding="async"><span class="lencana">Dago</span></figure>
-<p class="tag-baris"><span class="tag-anda">Foto penginapan Anda tampil di sini</span></p>
-<p class="status"><span class="titik"></span><span id="status-teks">Resepsionis buka 07.00 sampai 22.00</span></p>
-<p class="lead">Kamar bersih, sarapan, dan lokasi tenang di Dago.</p>
-<div class="aksi"><a class="tombol" href="https://wa.me/6281234567892?text=Halo%2C%20saya%20mau%20tanya%20ketersediaan%20kamar%20di%20Griya%20Asri."><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.4 8.4 0 1 1 21 11.5Z"/></svg> Tanya lewat WhatsApp</a><a class="tombol garis" href="/penginapan/paket-2/">Buka demo Paket 2, dengan reservasi kamar <svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a></div>
-</div>
-<ul class="fakta"><li><span class="f-label">Mulai dari</span><span class="f-nilai">Rp 350.000 / malam</span></li><li><span class="f-label">Check-in</span><span class="f-nilai">Pukul 14.00</span></li><li><span class="f-label">Check-out</span><span class="f-nilai">Pukul 12.00</span></li></ul>
-<nav class="loncat" aria-label="Loncat ke bagian"><a href="#galeri">Galeri</a><a href="#harga">Harga</a><a href="#lokasi">Lokasi</a><a href="#tanya">Tanya jawab</a></nav>
-<section class="demo-kartu" aria-label="Penjelasan halaman demo"><span class="tanda-contoh">Demo Paket 1</span><p class="demo-judul">Ini halaman demo, bukan penginapan sungguhan</p><p class="demo-teks">Beginilah tampilan website Anda nanti kalau memakai jasa Rio Ekaputra Siswa. Bayangkan isinya jadi milik penginapan Anda.</p><div class="ganti-kepala" aria-hidden="true"><span>Di demo ini</span><span></span><span>Di website Anda</span></div><ul class="ganti-daftar"><li><span class="kini">Griya Asri Guest House</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Nama penginapan Anda</span></li><li><span class="kini">Jl. Contoh No. 22</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Alamat penginapan Anda</span></li><li><span class="kini">Kamar Standar, Rp 350.000</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Kamar dan harga Anda</span></li><li><span class="kini">0812-3456-7892</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Nomor WhatsApp Anda</span></li><li><span class="kini">devario.rioeka.com</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>namapenginapananda.com</span></li><li><span class="kini">Foto contoh</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Foto asli penginapan Anda</span></li></ul><p class="demo-paket">Paket 1: halaman informasi, tanpa booking. Untuk melihat versi yang bisa menerima pesanan, buka demo Paket 2.</p></section>
-</section>
-<section class="bagian" id="galeri">
-<p class="tag-baris"><span class="tag-anda">Foto asli penginapan Anda</span></p>
-<h2>Galeri</h2>
-<p class="bagian-lead">Enam foto kamar dan suasana penginapan. Di website sungguhan, foto ini diganti foto usaha Anda sendiri.</p>
-<div class="galeri"><figure class="petak"><img src="/penginapan/img/g1.jpg" alt="" width="720" height="540" loading="lazy" decoding="async"><figcaption>Ruang tamu terang dengan sofa dan cermin rotan</figcaption></figure><figure class="petak"><img src="/penginapan/img/g2.jpg" alt="" width="720" height="540" loading="lazy" decoding="async"><figcaption>Kamar tidur dengan seprai putih</figcaption></figure><figure class="petak"><img src="/penginapan/img/g5.jpg" alt="" width="720" height="540" loading="lazy" decoding="async"><figcaption>Kamar mandi dengan bak mandi dan jendela</figcaption></figure><figure class="petak"><img src="/penginapan/img/g3.jpg" alt="" width="720" height="540" loading="lazy" decoding="async"><figcaption>Kamar dengan tempat tidur double dan lampu meja</figcaption></figure><figure class="petak"><img src="/penginapan/img/g4.jpg" alt="" width="720" height="540" loading="lazy" decoding="async"><figcaption>Kursi berjemur di tepi kolam</figcaption></figure><figure class="petak"><img src="/penginapan/img/g6.jpg" alt="" width="720" height="540" loading="lazy" decoding="async"><figcaption>Ruang makan teduh dengan tanaman</figcaption></figure></div>
-<p class="kredit">Foto contoh dari <a href="https://unsplash.com/license" rel="noopener">Unsplash</a>, bebas dipakai.</p>
-</section>
-<section class="bagian" id="harga">
-<p class="tag-baris"><span class="tag-anda">Harga penginapan Anda</span></p>
-<h2>Daftar kamar dan harga</h2>
-<p class="bagian-lead">Harga per malam, sudah termasuk sarapan. Kamar yang menyediakan air panas tertulis di keterangan.</p>
-<div class="kartu"><h3>Tipe kamar</h3><ul class="harga"><li><span class="nm">Kamar Standar</span><span class="hr">Rp 350.000</span><span class="ket"><span class="ket-teks">Kasur queen, kipas angin, kamar mandi dalam. Maks. 2 tamu, per malam</span></span></li><li><span class="nm">Kamar Deluxe</span><span class="hr">Rp 450.000</span><span class="ket"><span class="ket-teks">Ac, kasur queen, air panas, sarapan untuk dua. Maks. 3 tamu, per malam</span></span></li><li><span class="nm">Kamar Keluarga</span><span class="hr">Rp 650.000</span><span class="ket"><span class="ket-teks">Dua kamar tidur, ac, dapur kecil, sarapan untuk empat. Maks. 5 tamu, per malam</span></span></li></ul></div><p class="catatan">Harga bisa berbeda saat akhir pekan dan hari libur. Konfirmasi tanggal untuk harga pasti.</p>
-</section>
-<section class="bagian" id="lokasi">
-<p class="tag-baris"><span class="tag-anda">Alamat dan jam resepsionis penginapan Anda</span></p>
-<h2>Lokasi dan jam resepsionis</h2>
-<p class="bagian-lead">Resepsionis buka setiap hari. Check-in dan check-out di luar jam itu bisa diatur lewat WhatsApp.</p>
-<div class="kartu"><h3>Jam resepsionis</h3><ul class="jam" id="kartu-jam"><li data-hari="1"><span>Senin</span><span>07.00 sampai 22.00</span></li><li data-hari="2"><span>Selasa</span><span>07.00 sampai 22.00</span></li><li data-hari="3"><span>Rabu</span><span>07.00 sampai 22.00</span></li><li data-hari="4"><span>Kamis</span><span>07.00 sampai 22.00</span></li><li data-hari="5"><span>Jumat</span><span>07.00 sampai 22.00</span></li><li data-hari="6"><span>Sabtu</span><span>07.00 sampai 22.00</span></li><li data-hari="0"><span>Minggu</span><span>07.00 sampai 22.00</span></li></ul></div>
-<div class="kartu"><h3>Alamat</h3><address class="alamat">Jl. Contoh No. 22<br>Dago, Kota Bandung 40135<br>Gerbang hijau, ada parkir di halaman.</address><div class="aksi-lokasi"><a class="tombol garis" href="https://www.google.com/maps/search/?api=1&amp;query=Jl.%20Contoh%20No.%2022%20Dago%20Bandung"><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> Buka di Google Maps</a></div></div>
-</section>
-<section class="bagian" id="tanya">
-<h2>Pertanyaan yang sering masuk</h2>
-<div class="tanya"><details><summary>Jam check-in dan check-out?<svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><p>Check-in mulai pukul 14.00 dan check-out sebelum pukul 12.00. Di luar jam itu bisa diatur lewat WhatsApp.</p></details><details><summary>Harga sudah termasuk sarapan?<svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><p>Ya, setiap kamar sudah termasuk sarapan. Jumlah porsi mengikuti kapasitas kamar.</p></details><details><summary>Bisa pesan lebih dari satu kamar?<svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><p>Bisa. Pesan lewat WhatsApp untuk jumlah kamar dan tanggalnya, nanti dibantu atur.</p></details><details><summary>Ada air panas?<svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><p>Kamar Deluxe dan Kamar Keluarga menyediakan air panas. Kamar Standar air biasa.</p></details><details><summary>Bisa membatalkan pesanan?<svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><p>Bisa. Kalau uang muka sudah dibayar, uang muka bisa dipakai untuk tanggal lain dengan pemberitahuan lebih dulu.</p></details></div>
-</section>
-<section class="bagian penutup" aria-label="Penutup">
-<div class="kartu"><h2>Bayangkan ini website penginapan Anda</h2>
-<p class="bagian-lead">Nama, alamat, daftar harga, jam buka, dan foto di halaman ini nanti diganti dengan milik penginapan Anda. Griya Asri Guest House hanya nama contoh. Alamat websitenya didaftarkan atas nama usaha Anda sendiri, misalnya namapenginapananda.com.</p>
-<div class="aksi"><a class="tombol" href="/penginapan/#paket">Lihat paket dan harga</a><a class="tombol garis" href="https://rioeka.com">Kunjungi rioeka.com</a></div></div>
-</section>
-</div>
+<body>
+<header class="atas atas-hijau"><div class="wadah wadah-lebar"><a class="merek" href="/">Devario</a><a class="balik" href="/penginapan/#paket"><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg> Semua paket penginapan</a></div></header>
+<main style="--jenis-aksen:#1F5F7A;--jenis-lembut:#DFEDF2">
+<section class="hero"><div class="wadah wadah-lebar">
+<span class="jenis-ikon jenis-ikon-hero"><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 18V8a2 2 0 0 1 2-2h11a3 3 0 0 1 3 3v9"/><path d="M3 14h18"/><path d="M3 18v2M21 18v2"/><path d="M7 10h3v4H7z"/></svg></span>
+<p class="eyebrow">Paket 1 &middot; Penginapan</p>
+<h1>Pilih tampilan untuk Paket 1</h1>
+<p class="lead">Struktur dan fitur sama, yang beda tampilannya. Pilih salah satu, lalu coba demonya langsung di HP.</p>
+</div></section>
+<section class="bagian" id="skin"><div class="wadah wadah-lebar">
+<h2>4 tampilan untuk penginapan</h2>
+<ul class="skin-daftar"><li class="skin-kartu"><a href="/penginapan/paket-1/kartukunci/"><span class="skin-pratinjau"><img src="/penginapan/img/skin-kartukunci.jpg" alt="Pratinjau tampilan Kartu Kunci untuk penginapan" width="720" height="540" loading="lazy" decoding="async"></span><span class="skin-isi"><span class="skin-nama">Kartu Kunci</span><span class="skin-ringkas">Krem dan teal, jendela lengkung, serta foto lebar bergaya buku tamu.</span><span class="skin-cocok"><b>Cocok</b> untuk usaha yang ingin kesan hangat seperti penginapan butik.</span><span class="skin-chip" aria-hidden="true"><i style="background:#F7F4EE"></i><i style="background:#1F5F7A"></i><i style="background:#1B2A33"></i></span><span class="skin-tombol">Lihat demo <svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></span></span></a></li><li class="skin-kartu"><a href="/penginapan/paket-1/arsitek/"><span class="skin-pratinjau"><img src="/penginapan/img/skin-arsitek.jpg" alt="Pratinjau tampilan Arsitektur untuk penginapan" width="720" height="540" loading="lazy" decoding="async"></span><span class="skin-isi"><span class="skin-nama">Arsitektur</span><span class="skin-ringkas">Beton dingin dan hijau hutan, foto lebar tepi ke tepi, rel kamar lengket, dan galeri foto besar.</span><span class="skin-cocok"><b>Cocok</b> untuk usaha yang ingin kesan bersih, arsitektural, dan modern.</span><span class="skin-chip" aria-hidden="true"><i style="background:#E9ECEA"></i><i style="background:#1E5A44"></i><i style="background:#12211B"></i></span><span class="skin-tombol">Lihat demo <svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></span></span></a></li><li class="skin-kartu"><a href="/penginapan/paket-1/paspor/"><span class="skin-pratinjau"><img src="/penginapan/img/skin-paspor.jpg" alt="Pratinjau tampilan Paspor untuk penginapan" width="720" height="540" loading="lazy" decoding="async"></span><span class="skin-isi"><span class="skin-nama">Paspor</span><span class="skin-ringkas">Kraft dan merah stempel, bingkai ganda, label mesin ketik, dan tanda stempel pada tiap foto.</span><span class="skin-cocok"><b>Cocok</b> untuk usaha yang ingin kesan berkelana, hangat, dan berkarakter.</span><span class="skin-chip" aria-hidden="true"><i style="background:#DCC9A8"></i><i style="background:#A32B1E"></i><i style="background:#241A10"></i></span><span class="skin-tombol">Lihat demo <svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></span></span></a></li><li class="skin-kartu"><a href="/penginapan/paket-1/senja/"><span class="skin-pratinjau"><img src="/penginapan/img/skin-senja.jpg" alt="Pratinjau tampilan Senja untuk penginapan" width="720" height="540" loading="lazy" decoding="async"></span><span class="skin-isi"><span class="skin-nama">Senja</span><span class="skin-ringkas">Navy gelap dan koral senja, matahari bulat di garis horizon, papan jadwal kedatangan, dan galeri kolom tinggi.</span><span class="skin-cocok"><b>Cocok</b> untuk usaha yang ingin kesan tenang, elegan, dan romantis.</span><span class="skin-chip" aria-hidden="true"><i style="background:#141B2B"></i><i style="background:#E4795A"></i><i style="background:#F1ECE2"></i></span><span class="skin-tombol">Lihat demo <svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></span></span></a></li></ul>
+</div></section>
 </main>
-<footer class="kaki"><div class="wadah"><p>Reservasi dan pertanyaan:</p><p><a href="https://wa.me/6281234567892?text=Halo%2C%20saya%20mau%20tanya%20ketersediaan%20kamar%20di%20Griya%20Asri.">WhatsApp 0812-3456-7892</a></p><p>Halaman ini contoh peragaan, bukan usaha sungguhan. Dibuat oleh Rio Ekaputra Siswa, developer aplikasi web di Bandung yang membuat website untuk usaha lokal. <a href="https://rioeka.com">rioeka.com</a></p></div></footer>
-<div class="bar-bawah" id="bar-bawah"><a class="tombol" href="https://wa.me/6281234567892?text=Halo%2C%20saya%20mau%20tanya%20ketersediaan%20kamar%20di%20Griya%20Asri."><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.4 8.4 0 1 1 21 11.5Z"/></svg> Tanya lewat WhatsApp</a></div>
+<footer class="kaki"><div class="wadah wadah-lebar"><p>Dibuat oleh Rio Ekaputra Siswa, developer aplikasi web di Bandung. <a href="https://rioeka.com">rioeka.com</a></p><p>Nama, harga layanan, dan alamat di dalam demo hanya contoh.</p></div></footer>
 </body>
 </html>

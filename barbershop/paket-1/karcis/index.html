@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#141210">
+<title>Barbershop Cukur Rapi, Coblong</title>
+<meta name="description" content="Harga, jam buka, alamat, dan cara menghubungi Barbershop Cukur Rapi.">
+<link rel="preload" href="/font/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:Archivo;font-style:normal;font-weight:400 800;font-stretch:62% 125%;font-display:swap;src:url(/font/archivo-latin.woff2) format('woff2')}
+
+:root{
+  --latar:#141210;
+  --kartu:#1E1B18;
+  --kartu-turun:#28241F;
+  --tinta:#F4EFE7;
+  --tinta-redup:#B5AA9C;
+  --garis:#3A342C;
+  --garis-kuat:#7E7468;
+  --sinyal:#E9A23B;
+  --sinyal-gelap:#F2B554;
+  --sinyal-lembut:#3A2E18;
+  --di-atas-sinyal:#17110A;
+  --fokus:#E9A23B;
+  --salah:#FF9C87;
+  --ok:#7FCB9A;
+  --r:10px;
+  --r-kecil:8px;
+  --r-tombol:8px;
+  --bayang:none;
+  --h-berat:800;
+  --h-lebar:72%;
+  --h-huruf:uppercase;
+  --h-ls:.01em;
+  --pole-tinggi:10px;
+  --pole:repeating-linear-gradient(135deg,var(--sinyal) 0 14px,var(--tinta) 14px 28px);
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:104px;background:var(--latar);accent-color:var(--sinyal)}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{margin:0;overflow-x:clip;background:var(--latar);color:var(--tinta);font-family:Archivo,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:16px;line-height:1.55;padding-bottom:calc(84px + env(safe-area-inset-bottom))}
+h1,h2,h3,p,ul,ol,dl,dd,figure{margin:0}
+ul,ol{padding:0;list-style:none}
+a{color:inherit}
+svg{display:block;flex:none}
+:focus-visible{outline:3px solid var(--fokus);outline-offset:2px}
+::selection{background:var(--sinyal);color:var(--di-atas-sinyal)}
+[hidden]{display:none !important}
+.wadah{width:100%;max-width:760px;margin:0 auto;padding:0 16px}
+.ikon{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+.tombol{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 22px;border:2px solid var(--sinyal);border-radius:var(--r-tombol);background:var(--sinyal);color:var(--di-atas-sinyal);font:inherit;font-weight:700;text-decoration:none;text-align:center;cursor:pointer;transition:background-color .15s,border-color .15s}
+.tombol:hover{background:var(--sinyal-gelap);border-color:var(--sinyal-gelap)}
+.tombol.garis{background:transparent;border-color:var(--garis-kuat);color:var(--tinta)}
+.tombol.garis:hover{background:var(--kartu-turun)}
+.tombol[aria-disabled="true"]{background:var(--kartu-turun);border-color:var(--kartu-turun);color:var(--tinta-redup);cursor:not-allowed}
+.tombol[aria-busy="true"]{cursor:progress}
+
+.atas{position:sticky;top:0;z-index:30;background:var(--latar);border-bottom:1px solid var(--garis)}
+.atas .wadah{display:flex;align-items:center;gap:10px;min-height:56px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.balik{display:inline-flex;align-items:center;gap:2px;min-height:44px;padding:0 12px 0 6px;margin-left:-6px;border-radius:var(--r-tombol);font-weight:600;font-size:15px;text-decoration:none;white-space:nowrap}
+.balik:hover{background:var(--kartu-turun)}
+.nama-atas{margin-left:auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:700;font-size:15px;color:var(--tinta-redup)}
+
+.pole{height:var(--pole-tinggi);background:var(--pole)}
+.hero{padding:28px 0 4px}
+.eyebrow{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--tinta-redup)}
+.hero h1{margin:8px 0 14px;font-size:clamp(36px,11vw,56px);font-weight:var(--h-berat);font-stretch:var(--h-lebar);text-transform:var(--h-huruf);letter-spacing:var(--h-ls);line-height:1.02;text-wrap:balance}
+.status{display:inline-flex;align-items:center;gap:9px;padding:8px 14px;border:1px solid var(--garis);border-radius:999px;background:var(--kartu);font-size:15px;font-weight:600}
+.titik{width:10px;height:10px;border-radius:50%;background:var(--ok);flex:none}
+.titik.tutup{background:var(--tinta-redup)}
+.lead{margin-top:14px;max-width:46ch;color:var(--tinta-redup)}
+.aksi{display:grid;gap:10px;margin-top:20px}
+@media (min-width:520px){.aksi{grid-template-columns:auto auto;justify-content:start}}
+.demo-strip{display:flex;justify-content:center;align-items:center;gap:8px;min-height:32px;padding:4px 16px;background:var(--sinyal);color:var(--di-atas-sinyal);font-size:13px;font-weight:600;text-align:center}
+.demo-strip .tanda-contoh{background:var(--di-atas-sinyal);color:var(--sinyal-gelap)}
+.demo-kartu{margin-bottom:22px;padding:16px;border:2px dashed var(--sinyal);border-radius:var(--r);background:var(--sinyal-lembut)}
+.demo-judul{margin-top:10px;font-size:21px;font-weight:800;line-height:1.2;text-wrap:balance}
+.demo-teks{margin-top:8px;font-size:15px}
+.ganti-kepala,.ganti-daftar li{display:grid;grid-template-columns:minmax(0,1fr) 20px minmax(0,1fr);gap:8px;align-items:center}
+.ganti-kepala{margin-top:14px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--tinta-redup)}
+.ganti-daftar{margin-top:4px}
+.ganti-daftar li{padding:10px 0;border-top:1px solid var(--garis);font-size:14px;line-height:1.35}
+.ganti-daftar .kini{color:var(--tinta-redup)}
+.ganti-daftar .nanti{font-weight:700}
+.ganti-daftar .ikon{width:18px;height:18px;color:var(--sinyal-gelap)}
+.demo-paket{margin-top:12px;padding-top:12px;border-top:1px solid var(--garis);font-size:14px}
+.tag-baris{margin-bottom:10px}
+.tag-anda{display:inline-flex;align-items:center;min-height:28px;padding:2px 10px;border:1.5px dashed var(--sinyal);border-radius:999px;background:var(--sinyal-lembut);color:var(--sinyal-gelap);font-size:13px;font-weight:700}
+.hero .tag-baris{margin:0 0 4px}
+.penutup .kartu{padding:20px}
+.penutup h2{font-size:clamp(22px,6vw,28px)}
+.tanda-contoh{flex:none;padding:2px 9px;border-radius:999px;background:var(--sinyal);color:var(--di-atas-sinyal);font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.loncat{display:flex;gap:8px;overflow-x:auto;margin:20px -16px 0;padding:2px 16px 6px;scrollbar-width:none}
+.loncat::-webkit-scrollbar{display:none}
+.loncat a{flex:none;display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border:1px solid var(--garis-kuat);border-radius:999px;font-weight:600;font-size:15px;text-decoration:none}
+.loncat a:hover{background:var(--kartu-turun)}
+
+.bagian{padding:36px 0 4px}
+.bagian h2{font-size:clamp(26px,7vw,34px);font-weight:var(--h-berat);font-stretch:var(--h-lebar);text-transform:var(--h-huruf);letter-spacing:var(--h-ls);line-height:1.08;text-wrap:balance}
+.bagian-lead{margin-top:8px;max-width:56ch;color:var(--tinta-redup)}
+.kartu{margin-top:16px;padding:16px;border:1px solid var(--garis);border-radius:var(--r);background:var(--kartu);box-shadow:var(--bayang)}
+.kartu > h3{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--tinta-redup)}
+.harga{margin-top:6px}
+.harga li{display:grid;grid-template-columns:1fr auto;gap:2px 16px;padding:14px 0;border-top:1px solid var(--garis)}
+.harga li:first-child{border-top:0}
+.harga .nm{font-weight:600}
+.harga .hr{font-weight:700;white-space:nowrap}
+.harga .ket{grid-column:1 / -1;font-size:14px;color:var(--tinta-redup)}
+.catatan{margin-top:14px;font-size:14px;color:var(--tinta-redup);max-width:60ch}
+.jam li{display:flex;justify-content:space-between;gap:12px;padding:12px 10px;margin:0 -10px;border-radius:var(--r-kecil)}
+.jam li + li{border-top:1px solid var(--garis);border-top-left-radius:0;border-top-right-radius:0}
+.jam li.hari-ini{background:var(--sinyal-lembut);border-top-color:transparent;font-weight:700}
+.jam li.hari-ini + li{border-top-color:transparent}
+.jam .tanda-hari{margin-left:8px;padding:1px 8px;border-radius:999px;background:var(--sinyal);color:var(--di-atas-sinyal);font-size:12px;font-weight:700}
+.alamat{margin-top:16px;font-style:normal;line-height:1.7}
+.aksi-lokasi{display:grid;gap:10px;margin-top:16px}
+@media (min-width:520px){.aksi-lokasi{grid-template-columns:auto auto;justify-content:start}}
+.galeri{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:16px}
+@media (min-width:600px){.galeri{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.petak{margin:0;aspect-ratio:4/3;overflow:hidden;border-radius:var(--r-kecil);background:var(--kartu-turun)}
+.petak img{display:block;width:100%;height:100%;object-fit:cover}
+.kredit{margin-top:12px;font-size:13px;color:var(--tinta-redup)}
+.kredit a{color:inherit;text-decoration:underline;display:inline-block;padding:12px 0}
+.tanya{margin-top:12px;border-bottom:1px solid var(--garis)}
+.tanya details{border-top:1px solid var(--garis)}
+.tanya summary{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:56px;padding:12px 0;font-weight:600;cursor:pointer;list-style:none}
+.tanya summary::-webkit-details-marker{display:none}
+.tanya summary svg{transition:transform .2s}
+.tanya details[open] summary svg{transform:rotate(180deg)}
+.tanya details p{padding:0 0 16px;color:var(--tinta-redup);max-width:60ch}
+.ganti-paket{margin-top:28px;padding:16px;border:1px solid var(--garis);border-radius:var(--r);background:var(--kartu)}
+.ganti-paket p{margin-bottom:12px}
+.kaki{margin-top:36px;padding:28px 0 32px;border-top:1px solid var(--garis);font-size:14px;color:var(--tinta-redup)}
+.kaki p + p{margin-top:10px}
+.kaki a{display:inline-flex;align-items:center;min-height:44px;color:var(--tinta);font-weight:600}
+.bar-bawah{position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;gap:10px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:var(--latar);border-top:1px solid var(--garis);transition:transform .25s}
+.bar-bawah.sembunyi{transform:translateY(110%);visibility:hidden}
+.bar-bawah .tombol{flex:1 1 auto;min-height:52px;padding:0 14px;white-space:nowrap}
+.bar-bawah .tombol.garis{flex:0 0 auto}
+@media (min-width:760px){.bar-bawah{display:none}body{padding-bottom:0}}
+@media (prefers-reduced-motion:reduce){*{transition-duration:.001ms !important;animation-duration:.001ms !important}}
+
+.hero-isi{position:relative;isolation:isolate}
+.hero-isi::before{content:"";position:absolute;z-index:-1;right:-6px;top:-8px;width:150px;height:150px;pointer-events:none}
+.fakta{display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));gap:8px;margin-top:20px}
+.fakta li{display:grid;gap:2px;align-content:start;padding:10px 12px;border:1px solid var(--garis);border-radius:var(--r-kecil);background:var(--kartu);min-width:0}
+.fakta .f-label{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--tinta-redup)}
+.fakta .f-nilai{font-size:15px;font-weight:800;line-height:1.25;overflow-wrap:anywhere}
+.dur{display:inline-block;margin-right:6px;padding:0 8px;border-radius:99px;background:var(--sinyal-lembut);color:var(--sinyal-gelap);font-size:13px;font-weight:700}
+
+
+/* barbershop, gaya karcis: papan nama, sudut potong, karcis antrean, tiang barber */
+[data-j=barbershop]{counter-reset:bag}
+[data-j=barbershop] .hero{padding:24px 0 4px}
+[data-j=barbershop] .hero-isi::before{display:none}
+[data-j=barbershop] .hero .eyebrow{font-size:12px;letter-spacing:.22em;color:var(--sinyal-gelap)}
+[data-j=barbershop] .hero h1{margin:10px 0 14px;font-size:clamp(46px,14vw,82px);line-height:.92}
+[data-j=barbershop] .hero h1 em{font-style:normal;color:var(--sinyal)}
+[data-j=barbershop] .hero .lead{max-width:42ch;font-size:17px}
+[data-j=barbershop] .hero-foto{position:relative;isolation:isolate;margin:24px 0 30px;padding:5px}
+[data-j=barbershop] .hero-foto::before{content:"";position:absolute;z-index:-1;inset:0;background:var(--sinyal);clip-path:polygon(32px 0,100% 0,100% calc(100% - 32px),calc(100% - 32px) 100%,0 100%,0 32px)}
+[data-j=barbershop] .hero-foto::after{content:"";position:absolute;z-index:2;top:-12px;right:46px;width:16px;height:88px;background:var(--pole);transform:skewX(-20deg)}
+[data-j=barbershop] .hero-foto img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;object-position:50% 50%;border:6px solid var(--latar);background:var(--kartu-turun);clip-path:polygon(29px 0,100% 0,100% calc(100% - 29px),calc(100% - 29px) 100%,0 100%,0 29px)}
+[data-j=barbershop] .lencana{position:absolute;z-index:1;left:20px;bottom:20px;padding:7px 14px;background:var(--tinta);color:var(--latar);box-shadow:inset 0 0 0 2px var(--tinta),inset 0 0 0 4px var(--latar);font-size:14px;font-stretch:75%;font-weight:800;letter-spacing:.14em;line-height:1.1;text-transform:uppercase}
+[data-j=barbershop] .hero-foto + .tag-baris{margin-top:6px}
+[data-j=barbershop] .status{margin-top:8px;border:2px solid var(--garis);border-radius:0;background:transparent}
+[data-j=barbershop] .fakta{counter-reset:k;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:26px}
+[data-j=barbershop] .fakta li{counter-increment:k;align-content:start;gap:8px;padding:12px 10px 16px;border:0;border-radius:0;background:radial-gradient(circle at 50% 0,var(--latar) 6px,#0000 7px) top center/16px 8px no-repeat,radial-gradient(circle at 50% 100%,var(--latar) 6px,#0000 7px) bottom center/16px 8px no-repeat,var(--kartu)}
+[data-j=barbershop] .fakta .f-label{padding-bottom:8px;border-bottom:2px dashed var(--garis-kuat);font-size:12px;letter-spacing:.1em}
+[data-j=barbershop] .fakta .f-nilai{font-size:21px;font-stretch:78%;line-height:1.05;text-transform:uppercase;letter-spacing:.02em;color:var(--sinyal-gelap);overflow-wrap:normal}
+[data-j=barbershop] .fakta li::after{content:"No. " counter(k,decimal-leading-zero);font-size:12px;font-weight:700;letter-spacing:.14em;color:var(--tinta-redup)}
+[data-j=barbershop] .loncat a{border:2px solid var(--garis-kuat);border-radius:0;font-stretch:80%;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+[data-j=barbershop] .loncat a:hover{background:var(--kartu-turun)}
+[data-j=barbershop] .ganti-daftar .nanti{overflow-wrap:anywhere}
+[data-j=barbershop] .demo-kartu{margin:26px 0 0}
+
+[data-j=barbershop] .bagian{padding:56px 0 4px}
+[data-j=barbershop] .bagian h2{font-size:clamp(32px,10vw,50px);line-height:.98}
+[data-j=barbershop] .bagian:not(.penutup) h2{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:end;column-gap:12px}
+[data-j=barbershop] .bagian:not(.penutup) h2::before{counter-increment:bag;content:counter(bag,decimal-leading-zero);color:var(--sinyal)}
+[data-j=barbershop] .bagian:not(.penutup) h2::after{content:"";grid-column:1 / -1;width:96px;height:8px;margin-top:14px;background:var(--pole)}
+[data-j=barbershop] .bagian-lead{margin-top:16px}
+[data-j=barbershop] .kartu{border:2px solid var(--garis);box-shadow:none}
+
+[data-j=barbershop] #harga .kartu{margin-top:30px;padding:20px 16px 8px;border:0;border-top:6px solid var(--sinyal);border-radius:0;background:var(--kartu);clip-path:polygon(0 0,calc(100% - 18px) 0,100% 18px,100% 100%,18px 100%,0 calc(100% - 18px))}
+[data-j=barbershop] #harga .kartu > h3{font-size:22px;font-stretch:72%;font-weight:800;letter-spacing:.06em;color:var(--tinta)}
+[data-j=barbershop] .harga{margin-top:6px}
+[data-j=barbershop] .harga li{display:flex;flex-wrap:wrap;align-items:center;gap:2px 10px;padding:14px 0;border-top:0}
+[data-j=barbershop] .harga li + li{border-top:1px solid var(--garis)}
+[data-j=barbershop] .harga .nm{display:flex;flex:1 1 auto;align-items:center;gap:10px;min-width:0;font-size:19px;font-stretch:78%;font-weight:700;text-transform:uppercase;letter-spacing:.03em}
+[data-j=barbershop] .harga .nm::after{content:"";flex:1 1 16px;min-width:16px;border-bottom:2px dotted var(--garis-kuat)}
+[data-j=barbershop] .harga .hr{padding:3px 12px;background:var(--sinyal);color:var(--di-atas-sinyal);font-size:20px;font-stretch:85%;font-weight:800;clip-path:polygon(7px 0,100% 0,100% calc(100% - 7px),calc(100% - 7px) 100%,0 100%,0 7px)}
+[data-j=barbershop] .harga .ket{flex:1 1 100%}
+[data-j=barbershop] .dur{display:inline;margin:0;padding:0;background:none;color:var(--sinyal-gelap);font-size:inherit;font-weight:700}
+[data-j=barbershop] .dur + .ket-teks::before{content:"\00A0\00B7\00A0"}
+
+[data-j=barbershop] .galeri{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 12px;align-items:start;margin-top:30px}
+[data-j=barbershop] .petak{position:relative;aspect-ratio:auto;overflow:visible;border-radius:0;background:none}
+[data-j=barbershop] .petak img{height:auto;aspect-ratio:4/5;border-radius:0;background:var(--kartu-turun);filter:grayscale(1) contrast(1.05);transition:filter .3s}
+[data-j=barbershop] .petak:hover img,[data-j=barbershop] .petak:focus-within img,[data-j=barbershop] .petak:active img{filter:none}
+[data-j=barbershop] .petak::before{content:"";position:absolute;z-index:1;inset:8px;pointer-events:none;background:linear-gradient(var(--sinyal) 0 0) 0 0/22px 3px,linear-gradient(var(--sinyal) 0 0) 0 0/3px 22px,linear-gradient(var(--sinyal) 0 0) 100% 0/22px 3px,linear-gradient(var(--sinyal) 0 0) 100% 0/3px 22px,linear-gradient(var(--sinyal) 0 0) 0 100%/22px 3px,linear-gradient(var(--sinyal) 0 0) 0 100%/3px 22px,linear-gradient(var(--sinyal) 0 0) 100% 100%/22px 3px,linear-gradient(var(--sinyal) 0 0) 100% 100%/3px 22px;background-repeat:no-repeat}
+[data-j=barbershop] .petak figcaption{position:absolute;z-index:1;left:0;right:0;bottom:0;padding:18px 12px 10px 14px;background:linear-gradient(transparent,var(--latar));font-size:13px;font-weight:600;line-height:1.3;color:var(--tinta)}
+[data-j=barbershop] .petak:first-child,[data-j=barbershop] .petak:last-child{grid-column:1 / -1}
+[data-j=barbershop] .petak:first-child img,[data-j=barbershop] .petak:last-child img{aspect-ratio:16/10}
+[data-j=barbershop] .petak:nth-child(3),[data-j=barbershop] .petak:nth-child(5){margin-top:26px}
+
+[data-j=barbershop] #lokasi .kartu{margin-top:30px;padding:0;border:0;background:none}
+[data-j=barbershop] #lokasi .kartu > h3{font-size:14px;letter-spacing:.14em}
+[data-j=barbershop] .jam{margin-top:8px;border:2px solid var(--garis)}
+[data-j=barbershop] .jam li{margin:0;padding:12px 12px;border-radius:0;font-variant-numeric:tabular-nums}
+[data-j=barbershop] .jam li + li{border-top:1px dashed var(--garis-kuat)}
+[data-j=barbershop] .jam li.hari-ini{box-shadow:inset 5px 0 0 var(--sinyal);border-top-color:transparent}
+[data-j=barbershop] .jam li.hari-ini + li{border-top-color:transparent}
+[data-j=barbershop] #lokasi .kartu + .kartu{margin-top:16px;padding:20px 16px;border:0;border-left:6px solid var(--sinyal);border-radius:0;background:var(--kartu)}
+
+[data-j=barbershop] .tanya{counter-reset:q;border-bottom:2px solid var(--garis)}
+[data-j=barbershop] .tanya details{counter-increment:q;border-top:2px solid var(--garis)}
+[data-j=barbershop] .tanya summary{justify-content:flex-start;gap:14px;min-height:64px;padding:16px 0;font-size:19px;font-stretch:80%;font-weight:700;letter-spacing:.03em;text-transform:uppercase}
+[data-j=barbershop] .tanya summary::before{content:"No. " counter(q);flex:none;font-size:12px;font-stretch:100%;letter-spacing:.14em;color:var(--sinyal-gelap)}
+[data-j=barbershop] .tanya summary svg{display:none}
+[data-j=barbershop] .tanya summary::after{content:"+";flex:none;margin-left:auto;font-size:30px;font-weight:500;line-height:1;color:var(--sinyal)}
+[data-j=barbershop] .tanya details[open] summary::after{content:"\2212"}
+[data-j=barbershop] .tanya details p{padding:0 0 18px}
+
+[data-j=barbershop] .penutup .kartu{padding:30px 22px;border:0;border-radius:0;background:var(--sinyal);color:var(--di-atas-sinyal);clip-path:polygon(0 0,calc(100% - 28px) 0,100% 28px,100% 100%,28px 100%,0 calc(100% - 28px))}
+[data-j=barbershop] .penutup h2{font-size:clamp(32px,9vw,44px);line-height:.98;color:var(--di-atas-sinyal)}
+[data-j=barbershop] .penutup .bagian-lead{color:var(--di-atas-sinyal)}
+[data-j=barbershop] .penutup .tombol{background:var(--di-atas-sinyal);border-color:var(--di-atas-sinyal);color:var(--sinyal-gelap)}
+[data-j=barbershop] .penutup .tombol:hover{background:var(--tinta);border-color:var(--tinta);color:var(--latar)}
+[data-j=barbershop] .penutup .tombol.garis{background:transparent;color:var(--di-atas-sinyal)}
+[data-j=barbershop] .penutup .tombol.garis:hover{background:var(--sinyal-gelap);border-color:var(--di-atas-sinyal);color:var(--di-atas-sinyal)}
+[data-j=barbershop] .kaki{border-top-color:var(--garis)}
+
+@supports (animation-timeline:view()){
+@media (prefers-reduced-motion:no-preference){
+@keyframes naik{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+[data-j=barbershop] .bagian > h2,[data-j=barbershop] .petak{animation:naik linear both;animation-timeline:view();animation-range:entry 0% entry 70%}
+}
+}
+
+.demo-strip{flex-wrap:wrap;column-gap:12px;row-gap:0}
+.demo-strip a{display:inline-flex;align-items:center;margin:-12px 0;padding:12px 4px;min-height:44px;color:inherit;font-weight:700;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+
+</style>
+</head>
+<body data-j="barbershop" data-s="karcis">
+<header class="atas"><div class="demo-strip" role="note"><span class="tanda-contoh">Demo</span><span>Contoh website untuk barbershop Anda</span><a href="/barbershop/paket-1/">Ganti tampilan</a></div><div class="wadah"><a class="balik" href="/barbershop/#paket"><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg> Semua paket barbershop</a><span class="nama-atas">Barbershop Cukur Rapi</span></div></header>
+<div class="pole" aria-hidden="true"></div>
+<main>
+<div class="wadah">
+<section class="hero">
+<div class="hero-isi">
+<p class="eyebrow">Barbershop &middot; Coblong, Kota Bandung</p>
+<h1>Barbershop Cukur <em>Rapi</em></h1>
+<p class="tag-baris"><span class="tag-anda">Nama barbershop Anda tampil di sini</span></p>
+<figure class="hero-foto"><img src="/barbershop/img/g1.jpg" alt="Ruang potong bata merah dengan tiga kursi hitam di depan cermin" width="720" height="540" fetchpriority="high" decoding="async"><span class="lencana">Coblong</span></figure>
+<p class="tag-baris"><span class="tag-anda">Foto barbershop Anda tampil di sini</span></p>
+<p class="status" id="status"><span class="titik" id="titik"></span><span id="status-teks">Memuat jam buka</span></p>
+<p class="lead">Potong, cukur jenggot, dan styling. Harga tetap, tanpa tambahan.</p>
+<div class="aksi"><a class="tombol" href="https://wa.me/6287712345678?text=Bang%2C%20saya%20mau%20tanya%20soal%20booking%20potong%20di%20Cukur%20Rapi."><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.4 8.4 0 1 1 21 11.5Z"/></svg> Tanya lewat WhatsApp</a><a class="tombol garis" href="/barbershop/paket-2/karcis/">Buka demo Paket 2, dengan booking <svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a></div>
+</div>
+<ul class="fakta"><li><span class="f-label">Mulai dari</span><span class="f-nilai">Rp 15.000</span></li><li><span class="f-label">Barber</span><span class="f-nilai">3 orang</span></li><li><span class="f-label">Lama layanan</span><span class="f-nilai">15-75 menit</span></li></ul>
+<nav class="loncat" aria-label="Loncat ke bagian"><a href="#harga">Harga</a><a href="#lokasi">Lokasi</a><a href="#galeri">Galeri</a><a href="#tanya">Tanya jawab</a></nav>
+<section class="demo-kartu" aria-label="Penjelasan halaman demo"><span class="tanda-contoh">Demo Paket 1</span><p class="demo-judul">Ini halaman demo, bukan barbershop sungguhan</p><p class="demo-teks">Beginilah tampilan website Anda nanti kalau memakai jasa Rio Ekaputra Siswa. Bayangkan isinya jadi milik barbershop Anda.</p><div class="ganti-kepala" aria-hidden="true"><span>Di demo ini</span><span></span><span>Di website Anda</span></div><ul class="ganti-daftar"><li><span class="kini">Barbershop Cukur Rapi</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Nama barbershop Anda</span></li><li><span class="kini">Jl. Contoh Raya No. 27, Ruko Blok B</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Alamat barbershop Anda</span></li><li><span class="kini">Potong biasa, Rp 35.000</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Layanan dan harga Anda</span></li><li><span class="kini">0877-1234-5678</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Nomor WhatsApp Anda</span></li><li><span class="kini">devario.rioeka.com</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>namabarbershopanda.com</span></li><li><span class="kini">Foto contoh</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Foto asli barbershop Anda</span></li></ul><p class="demo-paket">Paket 1: halaman informasi, tanpa booking. Untuk melihat versi yang bisa menerima pesanan, buka demo Paket 2.</p></section>
+</section>
+<section class="bagian" id="harga">
+<p class="tag-baris"><span class="tag-anda">Harga barbershop Anda</span></p>
+<h2>Daftar harga</h2>
+<p class="bagian-lead">Harga tetap, tidak ada tambahan. Cukur dan rapikan sudah termasuk cuci.</p>
+<div class="kartu"><h3>Potong</h3><ul class="harga"><li><span class="nm">Potong biasa</span><span class="hr">Rp 35.000</span><span class="ket"><span class="dur">30 menit</span></span></li><li><span class="nm">Potong dan cuci</span><span class="hr">Rp 45.000</span><span class="ket"><span class="dur">40 menit</span></span></li><li><span class="nm">Potong anak</span><span class="hr">Rp 30.000</span><span class="ket"><span class="dur">25 menit</span></span></li><li><span class="nm">Cukur jenggot</span><span class="hr">Rp 25.000</span><span class="ket"><span class="dur">20 menit</span></span></li></ul></div><div class="kartu"><h3>Perawatan</h3><ul class="harga"><li><span class="nm">Pomade dan styling</span><span class="hr">Rp 20.000</span><span class="ket"><span class="dur">15 menit</span></span></li><li><span class="nm">Masker rambut</span><span class="hr">Rp 50.000</span><span class="ket"><span class="dur">30 menit</span></span></li><li><span class="nm">Cukur kumis rapi</span><span class="hr">Rp 15.000</span><span class="ket"><span class="dur">15 menit</span></span></li><li><span class="nm">Paket lengkap</span><span class="hr">Rp 90.000</span><span class="ket"><span class="dur">1 jam 15 menit</span><span class="ket-teks">Potong, cuci, cukur jenggot, dan styling.</span></span></li></ul></div><p class="catatan">Anak di bawah 10 tahun dapat harga potong anak.</p>
+</section>
+<section class="bagian" id="lokasi">
+<p class="tag-baris"><span class="tag-anda">Alamat dan jam buka barbershop Anda</span></p>
+<h2>Lokasi dan jam buka</h2>
+<p class="bagian-lead">Tutup hari Minggu. Sabtu paling ramai, sebaiknya memesan lebih dulu.</p>
+<div class="kartu"><h3>Jam buka</h3><ul class="jam" id="kartu-jam"><li data-hari="1"><span>Senin</span><span>11.00 sampai 21.00</span></li><li data-hari="2"><span>Selasa</span><span>11.00 sampai 21.00</span></li><li data-hari="3"><span>Rabu</span><span>11.00 sampai 21.00</span></li><li data-hari="4"><span>Kamis</span><span>11.00 sampai 21.00</span></li><li data-hari="5"><span>Jumat</span><span>11.00 sampai 22.00</span></li><li data-hari="6"><span>Sabtu</span><span>10.00 sampai 22.00</span></li><li data-hari="0"><span>Minggu</span><span>tutup</span></li></ul></div>
+<div class="kartu"><h3>Alamat</h3><address class="alamat">Jl. Contoh Raya No. 27, Ruko Blok B<br>Coblong, Kota Bandung 40132<br>Sebelah warung kopi, di lantai dua.</address><div class="aksi-lokasi"><a class="tombol garis" href="https://www.google.com/maps/search/?api=1&amp;query=Jl.%20Contoh%20Raya%20No.%2027%20Coblong%20Bandung"><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> Buka di Google Maps</a></div></div>
+</section>
+<section class="bagian" id="galeri">
+<p class="tag-baris"><span class="tag-anda">Foto asli barbershop Anda</span></p>
+<h2>Galeri</h2>
+<p class="bagian-lead">Enam foto suasana barbershop. Di website sungguhan, foto ini diganti foto usaha Anda sendiri.</p>
+<div class="galeri"><figure class="petak"><img src="/barbershop/img/g6.jpg" alt="" width="720" height="540" loading="lazy" decoding="async"><figcaption>Kursi dan wastafel cuci</figcaption></figure><figure class="petak"><img src="/barbershop/img/g2.jpg" alt="" width="720" height="540" loading="lazy" decoding="async"><figcaption>Kursi potong</figcaption></figure><figure class="petak"><img src="/barbershop/img/g1.jpg" alt="" width="720" height="540" loading="lazy" decoding="async"><figcaption>Ruang potong dengan tiga kursi</figcaption></figure><figure class="petak"><img src="/barbershop/img/g5.jpg" alt="" width="720" height="540" loading="lazy" decoding="async"><figcaption>Kursi klasik kulit</figcaption></figure><figure class="petak"><img src="/barbershop/img/g3.jpg" alt="" width="720" height="540" loading="lazy" decoding="async"><figcaption>Sudut cermin dan rak produk</figcaption></figure><figure class="petak"><img src="/barbershop/img/g4.jpg" alt="" width="720" height="540" loading="lazy" decoding="async"><figcaption>Lengkung bata dan kursi potong</figcaption></figure></div>
+<p class="kredit">Foto contoh dari <a href="https://unsplash.com/license" rel="noopener">Unsplash</a>, bebas dipakai.</p>
+</section>
+<section class="bagian" id="tanya">
+<h2>Pertanyaan yang sering masuk</h2>
+<div class="tanya"><details><summary>Perlu pesan dulu?<svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><p>Tidak wajib, tapi Sabtu dan Minggu hampir selalu penuh. Memesan lebih dulu menghemat waktu tunggu.</p></details><details><summary>Berapa lama satu kali potong?<svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><p>Sekitar tiga puluh menit untuk potong biasa, dan sampai satu jam untuk paket lengkap.</p></details><details><summary>Bisa minta model tertentu dari foto?<svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><p>Bisa. Kirim fotonya lewat WhatsApp sebelum datang, supaya waktunya bisa diperkirakan.</p></details><details><summary>Terima anak kecil?<svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><p>Terima, dan ada harga khusus untuk anak di bawah sepuluh tahun.</p></details></div>
+</section>
+<section class="bagian penutup" aria-label="Penutup">
+<div class="kartu"><h2>Bayangkan ini website barbershop Anda</h2>
+<p class="bagian-lead">Nama, alamat, daftar harga, jam buka, dan foto di halaman ini nanti diganti dengan milik barbershop Anda. Barbershop Cukur Rapi hanya nama contoh. Alamat websitenya didaftarkan atas nama usaha Anda sendiri, misalnya namabarbershopanda.com.</p>
+<div class="aksi"><a class="tombol" href="/barbershop/#paket">Lihat paket dan harga</a><a class="tombol garis" href="https://rioeka.com">Kunjungi rioeka.com</a></div></div>
+</section>
+</div>
+</main>
+<footer class="kaki"><div class="wadah"><p>Pesan dan pertanyaan:</p><p><a href="https://wa.me/6287712345678?text=Bang%2C%20saya%20mau%20tanya%20soal%20booking%20potong%20di%20Cukur%20Rapi.">WhatsApp 0877-1234-5678</a></p><p>Halaman ini contoh peragaan, bukan usaha sungguhan. Dibuat oleh Rio Ekaputra Siswa, developer aplikasi web di Bandung yang membuat website untuk usaha lokal. <a href="https://rioeka.com">rioeka.com</a></p></div></footer>
+<div class="bar-bawah" id="bar-bawah"><a class="tombol" href="https://wa.me/6287712345678?text=Bang%2C%20saya%20mau%20tanya%20soal%20booking%20potong%20di%20Cukur%20Rapi."><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.4 8.4 0 1 1 21 11.5Z"/></svg> Tanya lewat WhatsApp</a></div>
+<script>
+
+(function(){
+  var J={"0": null, "1": ["11.00", "21.00"], "2": ["11.00", "21.00"], "3": ["11.00", "21.00"], "4": ["11.00", "21.00"], "5": ["11.00", "22.00"], "6": ["10.00", "22.00"]};
+  var NH=["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
+  var kini=new Date(), hari=kini.getDay(), menitKini=kini.getHours()*60+kini.getMinutes();
+  function mnt(t){var p=t.split(".");return (+p[0])*60+(+p[1])}
+  function f(m){var j=Math.floor(m/60),s=m%60;return (j<10?"0":"")+j+"."+(s<10?"0":"")+s}
+  var teks=document.getElementById("status-teks"), titik=document.getElementById("titik");
+  var baris=document.querySelector('#kartu-jam [data-hari="'+hari+'"]');
+  if(baris){baris.className="hari-ini";var t=document.createElement("span");t.className="tanda-hari";t.textContent="hari ini";baris.firstElementChild.appendChild(t)}
+  var blok=J[hari];
+  function berikut(){
+    for(var n=1;n<=7;n++){var h=(hari+n)%7;if(J[h]){return NH[h]+" pukul "+J[h][0]}}
+    return "";
+  }
+  if(blok&&menitKini>=mnt(blok[0])&&menitKini<mnt(blok[1])){
+    teks.textContent="Buka sekarang, tutup pukul "+blok[1];titik.className="titik";
+  }else if(blok&&menitKini<mnt(blok[0])){
+    teks.textContent="Tutup. Buka hari ini pukul "+blok[0];titik.className="titik tutup";
+  }else{
+    teks.textContent="Tutup. Buka lagi "+berikut();titik.className="titik tutup";
+  }
+})();
+</script>
+</body>
+</html>

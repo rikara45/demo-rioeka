@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#FFFFFF">
+<title>Barbershop Cukur Rapi, booking</title>
+<meta name="description" content="Pesan layanan, pilih barber, tanggal, dan jam di Barbershop Cukur Rapi.">
+<link rel="preload" href="/font/familjen-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:Archivo;font-style:normal;font-weight:400 800;font-stretch:62% 125%;font-display:swap;src:url(/font/archivo-latin.woff2) format('woff2')}
+@font-face{font-family:'Familjen Grotesk';font-style:normal;font-weight:400 700;font-display:swap;src:url(/font/familjen-grotesk-latin.woff2) format('woff2')}
+@font-face{font-family:'Space Mono';font-style:normal;font-weight:400;font-display:swap;src:url(/font/space-mono-latin-400.woff2) format('woff2')}
+@font-face{font-family:'Space Mono';font-style:normal;font-weight:700;font-display:swap;src:url(/font/space-mono-latin-700.woff2) format('woff2')}
+:root{
+  --latar:#FFFFFF;
+  --kartu:#F7F9F4;
+  --kartu-turun:#E9EFE2;
+  --tinta:#14210F;
+  --tinta-redup:#4C5A45;
+  --garis:#D6DECB;
+  --garis-halus:#E4EADC;
+  --garis-kuat:#7C8A72;
+  --sinyal:#527E14;
+  --sinyal-gelap:#33530A;
+  --sinyal-lembut:#EAF3D6;
+  --di-atas-sinyal:#FFFFFF;
+  --fokus:#33530A;
+  --salah:#9C2410;
+  --ok:#3E6B3A;
+  --r:0px;
+  --r-kecil:0px;
+  --r-tombol:0px;
+  --lengkung:0px;
+  --serif:"Familjen Grotesk",system-ui,sans-serif;
+  --bayang:none;
+  --h-berat:700;
+  --h-lebar:100%;
+  --h-huruf:uppercase;
+  --h-ls:-.01em;
+  --pole-tinggi:0px;
+  --pole:none;
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:104px;background:var(--latar);accent-color:var(--sinyal)}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{margin:0;overflow-x:clip;background:var(--latar);color:var(--tinta);font-family:Archivo,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:16px;line-height:1.55;padding-bottom:calc(84px + env(safe-area-inset-bottom))}
+h1,h2,h3,p,ul,ol,dl,dd,figure{margin:0}
+ul,ol{padding:0;list-style:none}
+a{color:inherit}
+svg{display:block;flex:none}
+:focus-visible{outline:3px solid var(--fokus);outline-offset:2px}
+::selection{background:var(--sinyal);color:var(--di-atas-sinyal)}
+[hidden]{display:none !important}
+.wadah{width:100%;max-width:760px;margin:0 auto;padding:0 16px}
+.ikon{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+.tombol{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 22px;border:2px solid var(--sinyal);border-radius:var(--r-tombol);background:var(--sinyal);color:var(--di-atas-sinyal);font:inherit;font-weight:700;text-decoration:none;text-align:center;cursor:pointer;transition:background-color .15s,border-color .15s}
+.tombol:hover{background:var(--sinyal-gelap);border-color:var(--sinyal-gelap)}
+.tombol.garis{background:transparent;border-color:var(--garis-kuat);color:var(--tinta)}
+.tombol.garis:hover{background:var(--kartu-turun)}
+.tombol[aria-disabled="true"]{background:var(--kartu-turun);border-color:var(--kartu-turun);color:var(--tinta-redup);cursor:not-allowed}
+.tombol[aria-busy="true"]{cursor:progress}
+
+.atas{position:sticky;top:0;z-index:30;background:var(--latar);border-bottom:1px solid var(--garis)}
+.atas .wadah{display:flex;align-items:center;gap:10px;min-height:56px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.balik{display:inline-flex;align-items:center;gap:2px;min-height:44px;padding:0 12px 0 6px;margin-left:-6px;border-radius:var(--r-tombol);font-weight:600;font-size:15px;text-decoration:none;white-space:nowrap}
+.balik:hover{background:var(--kartu-turun)}
+.nama-atas{margin-left:auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:700;font-size:15px;color:var(--tinta-redup)}
+
+.pole{height:var(--pole-tinggi);background:var(--pole)}
+.hero{padding:28px 0 4px}
+.eyebrow{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--tinta-redup)}
+.hero h1{margin:8px 0 14px;font-size:clamp(36px,11vw,56px);font-weight:var(--h-berat);font-stretch:var(--h-lebar);text-transform:var(--h-huruf);letter-spacing:var(--h-ls);line-height:1.02;text-wrap:balance}
+.status{display:inline-flex;align-items:center;gap:9px;padding:8px 14px;border:1px solid var(--garis);border-radius:999px;background:var(--kartu);font-size:15px;font-weight:600}
+.titik{width:10px;height:10px;border-radius:50%;background:var(--ok);flex:none}
+.titik.tutup{background:var(--tinta-redup)}
+.lead{margin-top:14px;max-width:46ch;color:var(--tinta-redup)}
+.aksi{display:grid;gap:10px;margin-top:20px}
+@media (min-width:520px){.aksi{grid-template-columns:auto auto;justify-content:start}}
+.demo-strip{display:flex;justify-content:center;align-items:center;gap:8px;min-height:32px;padding:4px 16px;background:var(--sinyal);color:var(--di-atas-sinyal);font-size:13px;font-weight:600;text-align:center}
+.demo-strip .tanda-contoh{background:var(--di-atas-sinyal);color:var(--sinyal-gelap)}
+.demo-kartu{margin-bottom:22px;padding:16px;border:2px dashed var(--sinyal);border-radius:var(--r);background:var(--sinyal-lembut)}
+.demo-judul{margin-top:10px;font-size:21px;font-weight:800;line-height:1.2;text-wrap:balance}
+.demo-teks{margin-top:8px;font-size:15px}
+.ganti-kepala,.ganti-daftar li{display:grid;grid-template-columns:minmax(0,1fr) 20px minmax(0,1fr);gap:8px;align-items:center}
+.ganti-kepala{margin-top:14px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--tinta-redup)}
+.ganti-daftar{margin-top:4px}
+.ganti-daftar li{padding:10px 0;border-top:1px solid var(--garis);font-size:14px;line-height:1.35}
+.ganti-daftar .kini{color:var(--tinta-redup)}
+.ganti-daftar .nanti{font-weight:700}
+.ganti-daftar .ikon{width:18px;height:18px;color:var(--sinyal-gelap)}
+.demo-paket{margin-top:12px;padding-top:12px;border-top:1px solid var(--garis);font-size:14px}
+.tag-baris{margin-bottom:10px}
+.tag-anda{display:inline-flex;align-items:center;min-height:28px;padding:2px 10px;border:1.5px dashed var(--sinyal);border-radius:999px;background:var(--sinyal-lembut);color:var(--sinyal-gelap);font-size:13px;font-weight:700}
+.hero .tag-baris{margin:0 0 4px}
+.penutup .kartu{padding:20px}
+.penutup h2{font-size:clamp(22px,6vw,28px)}
+.tanda-contoh{flex:none;padding:2px 9px;border-radius:999px;background:var(--sinyal);color:var(--di-atas-sinyal);font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.loncat{display:flex;gap:8px;overflow-x:auto;margin:20px -16px 0;padding:2px 16px 6px;scrollbar-width:none}
+.loncat::-webkit-scrollbar{display:none}
+.loncat a{flex:none;display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border:1px solid var(--garis-kuat);border-radius:999px;font-weight:600;font-size:15px;text-decoration:none}
+.loncat a:hover{background:var(--kartu-turun)}
+
+.bagian{padding:36px 0 4px}
+.bagian h2{font-size:clamp(26px,7vw,34px);font-weight:var(--h-berat);font-stretch:var(--h-lebar);text-transform:var(--h-huruf);letter-spacing:var(--h-ls);line-height:1.08;text-wrap:balance}
+.bagian-lead{margin-top:8px;max-width:56ch;color:var(--tinta-redup)}
+.kartu{margin-top:16px;padding:16px;border:1px solid var(--garis);border-radius:var(--r);background:var(--kartu);box-shadow:var(--bayang)}
+.kartu > h3{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--tinta-redup)}
+.harga{margin-top:6px}
+.harga li{display:grid;grid-template-columns:1fr auto;gap:2px 16px;padding:14px 0;border-top:1px solid var(--garis)}
+.harga li:first-child{border-top:0}
+.harga .nm{font-weight:600}
+.harga .hr{font-weight:700;white-space:nowrap}
+.harga .ket{grid-column:1 / -1;font-size:14px;color:var(--tinta-redup)}
+.catatan{margin-top:14px;font-size:14px;color:var(--tinta-redup);max-width:60ch}
+.jam li{display:flex;justify-content:space-between;gap:12px;padding:12px 10px;margin:0 -10px;border-radius:var(--r-kecil)}
+.jam li + li{border-top:1px solid var(--garis);border-top-left-radius:0;border-top-right-radius:0}
+.jam li.hari-ini{background:var(--sinyal-lembut);border-top-color:transparent;font-weight:700}
+.jam li.hari-ini + li{border-top-color:transparent}
+.jam .tanda-hari{margin-left:8px;padding:1px 8px;border-radius:999px;background:var(--sinyal);color:var(--di-atas-sinyal);font-size:12px;font-weight:700}
+.alamat{margin-top:16px;font-style:normal;line-height:1.7}
+.aksi-lokasi{display:grid;gap:10px;margin-top:16px}
+@media (min-width:520px){.aksi-lokasi{grid-template-columns:auto auto;justify-content:start}}
+.galeri{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:16px}
+@media (min-width:600px){.galeri{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.petak{margin:0;aspect-ratio:4/3;overflow:hidden;border-radius:var(--r-kecil);background:var(--kartu-turun)}
+.petak img{display:block;width:100%;height:100%;object-fit:cover}
+.kredit{margin-top:12px;font-size:13px;color:var(--tinta-redup)}
+.kredit a{color:inherit;text-decoration:underline;display:inline-block;padding:12px 0}
+.tanya{margin-top:12px;border-bottom:1px solid var(--garis)}
+.tanya details{border-top:1px solid var(--garis)}
+.tanya summary{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:56px;padding:12px 0;font-weight:600;cursor:pointer;list-style:none}
+.tanya summary::-webkit-details-marker{display:none}
+.tanya summary svg{transition:transform .2s}
+.tanya details[open] summary svg{transform:rotate(180deg)}
+.tanya details p{padding:0 0 16px;color:var(--tinta-redup);max-width:60ch}
+.ganti-paket{margin-top:28px;padding:16px;border:1px solid var(--garis);border-radius:var(--r);background:var(--kartu)}
+.ganti-paket p{margin-bottom:12px}
+.kaki{margin-top:36px;padding:28px 0 32px;border-top:1px solid var(--garis);font-size:14px;color:var(--tinta-redup)}
+.kaki p + p{margin-top:10px}
+.kaki a{display:inline-flex;align-items:center;min-height:44px;color:var(--tinta);font-weight:600}
+.bar-bawah{position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;gap:10px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:var(--latar);border-top:1px solid var(--garis);transition:transform .25s}
+.bar-bawah.sembunyi{transform:translateY(110%);visibility:hidden}
+.bar-bawah .tombol{flex:1 1 auto;min-height:52px;padding:0 14px;white-space:nowrap}
+.bar-bawah .tombol.garis{flex:0 0 auto}
+@media (min-width:760px){.bar-bawah{display:none}body{padding-bottom:0}}
+@media (prefers-reduced-motion:reduce){*{transition-duration:.001ms !important;animation-duration:.001ms !important}}
+
+.pesan{padding:16px 16px 16px}
+.kartu.pesan-buka > h3{font-size:20px;font-weight:800;line-height:1.2;letter-spacing:0;text-transform:none;color:var(--tinta)}
+.pesan-buka p{margin:8px 0 16px;max-width:52ch;color:var(--tinta-redup)}
+.pesan-buka .tombol{width:100%}
+@media (min-width:520px){.pesan-buka .tombol{width:auto}}
+.langkah-kepala{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.langkah-no{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--tinta-redup)}
+.langkah-nama{font-size:13px;font-weight:600;color:var(--tinta-redup)}
+.progres{height:6px;margin:10px 0 20px;border-radius:99px;background:var(--kartu-turun);overflow:hidden}
+.progres i{display:block;height:100%;width:0;border-radius:99px;background:var(--sinyal);transition:width .3s}
+.panel h3{font-size:24px;font-weight:var(--h-berat);font-stretch:var(--h-lebar);text-transform:var(--h-huruf);letter-spacing:var(--h-ls);line-height:1.1}
+.panel h3:focus{outline:0}
+.panel .tip{margin:6px 0 14px;font-size:14px;color:var(--tinta-redup)}
+.sub{margin:18px 0 8px;font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--tinta-redup)}
+.opsi-daftar{display:grid;gap:8px}
+.opsi{display:block;position:relative}
+.opsi input{position:absolute;opacity:0;width:1px;height:1px;margin:0}
+.opsi-kotak{display:grid;grid-template-columns:auto 1fr auto;gap:2px 12px;align-items:center;min-height:64px;padding:12px 14px;border:2px solid var(--garis);border-radius:var(--r-kecil);background:var(--kartu);cursor:pointer;transition:border-color .15s,background-color .15s}
+.opsi-kotak:hover{border-color:var(--garis-kuat)}
+.opsi-tanda{grid-row:1 / 3;display:grid;place-items:center;width:24px;height:24px;border:2px solid var(--garis-kuat);border-radius:50%}
+.opsi-tanda::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--di-atas-sinyal);transform:scale(0);transition:transform .15s}
+.opsi-nama{grid-column:2;font-weight:700}
+.opsi-ket{grid-column:2 / 4;font-size:14px;color:var(--tinta-redup)}
+.opsi-harga{grid-column:3;grid-row:1;font-weight:700;white-space:nowrap}
+.opsi.cek .opsi-tanda{border-radius:6px}
+.opsi.cek .opsi-tanda::after{width:6px;height:11px;margin-top:-2px;border-radius:0;background:none;border:solid var(--di-atas-sinyal);border-width:0 2.5px 2.5px 0;transform:rotate(45deg) scale(0)}
+.opsi.cek input:checked + .opsi-kotak .opsi-tanda::after{transform:rotate(45deg) scale(1)}
+.opsi input:disabled + .opsi-kotak{border-style:dashed;background:var(--kartu-turun);cursor:not-allowed}
+.opsi input:disabled + .opsi-kotak:hover{border-color:var(--garis)}
+.opsi input:disabled + .opsi-kotak .opsi-nama,.opsi input:disabled + .opsi-kotak .opsi-tanda{opacity:.55}
+.info-stylist{padding:10px 12px;border-left:3px solid var(--sinyal);background:var(--sinyal-lembut);border-radius:var(--r-kecil);color:var(--tinta)}
+.opsi input:checked + .opsi-kotak{border-color:var(--sinyal);background:var(--sinyal-lembut)}
+.opsi input:checked + .opsi-kotak .opsi-tanda{border-color:var(--sinyal);background:var(--sinyal)}
+.opsi input:checked + .opsi-kotak .opsi-tanda::after{transform:scale(1)}
+.opsi input:focus-visible + .opsi-kotak{outline:3px solid var(--fokus);outline-offset:2px}
+
+.hari-strip{position:relative;display:flex;gap:8px;overflow-x:auto;margin:0 -16px;padding:4px 16px 12px;scroll-snap-type:x proximity;scrollbar-width:thin}
+.hari{flex:0 0 70px;display:grid;place-content:center;min-height:80px;padding:6px 4px;border:2px solid var(--garis);border-radius:var(--r-kecil);background:var(--kartu);color:var(--tinta);font:inherit;text-align:center;line-height:1.2;cursor:pointer;scroll-snap-align:start}
+.hari:hover:not(:disabled){border-color:var(--garis-kuat)}
+.hari .hr{font-size:12px;font-weight:600;color:var(--tinta-redup)}
+.hari .tg{font-size:24px;font-weight:800}
+.hari .bl{font-size:12px;color:var(--tinta-redup)}
+.hari[aria-pressed="true"]{border-color:var(--sinyal);background:var(--sinyal);color:var(--di-atas-sinyal)}
+.hari[aria-pressed="true"] .hr,.hari[aria-pressed="true"] .bl{color:var(--di-atas-sinyal)}
+.hari:disabled{border-style:dashed;cursor:not-allowed;opacity:.6}
+.petunjuk{font-size:13px;color:var(--tinta-redup)}
+.jam-label{margin:12px 0 10px;font-weight:700}
+.jam-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+@media (min-width:480px){.jam-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.jam-grid button{min-height:52px;border:2px solid var(--garis);border-radius:var(--r-kecil);background:var(--kartu);color:var(--tinta);font:inherit;font-weight:600;font-variant-numeric:tabular-nums;cursor:pointer}
+.jam-grid button:hover:not(:disabled){border-color:var(--garis-kuat)}
+.jam-grid button[aria-pressed="true"]{border-color:var(--sinyal);background:var(--sinyal);color:var(--di-atas-sinyal)}
+.jam-grid button:disabled{border-style:dashed;background:transparent;color:var(--tinta-redup);text-decoration:line-through;cursor:not-allowed}
+
+.kolom{display:grid;gap:6px;margin-top:14px}
+.kolom label{font-weight:600}
+.kolom input{min-height:52px;padding:0 14px;border:2px solid var(--garis-kuat);border-radius:var(--r-kecil);background:var(--kartu);color:var(--tinta);font:inherit;font-size:16px}
+.kolom input::placeholder{color:var(--tinta-redup);opacity:.8}
+.kolom input[aria-invalid="true"]{border-color:var(--salah)}
+.kolom .bantu{font-size:14px;color:var(--tinta-redup)}
+.kolom .salah{font-size:14px;font-weight:600;color:var(--salah)}
+
+.tinjau{margin-top:4px}
+.tinjau > div{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:0 12px;align-items:center;padding:10px 0;border-top:1px solid var(--garis)}
+.tinjau > div:first-child{border-top:0}
+.tinjau dt{grid-column:1;grid-row:1;font-size:13px;color:var(--tinta-redup)}
+.tinjau dd{grid-column:1;grid-row:2;font-weight:700;overflow-wrap:anywhere;white-space:pre-line}
+.tinjau .ubah{grid-column:2;grid-row:1 / 3;min-height:44px;padding:0 10px;border:0;border-radius:var(--r-tombol);background:transparent;color:var(--sinyal);font:inherit;font-weight:700;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.tinjau .ubah:hover{background:var(--sinyal-lembut)}
+.tinjau .total,.tinjau .rw{padding:12px 0}
+.tinjau .total dt,.tinjau .rw dt,.tinjau .total dd,.tinjau .rw dd{grid-row:1}
+.tinjau .total dd,.tinjau .rw dd{grid-column:2;text-align:right}
+.tinjau .total{border-top:2px solid var(--tinta)}
+.tinjau .total dt{font-size:15px;font-weight:700;color:var(--tinta)}
+.tinjau .total dd{font-size:20px}
+.tinjau .rw dd{font-weight:600}
+
+.qris{width:min(220px,60vw);aspect-ratio:1;margin:16px 0 8px;border:10px solid var(--kartu);outline:2px solid var(--tinta);background:repeating-conic-gradient(var(--tinta) 0 25%,var(--kartu) 0 50%) 0 0/22px 22px;position:relative}
+.qris::after{content:"CONTOH";position:absolute;inset:0;display:grid;place-items:center;background:var(--kartu-turun);color:var(--salah);font-weight:800;letter-spacing:.14em}
+.panel-bayar{margin-top:14px;padding:14px;border-radius:var(--r-kecil);background:var(--kartu-turun);font-size:14px}
+.panel-bayar p + p{margin-top:8px}
+
+.aksi-langkah{position:sticky;bottom:0;z-index:5;margin:20px -16px -16px;padding:12px 16px calc(12px + env(safe-area-inset-bottom));border-top:1px solid var(--garis);border-radius:0 0 var(--r) var(--r);background:var(--kartu)}
+.ringkas-mini{margin-bottom:8px;overflow:hidden;font-size:14px;color:var(--tinta-redup);text-overflow:ellipsis;white-space:nowrap}
+.ringkas-mini b{color:var(--tinta)}
+.pesan-sistem{margin-bottom:8px;font-size:14px;font-weight:600;color:var(--salah)}
+.pesan-sistem:empty{display:none}
+.baris-aksi{display:grid;grid-template-columns:auto 1fr;gap:10px}
+.baris-aksi .tombol{padding:0 16px}
+#lanjut{white-space:nowrap}
+.baris-aksi.tanpa-kembali{grid-template-columns:1fr}
+
+.selesai h3{margin:14px 0 4px;font-size:26px;font-weight:var(--h-berat);font-stretch:var(--h-lebar);text-transform:var(--h-huruf);letter-spacing:var(--h-ls)}
+.selesai h3:focus{outline:0}
+.centang{display:grid;place-items:center;width:56px;height:56px;border-radius:50%;background:var(--sinyal);color:var(--di-atas-sinyal)}
+.centang .ikon{width:28px;height:28px;stroke-width:3}
+.kode{margin:6px 0 14px;font-size:30px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:.06em}
+.selesai .aksi{margin-top:18px}
+
+.st-baris{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:12px}
+.st-label{font-weight:600}
+.stepper{display:grid;grid-template-columns:52px minmax(44px,64px) 52px;align-items:center;flex:none;border:2px solid var(--garis-kuat);border-radius:var(--r-kecil);overflow:hidden}
+.st-btn{min-height:52px;border:0;background:var(--kartu);color:var(--tinta);font:inherit;font-size:22px;font-weight:700;cursor:pointer}
+.st-btn:hover:not(:disabled){background:var(--kartu-turun)}
+.st-btn:disabled{color:var(--tinta-redup);cursor:not-allowed}
+.st-nilai{display:block;min-height:52px;border-left:2px solid var(--garis-kuat);border-right:2px solid var(--garis-kuat);background:var(--kartu);color:var(--tinta);font:inherit;font-weight:700;text-align:center;line-height:52px}
+.menu-baris{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:64px;padding:12px 14px;border:2px solid var(--garis);border-radius:var(--r-kecil);background:var(--kartu)}
+.menu-baris.aktif{border-color:var(--sinyal);background:var(--sinyal-lembut)}
+.menu-info{display:grid;gap:2px;min-width:0}
+.menu-info .opsi-nama,.menu-info .opsi-harga,.menu-info .opsi-ket{grid-column:auto;grid-row:auto}
+.menu-sub{font-size:14px;font-weight:700;color:var(--sinyal-gelap)}
+.kolom textarea{min-height:88px;padding:12px 14px;border:2px solid var(--garis-kuat);border-radius:var(--r-kecil);background:var(--kartu);color:var(--tinta);font:inherit;font-size:16px;resize:vertical}
+
+.hero-isi{position:relative;isolation:isolate}
+.hero-isi::before{content:"";position:absolute;z-index:-1;right:-6px;top:-8px;width:150px;height:150px;pointer-events:none}
+.fakta{display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));gap:8px;margin-top:20px}
+.fakta li{display:grid;gap:2px;align-content:start;padding:10px 12px;border:1px solid var(--garis);border-radius:var(--r-kecil);background:var(--kartu);min-width:0}
+.fakta .f-label{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--tinta-redup)}
+.fakta .f-nilai{font-size:15px;font-weight:800;line-height:1.25;overflow-wrap:anywhere}
+.dur{display:inline-block;margin-right:6px;padding:0 8px;border-radius:99px;background:var(--sinyal-lembut);color:var(--sinyal-gelap);font-size:13px;font-weight:700}
+
+
+[data-s=lembar] :is(.hero h1,.bagian h2,.panel h3,.selesai h3,#harga .kartu > h3,.kartu.pesan-buka > h3,.harga .hr,.hari .tg,.tinjau .total dd,.kode,.penutup h2,.lencana){font-family:var(--serif);font-stretch:100%}
+[data-s=lembar] :is(.eyebrow,.f-label,.langkah-no,.dur,.harga .nm::before,.petak figcaption,.sub,.tag-anda){font-family:'Space Mono',monospace}
+[data-s=lembar] .hero{padding:20px 0 4px}
+[data-s=lembar] .hero-isi{position:relative;padding-left:18px;border-left:8px solid var(--sinyal)}
+[data-s=lembar] .hero-isi::before{display:none}
+[data-s=lembar] .hero .eyebrow{font-size:11px;letter-spacing:.14em;color:var(--sinyal-gelap)}
+[data-s=lembar] .hero h1{margin:10px 0 10px;font-size:clamp(32px,10.5vw,58px);font-weight:700;line-height:.98;letter-spacing:-.02em}
+[data-s=lembar] .hero h1 em{font-style:normal;color:var(--sinyal-gelap)}
+[data-s=lembar] .hero .lead{max-width:44ch}
+[data-s=lembar] .hero-foto{position:relative;float:right;width:38%;max-width:190px;margin:6px 0 12px 16px;border:1px solid var(--tinta)}
+[data-s=lembar] .hero-foto img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:cover}
+[data-s=lembar] .lencana{margin-top:6px;font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.08em;color:var(--tinta-redup)}
+[data-s=lembar] .status{border:1px solid var(--garis-kuat);border-radius:0;background:var(--kartu);font-family:'Space Mono',monospace;font-size:13px}
+[data-s=lembar] .fakta{gap:0;margin-top:20px;border:1px solid var(--tinta)}
+[data-s=lembar] .fakta li{padding:10px;border:0;border-radius:0;background:var(--kartu)}
+[data-s=lembar] .fakta li + li{border-left:1px solid var(--garis-kuat)}
+[data-s=lembar] .fakta .f-label{font-size:11px;color:var(--tinta-redup)}
+[data-s=lembar] .fakta .f-nilai{font-family:var(--serif);font-size:clamp(15px,4.4vw,19px);font-weight:700;line-height:1.1}
+[data-s=lembar] .loncat a{border:1px solid var(--tinta);border-radius:0;background:var(--kartu)}
+[data-s=lembar] .loncat a:hover{background:var(--sinyal);border-color:var(--sinyal);color:var(--di-atas-sinyal)}
+[data-s=lembar] .demo-kartu{border:1px solid var(--tinta);border-radius:0;background:var(--kartu)}
+[data-s=lembar] .bagian{padding:44px 0 4px}
+[data-s=lembar] .bagian h2{font-size:clamp(26px,8vw,38px);font-weight:700;line-height:1}
+[data-s=lembar] .bagian:not(.penutup) h2::before{content:"";display:inline-block;width:14px;height:14px;margin-right:10px;background:var(--sinyal)}
+[data-s=lembar] .bagian-lead{margin-top:10px}
+[data-s=lembar] .kartu{border:1px solid var(--garis);border-radius:0;box-shadow:none}
+[data-s=lembar] #harga .kartu{margin-top:22px;padding:0;border:1px solid var(--tinta);background:var(--kartu)}
+[data-s=lembar] #harga .kartu > h3{padding:10px;background:var(--tinta);color:var(--latar);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+[data-s=lembar] #harga .harga{margin:0;counter-reset:n}
+[data-s=lembar] .harga li{grid-template-columns:34px minmax(0,1fr) auto auto;align-items:baseline;gap:2px 10px;padding:12px 10px;border-top:1px solid var(--garis)}
+[data-s=lembar] .harga li:first-child{border-top:0}
+[data-s=lembar] .harga li::before{counter-increment:n;content:counter(n,decimal-leading-zero);grid-column:1;grid-row:1;font-family:'Space Mono',monospace;font-size:13px;color:var(--sinyal-gelap)}
+[data-s=lembar] .harga .nm{grid-column:2;font-weight:700}
+[data-s=lembar] .harga .hr{grid-column:3;grid-row:1;font-family:'Space Mono',monospace;font-size:15px;font-weight:700;white-space:nowrap}
+[data-s=lembar] .harga .ket{grid-column:2 / -1}
+[data-s=lembar] .dur{display:none}
+[data-s=lembar] .harga .ket-teks{display:block;font-family:'Space Mono',monospace;font-size:12px;color:var(--tinta-redup)}
+[data-s=lembar] .harga .ket:empty{display:none}
+[data-s=lembar] .galeri{grid-template-columns:repeat(2,minmax(0,1fr));gap:0;margin-top:24px;border:1px solid var(--tinta);background:var(--tinta)}
+[data-s=lembar] .petak{aspect-ratio:4/3;border:8px solid var(--tinta);border-radius:0;background:var(--kartu-turun)}
+[data-s=lembar] .petak img{filter:grayscale(1) contrast(1.05)}
+[data-s=lembar] .petak figcaption{font-size:12px;color:var(--tinta-redup);padding-top:4px}
+[data-s=lembar] .galeri{counter-reset:fr}
+[data-s=lembar] .petak{counter-increment:fr;position:relative}
+[data-s=lembar] .petak::before{content:"F" counter(fr,decimal-leading-zero);position:absolute;z-index:1;top:-8px;left:-8px;padding:2px 5px;background:var(--sinyal);color:var(--di-atas-sinyal);font-family:'Space Mono',monospace;font-size:10px}
+[data-s=lembar] .petak:first-child,[data-s=lembar] .petak:last-child{grid-column:1 / -1;aspect-ratio:16/9}
+[data-s=lembar] .jam li{padding:12px 10px;border-radius:0}
+[data-s=lembar] .jam li.hari-ini{background:var(--sinyal-lembut);box-shadow:inset 4px 0 0 var(--sinyal)}
+[data-s=lembar] .tanya{border-bottom:1px solid var(--tinta)}
+[data-s=lembar] .tanya details{border-top:1px solid var(--garis)}
+[data-s=lembar] .tanya summary{min-height:56px;font-family:var(--serif);font-size:18px;font-weight:700}
+[data-s=lembar] .tanya summary svg{display:none}
+[data-s=lembar] .tanya summary::after{content:"[ + ]";margin-left:auto;font-family:'Space Mono',monospace;font-size:13px;color:var(--sinyal-gelap)}
+[data-s=lembar] .tanya details[open] summary::after{content:"[ \2212 ]"}
+[data-s=lembar] .penutup .kartu{border:1px solid var(--tinta);background:var(--sinyal-lembut)}
+[data-s=lembar] .penutup h2{font-size:clamp(24px,7.5vw,34px)}
+@supports (animation-timeline:view()){
+@media (prefers-reduced-motion:no-preference){
+@keyframes lmb{from{opacity:0}to{opacity:1}}
+[data-s=lembar] .petak{animation:lmb linear both;animation-timeline:view();animation-range:entry 0% entry 60%}
+}
+}
+
+[data-s=lembar] .kartu.pesan,[data-s=lembar] .kartu.pesan-buka{border:1px solid var(--tinta);background:var(--kartu)}
+[data-s=lembar] .kartu.pesan-buka > h3{font-size:24px;line-height:1}
+[data-s=lembar] .panel h3{font-size:24px;line-height:1}
+[data-s=lembar] .langkah-no{font-size:12px;letter-spacing:.1em;color:var(--sinyal-gelap)}
+[data-s=lembar] .progres{height:6px;border-radius:0;background:var(--kartu-turun)}
+[data-s=lembar] .progres i{border-radius:0}
+[data-s=lembar] .sub{color:var(--sinyal-gelap)}
+[data-s=lembar] .opsi-kotak{border-width:1px;border-radius:0}
+[data-s=lembar] .opsi input:checked + .opsi-kotak{border-color:var(--sinyal);box-shadow:inset 4px 0 0 var(--sinyal)}
+[data-s=lembar] .opsi-nama{font-weight:700}
+[data-s=lembar] .opsi-harga{font-family:'Space Mono',monospace;font-size:14px;color:var(--sinyal-gelap)}
+[data-s=lembar] .panel[data-langkah=bayar] .opsi-harga{font-size:13px}
+[data-s=lembar] .hari{border-radius:0;font-family:'Space Mono',monospace}
+[data-s=lembar] .hari .tg{font-size:22px}
+[data-s=lembar] .jam-grid button{border-radius:0;font-family:'Space Mono',monospace}
+[data-s=lembar] .stepper{border-radius:0}
+[data-s=lembar] .st-nilai{font-family:'Space Mono',monospace}
+[data-s=lembar] .kolom input,[data-s=lembar] .kolom textarea{border-radius:0}
+[data-s=lembar] .tinjau .total{border-top:2px solid var(--tinta)}
+[data-s=lembar] .tinjau .total dd{font-size:24px}
+[data-s=lembar] .selesai h3{font-size:28px}
+[data-s=lembar] .kode{font-family:'Space Mono',monospace;font-size:34px;letter-spacing:.08em;color:var(--sinyal-gelap)}
+
+.demo-strip{flex-wrap:wrap;column-gap:12px;row-gap:0}
+.demo-strip a{display:inline-flex;align-items:center;margin:-12px 0;padding:12px 4px;min-height:44px;color:inherit;font-weight:700;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+
+.hero h1{overflow-wrap:break-word;word-break:break-word}
+.ganti-daftar li,.demo-judul,.demo-teks,.demo-paket,.tanya details p{overflow-wrap:anywhere;min-width:0}
+.ganti-daftar .kini,.ganti-daftar .nanti{min-width:0;overflow-wrap:anywhere}
+.fakta li,.harga li,.harga .nm,.harga .ket,.status{min-width:0}
+.status{max-width:100%}
+.status span{overflow-wrap:anywhere}
+
+</style>
+</head>
+<body data-j="barbershop" data-s="lembar">
+<header class="atas"><div class="demo-strip" role="note"><span class="tanda-contoh">Demo</span><span>Contoh website untuk barbershop Anda</span><a href="/barbershop/paket-2/">Ganti tampilan</a></div><div class="wadah"><a class="balik" href="/barbershop/#paket"><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg> Semua paket barbershop</a><span class="nama-atas">Barbershop Cukur Rapi</span></div></header>
+<div class="pole" aria-hidden="true"></div>
+<main>
+<div class="wadah">
+<section class="hero">
+<div class="hero-isi">
+<p class="eyebrow">Barbershop &middot; Coblong, Kota Bandung</p>
+<h1>Barbershop Cukur <em>Rapi</em></h1>
+<p class="tag-baris"><span class="tag-anda">Nama barbershop Anda tampil di sini</span></p>
+<figure class="hero-foto"><img src="/barbershop/img/g5.jpg" alt="Kursi klasik kulit" width="720" height="540" fetchpriority="high" decoding="async"><span class="lencana">Coblong</span></figure>
+<p class="tag-baris"><span class="tag-anda">Foto barbershop Anda tampil di sini</span></p>
+<p class="status" id="status"><span class="titik" id="titik"></span><span id="status-teks">Memuat jam buka</span></p>
+<p class="lead">Potong, cukur jenggot, dan styling. Harga tetap, tanpa tambahan.</p>
+<div class="aksi"><a class="tombol" href="#pesan"><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> Pesan sekarang</a><a class="tombol garis" href="https://wa.me/6287712345678?text=Bang%2C%20saya%20mau%20tanya%20soal%20booking%20potong%20di%20Cukur%20Rapi."><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.4 8.4 0 1 1 21 11.5Z"/></svg> Tanya lewat WhatsApp</a></div>
+</div>
+<ul class="fakta"><li><span class="f-label">Mulai dari</span><span class="f-nilai">Rp 15.000</span></li><li><span class="f-label">Barber</span><span class="f-nilai">3 orang</span></li><li><span class="f-label">Lama layanan</span><span class="f-nilai">15-75 menit</span></li></ul>
+<nav class="loncat" aria-label="Loncat ke bagian"><a href="#pesan">Pesan</a><a href="#harga">Harga</a><a href="#lokasi">Lokasi</a><a href="#tanya">Tanya jawab</a></nav>
+<section class="demo-kartu" aria-label="Penjelasan halaman demo"><span class="tanda-contoh">Demo Paket 2</span><p class="demo-judul">Ini halaman demo, bukan barbershop sungguhan</p><p class="demo-teks">Beginilah tampilan website Anda nanti kalau memakai jasa Rio Ekaputra Siswa. Bayangkan isinya jadi milik barbershop Anda.</p><div class="ganti-kepala" aria-hidden="true"><span>Di demo ini</span><span></span><span>Di website Anda</span></div><ul class="ganti-daftar"><li><span class="kini">Barbershop Cukur Rapi</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Nama barbershop Anda</span></li><li><span class="kini">Jl. Contoh Raya No. 27, Ruko Blok B</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Alamat barbershop Anda</span></li><li><span class="kini">Barber: Andra, Budi, Sandi</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Nama barber di tempat Anda</span></li><li><span class="kini">Potong biasa, Rp 35.000</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Layanan dan harga Anda</span></li><li><span class="kini">0877-1234-5678</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Nomor WhatsApp Anda</span></li><li><span class="kini">devario.rioeka.com</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>namabarbershopanda.com</span></li></ul><p class="demo-paket">Paket 2: pesanan di halaman ini tidak tersimpan, hanya memperlihatkan alurnya. Di website Anda, pesanan masuk ke WhatsApp atau ke catatan barbershop.</p></section>
+</section>
+<section class="bagian" id="bagian-pesan" aria-labelledby="j-pesan">
+<p class="tag-baris"><span class="tag-anda">Layanan dan jam sesuai usaha Anda</span></p>
+<h2 id="j-pesan">Coba pesan sendiri</h2>
+<p class="bagian-lead">Datang langsung atau memesan lebih dulu, keduanya bisa.</p>
+<div class="kartu pesan-buka" id="pesan-buka"><h3>Coba alurnya sendiri</h3><p>Pilih layanan, barber, tanggal, dan jam dalam 5 langkah singkat. Pesanan di halaman contoh ini tidak tersimpan.</p><button class="tombol" id="buka-pesan" type="button" aria-controls="pesan" aria-expanded="false"><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> Mulai coba pesan</button></div>
+<div class="kartu pesan" id="pesan" hidden>
+<div id="alur">
+<div class="langkah-kepala"><span class="langkah-no" id="l-no">Langkah 1 dari 5</span><span class="langkah-nama" id="l-nama">Layanan</span></div>
+<div class="progres" id="progres" role="progressbar" aria-label="Kemajuan pesanan" aria-valuemin="1" aria-valuemax="5" aria-valuenow="1"><i id="progres-isi"></i></div>
+<div class="panel" data-langkah="layanan"><h3 tabindex="-1">Pilih layanan</h3><p class="tip">Boleh pilih lebih dari satu, total harganya dihitung otomatis. Harga tetap, tidak ada tambahan.</p><div id="pilih-layanan"></div></div>
+<div class="panel" data-langkah="stylist" hidden><h3 tabindex="-1">Pilih barber</h3><p class="tip">Tidak punya pilihan? Pilih "Terserah, siapa saja".</p><div id="pilih-stylist"></div></div>
+<div class="panel" data-langkah="waktu" hidden><h3 tabindex="-1">Pilih tanggal dan jam</h3><p class="tip">Dua minggu ke depan. Tanggal bergaris putus-putus berarti tutup.</p><div class="hari-strip" id="pilih-hari" role="group" aria-label="Tanggal"></div><p class="jam-label" id="jam-judul">Pilih tanggal dulu</p><div class="jam-grid" id="pilih-jam" role="group" aria-labelledby="jam-judul"></div><p class="petunjuk" style="margin-top:12px">Jam bergaris coret sudah terisi.</p></div>
+<div class="panel" data-langkah="data" hidden><h3 tabindex="-1">Nama dan nomor</h3><p class="tip">Kami memakai nomor ini hanya untuk mengabari pesanan yang dikonfirmasi.</p><div class="kolom"><label for="nama">Nama</label><input id="nama" name="nama" type="text" autocomplete="name" placeholder="Nama Anda"></div><div class="kolom"><label for="wa">Nomor WhatsApp</label><input id="wa" name="wa" type="tel" inputmode="tel" autocomplete="tel" placeholder="0812 3456 7890"></div></div>
+<div class="panel" data-langkah="tinjau" hidden><h3 tabindex="-1">Periksa pesanan</h3><p class="tip">Ketuk "Ubah" untuk memperbaiki. Pesanan di halaman contoh ini tidak tersimpan.</p><dl class="tinjau" id="tinjau"></dl></div>
+
+<div class="aksi-langkah"><p class="ringkas-mini" id="mini" hidden></p><p class="pesan-sistem" id="pesan-sistem" role="status" aria-live="polite"></p><div class="baris-aksi tanpa-kembali" id="baris-aksi"><button class="tombol garis" id="kembali" type="button" hidden>Kembali</button><button class="tombol" id="lanjut" type="button" aria-disabled="true">Lanjut</button></div></div></div>
+<div id="selesai" class="selesai" hidden><div id="k-centang" class="centang" aria-hidden="true"></div><h3 tabindex="-1">Pesanan dicatat</h3><p class="langkah-nama">Kode pesanan</p><p class="kode" id="k-kode"></p><dl class="tinjau" id="k-ringkas"></dl><p class="catatan">Halaman contoh. Pesanan ini tidak tersimpan di mana pun.</p><div class="aksi"><a class="tombol" id="k-wa" href="#">Kirim ke WhatsApp</a><button class="tombol garis" id="ulang" type="button">Pesan lagi</button></div></div>
+</div>
+</section>
+<section class="bagian" id="harga">
+<p class="tag-baris"><span class="tag-anda">Harga barbershop Anda</span></p>
+<h2>Daftar harga</h2>
+<p class="bagian-lead">Harga tetap, tidak ada tambahan. Cukur dan rapikan sudah termasuk cuci.</p>
+<div class="kartu"><h3>Potong</h3><ul class="harga"><li><span class="nm">Potong biasa</span><span class="hr">Rp 35.000</span><span class="ket"><span class="dur">30 menit</span></span></li><li><span class="nm">Potong dan cuci</span><span class="hr">Rp 45.000</span><span class="ket"><span class="dur">40 menit</span></span></li><li><span class="nm">Potong anak</span><span class="hr">Rp 30.000</span><span class="ket"><span class="dur">25 menit</span></span></li><li><span class="nm">Cukur jenggot</span><span class="hr">Rp 25.000</span><span class="ket"><span class="dur">20 menit</span></span></li></ul></div><div class="kartu"><h3>Perawatan</h3><ul class="harga"><li><span class="nm">Pomade dan styling</span><span class="hr">Rp 20.000</span><span class="ket"><span class="dur">15 menit</span></span></li><li><span class="nm">Masker rambut</span><span class="hr">Rp 50.000</span><span class="ket"><span class="dur">30 menit</span></span></li><li><span class="nm">Cukur kumis rapi</span><span class="hr">Rp 15.000</span><span class="ket"><span class="dur">15 menit</span></span></li><li><span class="nm">Paket lengkap</span><span class="hr">Rp 90.000</span><span class="ket"><span class="dur">1 jam 15 menit</span><span class="ket-teks">Potong, cuci, cukur jenggot, dan styling.</span></span></li></ul></div><p class="catatan">Anak di bawah 10 tahun dapat harga potong anak.</p>
+</section>
+<section class="bagian" id="lokasi">
+<p class="tag-baris"><span class="tag-anda">Alamat dan jam buka barbershop Anda</span></p>
+<h2>Lokasi dan jam buka</h2>
+<p class="bagian-lead">Tutup hari Minggu. Sabtu paling ramai, sebaiknya memesan lebih dulu.</p>
+<div class="kartu"><h3>Jam buka</h3><ul class="jam" id="kartu-jam"><li data-hari="1"><span>Senin</span><span>11.00 sampai 21.00</span></li><li data-hari="2"><span>Selasa</span><span>11.00 sampai 21.00</span></li><li data-hari="3"><span>Rabu</span><span>11.00 sampai 21.00</span></li><li data-hari="4"><span>Kamis</span><span>11.00 sampai 21.00</span></li><li data-hari="5"><span>Jumat</span><span>11.00 sampai 22.00</span></li><li data-hari="6"><span>Sabtu</span><span>10.00 sampai 22.00</span></li><li data-hari="0"><span>Minggu</span><span>tutup</span></li></ul></div>
+<div class="kartu"><h3>Alamat</h3><address class="alamat">Jl. Contoh Raya No. 27, Ruko Blok B<br>Coblong, Kota Bandung 40132<br>Sebelah warung kopi, di lantai dua.</address><div class="aksi-lokasi"><a class="tombol garis" href="https://www.google.com/maps/search/?api=1&amp;query=Jl.%20Contoh%20Raya%20No.%2027%20Coblong%20Bandung"><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> Buka di Google Maps</a></div></div>
+</section>
+<section class="bagian" id="tanya">
+<h2>Pertanyaan yang sering masuk</h2>
+<div class="tanya"><details><summary>Perlu pesan dulu?<svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><p>Tidak wajib, tapi Sabtu dan Minggu hampir selalu penuh. Memesan lebih dulu menghemat waktu tunggu.</p></details><details><summary>Berapa lama satu kali potong?<svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><p>Sekitar tiga puluh menit untuk potong biasa, dan sampai satu jam untuk paket lengkap.</p></details><details><summary>Bisa minta model tertentu dari foto?<svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><p>Bisa. Kirim fotonya lewat WhatsApp sebelum datang, supaya waktunya bisa diperkirakan.</p></details><details><summary>Terima anak kecil?<svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><p>Terima, dan ada harga khusus untuk anak di bawah sepuluh tahun.</p></details></div>
+</section>
+<section class="bagian penutup" aria-label="Penutup">
+<div class="kartu"><h2>Bayangkan ini website barbershop Anda</h2>
+<p class="bagian-lead">Nama, alamat, daftar harga, jam buka, dan foto di halaman ini nanti diganti dengan milik barbershop Anda. Barbershop Cukur Rapi hanya nama contoh. Alamat websitenya didaftarkan atas nama usaha Anda sendiri, misalnya namabarbershopanda.com.</p>
+<div class="aksi"><a class="tombol" href="/barbershop/#paket">Lihat paket dan harga</a><a class="tombol garis" href="https://rioeka.com">Kunjungi rioeka.com</a></div></div>
+</section>
+</div>
+</main>
+<footer class="kaki"><div class="wadah"><p>Pesan dan pertanyaan:</p><p><a href="https://wa.me/6287712345678?text=Bang%2C%20saya%20mau%20tanya%20soal%20booking%20potong%20di%20Cukur%20Rapi.">WhatsApp 0877-1234-5678</a></p><p>Halaman ini contoh peragaan, bukan usaha sungguhan. Dibuat oleh Rio Ekaputra Siswa, developer aplikasi web di Bandung yang membuat website untuk usaha lokal. <a href="https://rioeka.com">rioeka.com</a></p></div></footer>
+<div class="bar-bawah" id="bar-bawah"><a class="tombol" href="#pesan">Pesan sekarang</a><a class="tombol garis" href="https://wa.me/6287712345678?text=Bang%2C%20saya%20mau%20tanya%20soal%20booking%20potong%20di%20Cukur%20Rapi.">WhatsApp</a></div>
+<script>
+
+(function(){
+  var J={"0": null, "1": ["11.00", "21.00"], "2": ["11.00", "21.00"], "3": ["11.00", "21.00"], "4": ["11.00", "21.00"], "5": ["11.00", "22.00"], "6": ["10.00", "22.00"]};
+  var NH=["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
+  var kini=new Date(), hari=kini.getDay(), menitKini=kini.getHours()*60+kini.getMinutes();
+  function mnt(t){var p=t.split(".");return (+p[0])*60+(+p[1])}
+  function f(m){var j=Math.floor(m/60),s=m%60;return (j<10?"0":"")+j+"."+(s<10?"0":"")+s}
+  var teks=document.getElementById("status-teks"), titik=document.getElementById("titik");
+  var baris=document.querySelector('#kartu-jam [data-hari="'+hari+'"]');
+  if(baris){baris.className="hari-ini";var t=document.createElement("span");t.className="tanda-hari";t.textContent="hari ini";baris.firstElementChild.appendChild(t)}
+  var blok=J[hari];
+  function berikut(){
+    for(var n=1;n<=7;n++){var h=(hari+n)%7;if(J[h]){return NH[h]+" pukul "+J[h][0]}}
+    return "";
+  }
+  if(blok&&menitKini>=mnt(blok[0])&&menitKini<mnt(blok[1])){
+    teks.textContent="Buka sekarang, tutup pukul "+blok[1];titik.className="titik";
+  }else if(blok&&menitKini<mnt(blok[0])){
+    teks.textContent="Tutup. Buka hari ini pukul "+blok[0];titik.className="titik tutup";
+  }else{
+    teks.textContent="Tutup. Buka lagi "+berikut();titik.className="titik tutup";
+  }
+})();
+</script>
+<script>
+
+(function(){
+  var D={"noun": "Barber", "kode": "CR", "wa": "6287712345678", "bayar": false, "siapaSaja": "Terserah, siapa saja", "siapaSajaKet": "Kami yang menentukan", "grup": [{"nama": "Potong", "item": [{"nama": "Potong biasa", "harga": 35000, "menit": 30, "ket": ""}, {"nama": "Potong dan cuci", "harga": 45000, "menit": 40, "ket": ""}, {"nama": "Potong anak", "harga": 30000, "menit": 25, "ket": ""}, {"nama": "Cukur jenggot", "harga": 25000, "menit": 20, "ket": ""}]}, {"nama": "Perawatan", "item": [{"nama": "Pomade dan styling", "harga": 20000, "menit": 15, "ket": ""}, {"nama": "Masker rambut", "harga": 50000, "menit": 30, "ket": ""}, {"nama": "Cukur kumis rapi", "harga": 15000, "menit": 15, "ket": ""}, {"nama": "Paket lengkap", "harga": 90000, "menit": 75, "ket": "Potong, cuci, cukur jenggot, dan styling."}]}], "stylist": [{"nama": "Andra", "keahlian": "Potong pria dan fade", "rinci": "Khususnya model fade dan undercut.", "bisa": ["Potong biasa", "Potong dan cuci", "Potong anak", "Cukur jenggot", "Cukur kumis rapi", "Pomade dan styling", "Paket lengkap"]}, {"nama": "Budi", "keahlian": "Cukur jenggot", "rinci": "Jenggot dan kumis, termasuk perawatan.", "bisa": ["Cukur jenggot", "Cukur kumis rapi", "Paket lengkap"]}, {"nama": "Sandi", "keahlian": "Styling dan pomade", "rinci": "Penataan dan perawatan rambut.", "bisa": ["Pomade dan styling", "Masker rambut"]}], "jam": {"0": null, "1": ["11.00", "21.00"], "2": ["11.00", "21.00"], "3": ["11.00", "21.00"], "4": ["11.00", "21.00"], "5": ["11.00", "22.00"], "6": ["10.00", "22.00"]}};
+  var $=function(s,r){return (r||document).querySelector(s)};
+  var $$=function(s,r){return [].slice.call((r||document).querySelectorAll(s))};
+  var NH=["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
+  var NB=["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+  var redam=window.matchMedia&&window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+  function rp(n){return "Rp "+n.toLocaleString("id-ID")}
+  function fmt(m){var j=Math.floor(m/60),s=m%60;return (j<10?"0":"")+j+"."+(s<10?"0":"")+s}
+  function mnt(t){var p=t.split(".");return (+p[0])*60+(+p[1])}
+  function kunci(d){return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
+  function acak(s){var h=0;for(var k=0;k<s.length;k++){h=(h*31+s.charCodeAt(k))>>>0}return (h%100)/100}
+  function el(tag,cls,txt){var e=document.createElement(tag);if(cls){e.className=cls}if(txt!=null){e.textContent=txt}return e}
+  function ikonCentang(){var n="http://www.w3.org/2000/svg",s=document.createElementNS(n,"svg");s.setAttribute("class","ikon");s.setAttribute("viewBox","0 0 24 24");s.setAttribute("aria-hidden","true");var p=document.createElementNS(n,"path");p.setAttribute("d","M20 6 9 17l-5-5");s.appendChild(p);return s}
+
+  var infoStylist, daftarStylist=[];
+  var S={layanan:[],stylist:null,tgl:null,jam:null,nama:"",wa:"",cara:null};
+  var LANGKAH=[["layanan","Layanan"],["stylist",D.noun],["waktu","Waktu"],["data","Data Anda"],["tinjau","Periksa"]];
+  if(D.bayar){LANGKAH.push(["bayar","Pembayaran"])}
+  var IDX={};LANGKAH.forEach(function(l,n){IDX[l[0]]=n});
+  var i=0, dariTinjau=false, mulai=true;
+
+  var kartu=$("#pesan"), alur=$("#alur"), selesaiEl=$("#selesai");
+  var btnLanjut=$("#lanjut"), btnKembali=$("#kembali"), barisAksi=$("#baris-aksi");
+  var mini=$("#mini"), pesanSistem=$("#pesan-sistem");
+  var panel={};$$(".panel[data-langkah]",alur).forEach(function(p){panel[p.dataset.langkah]=p});
+
+  function tanggalTeks(d){return NH[d.getDay()]+", "+d.getDate()+" "+NB[d.getMonth()]}
+  function waktuTeks(){return S.tgl&&S.jam!==null?tanggalTeks(S.tgl.d)+", pukul "+fmt(S.jam):""}
+  function total(){var t=0;S.layanan.forEach(function(l){t+=l.harga});return t}
+  function durasi(){var t=0;S.layanan.forEach(function(l){t+=l.menit});return t}
+  function durTeks(m){var j=Math.floor(m/60),s=m%60;return (j?j+" jam":"")+(j&&s?" ":"")+(s?s+" menit":"")}
+  function namaLayanan(){return S.layanan.map(function(l){return l.nama})}
+  function muka(){return Math.round(total()*0.3/500)*500}
+
+  /* langkah 1: layanan */
+  var daftarLayanan=[];
+  (function(){
+    var kotak=$("#pilih-layanan");
+    D.grup.forEach(function(g){
+      kotak.appendChild(el("h4","sub",g.nama));
+      var daftar=el("div","opsi-daftar");
+      g.item.forEach(function(l){
+        var lb=el("label","opsi cek"), inp=el("input"), kk=el("span","opsi-kotak");
+        inp.type="checkbox";inp.name="layanan";inp.value=l.nama;daftarLayanan.push({l:l,inp:inp});
+        kk.appendChild(el("span","opsi-tanda"));
+        kk.appendChild(el("span","opsi-nama",l.nama));
+        kk.appendChild(el("span","opsi-harga",rp(l.harga)));
+        kk.appendChild(el("span","opsi-ket","Sekitar "+l.menit+" menit"+(l.ket?" · "+l.ket:"")));
+        lb.appendChild(inp);lb.appendChild(kk);daftar.appendChild(lb);
+        inp.addEventListener("change",function(){
+          S.layanan=daftarLayanan.filter(function(x){return x.inp.checked}).map(function(x){return x.l});
+          selarasStylist();bersih();perbarui();
+        });
+      });
+      kotak.appendChild(daftar);
+    });
+  })();
+
+  /* langkah 2: stylist */
+  (function(){
+    var kotak=$("#pilih-stylist"), daftar=el("div","opsi-daftar");
+    infoStylist=el("p","tip info-stylist");infoStylist.hidden=true;
+    kotak.appendChild(infoStylist);
+    [{nama:D.siapaSaja,keahlian:D.siapaSajaKet,rinci:"",bisa:null}].concat(D.stylist).forEach(function(s){
+      var lb=el("label","opsi"), inp=el("input"), kk=el("span","opsi-kotak"), ket=el("span","opsi-ket");
+      inp.type="radio";inp.name="stylist";inp.value=s.nama;
+      kk.appendChild(el("span","opsi-tanda"));
+      kk.appendChild(el("span","opsi-nama",s.nama));
+      kk.appendChild(ket);
+      lb.appendChild(inp);lb.appendChild(kk);daftar.appendChild(lb);
+      daftarStylist.push({s:s,inp:inp,ket:ket});
+      inp.addEventListener("change",function(){S.stylist=s.nama;bersih();perbarui()});
+    });
+    kotak.appendChild(daftar);
+    selarasStylist();
+  })();
+  function kurang(s){
+    if(!s.bisa){return []}
+    return namaLayanan().filter(function(n){return s.bisa.indexOf(n)<0});
+  }
+  function selarasStylist(){
+    var ada=0, semua=0;
+    daftarStylist.forEach(function(x){
+      if(!x.s.bisa){return}
+      semua++;
+      var k=kurang(x.s);
+      x.inp.disabled=k.length>0;
+      if(k.length){
+        x.ket.textContent=x.s.keahlian+" · Tidak mengerjakan "+k.join(", ");
+        if(x.inp.checked){x.inp.checked=false;S.stylist=null}
+      }else{
+        ada++;
+        x.ket.textContent=[x.s.keahlian,x.s.rinci].filter(Boolean).join(" · ");
+      }
+    });
+    var pecah=S.layanan.length>1&&ada===0;
+    var s0=daftarStylist[0];
+    if(s0){
+      s0.ket.textContent=pecah?"Tiap layanan dikerjakan "+D.noun.toLowerCase()+" yang sesuai":D.siapaSajaKet;
+    }
+    infoStylist.hidden=!(S.layanan.length&&semua&&ada<semua);
+    infoStylist.textContent=pecah
+      ?"Layanan yang Anda pilih dikerjakan oleh lebih dari satu "+D.noun.toLowerCase()+". Pilih \""+D.siapaSaja+"\", kami yang mengatur."
+      :D.noun+" yang tidak bisa dipilih tidak mengerjakan salah satu layanan Anda.";
+  }
+
+  /* langkah 3: tanggal dan jam */
+  var hariKotak=$("#pilih-hari"), jamKotak=$("#pilih-jam"), jamJudul=$("#jam-judul");
+  for(var n=0;n<14;n++){(function(n){
+    var t=new Date();t.setHours(0,0,0,0);t.setDate(t.getDate()+n);
+    var blok=D.jam[String(t.getDay())];
+    var b=el("button","hari");b.type="button";b.disabled=!blok;b.setAttribute("aria-pressed","false");
+    b.appendChild(el("span","hr",n===0?"Hari ini":NH[t.getDay()].slice(0,3)));
+    b.appendChild(el("span","tg",String(t.getDate())));
+    b.appendChild(el("span","bl",blok?NB[t.getMonth()].slice(0,3):"Tutup"));
+    b.setAttribute("aria-label",tanggalTeks(t)+(blok?"":", tutup"));
+    b.addEventListener("click",function(){
+      $$("button",hariKotak).forEach(function(x){x.setAttribute("aria-pressed","false")});
+      b.setAttribute("aria-pressed","true");
+      S.tgl={d:t,kunci:kunci(t),blok:blok};S.jam=null;gambarJam();bersih();perbarui();
+    });
+    hariKotak.appendChild(b);
+  })(n)}
+
+  function gambarJam(){
+    jamKotak.textContent="";
+    if(!S.tgl||!S.tgl.blok){jamJudul.textContent="Pilih tanggal dulu";return}
+    var b=S.tgl.blok, sekarang=new Date(), a=[], tersedia=0;
+    for(var m=mnt(b[0]);m+30<=mnt(b[1]);m+=30){a.push(m)}
+    a.forEach(function(m){
+      var x=el("button",null,fmt(m));x.type="button";x.setAttribute("aria-pressed","false");
+      var lewat=S.tgl.kunci===kunci(sekarang)&&m<=sekarang.getHours()*60+sekarang.getMinutes();
+      var penuh=acak(S.tgl.kunci+"#"+m)<0.22;
+      x.disabled=lewat||penuh;
+      if(penuh){x.setAttribute("aria-label",fmt(m)+", sudah terisi")}
+      else if(lewat){x.setAttribute("aria-label",fmt(m)+", sudah lewat")}
+      else{tersedia++}
+      x.addEventListener("click",function(){
+        $$("button",jamKotak).forEach(function(y){y.setAttribute("aria-pressed","false")});
+        x.setAttribute("aria-pressed","true");S.jam=m;bersih();perbarui();
+      });
+      jamKotak.appendChild(x);
+    });
+    jamJudul.textContent=tersedia?"Pilih jam, "+tanggalTeks(S.tgl.d):"Semua jam hari ini sudah terisi atau lewat. Pilih hari lain.";
+  }
+  (function(){
+    var tombol=$$("button",hariKotak);
+    for(var k=0;k<tombol.length;k++){
+      if(tombol[k].disabled){continue}
+      tombol[k].click();
+      if($$("button:not(:disabled)",jamKotak).length>=2){break}
+    }
+    S.jam=null;$$("button",jamKotak).forEach(function(y){y.setAttribute("aria-pressed","false")});
+  })();
+  function gulirHari(){
+    var p=$('button[aria-pressed="true"]',hariKotak);
+    if(p){hariKotak.scrollLeft=Math.max(0,p.offsetLeft-16)}
+  }
+
+  /* langkah 4: data */
+  var inNama=$("#nama"), inWa=$("#wa");
+  function salahDi(inp,pesan){
+    var id=inp.id+"-salah", e=document.getElementById(id);
+    if(!pesan){
+      inp.removeAttribute("aria-invalid");inp.removeAttribute("aria-describedby");
+      if(e){e.remove()}
+      return;
+    }
+    if(!e){e=el("span","salah");e.id=id;inp.parentNode.appendChild(e)}
+    e.textContent=pesan;inp.setAttribute("aria-invalid","true");inp.setAttribute("aria-describedby",id);
+  }
+  function namaOk(){return S.nama.length>=2}
+  function waOk(){return S.wa.replace(/\D/g,"").length>=9}
+  inNama.addEventListener("input",function(){S.nama=this.value.trim();salahDi(inNama,"");bersih();perbarui()});
+  inWa.addEventListener("input",function(){S.wa=this.value.replace(/[^0-9+]/g,"");salahDi(inWa,"");bersih();perbarui()});
+  [inNama,inWa].forEach(function(x){x.addEventListener("keydown",function(e){if(e.key==="Enter"){e.preventDefault();btnLanjut.click()}})});
+
+  /* langkah 5: tinjau */
+  var tinjauEl=$("#tinjau");
+  function barisTinjau(label,nilai,langkah){
+    var d=el("div"), dt=el("dt",null,label), dd=el("dd",null,nilai);
+    d.appendChild(dt);d.appendChild(dd);
+    if(langkah){
+      var u=el("button","ubah","Ubah");u.type="button";
+      u.setAttribute("aria-label","Ubah "+label.toLowerCase());
+      u.addEventListener("click",function(){dariTinjau=true;pergi(IDX[langkah],true)});
+      d.appendChild(u);
+    }
+    return d;
+  }
+  function isiTinjau(){
+    tinjauEl.textContent="";
+    tinjauEl.appendChild(barisTinjau("Layanan",S.layanan.map(function(l){return l.nama+", "+rp(l.harga)}).join("\n"),"layanan"));
+    tinjauEl.appendChild(barisTinjau(D.noun,S.stylist,"stylist"));
+    tinjauEl.appendChild(barisTinjau("Waktu",waktuTeks(),"waktu"));
+    tinjauEl.appendChild(barisTinjau("Nama",S.nama,"data"));
+    tinjauEl.appendChild(barisTinjau("WhatsApp",S.wa,"data"));
+    var dur=barisTinjau("Perkiraan lama",durTeks(durasi()));dur.className="rw";tinjauEl.appendChild(dur);
+    var rw=barisTinjau("Bayar muka 30 persen",D.bayar?rp(muka()):"");
+    if(D.bayar){rw.className="rw";tinjauEl.appendChild(rw)}
+    var tot=barisTinjau(S.layanan.length>1?"Total harga":"Harga layanan",rp(total()));tot.className="total";tinjauEl.appendChild(tot);
+  }
+
+  /* langkah 6: bayar (paket 3) */
+  function isiBayar(){
+    var a=$("#b-total"), b=$("#b-muka");
+    if(a){a.textContent=rp(total())}
+    if(b){b.textContent=rp(muka())}
+  }
+  $$('input[name="cara"]').forEach(function(r){
+    r.addEventListener("change",function(){
+      S.cara=r.value;
+      var pq=$("#panel-qris"), pt=$("#panel-transfer");
+      if(pq){pq.hidden=r.value!=="qris"}
+      if(pt){pt.hidden=r.value!=="transfer"}
+      bersih();perbarui();
+    });
+  });
+
+  /* inti alur */
+  function galat(id){
+    if(id==="layanan"){return S.layanan.length?"":"Pilih minimal satu layanan untuk lanjut."}
+    if(id==="stylist"){return S.stylist?"":"Pilih "+D.noun.toLowerCase()+", atau pilih "+D.siapaSaja.toLowerCase()+"."}
+    if(id==="waktu"){return !S.tgl?"Pilih tanggal dulu.":(S.jam===null?"Pilih jam yang masih kosong.":"")}
+    if(id==="data"){return !namaOk()?"Isi nama Anda untuk lanjut.":(!waOk()?"Nomor WhatsApp belum lengkap.":"")}
+    if(id==="bayar"){return S.cara?"":"Pilih cara bayar untuk lanjut."}
+    return "";
+  }
+  function bersih(){pesanSistem.textContent=""}
+  function labelLanjut(id){
+    if(id==="tinjau"){return D.bayar?"Lanjut ke pembayaran":"Konfirmasi pesanan"}
+    if(id==="bayar"){return S.cara==="tempat"?"Konfirmasi, bayar di tempat":(S.cara==="transfer"?"Saya sudah transfer":(S.cara==="qris"?"Saya sudah bayar":"Konfirmasi pembayaran"))}
+    return "Lanjut";
+  }
+  function ringkasLayanan(){
+    return S.layanan.length>1?S.layanan.length+" layanan "+rp(total()):S.layanan[0].nama+" "+rp(total());
+  }
+  function ringkasMini(id){
+    var p=[];
+    if(S.layanan.length&&id!=="layanan"){p.push(ringkasLayanan())}
+    if(S.stylist&&IDX[id]>IDX.stylist){p.push(S.stylist)}
+    if(S.jam!==null&&IDX[id]>IDX.waktu){p.push(waktuTeks())}
+    return p.join(" · ");
+  }
+  function perbarui(){
+    var id=LANGKAH[i][0], g=galat(id), total=LANGKAH.length;
+    $("#l-no").textContent="Langkah "+(i+1)+" dari "+total;
+    $("#l-nama").textContent=LANGKAH[i][1];
+    $("#progres-isi").style.width=((i+1)/total*100)+"%";
+    $("#progres").setAttribute("aria-valuenow",String(i+1));
+    $("#progres").setAttribute("aria-valuetext","Langkah "+(i+1)+" dari "+total+", "+LANGKAH[i][1]);
+    btnLanjut.textContent=labelLanjut(id);
+    btnLanjut.setAttribute("aria-disabled",g?"true":"false");
+    barisAksi.className="baris-aksi"+(i===0?" tanpa-kembali":"");
+    btnKembali.hidden=i===0;
+    if(g){mini.innerHTML="";mini.textContent=g}
+    else{
+      mini.textContent="";var r=ringkasMini(id);
+      if(r){mini.textContent=r}
+      else if(id==="layanan"&&S.layanan.length){mini.textContent=ringkasLayanan()+" · sekitar "+durTeks(durasi())}
+    }
+    mini.hidden=!mini.textContent;
+  }
+  function pergi(n,fokus){
+    i=n;
+    LANGKAH.forEach(function(l,k){panel[l[0]].hidden=k!==i});
+    var id=LANGKAH[i][0];
+    if(id==="waktu"){gulirHari()}
+    if(id==="stylist"){selarasStylist()}
+    if(id==="tinjau"){isiTinjau()}
+    if(id==="bayar"){isiBayar()}
+    bersih();perbarui();
+    if(mulai){return}
+    var h=$("h3",panel[id]);
+    if(h){h.focus({preventScroll:true})}
+    var r=kartu.getBoundingClientRect();
+    if(r.top<96||r.top>window.innerHeight*0.5){kartu.scrollIntoView({block:"start",behavior:redam?"auto":"smooth"})}
+  }
+  function fokusKeSalah(id){
+    var f=null;
+    if(id==="layanan"){f=$('input[name="layanan"]')}
+    else if(id==="stylist"){f=$('input[name="stylist"]')}
+    else if(id==="waktu"){f=!S.tgl?$("button:not(:disabled)",hariKotak):$("button:not(:disabled)",jamKotak)}
+    else if(id==="data"){f=!namaOk()?inNama:inWa}
+    else if(id==="bayar"){f=$('input[name="cara"]')}
+    if(f){f.focus()}
+  }
+  btnLanjut.addEventListener("click",function(){
+    var id=LANGKAH[i][0];
+    if(btnLanjut.getAttribute("aria-busy")==="true"){return}
+    var g=galat(id);
+    if(g){
+      if(id==="data"){
+        salahDi(inNama,namaOk()?"":"Isi nama supaya kami tahu harus memanggil siapa.");
+        salahDi(inWa,waOk()?"":"Isi nomor yang aktif di WhatsApp. Contoh: 0812 3456 7890");
+      }else{pesanSistem.textContent=g}
+      fokusKeSalah(id);
+      return;
+    }
+    if(id==="tinjau"&&!D.bayar){selesaiPesan("Bayar di tempat",btnLanjut);return}
+    if(id==="bayar"){
+      var cara=S.cara==="qris"?"QRIS, bayar muka lunas":(S.cara==="transfer"?"Transfer, bayar muka lunas":"Bayar di tempat");
+      selesaiPesan(cara,btnLanjut);return;
+    }
+    if(dariTinjau){dariTinjau=false;pergi(IDX.tinjau,true);return}
+    pergi(i+1,true);
+  });
+  btnKembali.addEventListener("click",function(){
+    if(dariTinjau){dariTinjau=false;pergi(IDX.tinjau,true);return}
+    pergi(i-1,true);
+  });
+
+  function kode(){
+    var t=S.tgl.d;
+    return D.kode+"-"+String(t.getDate()).padStart(2,"0")+String(t.getMonth()+1).padStart(2,"0")+"-"+fmt(S.jam).replace(".","");
+  }
+  function selesaiPesan(cara,tombol){
+    tombol.setAttribute("aria-busy","true");tombol.textContent="Memproses…";
+    setTimeout(function(){
+      tombol.removeAttribute("aria-busy");
+      alur.hidden=true;selesaiEl.hidden=false;
+      var c=$("#k-centang");c.textContent="";c.appendChild(ikonCentang());
+      $("#k-kode").textContent=kode();
+      var rk=$("#k-ringkas");rk.textContent="";
+      [["Layanan",S.layanan.map(function(l){return l.nama+", "+rp(l.harga)}).join("\n")],["Total harga",rp(total())],[D.noun,S.stylist],["Waktu",waktuTeks()],["Nama",S.nama],["Pembayaran",cara]].forEach(function(r){
+        var d=el("div");d.appendChild(el("dt",null,r[0]));d.appendChild(el("dd",null,r[1]));rk.appendChild(d);
+      });
+      $("#k-wa").href="https://wa.me/"+D.wa+"?text="+encodeURIComponent("Halo, saya "+S.nama+". Saya memesan "+namaLayanan().join(", ")+(S.stylist===D.siapaSaja?"":" dengan "+S.stylist)+" pada "+waktuTeks()+". Kode: "+kode());
+      var h=$("h3",selesaiEl);h.focus({preventScroll:true});
+      kartu.scrollIntoView({block:"start",behavior:redam?"auto":"smooth"});
+    },900);
+  }
+  $("#ulang").addEventListener("click",function(){location.reload()});
+
+  var pembuka=$("#pesan-buka"), tombolBuka=$("#buka-pesan");
+  function buka(){
+    if(kartu.hidden){
+      kartu.hidden=false;pembuka.hidden=true;tombolBuka.setAttribute("aria-expanded","true");
+      var h=$("h3",panel[LANGKAH[i][0]]);if(h){h.focus({preventScroll:true})}
+    }
+    kartu.scrollIntoView({block:"start",behavior:redam?"auto":"smooth"});
+  }
+  tombolBuka.addEventListener("click",buka);
+  $$('a[href="#pesan"]').forEach(function(a){a.addEventListener("click",function(ev){ev.preventDefault();buka()})});
+  if(location.hash==="#pesan"){buka()}
+
+  pergi(0);mulai=false;
+})();
+
+(function(){
+  var bar=document.getElementById("bar-bawah"), kartu=document.getElementById("pesan");
+  if(!bar||!kartu||!window.IntersectionObserver){return}
+  new IntersectionObserver(function(e){bar.classList.toggle("sembunyi",e[0].isIntersecting)}).observe(kartu);
+})();
+</script>
+</body>
+</html>

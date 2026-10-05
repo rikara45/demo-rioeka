@@ -2,11 +2,10 @@ import json, os, sys
 from html import escape as e
 from urllib.parse import quote
 sys.path.insert(0, os.path.dirname(__file__))
-from css import FONT, FONT_SERIF, FONT_FRAUNCES, FONT_INAP, BASE, BOOKING, GAYA, GAYA_UMUM, GAYA_SALON, GAYA_SALON_WIZARD, GAYA_SPA, GAYA_SPA_WIZARD, GAYA_KATERING, GAYA_KATERING_WIZARD, GAYA_BARBER, GAYA_BARBER_WIZARD, GAYA_INAP, GAYA_INAP_WIZARD, TEMA, WARNA_TEMA, WARNA_INDEX, AKSEN_JENIS, INDEX_TOKENS, INDEX, ERR
+from css import FONT, BASE, BOOKING, GAYA_UMUM, WARNA_INDEX, AKSEN_JENIS, INDEX_TOKENS, INDEX, ERR
 from data import USAHA, URUT_HARI
 from js import STATUS_JS, BAR_JS, BOOKING_JS, WIZARD_JS
-
-GAYA_HALAMAN = {"butik": (GAYA_SALON, GAYA_SALON_WIZARD, FONT_SERIF, "cormorant-garamond-latin.woff2"), "tenang": (GAYA_SPA, GAYA_SPA_WIZARD, FONT_SERIF, "cormorant-garamond-latin.woff2"), "hajatan": (GAYA_KATERING, GAYA_KATERING_WIZARD, FONT_FRAUNCES, "fraunces-latin.woff2"), "karcis": (GAYA_BARBER, GAYA_BARBER_WIZARD, "", "archivo-latin.woff2"), "kartukunci": (GAYA_INAP, GAYA_INAP_WIZARD, FONT_INAP, "instrument-serif-latin.woff2")}
+from skin import SKIN, DEFAULT, PILIH, GANTI_SKIN, KASAR, chip
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 NH = {0: "Minggu", 1: "Senin", 2: "Selasa", 3: "Rabu", 4: "Kamis", 5: "Jumat", 6: "Sabtu"}
@@ -333,7 +332,6 @@ def html_fakta(u):
 
 def seksi_harga(u):
     mode = u.get("mode", "jadwal")
-    butik = u.get("gaya") in GAYA_HALAMAN
     if u.get("mode") == "inap":
         judul, lead = "Daftar kamar dan harga", u["harga_lead"]
     elif u.get("mode") == "pesan":
@@ -356,7 +354,7 @@ def seksi_harga(u):
                 it = [x for _, items in u["menu"] for x in items if x["nama"] == nm]
                 if it:
                     ket = "%s. Minimal %d %s, pesan H-%d." % (it[0]["ket"], it[0]["min"], it[0]["satuan"], it[0]["lead"])
-            isi_ket = dur + (('<span class="ket-teks">%s</span>' % e(ket)) if butik and ket else e(ket))
+            isi_ket = dur + (('<span class="ket-teks">%s</span>' % e(ket)) if ket else "")
             out.append('<li><span class="nm">%s</span><span class="hr">%s</span>%s</li>' % (e(nm), rp(hr), '<span class="ket">%s</span>' % isi_ket if isi_ket else ""))
         out.append("</ul></div>")
     out.append('<p class="catatan">%s</p>\n</section>\n' % e(u["harga_catatan"]))
@@ -380,16 +378,10 @@ def seksi_lokasi(u):
 
 
 def seksi_galeri(u):
-    if u.get("gaya") in GAYA_HALAMAN:
-        p = "".join(
-            '<figure class="petak"><img src="/%s/img/%s.jpg" alt="" width="720" height="540" loading="lazy" decoding="async"><figcaption>%s</figcaption></figure>' % (u["slug"], f, e(a))
-            for f, a in u["galeri"]
-        )
-    else:
-        p = "".join(
-            '<figure class="petak"><img src="/%s/img/%s.jpg" alt="%s" width="720" height="540" loading="lazy" decoding="async"></figure>' % (u["slug"], f, e(a))
-            for f, a in u["galeri"]
-        )
+    p = "".join(
+        '<figure class="petak"><img src="/%s/img/%s.jpg" alt="" width="720" height="540" loading="lazy" decoding="async"><figcaption>%s</figcaption></figure>' % (u["slug"], f, e(a))
+        for f, a in u["galeri"]
+    )
     return (
         '<section class="bagian" id="galeri">\n' + tag("Foto asli %s Anda" % u["jenis"].lower()) + '<h2>Galeri</h2>\n<p class="bagian-lead">%s</p>\n<div class="galeri">%s</div>\n'
         '<p class="kredit">Foto contoh dari <a href="https://unsplash.com/license" rel="noopener">Unsplash</a>, bebas dipakai.</p>\n</section>\n'
@@ -401,16 +393,15 @@ def seksi_tanya(u):
     return '<section class="bagian" id="tanya">\n<h2>Pertanyaan yang sering masuk</h2>\n<div class="tanya">%s</div>\n</section>\n' % d
 
 
-def halaman_demo(u, n):
+def halaman_demo(u, n, skin_slug=None):
     mode = u.get("mode", "jadwal")
-    butik = u.get("gaya") in GAYA_HALAMAN
-    if butik:
-        g_utama, g_wizard, g_font, g_preload = GAYA_HALAMAN[u["gaya"]]
-        css = FONT + "\n" + g_font + "\n:root{" + TEMA[u["tema"]] + "}\n" + BASE + (BOOKING if n >= 2 else "") + GAYA_UMUM + g_utama + (g_wizard if n >= 2 else "")
-        preload = '<link rel="preload" href="/font/%s" as="font" type="font/woff2" crossorigin>\n' % g_preload
-    else:
-        css = FONT + "\n:root{" + TEMA[u["tema"]] + "}\n" + BASE + (BOOKING if n >= 2 else "") + GAYA
-        preload = ""
+    skin_slug = skin_slug or DEFAULT[u["slug"]]
+    sk = SKIN[u["slug"]][skin_slug]
+    u = dict(u, hero_foto=sk["hero_foto"], galeri_dulu=sk["galeri_dulu"])
+    if sk["galeri"]:
+        u["galeri"] = sk["galeri"]
+    css = FONT + "\n" + sk["font"] + "\n:root{" + sk["tema"] + "}\n" + BASE + (BOOKING if n >= 2 else "") + GAYA_UMUM + sk["css"] + (sk["css_wizard"] if n >= 2 else "") + GANTI_SKIN + ("" if sk.get("lama") else KASAR)
+    preload = '<link rel="preload" href="/font/%s" as="font" type="font/woff2" crossorigin>\n' % sk["preload"] if sk["preload"] else ""
     judul = {1: u["title_p1"], 2: u["nama"] + ", booking", 3: u["nama"] + ", booking dan pembayaran"}[n]
     desc = u["desc_p1"] if n == 1 else (u["desc_book"] if n == 2 else u["desc_book"].rstrip(".") + ", lalu bayar muka.")
     wa = wa_link(u)
@@ -435,7 +426,7 @@ def halaman_demo(u, n):
     else:
         kata2 = "pemesanan"
     if n == 1:
-        aksi = '<a class="tombol" href="%s">%s Tanya lewat WhatsApp</a><a class="tombol garis" href="/%s/paket-2/">Buka demo Paket 2, dengan %s %s</a>' % (wa, I_WA, u["slug"], kata2, I_KANAN)
+        aksi = '<a class="tombol" href="%s">%s Tanya lewat WhatsApp</a><a class="tombol garis" href="/%s/paket-2/%s/">Buka demo Paket 2, dengan %s %s</a>' % (wa, I_WA, u["slug"], skin_slug, kata2, I_KANAN)
     else:
         aksi = '<a class="tombol" href="#pesan">%s Pesan sekarang</a><a class="tombol garis" href="%s">%s Tanya lewat WhatsApp</a>' % (I_KALENDER, wa, I_WA)
 
@@ -452,38 +443,28 @@ def halaman_demo(u, n):
         status = '<p class="status" id="status"><span class="titik" id="titik"></span><span id="status-teks">Memuat jam buka</span></p>\n'
 
     body = [
-        '<body data-j="%s">\n' % u["slug"],
-        '<header class="atas"><div class="demo-strip" role="note"><span class="tanda-contoh">Demo</span><span>Contoh website untuk %s Anda</span></div><div class="wadah"><a class="balik" href="/%s/#paket">%s Semua paket %s</a><span class="nama-atas">%s</span></div></header>\n' % (u["jenis"].lower(), u["slug"], I_KIRI, u["jenis"].lower(), e(u["nama"])),
+        '<body data-j="%s" data-s="%s">\n' % (u["slug"], skin_slug),
+        '<header class="atas"><div class="demo-strip" role="note"><span class="tanda-contoh">Demo</span><span>Contoh website untuk %s Anda</span><a href="/%s/paket-%d/">Ganti tampilan</a></div><div class="wadah"><a class="balik" href="/%s/#paket">%s Semua paket %s</a><span class="nama-atas">%s</span></div></header>\n' % (u["jenis"].lower(), u["slug"], n, u["slug"], I_KIRI, u["jenis"].lower(), e(u["nama"])),
         '<div class="pole" aria-hidden="true"></div>\n',
         "<main>\n",
         '<div class="wadah">\n',
     ]
     nav = '<nav class="loncat" aria-label="Loncat ke bagian">%s</nav>\n' % "".join(loncat)
-    if butik:
-        kata = u["nama"].rsplit(" ", 1)
-        h1 = "%s <em>%s</em>" % (e(kata[0]), e(kata[1])) if len(kata) == 2 else e(u["nama"])
-        foto, alt_foto = u["hero_foto"]
-        body += [
-            '<section class="hero">\n<div class="hero-isi">\n<p class="eyebrow">%s &middot; %s</p>\n<h1>%s</h1>\n' % (e(u["jenis"]), e(u["area"]), h1),
-            tag("Nama %s Anda tampil di sini" % u["jenis"].lower()),
-            '<figure class="hero-foto"><img src="/%s/img/%s.jpg" alt="%s" width="720" height="540" fetchpriority="high" decoding="async"><span class="lencana">%s</span></figure>\n' % (u["slug"], foto, e(alt_foto), e(u["area"].split(",")[0])),
-            tag("Foto %s Anda tampil di sini" % u["jenis"].lower()),
-            status,
-            '<p class="lead">%s</p>\n<div class="aksi">%s</div>\n</div>\n' % (e(u["lead"]), aksi),
-            html_fakta(u),
-            nav,
-            kartu_demo(u, n),
-            "</section>\n",
-        ]
-    else:
-        body += [
-            '<section class="hero">\n' + kartu_demo(u, n) + '<div class="hero-isi">\n<p class="eyebrow">%s &middot; %s</p>\n<h1>%s</h1>\n' % (e(u["jenis"]), e(u["area"]), e(u["nama"])),
-            tag("Nama %s Anda tampil di sini" % u["jenis"].lower()),
-            status,
-            '<p class="lead">%s</p>\n<div class="aksi">%s</div>\n</div>\n' % (e(u["lead"]), aksi),
-            html_fakta(u),
-            nav + "</section>\n",
-        ]
+    kata = u["nama"].rsplit(" ", 1)
+    h1 = "%s <em>%s</em>" % (e(kata[0]), e(kata[1])) if len(kata) == 2 else e(u["nama"])
+    foto, alt_foto = u["hero_foto"]
+    body += [
+        '<section class="hero">\n<div class="hero-isi">\n<p class="eyebrow">%s &middot; %s</p>\n<h1>%s</h1>\n' % (e(u["jenis"]), e(u["area"]), h1),
+        tag("Nama %s Anda tampil di sini" % u["jenis"].lower()),
+        '<figure class="hero-foto"><img src="/%s/img/%s.jpg" alt="%s" width="720" height="540" fetchpriority="high" decoding="async"><span class="lencana">%s</span></figure>\n' % (u["slug"], foto, e(alt_foto), e(u["area"].split(",")[0])),
+        tag("Foto %s Anda tampil di sini" % u["jenis"].lower()),
+        status,
+        '<p class="lead">%s</p>\n<div class="aksi">%s</div>\n</div>\n' % (e(u["lead"]), aksi),
+        html_fakta(u),
+        nav,
+        kartu_demo(u, n),
+        "</section>\n",
+    ]
     if n >= 2:
         body.append(seksi_pesan(u, n))
     if dulu:
@@ -542,7 +523,7 @@ def halaman_demo(u, n):
                 "menu": [{"nama": g, "item": items} for g, items in u["menu"]],
             }
             scripts += "<script>\n" + WIZARD_JS.replace("__DATA__", json.dumps(D, ensure_ascii=False)) + BAR_JS + "</script>\n"
-    return head(judul, desc, css, warna=WARNA_TEMA[u["tema"]], extra=preload) + "".join(body) + scripts + "</body>\n</html>\n"
+    return head(judul, desc, css, warna=sk["warna"], extra=preload) + "".join(body) + scripts + "</body>\n</html>\n"
 
 
 WA_PEMILIK = "6287834471149"
@@ -566,7 +547,7 @@ BEDA = (
     '<section class="bagian beda" id="beda"><div class="wadah wadah-lebar">\n'
     "<h2>Website sendiri, bukan website numpang</h2>\n"
     '<p class="bagian-lead">Website murah sekitar Rp 300 ribu biasanya numpang di alamat orang lain, seperti membuka lapak di teras toko orang. '
-    "Website dari saya seperti punya toko sendiri: alamatnya didaftarkan atas nama usaha Anda, tampilannya dibuat khusus untuk usaha Anda.</p>\n"
+    "Website dari saya seperti punya toko sendiri: alamatnya didaftarkan atas nama usaha Anda, tampilannya dipilih dari beberapa pilihan, lalu disesuaikan untuk usaha Anda.</p>\n"
     '<div class="alamat-banding">'
     '<div class="alamat-pil redup"><span class="alamat-label">Website numpang</span><b>namausaha.layananweb.com</b>'
     "<span>Alamat gratisan, ada nama layanan lain di belakangnya.</span></div>"
@@ -574,7 +555,7 @@ BEDA = (
     "<span>atau namausaha.id. Alamat web didaftarkan atas nama usaha Anda.</span></div></div>\n"
     '<table class="banding"><caption class="sr">Perbandingan website murah dan website dari saya</caption>'
     '<thead><tr><th scope="col">Website murah (numpang)</th><th scope="col">Website dari saya</th></tr></thead><tbody>'
-    "<tr><td>Tampilan memilih dari contoh yang juga dipakai usaha lain</td><td>Dirancang khusus untuk usaha Anda</td></tr>"
+    "<tr><td>Tampilan memilih dari contoh yang juga dipakai usaha lain</td><td>Pilih dari 4 tampilan per jenis usaha, lalu disesuaikan warna, foto, dan isinya untuk usaha Anda</td></tr>"
     "<tr><td>Alamat ada nama layanan lain di belakangnya</td><td>Alamat .com atau .id atas nama usaha Anda</td></tr>"
     "<tr><td>Terkesan percobaan, orang ragu</td><td>Terkesan usaha yang mapan dan layak dipercaya</td></tr>"
     "<tr><td>Umumnya hanya halaman info</td><td>Bisa booking dan bayar muka (Paket 2 dan 3)</td></tr>"
@@ -628,7 +609,7 @@ def halaman_index():
         '<p class="lead">%s adalah situs peragaan, bukan usaha sungguhan. Di sini Anda bisa melihat dan mencoba sendiri tampilan dan fitur website yang Anda dapatkan kalau memakai jasa pembuatan website dari Rio Ekaputra Siswa, developer aplikasi web di Bandung. Pilih jenis usaha Anda di bawah.</p>\n'
         '<div class="aksi"><a class="tombol" href="#jenis">Pilih jenis usaha</a><a class="tombol garis" href="%s">%s Tanya lewat WhatsApp</a></div>\n</div></section>\n'
         '<section class="bagian" id="jenis"><div class="wadah wadah-lebar">\n<h2>Pilih jenis usaha Anda</h2>\n'
-        '<p class="bagian-lead">Setiap jenis punya halaman paket sendiri dan tiga demo yang bisa dicoba langsung di HP.</p>\n'
+        '<p class="bagian-lead">Setiap jenis punya halaman paket sendiri: tiga paket, tiap paket dengan 4 tampilan yang bisa dicoba langsung di HP.</p>\n'
         '<ul class="jenis-daftar">%s</ul>\n</div></section>\n'
         "%s"
         '<section class="bagian" id="harga"><div class="wadah wadah-lebar">\n<h2>Tiga paket yang bisa dipilih</h2>\n'
@@ -653,7 +634,7 @@ def halaman_jenis(u):
     css = FONT + "\n:root{" + INDEX_TOKENS + "}\n" + BASE + INDEX
     cards = "".join(
         kartu_paket(no, nama, t[1], t[2], u["paket_isi"][idx], harga, tahunan,
-                    '<a class="tombol" href="/%s/paket-%s/">Buka demo Paket %s</a>'
+                    '<a class="tombol" href="/%s/paket-%s/">Pilih tampilan, buka demo Paket %s</a>'
                     '<p class="harga-tag">Yang terbuka halaman contoh, bukan usaha sungguhan</p>' % (u["slug"], no, no))
         for idx, (no, nama, rinci, cocok, harga, tahunan) in enumerate(PAKET)
         for t in [u["paket_teks"][idx]]
@@ -666,7 +647,7 @@ def halaman_jenis(u):
         "<h1>Website untuk %s</h1>\n<p class=\"lead\">%s</p>\n"
         '<div class="aksi"><a class="tombol" href="#paket">Lihat tiga paket</a><a class="tombol garis" href="%s">%s Tanya lewat WhatsApp</a></div>\n</div></section>\n'
         '<section class="bagian" id="paket"><div class="wadah wadah-lebar">\n<h2>Tiga paket untuk %s</h2>\n'
-        '<p class="bagian-lead">Pilih paket, lalu buka demonya dan coba langsung di HP. Nama usaha dan harga layanan di dalam demo hanya contoh. Harga paket di bawah adalah harga sebenarnya.</p>\n'
+        '<p class="bagian-lead">Pilih paket, pilih salah satu dari 4 tampilan, lalu coba demonya langsung di HP. Nama usaha dan harga layanan di dalam demo hanya contoh. Harga paket di bawah adalah harga sebenarnya.</p>\n'
         '<ul class="paket-daftar paket paket-link">%s</ul>\n'
         '<p class="catatan-harga">Perawatan tahunan berarti %s.</p>\n</div></section>\n'
         '<section class="bagian hubungi" id="hubungi"><div class="wadah wadah-lebar"><div class="kartu-hubungi">\n'
@@ -701,6 +682,44 @@ GALAT = [
     ("50x.html", "Galat", "Server sedang bermasalah",
      "Halaman ini belum bisa dimuat. Ini bukan salah Anda. Tunggu sebentar, lalu muat ulang.", False),
 ]
+
+
+def halaman_pilih_skin(u, n):
+    css = FONT + "\n:root{" + INDEX_TOKENS + "}\n" + BASE + INDEX + PILIH
+    kartu = []
+    for slug, sk in SKIN[u["slug"]].items():
+        c = chip(sk["tema"])
+        gambar = os.path.join(ROOT, u["slug"], "img", "skin-%s.jpg" % slug)
+        if os.path.exists(gambar):
+            pratinjau = '<img src="/%s/img/skin-%s.jpg" alt="Pratinjau tampilan %s untuk %s" width="720" height="540" loading="lazy" decoding="async">' % (u["slug"], slug, e(sk["nama"]), e(u["jenis"].lower()))
+        else:
+            pratinjau = '<span class="skin-contoh" aria-hidden="true" style="--c1:%s;--c2:%s;--c3:%s"><i></i><i></i><b></b></span>' % tuple(c)
+        chips = "".join('<i style="background:%s"></i>' % x for x in c)
+        kartu.append(
+            '<li class="skin-kartu"><a href="/%s/paket-%d/%s/"><span class="skin-pratinjau">%s</span>'
+            '<span class="skin-isi"><span class="skin-nama">%s</span><span class="skin-ringkas">%s</span>'
+            '<span class="skin-cocok"><b>Cocok</b> untuk usaha yang %s.</span>'
+            '<span class="skin-chip" aria-hidden="true">%s</span>'
+            '<span class="skin-tombol">Lihat demo %s</span></span></a></li>'
+            % (u["slug"], n, slug, pratinjau, e(sk["nama"]), e(sk["ringkas"]), e(sk["cocok"]), chips, I_KANAN)
+        )
+    banyak = len(kartu) > 1
+    body = (
+        "<body>\n"
+        '<header class="atas atas-hijau"><div class="wadah wadah-lebar"><a class="merek" href="/">%s</a><a class="balik" href="/%s/#paket">%s Semua paket %s</a></div></header>\n'
+        '<main style="--jenis-aksen:%s;--jenis-lembut:%s">\n'
+        '<section class="hero"><div class="wadah wadah-lebar">\n<span class="jenis-ikon jenis-ikon-hero">%s</span>\n<p class="eyebrow">Paket %d &middot; %s</p>\n'
+        "<h1>Pilih tampilan untuk Paket %d</h1>\n"
+        '<p class="lead">Struktur dan fitur sama, yang beda tampilannya. Pilih salah satu, lalu coba demonya langsung di HP.</p>\n'
+        "</div></section>\n"
+        '<section class="bagian" id="skin"><div class="wadah wadah-lebar">\n<h2>%d tampilan untuk %s</h2>\n'
+        '<ul class="skin-daftar%s">%s</ul>\n</div></section>\n</main>\n'
+        '<footer class="kaki"><div class="wadah wadah-lebar"><p>Dibuat oleh Rio Ekaputra Siswa, developer aplikasi web di Bandung. <a href="https://rioeka.com">rioeka.com</a></p>'
+        "<p>Nama, harga layanan, dan alamat di dalam demo hanya contoh.</p></div></footer>\n"
+        "</body>\n</html>\n"
+    ) % (MERK, u["slug"], I_KIRI, e(u["pendek"].lower()), AKSEN_JENIS[u["slug"]][0], AKSEN_JENIS[u["slug"]][1], IKON[u["slug"]], n, e(u["pendek"]), n,
+         len(kartu), e(u["pendek"].lower()), "" if banyak else " skin-satu", "".join(kartu))
+    return head("Pilih tampilan Paket %d, %s | %s" % (n, u["pendek"], MERK), "Pilih tampilan demo Paket %d untuk %s. Struktur dan fitur sama, yang beda tampilannya." % (n, u["pendek"].lower()), css, warna=WARNA_INDEX) + body
 
 
 def halaman_galat(kode, judul, teks, bisa_kembali):
@@ -753,4 +772,6 @@ if __name__ == "__main__":
     for u in USAHA:
         tulis("%s/index.html" % u["slug"], halaman_jenis(u))
         for n in (1, 2, 3):
-            tulis("%s/paket-%d/index.html" % (u["slug"], n), halaman_demo(u, n))
+            tulis("%s/paket-%d/index.html" % (u["slug"], n), halaman_pilih_skin(u, n))
+            for skin in SKIN[u["slug"]]:
+                tulis("%s/paket-%d/%s/index.html" % (u["slug"], n, skin), halaman_demo(u, n, skin))

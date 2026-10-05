@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#F1F6F8">
+<title>Kenanga Spa, Dago</title>
+<meta name="description" content="Harga, jam buka, alamat, dan cara menghubungi Kenanga Spa.">
+<link rel="preload" href="/font/epilogue-latin.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:Archivo;font-style:normal;font-weight:400 800;font-stretch:62% 125%;font-display:swap;src:url(/font/archivo-latin.woff2) format('woff2')}
+@font-face{font-family:'Epilogue';font-style:normal;font-weight:300 600;font-display:swap;src:url(/font/epilogue-latin.woff2) format('woff2')}
+:root{
+  --latar:#F1F6F8;
+  --kartu:#FFFFFF;
+  --kartu-turun:#E2ECF1;
+  --tinta:#0F1F2A;
+  --tinta-redup:#47606E;
+  --garis:#CBDBE3;
+  --garis-halus:#DCE7EC;
+  --garis-kuat:#78929F;
+  --sinyal:#1F6C93;
+  --sinyal-gelap:#154C68;
+  --sinyal-lembut:#DBECF4;
+  --di-atas-sinyal:#FFFFFF;
+  --fokus:#154C68;
+  --salah:#9C2410;
+  --ok:#2F6B4F;
+  --r:12px;
+  --r-kecil:8px;
+  --r-tombol:8px;
+  --lengkung:0px;
+  --serif:"Epilogue",system-ui,sans-serif;
+  --bayang:0 1px 2px rgba(15,31,42,.04),0 8px 22px rgba(15,31,42,.05);
+  --h-berat:500;
+  --h-lebar:100%;
+  --h-huruf:none;
+  --h-ls:-.02em;
+  --pole-tinggi:0px;
+  --pole:none;
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:104px;background:var(--latar);accent-color:var(--sinyal)}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{margin:0;overflow-x:clip;background:var(--latar);color:var(--tinta);font-family:Archivo,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:16px;line-height:1.55;padding-bottom:calc(84px + env(safe-area-inset-bottom))}
+h1,h2,h3,p,ul,ol,dl,dd,figure{margin:0}
+ul,ol{padding:0;list-style:none}
+a{color:inherit}
+svg{display:block;flex:none}
+:focus-visible{outline:3px solid var(--fokus);outline-offset:2px}
+::selection{background:var(--sinyal);color:var(--di-atas-sinyal)}
+[hidden]{display:none !important}
+.wadah{width:100%;max-width:760px;margin:0 auto;padding:0 16px}
+.ikon{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+.tombol{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:0 22px;border:2px solid var(--sinyal);border-radius:var(--r-tombol);background:var(--sinyal);color:var(--di-atas-sinyal);font:inherit;font-weight:700;text-decoration:none;text-align:center;cursor:pointer;transition:background-color .15s,border-color .15s}
+.tombol:hover{background:var(--sinyal-gelap);border-color:var(--sinyal-gelap)}
+.tombol.garis{background:transparent;border-color:var(--garis-kuat);color:var(--tinta)}
+.tombol.garis:hover{background:var(--kartu-turun)}
+.tombol[aria-disabled="true"]{background:var(--kartu-turun);border-color:var(--kartu-turun);color:var(--tinta-redup);cursor:not-allowed}
+.tombol[aria-busy="true"]{cursor:progress}
+
+.atas{position:sticky;top:0;z-index:30;background:var(--latar);border-bottom:1px solid var(--garis)}
+.atas .wadah{display:flex;align-items:center;gap:10px;min-height:56px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.balik{display:inline-flex;align-items:center;gap:2px;min-height:44px;padding:0 12px 0 6px;margin-left:-6px;border-radius:var(--r-tombol);font-weight:600;font-size:15px;text-decoration:none;white-space:nowrap}
+.balik:hover{background:var(--kartu-turun)}
+.nama-atas{margin-left:auto;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:700;font-size:15px;color:var(--tinta-redup)}
+
+.pole{height:var(--pole-tinggi);background:var(--pole)}
+.hero{padding:28px 0 4px}
+.eyebrow{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--tinta-redup)}
+.hero h1{margin:8px 0 14px;font-size:clamp(36px,11vw,56px);font-weight:var(--h-berat);font-stretch:var(--h-lebar);text-transform:var(--h-huruf);letter-spacing:var(--h-ls);line-height:1.02;text-wrap:balance}
+.status{display:inline-flex;align-items:center;gap:9px;padding:8px 14px;border:1px solid var(--garis);border-radius:999px;background:var(--kartu);font-size:15px;font-weight:600}
+.titik{width:10px;height:10px;border-radius:50%;background:var(--ok);flex:none}
+.titik.tutup{background:var(--tinta-redup)}
+.lead{margin-top:14px;max-width:46ch;color:var(--tinta-redup)}
+.aksi{display:grid;gap:10px;margin-top:20px}
+@media (min-width:520px){.aksi{grid-template-columns:auto auto;justify-content:start}}
+.demo-strip{display:flex;justify-content:center;align-items:center;gap:8px;min-height:32px;padding:4px 16px;background:var(--sinyal);color:var(--di-atas-sinyal);font-size:13px;font-weight:600;text-align:center}
+.demo-strip .tanda-contoh{background:var(--di-atas-sinyal);color:var(--sinyal-gelap)}
+.demo-kartu{margin-bottom:22px;padding:16px;border:2px dashed var(--sinyal);border-radius:var(--r);background:var(--sinyal-lembut)}
+.demo-judul{margin-top:10px;font-size:21px;font-weight:800;line-height:1.2;text-wrap:balance}
+.demo-teks{margin-top:8px;font-size:15px}
+.ganti-kepala,.ganti-daftar li{display:grid;grid-template-columns:minmax(0,1fr) 20px minmax(0,1fr);gap:8px;align-items:center}
+.ganti-kepala{margin-top:14px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--tinta-redup)}
+.ganti-daftar{margin-top:4px}
+.ganti-daftar li{padding:10px 0;border-top:1px solid var(--garis);font-size:14px;line-height:1.35}
+.ganti-daftar .kini{color:var(--tinta-redup)}
+.ganti-daftar .nanti{font-weight:700}
+.ganti-daftar .ikon{width:18px;height:18px;color:var(--sinyal-gelap)}
+.demo-paket{margin-top:12px;padding-top:12px;border-top:1px solid var(--garis);font-size:14px}
+.tag-baris{margin-bottom:10px}
+.tag-anda{display:inline-flex;align-items:center;min-height:28px;padding:2px 10px;border:1.5px dashed var(--sinyal);border-radius:999px;background:var(--sinyal-lembut);color:var(--sinyal-gelap);font-size:13px;font-weight:700}
+.hero .tag-baris{margin:0 0 4px}
+.penutup .kartu{padding:20px}
+.penutup h2{font-size:clamp(22px,6vw,28px)}
+.tanda-contoh{flex:none;padding:2px 9px;border-radius:999px;background:var(--sinyal);color:var(--di-atas-sinyal);font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.loncat{display:flex;gap:8px;overflow-x:auto;margin:20px -16px 0;padding:2px 16px 6px;scrollbar-width:none}
+.loncat::-webkit-scrollbar{display:none}
+.loncat a{flex:none;display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border:1px solid var(--garis-kuat);border-radius:999px;font-weight:600;font-size:15px;text-decoration:none}
+.loncat a:hover{background:var(--kartu-turun)}
+
+.bagian{padding:36px 0 4px}
+.bagian h2{font-size:clamp(26px,7vw,34px);font-weight:var(--h-berat);font-stretch:var(--h-lebar);text-transform:var(--h-huruf);letter-spacing:var(--h-ls);line-height:1.08;text-wrap:balance}
+.bagian-lead{margin-top:8px;max-width:56ch;color:var(--tinta-redup)}
+.kartu{margin-top:16px;padding:16px;border:1px solid var(--garis);border-radius:var(--r);background:var(--kartu);box-shadow:var(--bayang)}
+.kartu > h3{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--tinta-redup)}
+.harga{margin-top:6px}
+.harga li{display:grid;grid-template-columns:1fr auto;gap:2px 16px;padding:14px 0;border-top:1px solid var(--garis)}
+.harga li:first-child{border-top:0}
+.harga .nm{font-weight:600}
+.harga .hr{font-weight:700;white-space:nowrap}
+.harga .ket{grid-column:1 / -1;font-size:14px;color:var(--tinta-redup)}
+.catatan{margin-top:14px;font-size:14px;color:var(--tinta-redup);max-width:60ch}
+.jam li{display:flex;justify-content:space-between;gap:12px;padding:12px 10px;margin:0 -10px;border-radius:var(--r-kecil)}
+.jam li + li{border-top:1px solid var(--garis);border-top-left-radius:0;border-top-right-radius:0}
+.jam li.hari-ini{background:var(--sinyal-lembut);border-top-color:transparent;font-weight:700}
+.jam li.hari-ini + li{border-top-color:transparent}
+.jam .tanda-hari{margin-left:8px;padding:1px 8px;border-radius:999px;background:var(--sinyal);color:var(--di-atas-sinyal);font-size:12px;font-weight:700}
+.alamat{margin-top:16px;font-style:normal;line-height:1.7}
+.aksi-lokasi{display:grid;gap:10px;margin-top:16px}
+@media (min-width:520px){.aksi-lokasi{grid-template-columns:auto auto;justify-content:start}}
+.galeri{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:16px}
+@media (min-width:600px){.galeri{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.petak{margin:0;aspect-ratio:4/3;overflow:hidden;border-radius:var(--r-kecil);background:var(--kartu-turun)}
+.petak img{display:block;width:100%;height:100%;object-fit:cover}
+.kredit{margin-top:12px;font-size:13px;color:var(--tinta-redup)}
+.kredit a{color:inherit;text-decoration:underline;display:inline-block;padding:12px 0}
+.tanya{margin-top:12px;border-bottom:1px solid var(--garis)}
+.tanya details{border-top:1px solid var(--garis)}
+.tanya summary{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:56px;padding:12px 0;font-weight:600;cursor:pointer;list-style:none}
+.tanya summary::-webkit-details-marker{display:none}
+.tanya summary svg{transition:transform .2s}
+.tanya details[open] summary svg{transform:rotate(180deg)}
+.tanya details p{padding:0 0 16px;color:var(--tinta-redup);max-width:60ch}
+.ganti-paket{margin-top:28px;padding:16px;border:1px solid var(--garis);border-radius:var(--r);background:var(--kartu)}
+.ganti-paket p{margin-bottom:12px}
+.kaki{margin-top:36px;padding:28px 0 32px;border-top:1px solid var(--garis);font-size:14px;color:var(--tinta-redup)}
+.kaki p + p{margin-top:10px}
+.kaki a{display:inline-flex;align-items:center;min-height:44px;color:var(--tinta);font-weight:600}
+.bar-bawah{position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;gap:10px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:var(--latar);border-top:1px solid var(--garis);transition:transform .25s}
+.bar-bawah.sembunyi{transform:translateY(110%);visibility:hidden}
+.bar-bawah .tombol{flex:1 1 auto;min-height:52px;padding:0 14px;white-space:nowrap}
+.bar-bawah .tombol.garis{flex:0 0 auto}
+@media (min-width:760px){.bar-bawah{display:none}body{padding-bottom:0}}
+@media (prefers-reduced-motion:reduce){*{transition-duration:.001ms !important;animation-duration:.001ms !important}}
+
+.hero-isi{position:relative;isolation:isolate}
+.hero-isi::before{content:"";position:absolute;z-index:-1;right:-6px;top:-8px;width:150px;height:150px;pointer-events:none}
+.fakta{display:grid;grid-template-columns:repeat(auto-fit,minmax(104px,1fr));gap:8px;margin-top:20px}
+.fakta li{display:grid;gap:2px;align-content:start;padding:10px 12px;border:1px solid var(--garis);border-radius:var(--r-kecil);background:var(--kartu);min-width:0}
+.fakta .f-label{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--tinta-redup)}
+.fakta .f-nilai{font-size:15px;font-weight:800;line-height:1.25;overflow-wrap:anywhere}
+.dur{display:inline-block;margin-right:6px;padding:0 8px;border-radius:99px;background:var(--sinyal-lembut);color:var(--sinyal-gelap);font-size:13px;font-weight:700}
+
+
+[data-s=bening] :is(.hero h1,.bagian h2,.panel h3,.selesai h3,.f-nilai,.harga .hr,.hari .tg,.tinjau .total dd,.kode,.penutup h2){font-family:var(--serif);font-weight:500;font-stretch:100%;letter-spacing:-.02em}
+[data-s=bening] .hero{padding:20px 0 4px}
+[data-s=bening] .hero-isi{position:relative}
+[data-s=bening] .hero-isi::before{content:"";position:absolute;z-index:-1;left:-10px;top:-10px;width:120px;height:120px;background:var(--sinyal);opacity:.08;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='black' stroke-width='4'%3E%3Cpath d='M2 60c20-16 40-16 60 0s40 16 58 0'/%3E%3Cpath d='M2 76c20-16 40-16 60 0s40 16 58 0'/%3E%3Cpath d='M2 92c20-16 40-16 60 0s40 16 58 0'/%3E%3C/g%3E%3C/svg%3E") left top/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='black' stroke-width='4'%3E%3Cpath d='M2 60c20-16 40-16 60 0s40 16 58 0'/%3E%3Cpath d='M2 76c20-16 40-16 60 0s40 16 58 0'/%3E%3Cpath d='M2 92c20-16 40-16 60 0s40 16 58 0'/%3E%3C/g%3E%3C/svg%3E") left top/contain no-repeat}
+[data-s=bening] .hero .eyebrow{font-size:12px;letter-spacing:.18em;color:var(--sinyal-gelap)}
+[data-s=bening] .hero h1{margin:10px 0 10px;font-size:clamp(34px,10.5vw,56px);font-weight:600;line-height:1.04}
+[data-s=bening] .hero h1 em{font-style:normal;font-weight:300;color:var(--sinyal)}
+[data-s=bening] .hero .lead{max-width:44ch}
+[data-s=bening] .hero-foto{position:relative;margin:20px 0 28px;overflow:hidden;border-radius:var(--r);background:var(--kartu-turun)}
+[data-s=bening] .hero-foto img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;filter:saturate(.92) brightness(1.03)}
+[data-s=bening] .lencana{position:absolute;left:10px;bottom:10px;padding:5px 10px;border-radius:999px;background:rgba(241,246,248,.86);color:var(--sinyal-gelap);font-size:12px;font-weight:600}
+[data-s=bening] .status{border:0;border-radius:999px;background:var(--sinyal-lembut);color:var(--sinyal-gelap);font-weight:600}
+[data-s=bening] .fakta{gap:10px;margin-top:20px}
+[data-s=bening] .fakta li{padding:14px 12px;border:0;border-left:2px solid var(--sinyal);border-radius:0;background:var(--kartu)}
+[data-s=bening] .fakta .f-label{font-size:11px;letter-spacing:.12em;color:var(--sinyal-gelap)}
+[data-s=bening] .fakta .f-nilai{font-size:clamp(16px,4.6vw,21px);font-weight:600;line-height:1.05}
+[data-s=bening] .loncat a{border:1px solid var(--garis-kuat);border-radius:999px;background:var(--kartu)}
+[data-s=bening] .loncat a:hover{background:var(--sinyal);border-color:var(--sinyal);color:var(--di-atas-sinyal)}
+[data-s=bening] .demo-kartu{border:1px solid var(--garis);border-radius:var(--r);background:var(--kartu)}
+[data-s=bening] .bagian{padding:48px 0 4px;position:relative}
+[data-s=bening] .bagian h2{font-size:clamp(26px,8vw,38px);font-weight:600;line-height:1.08}
+[data-s=bening] .bagian:not(.penutup) h2::before{content:"";display:block;width:70px;height:8px;margin-bottom:12px;border-top:2px solid var(--sinyal);border-bottom:1px solid var(--sinyal);opacity:.5}
+[data-s=bening] .bagian-lead{margin-top:10px}
+[data-s=bening] .kartu{border:1px solid var(--garis);border-radius:var(--r);background:var(--kartu)}
+[data-s=bening] #harga .kartu{margin-top:22px;background:var(--kartu)}
+[data-s=bening] #harga .kartu > h3{padding-bottom:10px;border-bottom:2px solid var(--sinyal);font-size:15px;letter-spacing:.02em}
+[data-s=bening] .harga{margin-top:4px}
+[data-s=bening] .harga li{grid-template-columns:minmax(0,1fr) auto auto;align-items:baseline;gap:4px 14px;padding:14px 0;border-top:1px solid var(--garis-halus)}
+[data-s=bening] .harga li:first-child{border-top:0}
+[data-s=bening] .harga .nm{grid-column:1;font-weight:500;font-size:17px}
+[data-s=bening] .harga .dur{display:block;grid-column:1;font-family:Archivo,sans-serif;font-size:12px;font-weight:400;color:var(--tinta-redup);background:none;padding:0;margin:0}
+[data-s=bening] .harga .dur:empty{display:none}
+[data-s=bening] .harga .hr{grid-column:3;grid-row:1;font-weight:600;color:var(--sinyal-gelap);white-space:nowrap}
+[data-s=bening] .harga .ket{grid-column:1 / -1;font-size:13px}
+[data-s=bening] .ket-teks{display:block}
+[data-s=bening] .galeri{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:24px}
+[data-s=bening] .petak{aspect-ratio:1;border-radius:var(--r-kecil);background:var(--kartu-turun)}
+[data-s=bening] .petak img{filter:saturate(.92)}
+[data-s=bening] .petak figcaption{padding-top:5px;font-size:12px;color:var(--tinta-redup)}
+[data-s=bening] .petak:first-child{grid-column:1 / -1;aspect-ratio:16/9}
+[data-s=bening] .jam li{padding:12px 10px;border-radius:var(--r-kecil)}
+[data-s=bening] .jam li.hari-ini{background:var(--sinyal-lembut);color:var(--sinyal-gelap);font-weight:600}
+[data-s=bening] .tanya{border-bottom:1px solid var(--garis)}
+[data-s=bening] .tanya details{border-top:1px solid var(--garis)}
+[data-s=bening] .tanya summary{min-height:56px;font-weight:500}
+[data-s=bening] .tanya summary svg{display:none}
+[data-s=bening] .tanya summary::after{content:"";margin-left:auto;width:12px;height:12px;border-right:2px solid var(--sinyal);border-bottom:2px solid var(--sinyal);transform:rotate(45deg) translateY(-3px)}
+[data-s=bening] .tanya details[open] summary::after{transform:rotate(225deg) translateY(-1px)}
+[data-s=bening] .penutup .kartu{border:1px solid var(--garis-kuat);background:var(--sinyal-lembut);padding:24px 18px}
+[data-s=bening] .penutup h2{font-size:clamp(26px,8vw,36px)}
+@media (min-width:900px){
+[data-s=bening] .hero-isi{display:grid;grid-template-columns:1.1fr .9fr;column-gap:32px;align-items:start}
+[data-s=bening] .hero-isi > *{grid-column:1}
+[data-s=bening] .hero-isi > .hero-foto{grid-column:2;grid-row:1 / span 30;position:sticky;top:84px;margin:0}
+[data-s=bening] .hero-foto img{aspect-ratio:3/4}
+}
+@supports (animation-timeline:view()){
+@media (prefers-reduced-motion:no-preference){
+@keyframes ben{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+[data-s=bening] .bagian > h2{animation:ben linear both;animation-timeline:view();animation-range:entry 0% entry 60%}
+}
+}
+
+.demo-strip{flex-wrap:wrap;column-gap:12px;row-gap:0}
+.demo-strip a{display:inline-flex;align-items:center;margin:-12px 0;padding:12px 4px;min-height:44px;color:inherit;font-weight:700;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+
+.hero h1{overflow-wrap:break-word;word-break:break-word}
+.ganti-daftar li,.demo-judul,.demo-teks,.demo-paket,.tanya details p{overflow-wrap:anywhere;min-width:0}
+.ganti-daftar .kini,.ganti-daftar .nanti{min-width:0;overflow-wrap:anywhere}
+.fakta li,.harga li,.harga .nm,.harga .ket,.status{min-width:0}
+.status{max-width:100%}
+.status span{overflow-wrap:anywhere}
+
+</style>
+</head>
+<body data-j="spa" data-s="bening">
+<header class="atas"><div class="demo-strip" role="note"><span class="tanda-contoh">Demo</span><span>Contoh website untuk spa Anda</span><a href="/spa/paket-1/">Ganti tampilan</a></div><div class="wadah"><a class="balik" href="/spa/#paket"><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg> Semua paket spa</a><span class="nama-atas">Kenanga Spa</span></div></header>
+<div class="pole" aria-hidden="true"></div>
+<main>
+<div class="wadah">
+<section class="hero">
+<div class="hero-isi">
+<p class="eyebrow">Spa &middot; Dago, Kota Bandung</p>
+<h1>Kenanga <em>Spa</em></h1>
+<p class="tag-baris"><span class="tag-anda">Nama spa Anda tampil di sini</span></p>
+<figure class="hero-foto"><img src="/spa/img/g1.jpg" alt="Ruang pijat bersih dengan tempat tidur perawatan" width="720" height="540" fetchpriority="high" decoding="async"><span class="lencana">Dago</span></figure>
+<p class="tag-baris"><span class="tag-anda">Foto spa Anda tampil di sini</span></p>
+<p class="status" id="status"><span class="titik" id="titik"></span><span id="status-teks">Memuat jam buka</span></p>
+<p class="lead">Massage, refleksi, dan perawatan tubuh dengan harga yang tertera jelas.</p>
+<div class="aksi"><a class="tombol" href="https://wa.me/6281234567891?text=Halo%2C%20saya%20mau%20tanya%20soal%20booking%20di%20Kenanga%20Spa."><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.4 8.4 0 1 1 21 11.5Z"/></svg> Tanya lewat WhatsApp</a><a class="tombol garis" href="/spa/paket-2/bening/">Buka demo Paket 2, dengan booking <svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></a></div>
+</div>
+<ul class="fakta"><li><span class="f-label">Mulai dari</span><span class="f-nilai">Rp 90.000</span></li><li><span class="f-label">Terapis</span><span class="f-nilai">3 orang</span></li><li><span class="f-label">Lama layanan</span><span class="f-nilai">45-90 menit</span></li></ul>
+<nav class="loncat" aria-label="Loncat ke bagian"><a href="#harga">Harga</a><a href="#lokasi">Lokasi</a><a href="#galeri">Galeri</a><a href="#tanya">Tanya jawab</a></nav>
+<section class="demo-kartu" aria-label="Penjelasan halaman demo"><span class="tanda-contoh">Demo Paket 1</span><p class="demo-judul">Ini halaman demo, bukan spa sungguhan</p><p class="demo-teks">Beginilah tampilan website Anda nanti kalau memakai jasa Rio Ekaputra Siswa. Bayangkan isinya jadi milik spa Anda.</p><div class="ganti-kepala" aria-hidden="true"><span>Di demo ini</span><span></span><span>Di website Anda</span></div><ul class="ganti-daftar"><li><span class="kini">Kenanga Spa</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Nama spa Anda</span></li><li><span class="kini">Jl. Contoh No. 18</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Alamat spa Anda</span></li><li><span class="kini">Massage badan, Rp 150.000</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Perawatan dan harga Anda</span></li><li><span class="kini">0812-3456-7891</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Nomor WhatsApp Anda</span></li><li><span class="kini">devario.rioeka.com</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>namaspaanda.com</span></li><li><span class="kini">Foto contoh</span><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg><span class="nanti"><span class="sr">jadi </span>Foto asli spa Anda</span></li></ul><p class="demo-paket">Paket 1: halaman informasi, tanpa booking. Untuk melihat versi yang bisa menerima pesanan, buka demo Paket 2.</p></section>
+</section>
+<section class="bagian" id="harga">
+<p class="tag-baris"><span class="tag-anda">Harga spa Anda</span></p>
+<h2>Daftar harga</h2>
+<p class="bagian-lead">Semua perawatan dihitung per sesi. Durasi tertera di tiap layanan.</p>
+<div class="kartu"><h3>Massage</h3><ul class="harga"><li><span class="nm">Massage badan</span><span class="hr">Rp 150.000</span><span class="ket"><span class="dur">1 jam</span></span></li><li><span class="nm">Massage aromaterapi</span><span class="hr">Rp 185.000</span><span class="ket"><span class="dur">1 jam 30 menit</span><span class="ket-teks">Minyak pilihan: lavender, serai, atau kenanga.</span></span></li><li><span class="nm">Massage tradisional</span><span class="hr">Rp 130.000</span><span class="ket"><span class="dur">1 jam</span></span></li><li><span class="nm">Massage batu hangat</span><span class="hr">Rp 220.000</span><span class="ket"><span class="dur">1 jam 30 menit</span><span class="ket-teks">Batu hangat di punggung dan kaki.</span></span></li></ul></div><div class="kartu"><h3>Refleksi</h3><ul class="harga"><li><span class="nm">Refleksi kaki</span><span class="hr">Rp 90.000</span><span class="ket"><span class="dur">45 menit</span></span></li><li><span class="nm">Refleksi punggung</span><span class="hr">Rp 110.000</span><span class="ket"><span class="dur">45 menit</span></span></li><li><span class="nm">Refleksi tangan dan kaki</span><span class="hr">Rp 130.000</span><span class="ket"><span class="dur">1 jam</span></span></li></ul></div><div class="kartu"><h3>Perawatan wajah dan tubuh</h3><ul class="harga"><li><span class="nm">Facial dasar</span><span class="hr">Rp 150.000</span><span class="ket"><span class="dur">1 jam</span><span class="ket-teks">Pembersihan dan masker, tanpa tindakan medis.</span></span></li><li><span class="nm">Scrub badan</span><span class="hr">Rp 140.000</span><span class="ket"><span class="dur">45 menit</span></span></li><li><span class="nm">Lulur tradisional</span><span class="hr">Rp 160.000</span><span class="ket"><span class="dur">1 jam</span></span></li><li><span class="nm">Body mask</span><span class="hr">Rp 175.000</span><span class="ket"><span class="dur">1 jam</span></span></li></ul></div><p class="catatan">Tidak ada tindakan medis di sini. Untuk keluhan kulit, konsultasikan dulu dengan dokter.</p>
+</section>
+<section class="bagian" id="lokasi">
+<p class="tag-baris"><span class="tag-anda">Alamat dan jam buka spa Anda</span></p>
+<h2>Lokasi dan jam buka</h2>
+<p class="bagian-lead">Buka setiap hari. Datang tanpa janji bisa, tapi memesan lebih dulu lebih pasti.</p>
+<div class="kartu"><h3>Jam buka</h3><ul class="jam" id="kartu-jam"><li data-hari="1"><span>Senin</span><span>10.00 sampai 20.00</span></li><li data-hari="2"><span>Selasa</span><span>10.00 sampai 20.00</span></li><li data-hari="3"><span>Rabu</span><span>10.00 sampai 20.00</span></li><li data-hari="4"><span>Kamis</span><span>10.00 sampai 20.00</span></li><li data-hari="5"><span>Jumat</span><span>10.00 sampai 21.00</span></li><li data-hari="6"><span>Sabtu</span><span>09.00 sampai 21.00</span></li><li data-hari="0"><span>Minggu</span><span>10.00 sampai 18.00</span></li></ul></div>
+<div class="kartu"><h3>Alamat</h3><address class="alamat">Jl. Contoh No. 18<br>Dago, Kota Bandung 40135<br>Di lantai dua, ada parkir di belakang.</address><div class="aksi-lokasi"><a class="tombol garis" href="https://www.google.com/maps/search/?api=1&amp;query=Jl.%20Contoh%20No.%2018%20Dago%20Bandung"><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> Buka di Google Maps</a></div></div>
+</section>
+<section class="bagian" id="galeri">
+<p class="tag-baris"><span class="tag-anda">Foto asli spa Anda</span></p>
+<h2>Galeri</h2>
+<p class="bagian-lead">Enam foto suasana dan perawatan spa. Di website sungguhan, foto ini diganti foto usaha Anda sendiri.</p>
+<div class="galeri"><figure class="petak"><img src="/spa/img/g1.jpg" alt="" width="720" height="540" loading="lazy" decoding="async"><figcaption>Ruang pijat dengan tempat tidur perawatan</figcaption></figure><figure class="petak"><img src="/spa/img/g2.jpg" alt="" width="720" height="540" loading="lazy" decoding="async"><figcaption>Tangan terapis memijat lengan pelanggan</figcaption></figure><figure class="petak"><img src="/spa/img/g3.jpg" alt="" width="720" height="540" loading="lazy" decoding="async"><figcaption>Tetesan minyak esensial di telapak tangan</figcaption></figure><figure class="petak"><img src="/spa/img/g6.jpg" alt="" width="720" height="540" loading="lazy" decoding="async"><figcaption>Bak mandi dengan lilin di rak kayu</figcaption></figure><figure class="petak"><img src="/spa/img/g5.jpg" alt="" width="720" height="540" loading="lazy" decoding="async"><figcaption>Wadah lulur dan garam mandi</figcaption></figure><figure class="petak"><img src="/spa/img/g4.jpg" alt="" width="720" height="540" loading="lazy" decoding="async"><figcaption>Lilin dan handuk gulung</figcaption></figure></div>
+<p class="kredit">Foto contoh dari <a href="https://unsplash.com/license" rel="noopener">Unsplash</a>, bebas dipakai.</p>
+</section>
+<section class="bagian" id="tanya">
+<h2>Pertanyaan yang sering masuk</h2>
+<div class="tanya"><details><summary>Perlu reservasi dulu?<svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><p>Disarankan, apalagi akhir pekan. Bisa lewat halaman ini atau lewat WhatsApp.</p></details><details><summary>Bisa datang tanpa janji?<svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><p>Bisa, dan dilayani kalau ruang perawatan sedang kosong. Kalau penuh, Anda diberi tahu perkiraan waktu tunggunya lebih dulu.</p></details><details><summary>Apakah ada tindakan medis?<svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><p>Tidak ada. Yang ditawarkan hanya massage, refleksi, dan perawatan tubuh. Untuk keluhan kulit, konsultasikan dulu dengan dokter.</p></details><details><summary>Bisa bayar pakai QRIS atau kartu?<svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><p>QRIS dan kartu diterima, selain uang tunai.</p></details><details><summary>Bisa memilih terapis tertentu?<svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary><p>Bisa. Kalau terapis pilihan tidak bisa, Anda boleh memilih terapis lain atau Terserah, siapa saja.</p></details></div>
+</section>
+<section class="bagian penutup" aria-label="Penutup">
+<div class="kartu"><h2>Bayangkan ini website spa Anda</h2>
+<p class="bagian-lead">Nama, alamat, daftar harga, jam buka, dan foto di halaman ini nanti diganti dengan milik spa Anda. Kenanga Spa hanya nama contoh. Alamat websitenya didaftarkan atas nama usaha Anda sendiri, misalnya namaspaanda.com.</p>
+<div class="aksi"><a class="tombol" href="/spa/#paket">Lihat paket dan harga</a><a class="tombol garis" href="https://rioeka.com">Kunjungi rioeka.com</a></div></div>
+</section>
+</div>
+</main>
+<footer class="kaki"><div class="wadah"><p>Booking dan pertanyaan:</p><p><a href="https://wa.me/6281234567891?text=Halo%2C%20saya%20mau%20tanya%20soal%20booking%20di%20Kenanga%20Spa.">WhatsApp 0812-3456-7891</a></p><p>Halaman ini contoh peragaan, bukan usaha sungguhan. Dibuat oleh Rio Ekaputra Siswa, developer aplikasi web di Bandung yang membuat website untuk usaha lokal. <a href="https://rioeka.com">rioeka.com</a></p></div></footer>
+<div class="bar-bawah" id="bar-bawah"><a class="tombol" href="https://wa.me/6281234567891?text=Halo%2C%20saya%20mau%20tanya%20soal%20booking%20di%20Kenanga%20Spa."><svg class="ikon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.4A8.4 8.4 0 1 1 21 11.5Z"/></svg> Tanya lewat WhatsApp</a></div>
+<script>
+
+(function(){
+  var J={"0": ["10.00", "18.00"], "1": ["10.00", "20.00"], "2": ["10.00", "20.00"], "3": ["10.00", "20.00"], "4": ["10.00", "20.00"], "5": ["10.00", "21.00"], "6": ["09.00", "21.00"]};
+  var NH=["Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu"];
+  var kini=new Date(), hari=kini.getDay(), menitKini=kini.getHours()*60+kini.getMinutes();
+  function mnt(t){var p=t.split(".");return (+p[0])*60+(+p[1])}
+  function f(m){var j=Math.floor(m/60),s=m%60;return (j<10?"0":"")+j+"."+(s<10?"0":"")+s}
+  var teks=document.getElementById("status-teks"), titik=document.getElementById("titik");
+  var baris=document.querySelector('#kartu-jam [data-hari="'+hari+'"]');
+  if(baris){baris.className="hari-ini";var t=document.createElement("span");t.className="tanda-hari";t.textContent="hari ini";baris.firstElementChild.appendChild(t)}
+  var blok=J[hari];
+  function berikut(){
+    for(var n=1;n<=7;n++){var h=(hari+n)%7;if(J[h]){return NH[h]+" pukul "+J[h][0]}}
+    return "";
+  }
+  if(blok&&menitKini>=mnt(blok[0])&&menitKini<mnt(blok[1])){
+    teks.textContent="Buka sekarang, tutup pukul "+blok[1];titik.className="titik";
+  }else if(blok&&menitKini<mnt(blok[0])){
+    teks.textContent="Tutup. Buka hari ini pukul "+blok[0];titik.className="titik tutup";
+  }else{
+    teks.textContent="Tutup. Buka lagi "+berikut();titik.className="titik tutup";
+  }
+})();
+</script>
+</body>
+</html>
