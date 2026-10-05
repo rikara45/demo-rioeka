@@ -2,11 +2,11 @@ import json, os, sys
 from html import escape as e
 from urllib.parse import quote
 sys.path.insert(0, os.path.dirname(__file__))
-from css import FONT, FONT_SERIF, FONT_FRAUNCES, BASE, BOOKING, GAYA, GAYA_UMUM, GAYA_SALON, GAYA_SALON_WIZARD, GAYA_SPA, GAYA_SPA_WIZARD, GAYA_KATERING, GAYA_KATERING_WIZARD, TEMA, WARNA_TEMA, WARNA_INDEX, AKSEN_JENIS, INDEX_TOKENS, INDEX, ERR
+from css import FONT, FONT_SERIF, FONT_FRAUNCES, FONT_INAP, BASE, BOOKING, GAYA, GAYA_UMUM, GAYA_SALON, GAYA_SALON_WIZARD, GAYA_SPA, GAYA_SPA_WIZARD, GAYA_KATERING, GAYA_KATERING_WIZARD, GAYA_BARBER, GAYA_BARBER_WIZARD, GAYA_INAP, GAYA_INAP_WIZARD, TEMA, WARNA_TEMA, WARNA_INDEX, AKSEN_JENIS, INDEX_TOKENS, INDEX, ERR
 from data import USAHA, URUT_HARI
 from js import STATUS_JS, BAR_JS, BOOKING_JS, WIZARD_JS
 
-GAYA_HALAMAN = {"butik": (GAYA_SALON, GAYA_SALON_WIZARD, FONT_SERIF, "cormorant-garamond-latin.woff2"), "tenang": (GAYA_SPA, GAYA_SPA_WIZARD, FONT_SERIF, "cormorant-garamond-latin.woff2"), "hajatan": (GAYA_KATERING, GAYA_KATERING_WIZARD, FONT_FRAUNCES, "fraunces-latin.woff2")}
+GAYA_HALAMAN = {"butik": (GAYA_SALON, GAYA_SALON_WIZARD, FONT_SERIF, "cormorant-garamond-latin.woff2"), "tenang": (GAYA_SPA, GAYA_SPA_WIZARD, FONT_SERIF, "cormorant-garamond-latin.woff2"), "hajatan": (GAYA_KATERING, GAYA_KATERING_WIZARD, FONT_FRAUNCES, "fraunces-latin.woff2"), "karcis": (GAYA_BARBER, GAYA_BARBER_WIZARD, "", "archivo-latin.woff2"), "kartukunci": (GAYA_INAP, GAYA_INAP_WIZARD, FONT_INAP, "instrument-serif-latin.woff2")}
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 NH = {0: "Minggu", 1: "Senin", 2: "Selasa", 3: "Rabu", 4: "Kamis", 5: "Jumat", 6: "Sabtu"}

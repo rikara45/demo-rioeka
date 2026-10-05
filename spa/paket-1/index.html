@@ -169,6 +169,7 @@ svg{display:block;flex:none}
 [data-j=spa] .hero-foto::before{content:"";position:absolute;z-index:-1;inset:0;transform:translate(10px,10px);border:1px solid var(--sinyal);border-radius:50% / 42%}
 [data-j=spa] .hero-foto img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:46% 50%;border-radius:50% / 42%;background:var(--kartu-turun)}
 [data-j=spa] .lencana{position:absolute;left:50%;bottom:-18px;transform:translateX(-50%);display:inline-flex;align-items:center;min-height:36px;padding:0 18px;border-radius:999px;background:var(--sinyal);color:var(--di-atas-sinyal);font-size:12px;font-weight:700;letter-spacing:.16em;line-height:1;text-transform:uppercase;white-space:nowrap}
+[data-j=spa] .hero-foto::after{content:"";position:absolute;z-index:-2;inset:-10px;border:1px solid var(--sinyal);border-radius:50% / 42%;box-shadow:0 0 0 6px var(--latar),0 0 0 7px var(--sinyal);opacity:.4}
 [data-j=spa] .hero-foto + .tag-baris{margin-top:6px}
 [data-j=spa] .status{margin-top:8px;background:transparent;border-color:var(--garis)}
 [data-j=spa] .aksi{justify-items:stretch}
@@ -196,12 +197,13 @@ svg{display:block;flex:none}
 [data-j=spa] #harga .kartu > h3::before,[data-j=spa] #harga .kartu > h3::after{content:"";flex:1;border-top:1px solid var(--garis)}
 [data-j=spa] .harga{margin-top:8px}
 [data-j=spa] .harga li{display:flex;flex-direction:column;align-items:center;gap:4px;padding:18px 0;text-align:center}
-[data-j=spa] .harga li + li{border-top:1px solid var(--garis)}
+[data-j=spa] .harga li{position:relative}
+[data-j=spa] .harga li + li{padding-top:26px}
+[data-j=spa] .harga li + li::before{content:"";position:absolute;top:0;left:50%;width:88px;height:6px;margin-left:-44px;background:var(--sinyal);opacity:.6;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 88 6'%3E%3Cpath d='M0 3C7 -1 15 7 22 3S37 -1 44 3 59 7 66 3 81 -1 88 3' stroke='black' stroke-width='1.2' fill='none'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 88 6'%3E%3Cpath d='M0 3C7 -1 15 7 22 3S37 -1 44 3 59 7 66 3 81 -1 88 3' stroke='black' stroke-width='1.2' fill='none'/%3E%3C/svg%3E") center/contain no-repeat}
 [data-j=spa] .harga .nm{font-weight:600}
 [data-j=spa] .harga .hr{font-size:26px;line-height:1;color:var(--sinyal-gelap)}
 [data-j=spa] .harga .ket{max-width:44ch}
-[data-j=spa] .dur{display:inline;margin:0;padding:0;background:none;color:var(--sinyal-gelap);font-size:inherit;font-weight:600}
-[data-j=spa] .dur + .ket-teks::before{content:"\00A0\00B7\00A0"}
+[data-j=spa] .dur{display:inline-block;margin:0 6px 0 0;padding:2px 11px;border:1px solid var(--sinyal);border-radius:999px;background:none;color:var(--sinyal-gelap);font-size:13px;font-weight:600;line-height:1.3}
 
 [data-j=spa] .galeri{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 14px;align-items:start;margin-top:34px}
 [data-j=spa] .petak{aspect-ratio:auto;overflow:visible;border-radius:0;background:none}
@@ -235,6 +237,7 @@ svg{display:block;flex:none}
 [data-j=spa] .tanya details p{padding:0 0 18px}
 
 [data-j=spa] .penutup .kartu{padding:34px 22px;border:0;border-radius:var(--r);background:var(--sinyal-lembut);box-shadow:none}
+[data-j=spa] .penutup .kartu::before{content:"";display:block;width:44px;height:40px;margin:0 auto 16px;background:var(--sinyal);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 40'%3E%3Cellipse cx='22' cy='33' rx='19' ry='6' fill='black'/%3E%3Cellipse cx='22' cy='22' rx='13' ry='5' fill='black'/%3E%3Cellipse cx='22' cy='12' rx='8' ry='4' fill='black'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 40'%3E%3Cellipse cx='22' cy='33' rx='19' ry='6' fill='black'/%3E%3Cellipse cx='22' cy='22' rx='13' ry='5' fill='black'/%3E%3Cellipse cx='22' cy='12' rx='8' ry='4' fill='black'/%3E%3C/svg%3E") center/contain no-repeat}
 [data-j=spa] .penutup h2{font-size:clamp(30px,8.5vw,40px);line-height:1.04}
 [data-j=spa] .kaki{border-top-color:var(--garis)}
 
@@ -243,6 +246,10 @@ svg{display:block;flex:none}
 @keyframes naik{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 [data-j=spa] .bagian > h2,[data-j=spa] .petak{animation:naik linear both;animation-timeline:view();animation-range:entry 0% entry 70%}
 }
+}
+@media (prefers-reduced-motion:no-preference){
+@keyframes riak{from{opacity:0;transform:scale(.92)}to{opacity:.4;transform:none}}
+[data-j=spa] .hero-foto::after{animation:riak 1.2s ease-out both}
 }
 
 </style>

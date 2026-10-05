@@ -10,6 +10,11 @@ FONT_FRAUNCES = (
     "@font-face{font-family:'Fraunces';font-style:italic;font-weight:500 600;font-display:swap;src:url(/font/fraunces-italic-latin.woff2) format('woff2')}"
 )
 
+FONT_INAP = (
+    "@font-face{font-family:'Instrument Serif';font-style:normal;font-weight:400;font-display:swap;src:url(/font/instrument-serif-latin.woff2) format('woff2')}\n"
+    "@font-face{font-family:'Instrument Serif';font-style:italic;font-weight:400;font-display:swap;src:url(/font/instrument-serif-italic-latin.woff2) format('woff2')}"
+)
+
 THEME_SALON = """
   --latar:#FAF4EE;
   --kartu:#FFFDFB;
@@ -114,6 +119,7 @@ THEME_INAP = """
   --r:14px;
   --r-kecil:10px;
   --r-tombol:12px;
+  --serif:"Instrument Serif",Georgia,"Times New Roman",serif;
   --bayang:0 1px 2px rgba(27,42,51,.06),0 6px 18px rgba(27,42,51,.06);
   --h-berat:700;
   --h-lebar:92%;
@@ -282,6 +288,7 @@ GAYA_SALON = r"""
 [data-j=salon] .hero-foto::before{content:"";position:absolute;z-index:-1;inset:0;transform:translate(10px,10px);border:1px solid var(--sinyal);border-radius:var(--lengkung) var(--lengkung) 24px 24px}
 [data-j=salon] .hero-foto img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:56% 50%;border-radius:var(--lengkung) var(--lengkung) 24px 24px;background:var(--kartu-turun)}
 [data-j=salon] .lencana{position:absolute;left:-6px;bottom:34px;display:grid;place-content:center;width:96px;aspect-ratio:1;padding:10px;border-radius:50%;background:var(--sinyal);color:var(--di-atas-sinyal);font-size:12px;font-weight:700;letter-spacing:.1em;line-height:1.3;text-align:center;text-transform:uppercase}
+[data-j=salon] .hero-foto img{outline:1px solid var(--latar);outline-offset:-10px}
 [data-j=salon] .hero-foto + .tag-baris{margin-top:6px}
 [data-j=salon] .status{margin-top:8px;background:transparent;border-color:var(--garis)}
 [data-j=salon] .fakta{grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:28px;border-top:1px solid var(--garis);border-bottom:1px solid var(--garis)}
@@ -296,7 +303,7 @@ GAYA_SALON = r"""
 [data-j=salon] .bagian{padding:56px 0 4px}
 [data-j=salon] .bagian h2{font-size:clamp(34px,10vw,48px);line-height:1}
 [data-j=salon] .bagian:not(.penutup) h2::before{counter-increment:bag;content:counter(bag,decimal-leading-zero);display:block;margin-bottom:12px;font-family:Archivo,system-ui,sans-serif;font-size:12px;font-weight:700;letter-spacing:.2em;line-height:1;color:var(--sinyal-gelap)}
-[data-j=salon] .bagian:not(.penutup) h2::after{content:"";display:block;width:64px;height:10px;margin-top:16px;background:var(--sinyal);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 10'%3E%3Cpath d='M0 5h26M38 5h26' stroke='black' stroke-width='1' fill='none'/%3E%3Cpath d='M32 0l5 5-5 5-5-5z' fill='black'/%3E%3C/svg%3E") left center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 10'%3E%3Cpath d='M0 5h26M38 5h26' stroke='black' stroke-width='1' fill='none'/%3E%3Cpath d='M32 0l5 5-5 5-5-5z' fill='black'/%3E%3C/svg%3E") left center/contain no-repeat}
+[data-j=salon] .bagian:not(.penutup) h2::after{content:"";display:block;width:64px;height:10px;margin-top:16px;background:var(--sinyal);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 10'%3E%3Cpath d='M0 5h26M38 5h26' stroke='black' stroke-width='1' fill='none'/%3E%3Cpath d='M32 0C36.5 3 36.5 7 32 10C27.5 7 27.5 3 32 0ZM24 5C26 3 27 3 27 5C27 7 26 7 24 5ZM40 5C38 3 37 3 37 5C37 7 38 7 40 5Z' fill='black'/%3E%3C/svg%3E") left center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 10'%3E%3Cpath d='M0 5h26M38 5h26' stroke='black' stroke-width='1' fill='none'/%3E%3Cpath d='M32 0C36.5 3 36.5 7 32 10C27.5 7 27.5 3 32 0ZM24 5C26 3 27 3 27 5C27 7 26 7 24 5ZM40 5C38 3 37 3 37 5C37 7 38 7 40 5Z' fill='black'/%3E%3C/svg%3E") left center/contain no-repeat}
 [data-j=salon] .bagian-lead{margin-top:16px}
 [data-j=salon] .kartu{border-color:var(--garis);box-shadow:none}
 
@@ -307,7 +314,7 @@ GAYA_SALON = r"""
 [data-j=salon] .harga li{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 10px;border-top:0;padding:14px 0}
 [data-j=salon] .harga .nm{display:flex;flex:1 1 auto;align-items:baseline;gap:10px;min-width:0}
 [data-j=salon] .harga .nm::after{content:"";flex:1 1 16px;min-width:16px;border-bottom:1px dotted var(--garis-kuat);transform:translateY(-4px)}
-[data-j=salon] .harga .hr{font-size:26px;line-height:1;color:var(--sinyal-gelap)}
+[data-j=salon] .harga .hr{font-size:26px;font-style:italic;font-weight:500;line-height:1;color:var(--sinyal-gelap)}
 [data-j=salon] .harga .ket{flex:1 1 100%}
 [data-j=salon] .dur{display:inline;margin:0;padding:0;background:none;color:var(--sinyal-gelap);font-size:inherit;font-weight:600}
 [data-j=salon] .dur + .ket-teks::before{content:"\00A0\00B7\00A0"}
@@ -319,7 +326,9 @@ GAYA_SALON = r"""
 [data-j=salon] .petak:nth-child(odd){margin-top:28px}
 [data-j=salon] .petak:first-child,[data-j=salon] .petak:last-child{grid-column:1 / -1;margin-top:0}
 [data-j=salon] .petak:first-child img{aspect-ratio:5/4;border-radius:var(--lengkung) var(--lengkung) 24px 24px}
-[data-j=salon] .petak:last-child img{aspect-ratio:16/10}
+[data-j=salon] .petak:last-child img{aspect-ratio:16/10;outline:1px solid var(--latar);outline-offset:-10px}
+[data-j=salon] .petak:first-child img{outline:1px solid var(--latar);outline-offset:-10px}
+[data-j=salon] .petak:nth-child(3) img,[data-j=salon] .petak:nth-child(5) img{border-radius:var(--lengkung) var(--lengkung) 8px 8px}
 
 [data-j=salon] #lokasi .kartu{margin-top:30px;padding:0;border:0;border-radius:0;background:none}
 [data-j=salon] #lokasi .kartu + .kartu{padding:22px 20px;border-top:3px solid var(--sinyal);border-radius:0 0 var(--r) var(--r);background:var(--kartu)}
@@ -388,6 +397,7 @@ GAYA_SPA = r"""
 [data-j=spa] .hero-foto::before{content:"";position:absolute;z-index:-1;inset:0;transform:translate(10px,10px);border:1px solid var(--sinyal);border-radius:50% / 42%}
 [data-j=spa] .hero-foto img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:46% 50%;border-radius:50% / 42%;background:var(--kartu-turun)}
 [data-j=spa] .lencana{position:absolute;left:50%;bottom:-18px;transform:translateX(-50%);display:inline-flex;align-items:center;min-height:36px;padding:0 18px;border-radius:999px;background:var(--sinyal);color:var(--di-atas-sinyal);font-size:12px;font-weight:700;letter-spacing:.16em;line-height:1;text-transform:uppercase;white-space:nowrap}
+[data-j=spa] .hero-foto::after{content:"";position:absolute;z-index:-2;inset:-10px;border:1px solid var(--sinyal);border-radius:50% / 42%;box-shadow:0 0 0 6px var(--latar),0 0 0 7px var(--sinyal);opacity:.4}
 [data-j=spa] .hero-foto + .tag-baris{margin-top:6px}
 [data-j=spa] .status{margin-top:8px;background:transparent;border-color:var(--garis)}
 [data-j=spa] .aksi{justify-items:stretch}
@@ -415,12 +425,13 @@ GAYA_SPA = r"""
 [data-j=spa] #harga .kartu > h3::before,[data-j=spa] #harga .kartu > h3::after{content:"";flex:1;border-top:1px solid var(--garis)}
 [data-j=spa] .harga{margin-top:8px}
 [data-j=spa] .harga li{display:flex;flex-direction:column;align-items:center;gap:4px;padding:18px 0;text-align:center}
-[data-j=spa] .harga li + li{border-top:1px solid var(--garis)}
+[data-j=spa] .harga li{position:relative}
+[data-j=spa] .harga li + li{padding-top:26px}
+[data-j=spa] .harga li + li::before{content:"";position:absolute;top:0;left:50%;width:88px;height:6px;margin-left:-44px;background:var(--sinyal);opacity:.6;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 88 6'%3E%3Cpath d='M0 3C7 -1 15 7 22 3S37 -1 44 3 59 7 66 3 81 -1 88 3' stroke='black' stroke-width='1.2' fill='none'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 88 6'%3E%3Cpath d='M0 3C7 -1 15 7 22 3S37 -1 44 3 59 7 66 3 81 -1 88 3' stroke='black' stroke-width='1.2' fill='none'/%3E%3C/svg%3E") center/contain no-repeat}
 [data-j=spa] .harga .nm{font-weight:600}
 [data-j=spa] .harga .hr{font-size:26px;line-height:1;color:var(--sinyal-gelap)}
 [data-j=spa] .harga .ket{max-width:44ch}
-[data-j=spa] .dur{display:inline;margin:0;padding:0;background:none;color:var(--sinyal-gelap);font-size:inherit;font-weight:600}
-[data-j=spa] .dur + .ket-teks::before{content:"\00A0\00B7\00A0"}
+[data-j=spa] .dur{display:inline-block;margin:0 6px 0 0;padding:2px 11px;border:1px solid var(--sinyal);border-radius:999px;background:none;color:var(--sinyal-gelap);font-size:13px;font-weight:600;line-height:1.3}
 
 [data-j=spa] .galeri{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 14px;align-items:start;margin-top:34px}
 [data-j=spa] .petak{aspect-ratio:auto;overflow:visible;border-radius:0;background:none}
@@ -454,6 +465,7 @@ GAYA_SPA = r"""
 [data-j=spa] .tanya details p{padding:0 0 18px}
 
 [data-j=spa] .penutup .kartu{padding:34px 22px;border:0;border-radius:var(--r);background:var(--sinyal-lembut);box-shadow:none}
+[data-j=spa] .penutup .kartu::before{content:"";display:block;width:44px;height:40px;margin:0 auto 16px;background:var(--sinyal);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 40'%3E%3Cellipse cx='22' cy='33' rx='19' ry='6' fill='black'/%3E%3Cellipse cx='22' cy='22' rx='13' ry='5' fill='black'/%3E%3Cellipse cx='22' cy='12' rx='8' ry='4' fill='black'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 40'%3E%3Cellipse cx='22' cy='33' rx='19' ry='6' fill='black'/%3E%3Cellipse cx='22' cy='22' rx='13' ry='5' fill='black'/%3E%3Cellipse cx='22' cy='12' rx='8' ry='4' fill='black'/%3E%3C/svg%3E") center/contain no-repeat}
 [data-j=spa] .penutup h2{font-size:clamp(30px,8.5vw,40px);line-height:1.04}
 [data-j=spa] .kaki{border-top-color:var(--garis)}
 
@@ -462,6 +474,10 @@ GAYA_SPA = r"""
 @keyframes naik{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 [data-j=spa] .bagian > h2,[data-j=spa] .petak{animation:naik linear both;animation-timeline:view();animation-range:entry 0% entry 70%}
 }
+}
+@media (prefers-reduced-motion:no-preference){
+@keyframes riak{from{opacity:0;transform:scale(.92)}to{opacity:.4;transform:none}}
+[data-j=spa] .hero-foto::after{animation:riak 1.2s ease-out both}
 }
 """
 
@@ -626,6 +642,231 @@ GAYA_KATERING_WIZARD = r"""
 [data-j=katering] .kode{font-size:46px;line-height:1;letter-spacing:.03em;font-variant-numeric:lining-nums tabular-nums;color:var(--sinyal-gelap)}
 [data-j=katering] .kartu.pesan .selesai{padding:22px 18px;border:2px dashed var(--kunyit);border-radius:var(--r);background:var(--kunyit-lembut)}
 [data-j=katering] .selesai .centang{background:var(--sinyal)}
+"""
+
+GAYA_BARBER = r"""
+/* barbershop, gaya karcis: papan nama, sudut potong, karcis antrean, tiang barber */
+[data-j=barbershop]{counter-reset:bag}
+[data-j=barbershop] .hero{padding:24px 0 4px}
+[data-j=barbershop] .hero-isi::before{display:none}
+[data-j=barbershop] .hero .eyebrow{font-size:12px;letter-spacing:.22em;color:var(--sinyal-gelap)}
+[data-j=barbershop] .hero h1{margin:10px 0 14px;font-size:clamp(46px,14vw,82px);line-height:.92}
+[data-j=barbershop] .hero h1 em{font-style:normal;color:var(--sinyal)}
+[data-j=barbershop] .hero .lead{max-width:42ch;font-size:17px}
+[data-j=barbershop] .hero-foto{position:relative;isolation:isolate;margin:24px 0 30px;padding:5px}
+[data-j=barbershop] .hero-foto::before{content:"";position:absolute;z-index:-1;inset:0;background:var(--sinyal);clip-path:polygon(32px 0,100% 0,100% calc(100% - 32px),calc(100% - 32px) 100%,0 100%,0 32px)}
+[data-j=barbershop] .hero-foto::after{content:"";position:absolute;z-index:2;top:-12px;right:46px;width:16px;height:88px;background:var(--pole);transform:skewX(-20deg)}
+[data-j=barbershop] .hero-foto img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;object-position:50% 50%;border:6px solid var(--latar);background:var(--kartu-turun);clip-path:polygon(29px 0,100% 0,100% calc(100% - 29px),calc(100% - 29px) 100%,0 100%,0 29px)}
+[data-j=barbershop] .lencana{position:absolute;z-index:1;left:20px;bottom:20px;padding:7px 14px;background:var(--tinta);color:var(--latar);box-shadow:inset 0 0 0 2px var(--tinta),inset 0 0 0 4px var(--latar);font-size:14px;font-stretch:75%;font-weight:800;letter-spacing:.14em;line-height:1.1;text-transform:uppercase}
+[data-j=barbershop] .hero-foto + .tag-baris{margin-top:6px}
+[data-j=barbershop] .status{margin-top:8px;border:2px solid var(--garis);border-radius:0;background:transparent}
+[data-j=barbershop] .fakta{counter-reset:k;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:26px}
+[data-j=barbershop] .fakta li{counter-increment:k;align-content:start;gap:8px;padding:12px 10px 16px;border:0;border-radius:0;background:radial-gradient(circle at 50% 0,var(--latar) 6px,#0000 7px) top center/16px 8px no-repeat,radial-gradient(circle at 50% 100%,var(--latar) 6px,#0000 7px) bottom center/16px 8px no-repeat,var(--kartu)}
+[data-j=barbershop] .fakta .f-label{padding-bottom:8px;border-bottom:2px dashed var(--garis-kuat);font-size:12px;letter-spacing:.1em}
+[data-j=barbershop] .fakta .f-nilai{font-size:21px;font-stretch:78%;line-height:1.05;text-transform:uppercase;letter-spacing:.02em;color:var(--sinyal-gelap);overflow-wrap:normal}
+[data-j=barbershop] .fakta li::after{content:"No. " counter(k,decimal-leading-zero);font-size:12px;font-weight:700;letter-spacing:.14em;color:var(--tinta-redup)}
+[data-j=barbershop] .loncat a{border:2px solid var(--garis-kuat);border-radius:0;font-stretch:80%;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+[data-j=barbershop] .loncat a:hover{background:var(--kartu-turun)}
+[data-j=barbershop] .ganti-daftar .nanti{overflow-wrap:anywhere}
+[data-j=barbershop] .demo-kartu{margin:26px 0 0}
+
+[data-j=barbershop] .bagian{padding:56px 0 4px}
+[data-j=barbershop] .bagian h2{font-size:clamp(32px,10vw,50px);line-height:.98}
+[data-j=barbershop] .bagian:not(.penutup) h2{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:end;column-gap:12px}
+[data-j=barbershop] .bagian:not(.penutup) h2::before{counter-increment:bag;content:counter(bag,decimal-leading-zero);color:var(--sinyal)}
+[data-j=barbershop] .bagian:not(.penutup) h2::after{content:"";grid-column:1 / -1;width:96px;height:8px;margin-top:14px;background:var(--pole)}
+[data-j=barbershop] .bagian-lead{margin-top:16px}
+[data-j=barbershop] .kartu{border:2px solid var(--garis);box-shadow:none}
+
+[data-j=barbershop] #harga .kartu{margin-top:30px;padding:20px 16px 8px;border:0;border-top:6px solid var(--sinyal);border-radius:0;background:var(--kartu);clip-path:polygon(0 0,calc(100% - 18px) 0,100% 18px,100% 100%,18px 100%,0 calc(100% - 18px))}
+[data-j=barbershop] #harga .kartu > h3{font-size:22px;font-stretch:72%;font-weight:800;letter-spacing:.06em;color:var(--tinta)}
+[data-j=barbershop] .harga{margin-top:6px}
+[data-j=barbershop] .harga li{display:flex;flex-wrap:wrap;align-items:center;gap:2px 10px;padding:14px 0;border-top:0}
+[data-j=barbershop] .harga li + li{border-top:1px solid var(--garis)}
+[data-j=barbershop] .harga .nm{display:flex;flex:1 1 auto;align-items:center;gap:10px;min-width:0;font-size:19px;font-stretch:78%;font-weight:700;text-transform:uppercase;letter-spacing:.03em}
+[data-j=barbershop] .harga .nm::after{content:"";flex:1 1 16px;min-width:16px;border-bottom:2px dotted var(--garis-kuat)}
+[data-j=barbershop] .harga .hr{padding:3px 12px;background:var(--sinyal);color:var(--di-atas-sinyal);font-size:20px;font-stretch:85%;font-weight:800;clip-path:polygon(7px 0,100% 0,100% calc(100% - 7px),calc(100% - 7px) 100%,0 100%,0 7px)}
+[data-j=barbershop] .harga .ket{flex:1 1 100%}
+[data-j=barbershop] .dur{display:inline;margin:0;padding:0;background:none;color:var(--sinyal-gelap);font-size:inherit;font-weight:700}
+[data-j=barbershop] .dur + .ket-teks::before{content:"\00A0\00B7\00A0"}
+
+[data-j=barbershop] .galeri{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 12px;align-items:start;margin-top:30px}
+[data-j=barbershop] .petak{position:relative;aspect-ratio:auto;overflow:visible;border-radius:0;background:none}
+[data-j=barbershop] .petak img{height:auto;aspect-ratio:4/5;border-radius:0;background:var(--kartu-turun);filter:grayscale(1) contrast(1.05);transition:filter .3s}
+[data-j=barbershop] .petak:hover img,[data-j=barbershop] .petak:focus-within img,[data-j=barbershop] .petak:active img{filter:none}
+[data-j=barbershop] .petak::before{content:"";position:absolute;z-index:1;inset:8px;pointer-events:none;background:linear-gradient(var(--sinyal) 0 0) 0 0/22px 3px,linear-gradient(var(--sinyal) 0 0) 0 0/3px 22px,linear-gradient(var(--sinyal) 0 0) 100% 0/22px 3px,linear-gradient(var(--sinyal) 0 0) 100% 0/3px 22px,linear-gradient(var(--sinyal) 0 0) 0 100%/22px 3px,linear-gradient(var(--sinyal) 0 0) 0 100%/3px 22px,linear-gradient(var(--sinyal) 0 0) 100% 100%/22px 3px,linear-gradient(var(--sinyal) 0 0) 100% 100%/3px 22px;background-repeat:no-repeat}
+[data-j=barbershop] .petak figcaption{position:absolute;z-index:1;left:0;right:0;bottom:0;padding:18px 12px 10px 14px;background:linear-gradient(transparent,var(--latar));font-size:13px;font-weight:600;line-height:1.3;color:var(--tinta)}
+[data-j=barbershop] .petak:first-child,[data-j=barbershop] .petak:last-child{grid-column:1 / -1}
+[data-j=barbershop] .petak:first-child img,[data-j=barbershop] .petak:last-child img{aspect-ratio:16/10}
+[data-j=barbershop] .petak:nth-child(3),[data-j=barbershop] .petak:nth-child(5){margin-top:26px}
+
+[data-j=barbershop] #lokasi .kartu{margin-top:30px;padding:0;border:0;background:none}
+[data-j=barbershop] #lokasi .kartu > h3{font-size:14px;letter-spacing:.14em}
+[data-j=barbershop] .jam{margin-top:8px;border:2px solid var(--garis)}
+[data-j=barbershop] .jam li{margin:0;padding:12px 12px;border-radius:0;font-variant-numeric:tabular-nums}
+[data-j=barbershop] .jam li + li{border-top:1px dashed var(--garis-kuat)}
+[data-j=barbershop] .jam li.hari-ini{box-shadow:inset 5px 0 0 var(--sinyal);border-top-color:transparent}
+[data-j=barbershop] .jam li.hari-ini + li{border-top-color:transparent}
+[data-j=barbershop] #lokasi .kartu + .kartu{margin-top:16px;padding:20px 16px;border:0;border-left:6px solid var(--sinyal);border-radius:0;background:var(--kartu)}
+
+[data-j=barbershop] .tanya{counter-reset:q;border-bottom:2px solid var(--garis)}
+[data-j=barbershop] .tanya details{counter-increment:q;border-top:2px solid var(--garis)}
+[data-j=barbershop] .tanya summary{justify-content:flex-start;gap:14px;min-height:64px;padding:16px 0;font-size:19px;font-stretch:80%;font-weight:700;letter-spacing:.03em;text-transform:uppercase}
+[data-j=barbershop] .tanya summary::before{content:"No. " counter(q);flex:none;font-size:12px;font-stretch:100%;letter-spacing:.14em;color:var(--sinyal-gelap)}
+[data-j=barbershop] .tanya summary svg{display:none}
+[data-j=barbershop] .tanya summary::after{content:"+";flex:none;margin-left:auto;font-size:30px;font-weight:500;line-height:1;color:var(--sinyal)}
+[data-j=barbershop] .tanya details[open] summary::after{content:"\2212"}
+[data-j=barbershop] .tanya details p{padding:0 0 18px}
+
+[data-j=barbershop] .penutup .kartu{padding:30px 22px;border:0;border-radius:0;background:var(--sinyal);color:var(--di-atas-sinyal);clip-path:polygon(0 0,calc(100% - 28px) 0,100% 28px,100% 100%,28px 100%,0 calc(100% - 28px))}
+[data-j=barbershop] .penutup h2{font-size:clamp(32px,9vw,44px);line-height:.98;color:var(--di-atas-sinyal)}
+[data-j=barbershop] .penutup .bagian-lead{color:var(--di-atas-sinyal)}
+[data-j=barbershop] .penutup .tombol{background:var(--di-atas-sinyal);border-color:var(--di-atas-sinyal);color:var(--sinyal-gelap)}
+[data-j=barbershop] .penutup .tombol:hover{background:var(--tinta);border-color:var(--tinta);color:var(--latar)}
+[data-j=barbershop] .penutup .tombol.garis{background:transparent;color:var(--di-atas-sinyal)}
+[data-j=barbershop] .penutup .tombol.garis:hover{background:var(--sinyal-gelap);border-color:var(--di-atas-sinyal);color:var(--di-atas-sinyal)}
+[data-j=barbershop] .kaki{border-top-color:var(--garis)}
+
+@supports (animation-timeline:view()){
+@media (prefers-reduced-motion:no-preference){
+@keyframes naik{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+[data-j=barbershop] .bagian > h2,[data-j=barbershop] .petak{animation:naik linear both;animation-timeline:view();animation-range:entry 0% entry 70%}
+}
+}
+"""
+
+GAYA_BARBER_WIZARD = r"""
+[data-j=barbershop] .kartu.pesan,[data-j=barbershop] .kartu.pesan-buka{background:var(--kartu);border-radius:0}
+[data-j=barbershop] .kartu.pesan-buka > h3{font-size:30px;line-height:1}
+[data-j=barbershop] .langkah-no{letter-spacing:.18em;color:var(--sinyal-gelap)}
+[data-j=barbershop] .progres{height:10px;border-radius:0;background:var(--kartu-turun)}
+[data-j=barbershop] .progres i{border-radius:0;background:var(--pole)}
+[data-j=barbershop] .sub{color:var(--sinyal-gelap)}
+[data-j=barbershop] .opsi-kotak{border-radius:0;border-left-width:6px}
+[data-j=barbershop] .opsi input:checked + .opsi-kotak{border-color:var(--sinyal)}
+[data-j=barbershop] .opsi-nama{font-size:18px;font-stretch:78%;font-weight:700;letter-spacing:.03em;text-transform:uppercase}
+[data-j=barbershop] .opsi-harga{font-size:19px;font-stretch:85%;font-weight:800;color:var(--sinyal-gelap)}
+[data-j=barbershop] .panel[data-langkah=bayar] .opsi-harga{font-size:14px;font-stretch:100%;font-weight:600}
+[data-j=barbershop] .hari,[data-j=barbershop] .jam-grid button,[data-j=barbershop] .stepper,[data-j=barbershop] .kolom input,[data-j=barbershop] .kolom textarea,[data-j=barbershop] .menu-baris{border-radius:0}
+[data-j=barbershop] .hari .tg{font-stretch:78%}
+[data-j=barbershop] .st-btn{background:var(--sinyal);color:var(--di-atas-sinyal)}
+[data-j=barbershop] .st-btn:hover:not(:disabled){background:var(--sinyal-gelap)}
+[data-j=barbershop] .st-btn:disabled{background:var(--kartu-turun);color:var(--tinta-redup)}
+[data-j=barbershop] .tinjau{margin-top:8px;padding:4px 14px;border:2px dashed var(--garis-kuat);background:var(--latar)}
+[data-j=barbershop] .tinjau > div{border-top:1px dashed var(--garis-kuat)}
+[data-j=barbershop] .tinjau > div:first-child{border-top:0}
+[data-j=barbershop] .tinjau .total{border-top:2px solid var(--tinta)}
+[data-j=barbershop] .tinjau .total dd{font-size:30px;font-stretch:78%;line-height:1;font-variant-numeric:tabular-nums}
+[data-j=barbershop] .selesai h3{font-size:40px;line-height:1}
+[data-j=barbershop] .kode{font-size:38px;font-stretch:78%;line-height:1;letter-spacing:.06em;color:var(--sinyal-gelap)}
+[data-j=barbershop] .kartu.pesan .selesai{padding:20px 16px;border:2px dashed var(--sinyal);background:var(--latar)}
+"""
+
+GAYA_INAP = r"""
+/* penginapan, gaya kartu kunci: buku tamu, boarding pass, foto lebar, passe-partout */
+body[data-j=penginapan]{counter-reset:bag 100 kmr 100}
+[data-j=penginapan] :is(.hero h1,.bagian h2,.panel h3,.selesai h3,#harga .kartu > h3,.kartu.pesan-buka > h3,.f-nilai,.harga .hr,.hari .tg,.tinjau .total dd,.kode,.penutup h2,.tanya summary,.st-nilai){font-family:var(--serif);font-stretch:100%;font-weight:400;font-variant-numeric:lining-nums;letter-spacing:0;text-transform:none}
+[data-j=penginapan] .hero{padding:24px 0 4px}
+[data-j=penginapan] .hero-isi::before{display:none}
+[data-j=penginapan] .hero .eyebrow{font-size:12px;letter-spacing:.2em;color:var(--sinyal-gelap)}
+[data-j=penginapan] .hero h1{margin:12px 0 4px;font-size:clamp(54px,17vw,96px);line-height:.9;text-wrap:balance}
+[data-j=penginapan] .hero h1 em{font-style:italic;color:var(--sinyal)}
+[data-j=penginapan] .hero .lead{max-width:42ch;font-size:17px}
+[data-j=penginapan] .hero-foto{position:relative;margin:20px -16px 50px}
+[data-j=penginapan] .hero-foto img{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;object-position:50% 60%;background:var(--kartu-turun)}
+[data-j=penginapan] .lencana{position:absolute;left:16px;bottom:-34px;display:grid;place-content:center;width:84px;aspect-ratio:1;padding:22px 6px 0;border:2px solid var(--sinyal);border-radius:50%;background:radial-gradient(circle at 50% 16px,var(--latar) 6px,var(--sinyal) 6px 7px,#0000 7px),var(--kartu);color:var(--tinta);font-size:12px;font-weight:700;letter-spacing:.1em;line-height:1.2;text-align:center;text-transform:uppercase}
+[data-j=penginapan] .hero-foto + .tag-baris{margin-top:6px}
+[data-j=penginapan] .status{margin-top:8px;background:transparent;border-color:var(--garis)}
+[data-j=penginapan] .fakta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:28px;border:1px solid var(--garis);border-radius:var(--r);background:var(--kartu);box-shadow:var(--bayang)}
+[data-j=penginapan] .fakta li{position:relative;align-content:start;gap:8px;padding:16px 10px;border:0;border-radius:0;background:none}
+[data-j=penginapan] .fakta li + li{border-left:2px dashed var(--garis)}
+[data-j=penginapan] .fakta li + li::before,[data-j=penginapan] .fakta li + li::after{content:"";position:absolute;left:-8px;width:14px;height:14px;border:1px solid var(--garis);border-radius:50%;background:var(--latar)}
+[data-j=penginapan] .fakta li + li::before{top:-8px;clip-path:inset(50% 0 0 0)}
+[data-j=penginapan] .fakta li + li::after{bottom:-8px;clip-path:inset(0 0 50% 0)}
+[data-j=penginapan] .fakta .f-label{font-size:12px;letter-spacing:.12em}
+[data-j=penginapan] .fakta .f-nilai{font-size:22px;line-height:1.05;color:var(--sinyal-gelap);overflow-wrap:normal}
+[data-j=penginapan] .loncat a{border-color:var(--garis);background:transparent}
+[data-j=penginapan] .loncat a:hover{background:var(--kartu-turun)}
+[data-j=penginapan] .ganti-daftar .nanti{overflow-wrap:anywhere}
+[data-j=penginapan] .demo-kartu{margin:26px 0 0}
+
+[data-j=penginapan] .bagian{padding:60px 0 4px}
+[data-j=penginapan] .bagian h2{font-size:clamp(40px,12vw,58px);line-height:.95}
+[data-j=penginapan] .bagian:not(.penutup) h2::before{content:"No. " counter(bag);display:block;margin-bottom:12px;font-family:Archivo,system-ui,sans-serif;font-size:12px;font-weight:700;letter-spacing:.2em;line-height:1;color:var(--sinyal-gelap);counter-increment:bag}
+[data-j=penginapan] .bagian:not(.penutup) h2::after{content:"";display:block;height:1px;margin-top:18px;background:var(--garis-kuat)}
+[data-j=penginapan] .bagian-lead{margin-top:16px}
+[data-j=penginapan] .kartu{border-color:var(--garis)}
+
+[data-j=penginapan] #harga .kartu{margin-top:30px;padding:0;border:0;border-radius:0;background:none;box-shadow:none}
+[data-j=penginapan] #harga .kartu > h3{font-size:30px;font-style:italic;line-height:1;color:var(--sinyal-gelap)}
+[data-j=penginapan] .harga{margin-top:14px}
+[data-j=penginapan] .harga li{grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:2px 14px;margin-bottom:10px;padding:14px;border:1px solid var(--garis);border-radius:var(--r);background:var(--kartu);box-shadow:var(--bayang)}
+[data-j=penginapan] .harga li:first-child{border-top:1px solid var(--garis)}
+[data-j=penginapan] .harga li::before{counter-increment:kmr;content:counter(kmr);grid-row:1 / 3;display:grid;place-content:center;width:54px;aspect-ratio:1;padding-top:14px;border:2px solid var(--sinyal);border-radius:50%;background:radial-gradient(circle at 50% 11px,var(--kartu) 4px,var(--sinyal) 4px 5px,#0000 5px),var(--sinyal-lembut);color:var(--sinyal-gelap);font-size:13px;font-weight:700;letter-spacing:.06em}
+[data-j=penginapan] .harga .nm{font-size:18px;font-weight:700}
+[data-j=penginapan] .harga .hr{font-size:32px;line-height:1;text-align:right;color:var(--sinyal-gelap)}
+[data-j=penginapan] .harga .hr::after{content:"per malam";display:block;margin-top:2px;font-family:Archivo,system-ui,sans-serif;font-size:12px;font-weight:600;letter-spacing:.04em;color:var(--tinta-redup)}
+[data-j=penginapan] .harga .ket{grid-column:2 / -1;margin-top:2px}
+
+[data-j=penginapan] .galeri{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:start;margin-top:30px}
+[data-j=penginapan] .petak{aspect-ratio:auto;overflow:visible;padding:8px 8px 4px;border:1px solid var(--garis);border-radius:2px;background:var(--kartu);box-shadow:var(--bayang)}
+[data-j=penginapan] .petak img{height:auto;aspect-ratio:1;border-radius:0;background:var(--kartu-turun)}
+[data-j=penginapan] .petak figcaption{padding:8px 2px 6px;font-size:13px;line-height:1.35;color:var(--tinta-redup)}
+[data-j=penginapan] .petak:first-child,[data-j=penginapan] .petak:last-child{grid-column:1 / -1}
+[data-j=penginapan] .petak:first-child img,[data-j=penginapan] .petak:last-child img{aspect-ratio:16/9}
+[data-j=penginapan] .petak:nth-child(2) img,[data-j=penginapan] .petak:nth-child(3) img{aspect-ratio:3/4}
+
+[data-j=penginapan] #lokasi .kartu{margin-top:30px;padding:0;border:0;border-radius:0;background:none;box-shadow:none}
+[data-j=penginapan] #lokasi .kartu > h3{font-size:14px;letter-spacing:.12em}
+[data-j=penginapan] .jam li{margin:0;padding:13px 12px;border-radius:0}
+[data-j=penginapan] .jam li:first-child{border-top:1px solid var(--garis)}
+[data-j=penginapan] .jam li:last-child{border-bottom:1px solid var(--garis)}
+[data-j=penginapan] .jam li.hari-ini{background:var(--sinyal-lembut);box-shadow:inset 4px 0 0 var(--sinyal);border-top-color:var(--garis)}
+[data-j=penginapan] .jam li.hari-ini + li{border-top-color:var(--garis)}
+[data-j=penginapan] #lokasi .kartu + .kartu{margin-top:16px;padding:20px 16px;border:1px solid var(--garis);border-top:2px dashed var(--garis-kuat);border-radius:var(--r);background:var(--kartu)}
+
+[data-j=penginapan] .tanya{border-bottom:1px solid var(--garis)}
+[data-j=penginapan] .tanya details{border-top-color:var(--garis)}
+[data-j=penginapan] .tanya summary{min-height:64px;padding:16px 0;font-size:26px;line-height:1.1}
+[data-j=penginapan] .tanya summary svg{color:var(--sinyal)}
+
+[data-j=penginapan] .penutup .kartu{padding:32px 22px;border:1px solid var(--garis-kuat);border-radius:var(--r);background:var(--kartu-turun);box-shadow:0 0 0 6px var(--latar),0 0 0 7px var(--garis-kuat)}
+[data-j=penginapan] .penutup h2{font-size:clamp(36px,10vw,48px);line-height:.98}
+[data-j=penginapan] .kaki{border-top-color:var(--garis)}
+
+@supports (animation-timeline:view()){
+@media (prefers-reduced-motion:no-preference){
+@keyframes naik{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+[data-j=penginapan] .bagian > h2,[data-j=penginapan] .petak{animation:naik linear both;animation-timeline:view();animation-range:entry 0% entry 70%}
+}
+}
+"""
+
+GAYA_INAP_WIZARD = r"""
+[data-j=penginapan] .kartu.pesan,[data-j=penginapan] .kartu.pesan-buka{background:var(--kartu)}
+[data-j=penginapan] .kartu.pesan-buka > h3{font-size:36px;line-height:1;color:var(--tinta)}
+[data-j=penginapan] .panel h3{font-size:38px;line-height:1}
+[data-j=penginapan] .langkah-no{letter-spacing:.18em;color:var(--sinyal-gelap)}
+[data-j=penginapan] .progres{height:3px;border-radius:0;background:var(--garis)}
+[data-j=penginapan] .progres i{border-radius:0}
+[data-j=penginapan] .sub{color:var(--sinyal-gelap)}
+[data-j=penginapan] .opsi-kotak{border-width:1px;border-left-width:6px;border-color:var(--garis);border-left-color:var(--garis-kuat)}
+[data-j=penginapan] .opsi input:checked + .opsi-kotak{border-color:var(--sinyal);box-shadow:inset 0 0 0 1px var(--sinyal)}
+[data-j=penginapan] .opsi-nama{font-weight:700}
+[data-j=penginapan] .opsi-harga{font-family:var(--serif);font-size:21px;font-weight:400;line-height:1.05;font-variant-numeric:lining-nums;color:var(--sinyal-gelap)}
+[data-j=penginapan] .panel[data-langkah=bayar] .opsi-harga{font-family:Archivo,system-ui,sans-serif;font-size:14px;font-weight:600;line-height:1.3}
+[data-j=penginapan] .hari{border-width:1px;border-color:var(--garis)}
+[data-j=penginapan] .hari .tg{font-size:32px;line-height:1}
+[data-j=penginapan] .jam-grid button{border-width:1px}
+[data-j=penginapan] .stepper{border-width:1px}
+[data-j=penginapan] .st-nilai{font-family:var(--serif);font-weight:400;font-size:32px}
+[data-j=penginapan] .kolom input,[data-j=penginapan] .kolom textarea{border-width:1px}
+[data-j=penginapan] .tinjau{margin-top:8px;padding:4px 14px;border:1px solid var(--garis);border-radius:var(--r);background:var(--latar)}
+[data-j=penginapan] .tinjau .total{border-top:2px dashed var(--garis-kuat)}
+[data-j=penginapan] .tinjau .total dd{font-size:36px;line-height:1}
+[data-j=penginapan] .selesai h3{font-size:44px;line-height:1}
+[data-j=penginapan] .kode{font-size:42px;line-height:1;letter-spacing:.04em;color:var(--sinyal-gelap)}
+[data-j=penginapan] .kartu.pesan .selesai{padding:22px 18px;border:1px solid var(--garis-kuat);border-top:3px solid var(--sinyal);border-radius:var(--r);background:var(--latar)}
 """
 
 BASE = """
