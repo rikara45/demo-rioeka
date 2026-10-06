@@ -225,6 +225,7 @@ GAYA_PASPOR_WIZARD = r"""
 [data-s=paspor] .kolom input,[data-s=paspor] .kolom textarea{border-radius:0;font-family:'Space Mono',monospace}
 [data-s=paspor] .tinjau .total{border-top:1px solid var(--sinyal)}
 [data-s=paspor] .tinjau .total dd{font-size:26px;font-family:'Space Mono',monospace}
+[data-s=paspor] .tinjau .ubah{color:var(--sinyal-gelap)}
 [data-s=paspor] .selesai h3{font-size:28px}
 [data-s=paspor] .kode{font-family:'Space Mono',monospace;font-size:32px;letter-spacing:.08em;color:var(--sinyal-gelap)}
 """

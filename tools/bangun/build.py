@@ -1,4 +1,5 @@
-import json, os, sys
+import json, os, re, shutil, sys, zipfile
+from datetime import date
 from html import escape as e
 from urllib.parse import quote
 sys.path.insert(0, os.path.dirname(__file__))
@@ -6,6 +7,7 @@ from css import FONT, BASE, BOOKING, GAYA_UMUM, WARNA_INDEX, AKSEN_JENIS, INDEX_
 from data import USAHA, URUT_HARI
 from js import STATUS_JS, BAR_JS, BOOKING_JS, WIZARD_JS
 from skin import SKIN, DEFAULT, PILIH, GANTI_SKIN, KASAR, chip
+from klien import GalatData, kerangka, muat
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 NH = {0: "Minggu", 1: "Senin", 2: "Selasa", 3: "Rabu", 4: "Kamis", 5: "Jumat", 6: "Sabtu"}
@@ -112,22 +114,50 @@ def penutup_demo(u):
     )
 
 
-def seksi_pesan(u, n):
+def seksi_pesan(u, n, klien=False):
     mode = u.get("mode", "jadwal")
     if mode == "inap":
-        return seksi_pesan_inap(u, n)
+        return seksi_pesan_inap(u, n, klien)
     if mode == "pesan":
-        return seksi_pesan_menu(u, n)
-    return seksi_pesan_jadwal(u, n)
+        return seksi_pesan_menu(u, n, klien)
+    return seksi_pesan_jadwal(u, n, klien)
 
 
-def seksi_pesan_jadwal(u, n):
+def panel_bayar_klien(u):
+    b = u.get("bayar") or {}
+    ops = []
+    if b.get("qris"):
+        ops.append(opsi_radio("cara", "qris", "QRIS", "pindai", "Pindai kode QRIS di bawah, lalu kirim bukti lewat WhatsApp."))
+    if b.get("bank"):
+        ops.append(opsi_radio("cara", "transfer", "Transfer bank", e(b["bank"]), "Transfer ke rekening di bawah, lalu kirim bukti lewat WhatsApp."))
+    ops.append(opsi_radio("cara", "tempat", "Bayar di tempat", "saat datang", "Pesanan tetap dicatat, dibayar di tempat."))
+    panel_qris = ""
+    if b.get("qris"):
+        panel_qris = (
+            '<div id="panel-qris" class="panel-bayar" hidden><img class="qris-gambar" src="/img/%s" alt="Kode QRIS %s" width="520" height="520" decoding="async">'
+            "<p>Nama penerima: %s. Setelah membayar, kirim bukti lewat WhatsApp.</p></div>"
+        ) % (e(b["qris"]), e(u["nama"]), e(b.get("atas_nama", "")))
+    panel_transfer = ""
+    if b.get("bank"):
+        panel_transfer = (
+            '<div id="panel-transfer" class="panel-bayar" hidden><p>Transfer ke <b>%s %s</b> atas nama <b>%s</b>, lalu kirim bukti lewat WhatsApp.</p></div>'
+        ) % (e(b["bank"]), e(b["rekening"]), e(b["atas_nama"]))
+    return (
+        '<div class="panel" data-langkah="bayar" hidden><h3 tabindex="-1">Cara bayar</h3>'
+        '<p class="tip">Total layanan <b id="b-total"></b>. Bayar muka <b id="b-muka"></b>, sisanya dibayar kemudian.</p>'
+        '<div class="opsi-daftar">%s</div>%s%s</div>'
+    ) % ("".join(ops), panel_qris, panel_transfer)
+
+
+def seksi_pesan_jadwal(u, n, klien=False):
     bayar = n == 3
     total = 6 if bayar else 5
     nom = u["noun"]
     lead = u["pesan_lead"]
     panel_bayar = ""
-    if bayar:
+    if bayar and klien:
+        panel_bayar = panel_bayar_klien(u)
+    elif bayar:
         panel_bayar = (
             '<div class="panel" data-langkah="bayar" hidden>'
             '<h3 tabindex="-1">Cara bayar</h3>'
@@ -142,14 +172,21 @@ def seksi_pesan_jadwal(u, n):
             '<div id="panel-transfer" class="panel-bayar" hidden><p>Di halaman sungguhan, di sini muncul nomor rekening dan kode bayar khusus pesanan ini.</p></div>'
             "</div>"
         )
-    buka = (
-        '<div class="kartu pesan-buka" id="pesan-buka"><h3>Coba alurnya sendiri</h3>'
-        '<p>Pilih layanan, %s, tanggal, dan jam dalam %d langkah singkat. Pesanan di halaman contoh ini tidak tersimpan.</p>'
-        '<button class="tombol" id="buka-pesan" type="button" aria-controls="pesan" aria-expanded="false">%s Mulai coba pesan</button></div>'
-    ) % (e(nom.lower()), total, I_KALENDER)
+    if klien:
+        buka = kartu_pesan_buka(total, "Pilih layanan, %s, tanggal, dan jam dalam %d langkah singkat." % (nom.lower(), total), klien=True)
+    else:
+        buka = (
+            '<div class="kartu pesan-buka" id="pesan-buka"><h3>Coba alurnya sendiri</h3>'
+            '<p>Pilih layanan, %s, tanggal, dan jam dalam %d langkah singkat. Pesanan di halaman contoh ini tidak tersimpan.</p>'
+            '<button class="tombol" id="buka-pesan" type="button" aria-controls="pesan" aria-expanded="false">%s Mulai coba pesan</button></div>'
+        ) % (e(nom.lower()), total, I_KALENDER)
+    if klien:
+        tag_baris, judul = "", "Pesan sendiri"
+    else:
+        tag_baris, judul = '<p class="tag-baris"><span class="tag-anda">Layanan dan jam sesuai usaha Anda</span></p>\n', "Coba pesan sendiri"
     return (
         '<section class="bagian" id="bagian-pesan" aria-labelledby="j-pesan">\n'
-        '<p class="tag-baris"><span class="tag-anda">Layanan dan jam sesuai usaha Anda</span></p>\n<h2 id="j-pesan">Coba pesan sendiri</h2>\n<p class="bagian-lead">%s</p>\n'
+        '%s<h2 id="j-pesan">%s</h2>\n<p class="bagian-lead">%s</p>\n'
         '%s\n'
         '<div class="kartu pesan" id="pesan" hidden>\n'
         '<div id="alur">\n'
@@ -170,8 +207,8 @@ def seksi_pesan_jadwal(u, n):
         '%s\n'
         '</div>\n'
         '</section>\n'
-    ) % (e(lead), buka, total, total, e(u["tip_layanan"]), e(nom.lower()), e(u["siapa_saja"]),
-         panel_data_html(), panel_tinjau_html(), panel_bayar, aksi_langkah_html(), selesai_html())
+    ) % (tag_baris, judul, e(lead), buka, total, total, e(u["tip_layanan"]), e(nom.lower()), e(u["siapa_saja"]),
+         panel_data_html(), panel_tinjau_html(klien), panel_bayar, aksi_langkah_html(), selesai_html(klien))
 
 
 def panel_data_html():
@@ -183,12 +220,13 @@ def panel_data_html():
     )
 
 
-def panel_tinjau_html():
+def panel_tinjau_html(klien=False):
+    ekor = " Setelah dikonfirmasi, kirim pesanan lewat WhatsApp." if klien else " Pesanan di halaman contoh ini tidak tersimpan."
     return (
         '<div class="panel" data-langkah="tinjau" hidden><h3 tabindex="-1">Periksa pesanan</h3>'
-        '<p class="tip">Ketuk "Ubah" untuk memperbaiki. Pesanan di halaman contoh ini tidak tersimpan.</p>'
+        '<p class="tip">Ketuk "Ubah" untuk memperbaiki.%s</p>'
         '<dl class="tinjau" id="tinjau"></dl></div>'
-    )
+    ) % ekor
 
 
 def panel_bayar_html(sisa, tempat_ket):
@@ -218,39 +256,54 @@ def aksi_langkah_html():
     )
 
 
-def selesai_html():
+def selesai_html(klien=False):
+    if klien:
+        catatan = "Tekan tombol di bawah untuk mengirim pesanan lewat WhatsApp. Pesanan baru sampai setelah Anda menekannya."
+        judul, tombol = "Pesanan siap dikirim", "Kirim pesanan lewat WhatsApp"
+    else:
+        catatan = "Halaman contoh. Pesanan ini tidak tersimpan di mana pun."
+        judul, tombol = "Pesanan dicatat", "Kirim ke WhatsApp"
     return (
         '<div id="selesai" class="selesai" hidden>'
         '<div id="k-centang" class="centang" aria-hidden="true"></div>'
-        '<h3 tabindex="-1">Pesanan dicatat</h3><p class="langkah-nama">Kode pesanan</p><p class="kode" id="k-kode"></p>'
+        '<h3 tabindex="-1">%s</h3><p class="langkah-nama">Kode pesanan</p><p class="kode" id="k-kode"></p>'
         '<dl class="tinjau" id="k-ringkas"></dl>'
-        '<p class="catatan">Halaman contoh. Pesanan ini tidak tersimpan di mana pun.</p>'
-        '<div class="aksi"><a class="tombol" id="k-wa" href="#">Kirim ke WhatsApp</a><button class="tombol garis" id="ulang" type="button">Pesan lagi</button></div>'
+        '<p class="catatan">%s</p>'
+        '<div class="aksi"><a class="tombol" id="k-wa" href="#">%s</a><button class="tombol garis" id="ulang" type="button">Pesan lagi</button></div>'
         '</div>'
-    )
+    ) % (judul, catatan, tombol)
 
 
-def bagian_pesan(tag_anda, judul, lead, isi):
+def bagian_pesan(tag_anda, judul, lead, isi, klien=False):
+    tag_baris = "" if klien else '<p class="tag-baris"><span class="tag-anda">%s</span></p>\n' % e(tag_anda)
     return (
         '<section class="bagian" id="bagian-pesan" aria-labelledby="j-pesan">\n'
-        '<p class="tag-baris"><span class="tag-anda">%s</span></p>\n<h2 id="j-pesan">%s</h2>\n<p class="bagian-lead">%s</p>\n'
-        "%s</section>\n" % (e(tag_anda), e(judul), e(lead), isi)
+        '%s<h2 id="j-pesan">%s</h2>\n<p class="bagian-lead">%s</p>\n'
+        "%s</section>\n" % (tag_baris, e(judul), e(lead), isi)
     )
 
 
-def kartu_pesan_buka(total, kalimat):
+def kartu_pesan_buka(total, kalimat, klien=False):
+    if klien:
+        judul, ekor, tombol = "Pesan sendiri", " Setelah selesai, pesanan dikirim lewat WhatsApp.", " Mulai pesan"
+    else:
+        judul, ekor, tombol = "Coba alurnya sendiri", " Pesanan di halaman contoh ini tidak tersimpan.", " Mulai coba pesan"
     return (
-        '<div class="kartu pesan-buka" id="pesan-buka"><h3>Coba alurnya sendiri</h3>'
-        '<p>%s Pesanan di halaman contoh ini tidak tersimpan.</p>'
-        '<button class="tombol" id="buka-pesan" type="button" aria-controls="pesan" aria-expanded="false">%s Mulai coba pesan</button></div>'
-    ) % (e(kalimat), I_KALENDER)
+        '<div class="kartu pesan-buka" id="pesan-buka"><h3>%s</h3>'
+        '<p>%s%s</p>'
+        '<button class="tombol" id="buka-pesan" type="button" aria-controls="pesan" aria-expanded="false">%s%s</button></div>'
+    ) % (judul, e(kalimat), ekor, I_KALENDER, tombol)
 
 
-def seksi_pesan_inap(u, n):
+def seksi_pesan_inap(u, n, klien=False):
     bayar = n == 3
     total = 6 if bayar else 5
+    if klien:
+        panel_bayar = panel_bayar_klien(u) + "\n" if bayar else ""
+    else:
+        panel_bayar = panel_bayar_html("sisanya dibayar saat tiba", "Pesanan dicatat, dibayar saat tiba.") + "\n" if bayar else ""
     isi = (
-        kartu_pesan_buka(total, "Pilih kamar, tanggal, jumlah malam, dan tamu dalam %d langkah singkat." % total)
+        kartu_pesan_buka(total, "Pilih kamar, tanggal, jumlah malam, dan tamu dalam %d langkah singkat." % total, klien)
         + "\n"
         + '<div class="kartu pesan" id="pesan" hidden>\n<div id="alur">\n'
         '<div class="langkah-kepala"><span class="langkah-no" id="l-no">Langkah 1 dari %d</span><span class="langkah-nama" id="l-nama">Kamar</span></div>\n' % total
@@ -263,20 +316,24 @@ def seksi_pesan_inap(u, n):
         + '<div class="panel" data-langkah="tamu" hidden><h3 tabindex="-1">Jumlah tamu</h3>'
         + '<p class="tip">Jumlah tamu mengikuti kapasitas kamar yang dipilih.</p>'
         + '<div id="st-tamu"></div><p class="petunjuk" id="info-tamu" style="margin-top:12px"></p></div>\n'
-        + panel_data_html() + "\n" + panel_tinjau_html() + "\n"
-        + ((panel_bayar_html("sisanya dibayar saat tiba", "Pesanan dicatat, dibayar saat tiba.") + "\n") if bayar else "")
+        + panel_data_html() + "\n" + panel_tinjau_html(klien) + "\n"
+        + panel_bayar
         + aksi_langkah_html() + "\n"
-        + selesai_html() + "\n</div>\n"
+        + selesai_html(klien) + "\n</div>\n"
     )
-    return bagian_pesan("Kamar dan tanggal sesuai usaha Anda", "Pesan kamar sendiri",
-                        "Tanpa aplikasi dan tanpa formulir panjang. Selesai di halaman ini juga.", isi)
+    return bagian_pesan("Kamar dan tanggal sesuai usaha Anda", "Pesan kamar" if klien else "Pesan kamar sendiri",
+                        "Tanpa aplikasi dan tanpa formulir panjang. Selesai di halaman ini juga.", isi, klien)
 
 
-def seksi_pesan_menu(u, n):
+def seksi_pesan_menu(u, n, klien=False):
     bayar = n == 3
     total = 6 if bayar else 5
+    if bayar:
+        panel_bayar = (panel_bayar_klien(u) if klien else panel_bayar_html("sisanya dibayar saat serah terima", "Pesanan dicatat, dibayar saat serah terima.")) + "\n"
+    else:
+        panel_bayar = ""
     isi = (
-        kartu_pesan_buka(total, "Pilih menu dan jumlah, tanggal, dan cara terima dalam %d langkah singkat." % total)
+        kartu_pesan_buka(total, "Pilih menu dan jumlah, tanggal, dan cara terima dalam %d langkah singkat." % total, klien)
         + "\n"
         + '<div class="kartu pesan" id="pesan" hidden>\n<div id="alur">\n'
         '<div class="langkah-kepala"><span class="langkah-no" id="l-no">Langkah 1 dari %d</span><span class="langkah-nama" id="l-nama">Menu</span></div>\n' % total
@@ -294,13 +351,13 @@ def seksi_pesan_menu(u, n):
         + '<div class="panel" data-langkah="catatan" hidden><h3 tabindex="-1">Catatan</h3>'
         + '<p class="tip">Tulis permintaan khusus, misalnya tanpa kacang, tanpa pedas, atau tulisan di kue.</p>'
         + '<div class="kolom"><label for="catatan">Catatan (opsional)</label><textarea id="catatan" rows="3"></textarea></div></div>\n'
-        + panel_data_html() + "\n" + panel_tinjau_html() + "\n"
-        + ((panel_bayar_html("sisanya dibayar saat serah terima", "Pesanan dicatat, dibayar saat serah terima.") + "\n") if bayar else "")
+        + panel_data_html() + "\n" + panel_tinjau_html(klien) + "\n"
+        + panel_bayar
         + aksi_langkah_html() + "\n"
-        + selesai_html() + "\n</div>\n"
+        + selesai_html(klien) + "\n</div>\n"
     )
     return bagian_pesan("Menu dan tanggal sesuai usaha Anda", "Pesan sendiri",
-                        "Tanpa aplikasi dan tanpa formulir panjang. Selesai di halaman ini juga.", isi)
+                        "Tanpa aplikasi dan tanpa formulir panjang. Selesai di halaman ini juga.", isi, klien)
 
 
 def durasi(m):
@@ -330,7 +387,7 @@ def html_fakta(u):
     return '<ul class="fakta">%s</ul>\n' % li
 
 
-def seksi_harga(u):
+def seksi_harga(u, klien=False):
     mode = u.get("mode", "jadwal")
     if u.get("mode") == "inap":
         judul, lead = "Daftar kamar dan harga", u["harga_lead"]
@@ -338,7 +395,8 @@ def seksi_harga(u):
         judul, lead = "Daftar menu dan harga", u["harga_lead"]
     else:
         judul, lead = "Daftar harga", u["harga_lead"]
-    out = ['<section class="bagian" id="harga">\n' + tag("Harga %s Anda" % u["jenis"].lower()) + '<h2>%s</h2>\n<p class="bagian-lead">%s</p>\n' % (e(judul), e(lead))]
+    tag_baris = "" if klien else tag("Harga %s Anda" % u["jenis"].lower())
+    out = ['<section class="bagian" id="harga">\n' + tag_baris + '<h2>%s</h2>\n<p class="bagian-lead">%s</p>\n' % (e(judul), e(lead))]
     for nama, item in u["grup"]:
         out.append('<div class="kartu"><h3>%s</h3><ul class="harga">' % e(nama))
         for baris in item:
@@ -361,31 +419,34 @@ def seksi_harga(u):
     return "".join(out)
 
 
-def seksi_lokasi(u):
+def seksi_lokasi(u, klien=False):
     inap = u.get("mode") == "inap"
     judul = "Lokasi dan jam resepsionis" if inap else "Lokasi dan jam buka"
     label = "Alamat dan jam resepsionis %s Anda" if inap else "Alamat dan jam buka %s Anda"
+    tag_baris = "" if klien else tag(label % u["jenis"].lower())
     li = "".join(
         '<li data-hari="%d"><span>%s</span><span>%s</span></li>' % (h, NH[h], jam_teks(u["jam"][h])) for h in URUT_HARI
     )
     peta = "https://www.google.com/maps/search/?api=1&amp;query=" + quote(u["peta"])
     return (
-        '<section class="bagian" id="lokasi">\n' + tag(label % u["jenis"].lower()) + '<h2>%s</h2>\n<p class="bagian-lead">%s</p>\n'
+        '<section class="bagian" id="lokasi">\n' + tag_baris + '<h2>%s</h2>\n<p class="bagian-lead">%s</p>\n'
         '<div class="kartu"><h3>%s</h3><ul class="jam" id="kartu-jam">%s</ul></div>\n'
         '<div class="kartu"><h3>Alamat</h3><address class="alamat">%s</address>'
         '<div class="aksi-lokasi"><a class="tombol garis" href="%s">%s Buka di Google Maps</a></div></div>\n</section>\n'
     ) % (e(judul), e(u["jam_lead"]), "Jam resepsionis" if inap else "Jam buka", li, "<br>".join(e(x) for x in u["alamat"]), peta, I_PETA)
 
 
-def seksi_galeri(u):
+def seksi_galeri(u, klien=False):
+    tag_baris = "" if klien else tag("Foto asli %s Anda" % u["jenis"].lower())
+    kredit = "" if klien else '\n<p class="kredit">Foto contoh dari <a href="https://unsplash.com/license" rel="noopener">Unsplash</a>, bebas dipakai.</p>\n'
     p = "".join(
-        '<figure class="petak"><img src="/%s/img/%s.jpg" alt="" width="720" height="540" loading="lazy" decoding="async"><figcaption>%s</figcaption></figure>' % (u["slug"], f, e(a))
+        '<figure class="petak"><img src="%s" alt="%s" width="720" height="540" loading="lazy" decoding="async"><figcaption>%s</figcaption></figure>'
+        % ("/img/%s" % f if klien else "/%s/img/%s.jpg" % (u["slug"], f), e(a) if klien else "", e(a))
         for f, a in u["galeri"]
     )
     return (
-        '<section class="bagian" id="galeri">\n' + tag("Foto asli %s Anda" % u["jenis"].lower()) + '<h2>Galeri</h2>\n<p class="bagian-lead">%s</p>\n<div class="galeri">%s</div>\n'
-        '<p class="kredit">Foto contoh dari <a href="https://unsplash.com/license" rel="noopener">Unsplash</a>, bebas dipakai.</p>\n</section>\n'
-    ) % (e(u["galeri_lead"]), p)
+        '<section class="bagian" id="galeri">\n' + tag_baris + '<h2>Galeri</h2>\n<p class="bagian-lead">%s</p>\n<div class="galeri">%s</div>%s</section>\n'
+    ) % (e(u["galeri_lead"]), p, kredit)
 
 
 def seksi_tanya(u):
@@ -393,26 +454,139 @@ def seksi_tanya(u):
     return '<section class="bagian" id="tanya">\n<h2>Pertanyaan yang sering masuk</h2>\n<div class="tanya">%s</div>\n</section>\n' % d
 
 
-def halaman_demo(u, n, skin_slug=None):
+KLIEN_CSS = """
+.merek{display:inline-flex;align-items:baseline;gap:10px;min-height:44px;padding:8px 0;text-decoration:none;font-weight:800;font-size:18px}
+.qris-gambar{display:block;width:min(260px,70vw);height:auto;margin:8px 0;border:1px solid var(--garis);border-radius:var(--r-kecil);background:var(--kartu)}
+"""
+
+RE_DEMO_CSS = re.compile(r"\.(?:demo-[a-z-]+|catatan-demo|tanda-contoh|qris)\b")
+
+
+def _pisah_css(css):
+    aturan, awal, i, n = [], "", 0, len(css)
+    while i < n:
+        c = css[i]
+        if c == "{":
+            depth, j = 1, i + 1
+            while j < n and depth:
+                if css[j] == "{":
+                    depth += 1
+                elif css[j] == "}":
+                    depth -= 1
+                j += 1
+            aturan.append((awal, css[i + 1:j - 1]))
+            awal, i = "", j
+        elif c == "}":
+            awal, i = "", i + 1
+        else:
+            awal += c
+            i += 1
+    return aturan
+
+
+def _bersih_css(css):
+    out = []
+    for sel, isi in _pisah_css(css):
+        s = sel.strip()
+        if RE_DEMO_CSS.search(s):
+            continue
+        if s.startswith("@media") or s.startswith("@supports"):
+            isi = _bersih_css(isi)
+            if not isi.strip():
+                continue
+        if not s:
+            continue
+        out.append(s + "{" + isi + "}")
+    return "\n".join(out)
+
+LD_TIPE = {"salon": "BeautySalon", "barbershop": "HairSalon", "spa": "DaySpa", "penginapan": "LodgingBusiness", "katering": "FoodEstablishment"}
+LD_HARI = {0: "Sunday", 1: "Monday", 2: "Tuesday", 3: "Wednesday", 4: "Thursday", 5: "Friday", 6: "Saturday"}
+
+
+def head_klien_extra(u, n, judul, desc):
+    dom = u["domain"]
+    url = "https://%s/" % dom
+    img = "https://%s/img/%s" % (dom, u["hero_foto"][0])
+    jam = [
+        {"@type": "OpeningHoursSpecification", "dayOfWeek": "https://schema.org/" + LD_HARI[h],
+         "opens": u["jam"][h][0].replace(".", ":"), "closes": u["jam"][h][1].replace(".", ":")}
+        for h in range(7) if u["jam"][h]
+    ]
+    ld = {
+        "@context": "https://schema.org", "@type": LD_TIPE[u["slug"]],
+        "name": u["nama"], "url": url, "image": img,
+        "telephone": "+" + u["wa"], "description": desc,
+        "address": {"@type": "PostalAddress", "streetAddress": u["alamat"][0], "addressLocality": u["area"]},
+    }
+    if jam:
+        ld["openingHoursSpecification"] = jam
+    skrip = json.dumps(ld, ensure_ascii=False).replace("<", "\\u003c")
+    return (
+        '<link rel="canonical" href="%s">\n' % url
+        + '<meta property="og:type" content="website">\n'
+        + '<meta property="og:site_name" content="%s">\n' % e(u["nama"])
+        + '<meta property="og:title" content="%s">\n' % e(judul)
+        + '<meta property="og:description" content="%s">\n' % e(desc)
+        + '<meta property="og:image" content="%s">\n' % img
+        + '<meta property="og:url" content="%s">\n' % url
+        + '<meta name="twitter:card" content="summary_large_image">\n'
+        + '<script type="application/ld+json">%s</script>\n' % skrip
+    )
+
+
+def penutup_klien(u):
+    peta = "https://www.google.com/maps/search/?api=1&amp;query=" + quote(u["peta"])
+    return (
+        '<section class="bagian penutup">\n<div class="kartu"><h2>Siap memesan di %s?</h2>\n'
+        '<p class="bagian-lead">Hubungi kami lewat WhatsApp, atau datang langsung ke %s. Kami siap membantu.</p>\n'
+        '<div class="aksi"><a class="tombol" href="%s">%s Chat WhatsApp</a>'
+        '<a class="tombol garis" href="%s">%s Lihat lokasi</a></div></div>\n</section>\n'
+    ) % (e(u["nama"]), e(u["alamat"][0]), wa_link(u), I_WA, peta, I_PETA)
+
+
+def kaki_klien(u):
+    alamat = "<br>".join(e(x) for x in u["alamat"])
+    return (
+        '<footer class="kaki"><div class="wadah"><p><b>%s</b><br>%s</p>'
+        '<p><a href="%s">%s WhatsApp %s</a></p>'
+        '<p class="kredit">Dibuat oleh Rio Ekaputra Siswa. <a href="https://rioeka.com">rioeka.com</a></p></div></footer>\n'
+    ) % (e(u["nama"]), alamat, wa_link(u), I_WA, e(u["wa_tampil"]))
+
+
+def halaman_demo(u, n, skin_slug=None, klien=False):
     mode = u.get("mode", "jadwal")
     skin_slug = skin_slug or DEFAULT[u["slug"]]
     sk = SKIN[u["slug"]][skin_slug]
-    u = dict(u, hero_foto=sk["hero_foto"], galeri_dulu=sk["galeri_dulu"])
-    if sk["galeri"]:
-        u["galeri"] = sk["galeri"]
-    css = FONT + "\n" + sk["font"] + "\n:root{" + sk["tema"] + "}\n" + BASE + (BOOKING if n >= 2 else "") + GAYA_UMUM + sk["css"] + (sk["css_wizard"] if n >= 2 else "") + GANTI_SKIN + ("" if sk.get("lama") else KASAR)
+    if klien:
+        u = dict(u, galeri_dulu=False)
+    else:
+        u = dict(u, hero_foto=sk["hero_foto"], galeri_dulu=sk["galeri_dulu"])
+        if sk["galeri"]:
+            u["galeri"] = sk["galeri"]
+    css = FONT + "\n" + sk["font"] + "\n:root{" + sk["tema"] + "}\n" + BASE + (BOOKING if n >= 2 else "") + GAYA_UMUM + sk["css"] + (sk["css_wizard"] if n >= 2 else "")
+    if klien:
+        css = _bersih_css(css) + KLIEN_CSS
+        if not sk.get("lama"):
+            css += _bersih_css(KASAR)
+    else:
+        css += GANTI_SKIN + ("" if sk.get("lama") else KASAR)
     preload = '<link rel="preload" href="/font/%s" as="font" type="font/woff2" crossorigin>\n' % sk["preload"] if sk["preload"] else ""
-    judul = {1: u["title_p1"], 2: u["nama"] + ", booking", 3: u["nama"] + ", booking dan pembayaran"}[n]
-    desc = u["desc_p1"] if n == 1 else (u["desc_book"] if n == 2 else u["desc_book"].rstrip(".") + ", lalu bayar muka.")
+    if klien:
+        judul = u["title_p1"] if n == 1 else u["nama"]
+        desc = u["desc_p1"] if n == 1 else u["desc_book"]
+    else:
+        judul = {1: u["title_p1"], 2: u["nama"] + ", booking", 3: u["nama"] + ", booking dan pembayaran"}[n]
+        desc = u["desc_p1"] if n == 1 else (u["desc_book"] if n == 2 else u["desc_book"].rstrip(".") + ", lalu bayar muka.")
     wa = wa_link(u)
     jam_json = json.dumps({str(h): u["jam"][h] for h in range(7)})
 
-    dulu = n == 1 and u.get("galeri_dulu")
+    dulu = n == 1 and u.get("galeri_dulu") and u.get("galeri")
+    ada_galeri = bool(u.get("galeri"))
     l_harga, l_lokasi, l_galeri = '<a href="#harga">Harga</a>', '<a href="#lokasi">Lokasi</a>', '<a href="#galeri">Galeri</a>'
-    if dulu:
+    if n == 1 and dulu:
         loncat = [l_galeri, l_harga, l_lokasi]
     elif n == 1:
-        loncat = [l_harga, l_lokasi, l_galeri]
+        loncat = [l_harga, l_lokasi] + ([l_galeri] if ada_galeri else [])
     else:
         loncat = [l_harga, l_lokasi]
     loncat.append('<a href="#tanya">Tanya jawab</a>')
@@ -425,26 +599,34 @@ def halaman_demo(u, n, skin_slug=None):
         kata2 = "reservasi kamar"
     else:
         kata2 = "pemesanan"
-    if n == 1:
+    if n == 1 and klien:
+        aksi = '<a class="tombol" href="%s">%s Tanya lewat WhatsApp</a>' % (wa, I_WA)
+    elif n == 1:
         aksi = '<a class="tombol" href="%s">%s Tanya lewat WhatsApp</a><a class="tombol garis" href="/%s/paket-2/%s/">Buka demo Paket 2, dengan %s %s</a>' % (wa, I_WA, u["slug"], skin_slug, kata2, I_KANAN)
     else:
         aksi = '<a class="tombol" href="#pesan">%s Pesan sekarang</a><a class="tombol garis" href="%s">%s Tanya lewat WhatsApp</a>' % (I_KALENDER, wa, I_WA)
 
-    if n == 1:
-        demo = '<p class="catatan-demo"><span class="tanda-contoh">Demo Paket 1</span><span>Anda sedang membuka demo halaman informasi, tanpa booking. Untuk melihat versi yang bisa menerima pesanan, buka demo Paket 2.</span></p>'
-    elif n == 2:
-        demo = '<p class="catatan-demo"><span class="tanda-contoh">Demo Paket 2</span><span>Pesanan di halaman ini tidak tersimpan. Halaman contoh ini hanya memperlihatkan alurnya. Setelah halaman ini terpasang di tempat Anda, pesanan masuk ke WhatsApp atau ke catatan %s.</span></p>' % e(u["jenis"].lower())
-    else:
-        demo = '<p class="catatan-demo"><span class="tanda-contoh">Demo Paket 3</span><span>Pembayaran di halaman ini simulasi. Tidak ada uang yang berpindah, dan tidak ada data kartu yang diminta.</span></p>'
+    demo = ""
+    if not klien:
+        if n == 1:
+            demo = '<p class="catatan-demo"><span class="tanda-contoh">Demo Paket 1</span><span>Anda sedang membuka demo halaman informasi, tanpa booking. Untuk melihat versi yang bisa menerima pesanan, buka demo Paket 2.</span></p>'
+        elif n == 2:
+            demo = '<p class="catatan-demo"><span class="tanda-contoh">Demo Paket 2</span><span>Pesanan di halaman ini tidak tersimpan. Halaman contoh ini hanya memperlihatkan alurnya. Setelah halaman ini terpasang di tempat Anda, pesanan masuk ke WhatsApp atau ke catatan %s.</span></p>' % e(u["jenis"].lower())
+        else:
+            demo = '<p class="catatan-demo"><span class="tanda-contoh">Demo Paket 3</span><span>Pembayaran di halaman ini simulasi. Tidak ada uang yang berpindah, dan tidak ada data kartu yang diminta.</span></p>'
 
     if mode == "inap":
         status = '<p class="status"><span class="titik"></span><span id="status-teks">Resepsionis buka %s sampai %s</span></p>\n' % (u["jam"][1][0], u["jam"][1][1])
     else:
         status = '<p class="status" id="status"><span class="titik" id="titik"></span><span id="status-teks">Memuat jam buka</span></p>\n'
 
+    if klien:
+        atas = '<header class="atas"><div class="wadah"><a class="merek" href="/">%s</a></div></header>\n' % e(u["nama"])
+    else:
+        atas = '<header class="atas"><div class="demo-strip" role="note"><span class="tanda-contoh">Demo</span><span>Contoh website untuk %s Anda</span><a href="/%s/paket-%d/">Ganti tampilan</a></div><div class="wadah"><a class="balik" href="/%s/#paket">%s Semua paket %s</a><span class="nama-atas">%s</span></div></header>\n' % (u["jenis"].lower(), u["slug"], n, u["slug"], I_KIRI, u["jenis"].lower(), e(u["nama"]))
     body = [
         '<body data-j="%s" data-s="%s">\n' % (u["slug"], skin_slug),
-        '<header class="atas"><div class="demo-strip" role="note"><span class="tanda-contoh">Demo</span><span>Contoh website untuk %s Anda</span><a href="/%s/paket-%d/">Ganti tampilan</a></div><div class="wadah"><a class="balik" href="/%s/#paket">%s Semua paket %s</a><span class="nama-atas">%s</span></div></header>\n' % (u["jenis"].lower(), u["slug"], n, u["slug"], I_KIRI, u["jenis"].lower(), e(u["nama"])),
+        atas,
         '<div class="pole" aria-hidden="true"></div>\n',
         "<main>\n",
         '<div class="wadah">\n',
@@ -453,33 +635,40 @@ def halaman_demo(u, n, skin_slug=None):
     kata = u["nama"].rsplit(" ", 1)
     h1 = "%s <em>%s</em>" % (e(kata[0]), e(kata[1])) if len(kata) == 2 else e(u["nama"])
     foto, alt_foto = u["hero_foto"]
+    src_hero = "/img/%s" % foto if klien else "/%s/img/%s.jpg" % (u["slug"], foto)
+    tag_nama = "" if klien else tag("Nama %s Anda tampil di sini" % u["jenis"].lower())
+    tag_foto = "" if klien else tag("Foto %s Anda tampil di sini" % u["jenis"].lower())
     body += [
         '<section class="hero">\n<div class="hero-isi">\n<p class="eyebrow">%s &middot; %s</p>\n<h1>%s</h1>\n' % (e(u["jenis"]), e(u["area"]), h1),
-        tag("Nama %s Anda tampil di sini" % u["jenis"].lower()),
-        '<figure class="hero-foto"><img src="/%s/img/%s.jpg" alt="%s" width="720" height="540" fetchpriority="high" decoding="async"><span class="lencana">%s</span></figure>\n' % (u["slug"], foto, e(alt_foto), e(u["area"].split(",")[0])),
-        tag("Foto %s Anda tampil di sini" % u["jenis"].lower()),
+        tag_nama,
+        '<figure class="hero-foto"><img src="%s" alt="%s" width="720" height="540" fetchpriority="high" decoding="async"><span class="lencana">%s</span></figure>\n' % (src_hero, e(alt_foto), e(u["area"].split(",")[0])),
+        tag_foto,
         status,
         '<p class="lead">%s</p>\n<div class="aksi">%s</div>\n</div>\n' % (e(u["lead"]), aksi),
         html_fakta(u),
         nav,
-        kartu_demo(u, n),
-        "</section>\n",
     ]
+    if not klien:
+        body.append(kartu_demo(u, n))
+    body.append("</section>\n")
     if n >= 2:
-        body.append(seksi_pesan(u, n))
+        body.append(seksi_pesan(u, n, klien))
     if dulu:
-        body.append(seksi_galeri(u))
-    body.append(seksi_harga(u))
-    body.append(seksi_lokasi(u))
-    if n == 1 and not dulu:
-        body.append(seksi_galeri(u))
+        body.append(seksi_galeri(u, klien))
+    body.append(seksi_harga(u, klien))
+    body.append(seksi_lokasi(u, klien))
+    if n == 1 and not dulu and ada_galeri:
+        body.append(seksi_galeri(u, klien))
     body.append(seksi_tanya(u))
-    body.append(penutup_demo(u))
+    body.append(penutup_klien(u) if klien else penutup_demo(u))
     body.append("</div>\n</main>\n")
-    body.append(
-        '<footer class="kaki"><div class="wadah"><p>%s</p><p><a href="%s">WhatsApp %s</a></p>'
-        "<p>Halaman ini contoh peragaan, bukan usaha sungguhan. Dibuat oleh Rio Ekaputra Siswa, developer aplikasi web di Bandung yang membuat website untuk usaha lokal. <a href=\"https://rioeka.com\">rioeka.com</a></p></div></footer>\n" % (u["kontak"], wa, e(u["wa_tampil"]))
-    )
+    if klien:
+        body.append(kaki_klien(u))
+    else:
+        body.append(
+            '<footer class="kaki"><div class="wadah"><p>%s</p><p><a href="%s">WhatsApp %s</a></p>'
+            "<p>Halaman ini contoh peragaan, bukan usaha sungguhan. Dibuat oleh Rio Ekaputra Siswa, developer aplikasi web di Bandung yang membuat website untuk usaha lokal. <a href=\"https://rioeka.com\">rioeka.com</a></p></div></footer>\n" % (u["kontak"], wa, e(u["wa_tampil"]))
+        )
     if n == 1:
         bar = '<a class="tombol" href="%s">%s Tanya lewat WhatsApp</a>' % (wa, I_WA)
     else:
@@ -523,6 +712,10 @@ def halaman_demo(u, n, skin_slug=None):
                 "menu": [{"nama": g, "item": items} for g, items in u["menu"]],
             }
             scripts += "<script>\n" + WIZARD_JS.replace("__DATA__", json.dumps(D, ensure_ascii=False)) + BAR_JS + "</script>\n"
+    if klien:
+        scripts = scripts.replace("Isi nomor yang aktif di WhatsApp. Contoh: 0812 3456 7890", "Isi nomor WhatsApp yang aktif.")
+        extra = head_klien_extra(u, n, judul, desc) + preload
+        return head(judul, desc, css, robots=False, warna=sk["warna"], extra=extra) + "".join(body) + scripts + "</body>\n</html>\n"
     return head(judul, desc, css, warna=sk["warna"], extra=preload) + "".join(body) + scripts + "</body>\n</html>\n"
 
 
@@ -757,15 +950,159 @@ def halaman_galat(kode, judul, teks, bisa_kembali):
     return head(judul + " | " + MERK, teks, css, warna=WARNA_INDEX) + body
 
 
-def tulis(rel, isi):
-    path = os.path.join(ROOT, rel.replace("/", os.sep))
+GALAT_KLIEN_CSS = """
+.merek{display:inline-flex;align-items:baseline;gap:10px;min-height:44px;padding:8px 0;text-decoration:none;font-weight:800;font-size:18px}
+.galat-klien{flex:1;display:flex;align-items:center;padding:48px 0 32px}
+.kode-galat{display:block;font-size:clamp(80px,24vw,160px);font-weight:800;line-height:.86;letter-spacing:-.02em;color:transparent;-webkit-text-stroke:2px var(--sinyal);user-select:none}
+.galat-klien h1{margin:16px 0 12px;font-size:clamp(28px,7vw,42px);font-weight:800;line-height:1.05;text-wrap:balance}
+.galat-klien .lead{margin:0;max-width:46ch;color:var(--tinta-redup);font-size:17px}
+.galat-klien .aksi{margin-top:24px}
+"""
+
+
+def halaman_galat_klien(u, kode, judul, teks, bisa_kembali):
+    sk = SKIN[u["slug"]][u["skin"]]
+    css = _bersih_css(FONT + "\n" + sk["font"] + "\n:root{" + sk["tema"] + "}\n" + BASE + sk["css"]) + KLIEN_CSS + GALAT_KLIEN_CSS
+    if bisa_kembali:
+        aksi = (
+            '<a class="tombol" id="kembali" href="/">%s<span id="kembali-teks">Kembali</span></a>'
+            '<a class="tombol garis" id="beranda" href="/">Ke beranda</a>' % I_KIRI
+        )
+        js = "<script>\n" + GALAT_JS + "</script>\n"
+    else:
+        aksi = '<a class="tombol" href="">Muat ulang</a><a class="tombol garis" href="/">Ke beranda</a>'
+        js = ""
+    body = (
+        "<body>\n"
+        '<header class="atas"><div class="wadah"><a class="merek" href="/">%s</a></div></header>\n'
+        '<main><section class="galat-klien"><div class="wadah">\n'
+        '<span class="kode-galat" aria-hidden="true">%s</span>\n'
+        "<h1>%s</h1>\n"
+        '<p class="lead">%s</p>\n'
+        '<div class="aksi">%s</div>\n'
+        "</div></section></main>\n"
+        "%s</body>\n</html>\n"
+    ) % (e(u["nama"]), e(kode), e(judul), e(teks), aksi, js)
+    return head(judul + " | " + u["nama"], teks, css, robots=False, warna=sk["warna"]) + body
+
+
+def tulis(rel, isi, root=None):
+    path = os.path.join(root or ROOT, rel.replace("/", os.sep))
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w", encoding="utf-8", newline="\r\n") as f:
         f.write(isi)
     print("tulis", rel, len(isi))
 
 
-if __name__ == "__main__":
+def _salin(dst, src):
+    os.makedirs(os.path.dirname(dst), exist_ok=True)
+    shutil.copy2(src, dst)
+
+
+DOCKERFILE_KLIEN = """FROM nginx:alpine
+COPY index.html 404.html 50x.html robots.txt sitemap.xml /usr/share/nginx/html/
+COPY img /usr/share/nginx/html/img
+COPY font /usr/share/nginx/html/font
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80
+"""
+
+NGINX_KLIEN = """server {
+    listen 80;
+    listen [::]:80;
+    server_name _;
+
+    root /usr/share/nginx/html;
+    index index.html;
+
+    error_page 403 =404 /404.html;
+    error_page 404 /404.html;
+    error_page 500 502 503 504 /50x.html;
+
+    location = /404.html {
+        internal;
+        add_header Cache-Control "no-cache" always;
+    }
+    location = /50x.html {
+        internal;
+        add_header Cache-Control "no-cache" always;
+    }
+
+    location / {
+        try_files $uri $uri/ =404;
+        add_header Cache-Control "no-cache" always;
+    }
+
+    location ~* \\.(?:woff2|jpg|jpeg|png|svg|css|js|ico)$ {
+        try_files $uri =404;
+        add_header Cache-Control "public, max-age=31536000, immutable" always;
+    }
+}
+"""
+
+HTACCESS_KLIEN = """DirectoryIndex index.html
+
+ErrorDocument 404 /404.html
+ErrorDocument 403 /404.html
+ErrorDocument 500 /50x.html
+ErrorDocument 502 /50x.html
+ErrorDocument 503 /50x.html
+ErrorDocument 504 /50x.html
+
+<IfModule mod_headers.c>
+  <FilesMatch "\\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+  <FilesMatch "\\.(woff2|jpg|jpeg|png|svg|css|js|ico)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+</IfModule>
+"""
+
+
+def build_klien(slug, data):
+    data = os.path.abspath(data)
+    u = muat(slug, data)
+    n, skin_slug = u["paket"], u["skin"]
+    sk = SKIN[u["slug"]][skin_slug]
+    out = os.path.join(data, "dist", slug)
+    if os.path.isdir(out):
+        shutil.rmtree(out)
+    for pesan in u["_peringatan"]:
+        print("peringatan:", pesan)
+    tulis("index.html", halaman_demo(u, n, skin_slug, klien=True), root=out)
+    for berkas, kode, judul, teks, kembali in GALAT:
+        tulis(berkas, halaman_galat_klien(u, kode, judul, teks, kembali), root=out)
+    dom = u["domain"]
+    tulis("robots.txt", "User-agent: *\nAllow: /\n\nSitemap: https://%s/sitemap.xml\n" % dom, root=out)
+    tulis("sitemap.xml",
+          '<?xml version="1.0" encoding="UTF-8"?>\n'
+          '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+          "<url><loc>https://%s/</loc><lastmod>%s</lastmod></url>\n</urlset>\n" % (dom, date.today().isoformat()), root=out)
+    for nama, sumber in u["_aset"].items():
+        _salin(os.path.join(out, "img", nama), sumber)
+    perlu = set(re.findall(r"url\(/font/([^)]+)\)", FONT + sk["font"]))
+    if sk["preload"]:
+        perlu.add(sk["preload"])
+    for berkas in sorted(perlu):
+        sumber = os.path.join(ROOT, "font", berkas)
+        if not os.path.isfile(sumber):
+            raise GalatData("Font skin tidak ada: %s" % sumber)
+        _salin(os.path.join(out, "font", berkas), sumber)
+    tulis("Dockerfile", DOCKERFILE_KLIEN, root=out)
+    tulis("nginx.conf", NGINX_KLIEN, root=out)
+    tulis(".htaccess", HTACCESS_KLIEN, root=out)
+    zip_path = os.path.join(data, "dist", slug + ".zip")
+    with zipfile.ZipFile(zip_path, "w", zipfile.ZIP_DEFLATED) as z:
+        for akar, _, berkas_list in os.walk(out):
+            for nama in berkas_list:
+                penuh = os.path.join(akar, nama)
+                z.write(penuh, os.path.relpath(penuh, out).replace(os.sep, "/"))
+    print("selesai:", out)
+    print("zip    :", zip_path)
+
+
+def build_demo():
     tulis("index.html", halaman_index())
     for berkas, kode, judul, teks, kembali in GALAT:
         tulis(berkas, halaman_galat(kode, judul, teks, kembali))
@@ -775,3 +1112,37 @@ if __name__ == "__main__":
             tulis("%s/paket-%d/index.html" % (u["slug"], n), halaman_pilih_skin(u, n))
             for skin in SKIN[u["slug"]]:
                 tulis("%s/paket-%d/%s/index.html" % (u["slug"], n, skin), halaman_demo(u, n, skin))
+
+
+def _arg(argv, nama):
+    if nama in argv:
+        i = argv.index(nama)
+        if i + 1 < len(argv):
+            return argv[i + 1]
+    return None
+
+
+if __name__ == "__main__":
+    argv = sys.argv[1:]
+    try:
+        if not argv:
+            build_demo()
+        elif argv[0] == "--klien":
+            slug = _arg(argv, "--klien")
+            data = _arg(argv, "--data")
+            if not slug or not data:
+                raise GalatData("Pakai: python tools/bangun/build.py --klien {slug} --data {folder}")
+            build_klien(slug, data)
+        elif argv[0] == "--baru":
+            if len(argv) < 3 or not _arg(argv, "--data"):
+                raise GalatData("Pakai: python tools/bangun/build.py --baru {jenis} {slug} --data {folder}")
+            jenis, slug = argv[1], argv[2]
+            path = kerangka(jenis, slug, os.path.abspath(_arg(argv, "--data")))
+            print("kerangka:", path)
+        else:
+            raise GalatData("Argumen tidak dikenal: %s. Pakai --klien atau --baru." % " ".join(argv))
+    except GalatData as ex:
+        print("GALAT:", file=sys.stderr)
+        for baris in ex.daftar if isinstance(ex.daftar, list) else [str(ex)]:
+            print("  -", baris, file=sys.stderr)
+        sys.exit(1)

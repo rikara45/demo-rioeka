@@ -224,6 +224,7 @@ GAYA_JAMU_WIZARD = r"""
 [data-s=jamu] .kolom input,[data-s=jamu] .kolom textarea{border-radius:0}
 [data-s=jamu] .tinjau .total{border-top:2px solid var(--sinyal)}
 [data-s=jamu] .tinjau .total dd{font-size:26px}
+[data-s=jamu] .tinjau .ubah{color:var(--sinyal-gelap)}
 [data-s=jamu] .selesai h3{font-size:28px}
 [data-s=jamu] .kode{font-size:32px;letter-spacing:.05em;color:var(--sinyal-gelap)}
 """
