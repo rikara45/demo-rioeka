@@ -2,13 +2,14 @@
 
 Contoh halaman web untuk lima jenis usaha lokal, dibuat oleh [Rio Ekaputra Siswa](https://rioeka.com), developer aplikasi web di Bandung. Situs demo: https://devario.rioeka.com
 
+Repo ini berisi **keluaran statis jadi** (HTML, foto, font) + konfigurasi nginx. Tidak ada generator di sini: sumber (generator, skin, layanan isi data) ada di repo privat `isi-rioeka`. Untuk mengubah halaman, ubah di repo privat itu, lalu jalankan generator dan salin hasilnya ke sini.
+
 Halaman statis:
 
 - `/` daftar lima jenis usaha (hub)
 - `/salon/`, `/barbershop/`, `/spa/`, `/penginapan/`, `/katering/` daftar paket tiap jenis
-- `/{jenis}/paket-1/`, `/{jenis}/paket-2/`, `/{jenis}/paket-3/` contoh halaman demo (15 halaman)
+- `/{jenis}/paket-{1,2,3}/{skin}/` contoh halaman demo (60 halaman, 4 skin per jenis)
 - `404.html` dan `50x.html` halaman galat
-- URL lama `/salon/paket-N/` dan `/barbershop/paket-N/` tetap jalan
 
 Semua nama, alamat, harga layanan, foto, dan nomor di dalam halaman demo masih data contoh. Harga paket di halaman hub dan halaman jenis adalah harga sebenarnya (nomor WhatsApp pemilik juga nomor asli).
 
@@ -19,16 +20,6 @@ Setiap halaman demo menegaskan statusnya lewat strip di atas header, kartu "Di d
 - katering: pilih menu dan jumlah, cara terima (antar atau ambil), tanggal dan jam
 
 Paket-3 menambah langkah pembayaran (QRIS atau transfer).
-
-## Mengubah halaman
-
-Kedua puluh tiga berkas HTML dihasilkan generator di `tools/bangun/`. Ubah sumbernya lalu jalankan dari root repo:
-
-```
-python tools/bangun/build.py
-```
-
-Empat modul sumber: `css.py` (gaya dan tema), `data.py` (isi lima jenis usaha), `js.py` (status buka, alur pesanan, wizard), `build.py` (markup). Berkas HTML adalah hasil generate, jangan diedit langsung.
 
 ## Disajikan bagaimana
 

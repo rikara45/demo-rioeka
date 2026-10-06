@@ -221,3 +221,8 @@ __marimo__/
 
 # Data klien (privat, jangan di repo demo publik)
 klien/
+
+# Ruang kerja agen & log lokal
+.kilo/
+.kilocode/
+logs/
