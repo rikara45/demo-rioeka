@@ -68,6 +68,10 @@ def opsi_radio(name, value, nama, harga, ket):
     )
 
 
+def json_skrip(v):
+    return json.dumps(v, ensure_ascii=False).replace("<", "\\u003c").replace("\u2028", "\\u2028").replace("\u2029", "\\u2029")
+
+
 def tag(teks):
     return '<p class="tag-baris"><span class="tag-anda">%s</span></p>\n' % e(teks)
 
@@ -520,7 +524,7 @@ def head_klien_extra(u, n, judul, desc):
     }
     if jam:
         ld["openingHoursSpecification"] = jam
-    skrip = json.dumps(ld, ensure_ascii=False).replace("<", "\\u003c")
+    skrip = json_skrip(ld)
     return (
         '<link rel="canonical" href="%s">\n' % url
         + '<meta property="og:type" content="website">\n'
@@ -578,7 +582,7 @@ def halaman_demo(u, n, skin_slug=None, klien=False):
         judul = {1: u["title_p1"], 2: u["nama"] + ", booking", 3: u["nama"] + ", booking dan pembayaran"}[n]
         desc = u["desc_p1"] if n == 1 else (u["desc_book"] if n == 2 else u["desc_book"].rstrip(".") + ", lalu bayar muka.")
     wa = wa_link(u)
-    jam_json = json.dumps({str(h): u["jam"][h] for h in range(7)})
+    jam_json = json_skrip({str(h): u["jam"][h] for h in range(7)})
 
     dulu = n == 1 and u.get("galeri_dulu") and u.get("galeri")
     ada_galeri = bool(u.get("galeri"))
@@ -691,7 +695,7 @@ def halaman_demo(u, n, skin_slug=None, klien=False):
                 "stylist": [{"nama": a, "keahlian": b, "rinci": c, "bisa": d} for a, b, c, d in u["stylist"]],
                 "jam": {str(h): u["jam"][h] for h in range(7)},
             }
-            scripts += "<script>\n" + BOOKING_JS.replace("__DATA__", json.dumps(D, ensure_ascii=False)) + BAR_JS + "</script>\n"
+            scripts += "<script>\n" + BOOKING_JS.replace("__DATA__", json_skrip(D)) + BAR_JS + "</script>\n"
         elif mode == "inap":
             D = {
                 "mode": "inap",
@@ -701,7 +705,7 @@ def halaman_demo(u, n, skin_slug=None, klien=False):
                 "jam": {str(h): u["jam"][h] for h in range(7)},
                 "kamar": [{"nama": a, "harga": b, "kap": c, "ket": d} for a, b, c, d in u["kamar"]],
             }
-            scripts += "<script>\n" + WIZARD_JS.replace("__DATA__", json.dumps(D, ensure_ascii=False)) + BAR_JS + "</script>\n"
+            scripts += "<script>\n" + WIZARD_JS.replace("__DATA__", json_skrip(D)) + BAR_JS + "</script>\n"
         else:
             D = {
                 "mode": "pesan",
@@ -711,7 +715,7 @@ def halaman_demo(u, n, skin_slug=None, klien=False):
                 "jam": {str(h): u["jam"][h] for h in range(7)},
                 "menu": [{"nama": g, "item": items} for g, items in u["menu"]],
             }
-            scripts += "<script>\n" + WIZARD_JS.replace("__DATA__", json.dumps(D, ensure_ascii=False)) + BAR_JS + "</script>\n"
+            scripts += "<script>\n" + WIZARD_JS.replace("__DATA__", json_skrip(D)) + BAR_JS + "</script>\n"
     if klien:
         scripts = scripts.replace("Isi nomor yang aktif di WhatsApp. Contoh: 0812 3456 7890", "Isi nomor WhatsApp yang aktif.")
         extra = head_klien_extra(u, n, judul, desc) + preload

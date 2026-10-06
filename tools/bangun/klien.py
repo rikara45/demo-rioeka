@@ -143,6 +143,59 @@ def kerangka(jenis, slug, folder):
     return path
 
 
+def kerangka_kosong(jenis, slug, folder):
+    if jenis not in USAHABY:
+        raise GalatData("Jenis '%s' tidak dikenal. Pilihan: %s." % (jenis, ", ".join(USAHABY)))
+    if not RE_SLUG.match(slug):
+        raise GalatData("Slug '%s' tidak valid. Pakai huruf kecil, angka, dan tanda hubung." % slug)
+    u = USAHABY[jenis]
+    mode = u.get("mode", "jadwal")
+    os.makedirs(folder, exist_ok=True)
+    path = os.path.join(folder, slug + ".json")
+    if os.path.exists(path):
+        raise GalatData("Berkas %s sudah ada." % path)
+    d = {
+        "jenis": jenis,
+        "skin": DEFAULT[jenis],
+        "paket": 1,
+        "domain": "",
+        "nama": "",
+        "area": "",
+        "wa": "",
+        "wa_tampil": "",
+        "alamat": ["", ""],
+        "peta": "",
+        "jam": {str(h): None for h in range(7)},
+        "lead": "",
+        "harga_lead": "",
+        "harga_catatan": "",
+        "jam_lead": "",
+    }
+    if mode == "jadwal":
+        d["grup"] = [{"nama": "", "item": [{"nama": "", "harga": "", "menit": 30, "ket": ""}]}]
+        d["stylist"] = [{"nama": "", "keahlian": "", "rinci": "", "bisa": []}]
+        d["tip_layanan"] = ""
+        d["pesan_lead"] = ""
+    elif mode == "inap":
+        d["kamar"] = [{"nama": "", "harga": "", "kap": 2, "ket": ""}]
+        d["checkin"] = "14.00"
+        d["checkout"] = "12.00"
+    else:
+        d["menu"] = [{"nama": "", "item": [{"nama": "", "harga": "", "min": 10, "maks": 100, "satuan": "box", "ket": "", "lead": 2}]}]
+        d["ongkir"] = 0
+        d["areaAntar"] = ""
+        d["tempatAmbil"] = ""
+    d["faq"] = [{"tanya": "", "jawab": ""}]
+    d["foto"] = {"hero": {"berkas": "", "alt": ""}, "galeri": []}
+    d["muka"] = u.get("muka", 0.3)
+    d["mukaTeks"] = u.get("mukaTeks", "30 persen")
+    os.makedirs(os.path.join(folder, slug), exist_ok=True)
+    with open(path, "w", encoding="utf-8", newline="\n") as f:
+        json.dump(d, f, ensure_ascii=False, indent=2)
+        f.write("\n")
+    return path
+
+
 def _jam_ok(blok, nama, galat):
     if blok is None:
         return
@@ -281,6 +334,9 @@ def _cek_foto(d, folder_foto, galat, aset):
         if not os.path.isfile(sumber):
             galat.append("%s: berkas foto tidak ada: %s" % (label, sumber))
             return False
+        if os.path.basename(item["berkas"]) != item["berkas"] or item["berkas"].startswith("."):
+            galat.append("%s: nama berkas tidak valid (tanpa folder)." % label)
+            return False
         if not item["berkas"].lower().endswith((".jpg", ".jpeg")):
             galat.append("%s: foto harus JPG (%s)." % (label, item["berkas"]))
             return False
@@ -304,7 +360,7 @@ def _cek_foto(d, folder_foto, galat, aset):
 
     hero = None
     if periksa(foto["hero"], "hero.jpg", "foto.hero"):
-        hero = (foto["hero"]["berkas"], foto["hero"]["alt"])
+        hero = ("hero.jpg", foto["hero"]["alt"])
     galeri = []
     g = foto.get("galeri", [])
     if not isinstance(g, list):
@@ -312,7 +368,7 @@ def _cek_foto(d, folder_foto, galat, aset):
         g = []
     for n, item in enumerate(g, 1):
         if periksa(item, "g%d.jpg" % n, "foto.galeri[%d]" % n):
-            galeri.append((item["berkas"], item["alt"]))
+            galeri.append(("g%d.jpg" % n, item["alt"]))
     return hero, galeri
 
 
@@ -330,6 +386,9 @@ def _cek_bayar(d, folder_foto, galat, aset):
         else:
             hasil.update(bank=b["bank"], rekening=b["rekening"], atas_nama=b["atas_nama"])
     if b.get("qris"):
+        if not isinstance(b["qris"], str) or os.path.basename(b["qris"]) != b["qris"] or b["qris"].startswith("."):
+            galat.append("bayar.qris: nama berkas tidak valid (tanpa folder).")
+            return hasil or None
         sumber = os.path.join(folder_foto, b["qris"])
         ext = os.path.splitext(b["qris"])[1].lower()
         if not os.path.isfile(sumber):
@@ -362,15 +421,16 @@ def _inisial(nama):
     return kode or "XX"
 
 
-def muat(slug, folder):
+def muat(slug, folder, d=None):
     path = os.path.join(folder, slug + ".json")
-    if not os.path.isfile(path):
-        raise GalatData("Berkas data tidak ada: %s. Buat dulu dengan --baru." % path)
-    try:
-        with open(path, "r", encoding="utf-8") as f:
-            d = json.load(f)
-    except ValueError as ex:
-        raise GalatData("Berkas %s bukan JSON yang valid: %s" % (path, ex))
+    if d is None:
+        if not os.path.isfile(path):
+            raise GalatData("Berkas data tidak ada: %s. Buat dulu dengan --baru." % path)
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                d = json.load(f)
+        except ValueError as ex:
+            raise GalatData("Berkas %s bukan JSON yang valid: %s" % (path, ex))
     if not isinstance(d, dict):
         raise GalatData("Isi %s harus berupa objek JSON." % path)
     galat = []
